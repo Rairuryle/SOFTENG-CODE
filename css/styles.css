@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* sidenav */
+
+.sidenav {
+  height: 100%;
+  /* width: 16%; */
+  width: 215px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #edf1d6;
+  padding-top: 20px;
+}
+
+.icon-lsu {
+    height: 40px;
+    display: block;
+    margin-left: 23px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+.sidenav h1, a {
+  font-weight: bold;
+  color: #3c5b4f;
+  display: block;
+  text-decoration: none;
+}
+
+.sidenav h1 {
+    padding: 6px 6px 0px 23px;
+    font-size: 1.4rem;
+}
+
+.link-sidenav {
+    padding: 5px 0 5px 50px;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+hr {
+    border: 1px solid #3c5b4f;
+    width: 78%;
+    margin-top: -10px;
+    margin-left: auto;
+}
+
+.sidenav-widget {
+    position: absolute;
+    bottom: 0;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-widget {
+    display: flex;
+}
+
+  .sidenav-widget .icon-widget {
+    display: inline;
+    margin-left: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .sidenav-widget .text-widget {
+    display: inline;
+    color: #3c5b4f;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: 2px;
+    font-size: 1.1rem;
+  }
+
+/* main */
+
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+}
+
+/* @media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+} */
