@@ -160,13 +160,43 @@ margin-top: 2px;
 border-bottom: 1px solid #39594E;
 }
 
-
-
 /* main */
 
-.main {
-margin-left: 200px; /* Same as the width of the sidenav */
+main {
+  margin-left: 225px; /* Same as the width of the sidenav */
 }
+
+/* header */
+
+.header-container, .header-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.header-title {
+  width: 97%;
+  margin-top: -1rem;
+}
+
+.header-title h4, .header-title h5 {
+  color: white;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.item-one {
+  flex-grow: 2;
+  padding-right: 10rem;
+  text-align: end;
+}
+
+.item-three {
+  padding: 0 0.5rem;
+}
+
 
 /* @media screen and (max-height: 450px) {
 .sidenav {padding-top: 15px;}
@@ -177,35 +207,35 @@ margin-left: 200px; /* Same as the width of the sidenav */
 /* LANDINGPAGE_DESKTOP.HTML */
 
 .row {
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .column {
-margin: 20px 40px;
+  margin: 20px 40px;
 }
 
 .column-help {
-background-color: #e8f0d1;
-width: 45px;
-height: 35px;
-border-radius: 5px;
+  background-color: #e8f0d1;
+  width: 45px;
+  height: 35px;
+  border-radius: 5px;
 }
 
 .column-help a {
-display: block;
-margin-top: 8px;
-margin-left: 18px;
+  display: block;
+  margin-top: 8px;
+  margin-left: 18px;
 }
 
 .image-logo-landing {
-width: 28px;
+  width: 28px;
 }
 
 .title, .introduction {
-display: table;
-text-align: center;
-margin: 0 auto;
+  display: table;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .title {
