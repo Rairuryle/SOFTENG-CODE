@@ -199,22 +199,33 @@ main {
 
 .grid-item-one { grid-area: header; }
 .grid-item-two { grid-area: main; }
-.grid-item-three { grid-area: menu; }
-.grid-item-four { grid-area: input; }
-.grid-item-five { grid-area: activity; }
-.grid-item-six { grid-area: exemption; }
+.grid-item-three { grid-area: department; }
+.grid-item-four { grid-area: course; }
+.grid-item-five { grid-area: year; }
+.grid-item-six { grid-area: department-name; }
+.grid-item-seven { grid-area: course-name; }
+.grid-item-eight { grid-area: year-name; }
+.grid-item-nine { grid-area: activity; }
+.grid-item-ten { grid-area: exemption; }
+.grid-item-eleven { grid-area: total; }
+.grid-item-twelve { grid-area: day; }
+.grid-item-thirteen { grid-area: day-points; }
+.grid-item-fourteen { grid-area: semester; }
+.grid-item-fifteen { grid-area: semester-points; }
 
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header header header header header header header'
-    'main main main main main main main'
-    'menu input input activity activity exemption exemption';
+    'header header header header header header header total total total total'
+    'main main main main main main main day day semester semester'
+    'department department-name department-name activity activity exemption exemption day-points day-points semester-points semester-points'
+    'course course-name course-name activity activity exemption exemption day-points day-points semester-points semester-points'
+    'year year-name year-name activity activity exemption exemption day-points day-points semester-points semester-points';
   gap: 10px;
-  background-color: yellowgreen;
   padding: 10px;
   margin-left: 2rem;
-  width: 50vw;
+  width: 70vw;
+  margin-top: -2rem;
 }
 
 .grid-searchspace {
@@ -229,13 +240,119 @@ main {
   width: 45vw;
   border-radius: 15px;
   background-color: rgba(237, 241, 214, 0.7);
+  font-size: 0.9rem;
+  padding-left: 0.8rem;
 }
 
 #gridsearchIDNumber::placeholder {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
-  padding: 10px;
 }
+
+.grid-item-two {
+  background-color: #213A31;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.8rem;
+}
+
+.IDNumber {
+  background-color: #315246;
+  border-radius: 10px;
+  height: 35%;
+  width: 5.5rem;
+  text-align: center;
+  font-size: 0.7rem;
+}
+
+.IDNumber p {
+  margin-top: 0.3rem;
+}
+
+.item-profile {
+  color: white;
+  background-color: rgba(33, 58, 49, 0.5);
+  border-radius: 15px;
+  height: 1.6rem;
+  padding-left: 1rem;
+  padding-top: 0.2rem;
+}
+
+.item-profile-basis {
+  font-weight: bold;
+}
+
+.item-status {
+  color: #3C6255;
+  background-color: white;
+  margin: auto;
+  font-weight: bold;
+  border-radius: 15px;
+  height: 2rem;
+  padding-top: 0.4rem;
+  text-align: center;
+}
+
+.grid-item-nine {
+  width: 6rem;
+}
+
+.grid-item-ten {
+  width: 10rem;
+}
+
+.item-points {
+  display: flex;
+  margin-left: 4.5rem;
+  justify-content: center;
+  text-align: center;
+}
+
+.grid-item-eleven {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  background-color: #213A31;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 800%;
+}
+
+/* .grid-item-eleven { grid-area: total; }
+.grid-item-twelve { grid-area: day; }
+.grid-item-thirteen { grid-area: day-points; }
+.grid-item-fourteen { grid-area: semester; }
+.grid-item-fifteen { grid-area: semester-points; }
+
+.grid-container-two {
+  display: grid;
+  grid-template-areas:
+    'total total total total'
+    'day day semester semester'
+    'semester semester semester-points semester-points';
+} */
+
+/* .grid-item-three {
+  color: white;
+  border-radius: 15px;
+  background-color: rgba(33,58,49,0.5); 
+}
+
+.grid-ul {
+  padding-left: 1rem;
+  font-weight: bold;
+}
+
+.grid-li {
+  padding: 0.3rem 0;
+}
+
+.li-one, .li-two, .li-three {
+  background-color: rgba(33,58,49,0.5);
+} */
+
 
 /* @media screen and (max-height: 450px) {
 .sidenav {padding-top: 15px;}
