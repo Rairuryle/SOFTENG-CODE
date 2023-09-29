@@ -2,11 +2,18 @@
   box-sizing: border-box;
 }
 
+:root {
+  --main-green: #3C6255;
+  --secondary-green: #39594e;
+  --tertiary-green: #2f5045;
+  --darkest-green: #283D36;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
   width: 100vw;
-  background-image: linear-gradient(#3c6255 45%, #39594e 45%, #39594e 66.66%, #2f5045 66.66%);
+  background-image: linear-gradient(var(--main-green) 45%, var(--secondary-green) 45%, VAR(--secondary-green) 66.66%, var(--tertiary-green) 66.66%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   margin: 0;
@@ -71,7 +78,7 @@ color: white;
 
 .nav-link:hover:before, .nav-link.active:before {
 transform: scaleX(1);
-background-color: #39594E;
+background-color: VAR(--secondary-green);
 }
 
 .nav-link {
@@ -157,7 +164,7 @@ margin-top: 2px;
 }
 
 .link-widget:hover {
-border-bottom: 1px solid #39594E;
+border-bottom: 1px solid VAR(--secondary-green);
 }
 
 /* main */
@@ -168,7 +175,7 @@ main {
 
 /* header */
 
-.header-container, .header-list {
+.header-container, .header-list, .academic-period-container, .academic-year, .semester-container, .activity {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -285,7 +292,7 @@ main {
 }
 
 .item-status {
-  color: #3C6255;
+  color: var(--main-green);
   background-color: white;
   margin: auto;
   font-weight: bold;
@@ -308,6 +315,8 @@ main {
   margin-left: 4.5rem;
   justify-content: center;
   text-align: center;
+  font-weight: bold;
+  
 }
 
 .grid-item-eleven {
@@ -317,41 +326,81 @@ main {
   background-color: #213A31;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: 800%;
+  height: 740%;
+  width: 80%;
+  margin-left: 6.5rem;
+  padding-top: 0.5rem;
 }
 
-/* .grid-item-eleven { grid-area: total; }
-.grid-item-twelve { grid-area: day; }
-.grid-item-thirteen { grid-area: day-points; }
-.grid-item-fourteen { grid-area: semester; }
-.grid-item-fifteen { grid-area: semester-points; }
+.total-points {
+  color: var(--main-green);
+  background-color: white;
+  width: 100%;
+}
 
-.grid-container-two {
-  display: grid;
-  grid-template-areas:
-    'total total total total'
-    'day day semester semester'
-    'semester semester semester-points semester-points';
-} */
+.points-title {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  align-items: center;
+}
 
-/* .grid-item-three {
+.grid-points {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+/* section academic-period*/
+
+.academic-year {
+  background-color: var(--secondary-green);
+  width: 100%;
+  justify-content: center;
+  height: 2.5rem;
+  align-content: flex-end;
+}
+
+.academic-year-name {
+  padding: 0 1rem;
+  margin: 0 0.3rem;
+  border-top: 2px solid var(--main-green);
+  border-left: 2px solid var(--main-green);
+  border-right: 2px solid var(--main-green);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   color: white;
-  border-radius: 15px;
-  background-color: rgba(33,58,49,0.5); 
+  height: 1.7rem;
+  text-align: center;
 }
 
-.grid-ul {
-  padding-left: 1rem;
+.academic-year-present {
+  padding-top: 0.4rem;
+  background-color: var(--main-green);
+  width: 15rem;
   font-weight: bold;
 }
 
-.grid-li {
-  padding: 0.3rem 0;
+.academic-year-past {
+  padding-top: 0.5rem;
+  font-size: 0.7rem;
+  width: 8rem;
 }
 
-.li-one, .li-two, .li-three {
-  background-color: rgba(33,58,49,0.5);
-} */
+
+.semester-container {
+  color: white;
+  font-weight: bold;
+  background-color: var(--tertiary-green);
+  height: 5.5rem;
+}
+
+.activity-name {
+  background-color: var(--main-green);
+  border-radius: 25px;
+  height: 2.6rem;
+  padding: 0.6rem 2rem 0 2rem;
+  font-size: 1.3rem;
+  text-shadow: 0 2px 4px rgb(31, 28, 28);
+}
 
 
 /* @media screen and (max-height: 450px) {
@@ -478,7 +527,7 @@ height: 7rem;
 }
 
 .login-form h2 {
-color:#3C6255;
+color:var(--main-green);
 }
 
 .login-bottom {
