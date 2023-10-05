@@ -19,6 +19,7 @@
 </head>
 <body>
     <nav>
+        <!-- sidenav -->
         <div class="sidenav">
             <div class="holder holder-logo">
                 <div class="container container-logo">
@@ -30,7 +31,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <img src="/img/lsu.png" alt="LSU Logo" class="icon icon-lsu"> -->
             <h1>EVENTS</h1>
             <hr>
             <div class="holder holder-textflag">
@@ -85,6 +85,7 @@
     </nav>
     <main>
         <header>
+            <!-- header -->
             <div class="header-container">
                 <div class="header-title">
                     <ul class="list header-list">
@@ -102,13 +103,14 @@
                         </li>
                     </ul>
                 </div>
+                <!-- profile -->
                 <div class="grid-container">
                     <div class="grid-item-one grid-headers">
                         <div class="grid-searchspace">
                             <div class="form-group">
                                 <input type="search" id="gridsearchIDNumber"  class="form-control" placeholder="Search ID Number...">
                             </div>
-                            <span class="material-symbols-outlined">
+                            <span class="material-symbols-outlined" style="color:white">
                                 search
                             </span>
                         </div>
@@ -141,6 +143,7 @@
                     <div class="grid-item-ten item-status">
                         NOT EXEMPTED
                     </div>
+                    <!-- total points -->
                     <div class="grid-item-eleven item-points">
                         TOTAL POINTS ACQUIRED
                     </div>
@@ -160,6 +163,7 @@
             </div>
         </header>
         <section>
+            <!-- academic period -->
             <div class="academic-period-container">
                 <div class="academic-year">
                     <div class="academic-year-name academic-year-present">
@@ -173,22 +177,84 @@
                     </div>
                 </div>
             </div>
+            <!-- semester -->
             <div class="semester-container">
                 <div class="activity">
                     <div class="activity-name">
                         CCSEA WEEK
                     </div>
                 </div>
-                <semester>
-                    <div class="semester-name">
+                <div class="semester">     
+                    <div class="semester-name semester-one">
                         1ST SEMESTER
                     </div>
-                    <div class="semester-name">
+                    <div class="semester-name semester-two">
                         2ND SEMESTER
                     </div>
-                </semester>
+                </div>
             </div>
         </section>
+        <article>
+            <div class="record-container">
+                <div class="attendance-record">
+                    <div class="attendance-header">
+                        <div class="attendance-header-one">
+                            <div class="activity-title">
+                                <h3>ACTIVITIES</h3>
+                            </div>
+                            <div class="activity-day">
+                                <select name="activity day dropdown" id="activity-day-dropdown">
+                                    <option value="DAY 1" class="options">DAY 1</option>
+                                    <option value="DAY 2">DAY 2</option>
+                                    <option value="DAY 3">DAY 3</option>
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="attendance-header-two">
+                            <div class="sort-by">
+                                <div class="sort-by-container">
+                                    <div class="sort-by-item">
+                                        SORT BY
+                                    </div>
+                                    <div>
+                                        <img src="img/Group 30.png" alt="sort icon">
+                                    </div>
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href="#">ACTIVITY NAME</a>
+                                    <a href="#">DATE</a>
+                                    <a href="#">ROLE</a>
+                                    <a href="#">POINTS</a>
+                                    <a href="#">OFFICER-IN-CHARGE</a>
+                                </div>
+                            </div>
+                            <div class="filter-by">
+                                <div class="filter-by-container">
+                                    <div class="filter-by-item">
+                                        FILTER BY
+                                    </div>
+                                    <div>
+                                        <img src="img/Group 30.png" alt="filter icon">
+                                    </div>
+                                </div>
+                                <div class="dropdown-content dropdown-content-two">
+                                    <a href="#">ACTIVITIES PARTICIPATED</a>
+                                    <a href="#">ACTIVITIES MISSED</a>
+                                </div>
+                            </div>
+                            <div class="activity-searchspace">
+                                <div class="form-group">
+                                    <input type="search" id="searchActivity"  class="form-control" placeholder="Search...">
+                                </div>
+                                <span class="material-symbols-outlined" style="color:white">
+                                    search
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
     </main>
     <script src="js/script.js"></script>
 </body>

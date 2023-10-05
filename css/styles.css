@@ -6,7 +6,7 @@
   --main-green: #3C6255;
   --secondary-green: #39594e;
   --tertiary-green: #2f5045;
-  --darkest-green: #283D36;
+  --darkest-green: #213a31;
 }
 
 body {
@@ -175,7 +175,7 @@ main {
 
 /* header */
 
-.header-container, .header-list, .academic-period-container, .academic-year, .semester-container, .activity {
+.header-container, .header-list, .academic-period-container, .academic-year, .semester-container, .activity, .semester, .record-container, .attendance-record, .attendance-header, .attendance-header-one, .attendance-header-two, .sort-by-container, .filter-by-container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -203,6 +203,8 @@ main {
 .item-three {
   padding: 0 0.5rem;
 }
+
+/* student profile grid */
 
 .grid-item-one { grid-area: header; }
 .grid-item-two { grid-area: main; }
@@ -232,10 +234,10 @@ main {
   padding: 10px;
   margin-left: 2rem;
   width: 70vw;
-  margin-top: -2rem;
+  margin-top: -1.5rem;
 }
 
-.grid-searchspace {
+.grid-searchspace, .activity-searchspace {
   display: flex;
   margin: auto;
 }
@@ -278,6 +280,8 @@ main {
   margin-top: 0.3rem;
 }
 
+/* department, course, year */
+
 .item-profile {
   color: white;
   background-color: rgba(33, 58, 49, 0.5);
@@ -310,13 +314,14 @@ main {
   width: 10rem;
 }
 
+/* total points */
+
 .item-points {
   display: flex;
   margin-left: 4.5rem;
   justify-content: center;
   text-align: center;
   font-weight: bold;
-  
 }
 
 .grid-item-eleven {
@@ -326,7 +331,7 @@ main {
   background-color: #213A31;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: 740%;
+  height: 850%;
   width: 80%;
   margin-left: 6.5rem;
   padding-top: 0.5rem;
@@ -346,20 +351,24 @@ main {
 
 .grid-points {
   margin-top: -1rem;
-  margin-bottom: 1rem;
+  height: 7.9rem;
 }
 
 /* section academic-period*/
 
-.academic-year {
-  background-color: var(--secondary-green);
+.academic-year, .semester {
   width: 100%;
   justify-content: center;
-  height: 2.5rem;
   align-content: flex-end;
 }
 
-.academic-year-name {
+.academic-year {
+  background-color: var(--secondary-green);
+  height: 2.5rem;
+  margin-top: -0.6rem;
+}
+
+.academic-year-name, .semester-name {
   padding: 0 1rem;
   margin: 0 0.3rem;
   border-top: 2px solid var(--main-green);
@@ -368,29 +377,44 @@ main {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   color: white;
-  height: 1.7rem;
   text-align: center;
 }
 
-.academic-year-present {
-  padding-top: 0.4rem;
+.academic-year-name {
+  height: 1.7rem;
+}
+
+.academic-year-present, .semester-one {
   background-color: var(--main-green);
   width: 15rem;
   font-weight: bold;
 }
 
-.academic-year-past {
-  padding-top: 0.5rem;
+.academic-year-present {
+  padding-top: 0.4rem;
+}
+
+.academic-year-past, .semester-two {
   font-size: 0.7rem;
   width: 8rem;
 }
 
+.academic-year-past {
+  padding-top: 0.5rem;
+}
+
+/* semester & activity */
 
 .semester-container {
   color: white;
   font-weight: bold;
   background-color: var(--tertiary-green);
-  height: 5.5rem;
+  height: 4.5rem;
+}
+
+.activity {
+  margin-left: 2.5rem;
+  margin-top: 0.9rem;
 }
 
 .activity-name {
@@ -402,6 +426,121 @@ main {
   text-shadow: 0 2px 4px rgb(31, 28, 28);
 }
 
+.semester {
+  margin-top: -1.5rem;
+  margin-left: 25rem;
+}
+
+.semester-name {
+  height: 2.5rem;
+}
+
+.semester-one {
+  padding-top: 0.6rem;
+}
+
+.semester-two {
+  padding-top: 0.8rem;
+}
+
+/* participation record */
+
+.record-container {
+  background-color: var(--darkest-green);
+}
+
+.attendance-header {
+  margin-top: 1rem;
+}
+
+.activity-title {
+  color: white;
+  margin-left: 3rem;
+}
+
+#activity-day-dropdown {
+  margin-left: 1rem;
+  background-color: var(--darkest-green);
+  color: white;
+  border: 2px solid white;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 0.7rem;
+  padding: 0 0.3rem;
+}
+
+.attendance-header-two {
+  color: white;
+  margin-left: 22rem;
+}
+
+.sort-by, .filter-by {
+  position: relative;
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.sort-by-item, .filter-by-item {
+  padding-right: 0.3rem;
+}
+
+.sort-by img, .filter-by img {
+  width: 1rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--darkest-green);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content-two {
+  width: 12rem;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 0.3rem;
+  text-decoration: none;
+  display: block;
+}
+
+.sort-by:hover .dropdown-content {
+  display: block;
+}
+
+.filter-by:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--main-green);
+}
+
+.filter-by {
+  margin-left: 1rem;
+}
+
+#searchActivity {
+  margin-left: 1.5rem;
+  position: relative;
+  border: none;
+  outline: none;
+  width: 12rem;
+  border-radius: 15px;
+  background-color: rgba(237, 241, 214, 0.7);
+  font-size: 0.9rem;
+  padding-left: 0.8rem;
+}
+
+#searchActivity::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
 
 /* @media screen and (max-height: 450px) {
 .sidenav {padding-top: 15px;}
