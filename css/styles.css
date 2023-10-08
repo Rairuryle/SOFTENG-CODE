@@ -11,8 +11,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  width: 100vw;
+  height: 100vh;
   background-image: linear-gradient(var(--main-green) 45%, var(--secondary-green) 45%, VAR(--secondary-green) 66.66%, var(--tertiary-green) 66.66%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -32,7 +31,7 @@ top: 0;
 left: 0;
 background-color: #edf1d6;
 overflow-x: hidden;
-padding-top: 20px;
+padding-top: 1.2rem;
 }
 
 .sidenav h1, a {
@@ -147,7 +146,7 @@ margin-top: 40px;
 /* sidenav widget */
 
 .holder-widget {
-margin-top: 130px;
+margin-top: 13rem;
 bottom: 0;
 padding: 20px 0;
 display: flex;
@@ -158,9 +157,19 @@ flex-direction: column;
 margin-bottom: 5px;
 }
 
-.text-widget {
-margin-left: 10px;
-margin-top: 2px;
+.text-widget-dashboard {
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.text-widget-edit {
+  margin-left: 0.2rem;
+  margin-top: 0.3rem;
+}
+
+.text-widget-logout {
+  margin-left: 0.6rem;
+  margin-top: 0.1rem;
 }
 
 .link-widget:hover {
@@ -175,7 +184,7 @@ main {
 
 /* header */
 
-.header-container, .header-list, .academic-period-container, .academic-year, .semester-container, .activity, .semester, .record-container, .attendance-record, .attendance-header, .attendance-header-one, .attendance-header-two, .sort-by-container, .filter-by-container {
+.header-container, .header-list, .academic-period-container, .academic-year, .semester-container, .activity, .semester, .activities-header, .activities-header-one, .activities-header-two, .sort-by-container, .filter-by-container, .attendance-header, .attendance-header-one, .attendance-header-two {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -237,7 +246,7 @@ main {
   margin-top: -1.5rem;
 }
 
-.grid-searchspace, .activity-searchspace {
+.grid-searchspace, .activity-searchspace, .attendance-searchspace {
   display: flex;
   margin: auto;
 }
@@ -403,6 +412,10 @@ main {
   padding-top: 0.5rem;
 }
 
+#main-record-link {
+  color: white;
+}
+
 /* semester & activity */
 
 .semester-container {
@@ -447,18 +460,23 @@ main {
 
 .record-container {
   background-color: var(--darkest-green);
+  margin-top: -1rem;
 }
 
-.attendance-header {
+.activities-record, .attendance-record {
+  position: relative;
+}
+
+.activities-header, .attendance-header {
   margin-top: 1rem;
 }
 
-.activity-title {
+.activity-title, .attendance-title {
   color: white;
   margin-left: 3rem;
 }
 
-#activity-day-dropdown {
+#activity-day-dropdown, #attendance-day-dropdown {
   margin-left: 1rem;
   background-color: var(--darkest-green);
   color: white;
@@ -469,9 +487,16 @@ main {
   padding: 0 0.3rem;
 }
 
-.attendance-header-two {
+.activities-header-two, .attendance-header-two {
   color: white;
-  margin-left: 22rem;
+}
+
+.activities-header-two {
+  margin-left: 33rem;
+}
+
+.attendance-header-two {
+  margin-left: 32.3rem;
 }
 
 .sort-by, .filter-by {
@@ -525,22 +550,306 @@ main {
   margin-left: 1rem;
 }
 
-#searchActivity {
+#searchActivity, #searchAttendance {
   margin-left: 1.5rem;
   position: relative;
   border: none;
   outline: none;
-  width: 12rem;
+  width: 15rem;
   border-radius: 15px;
   background-color: rgba(237, 241, 214, 0.7);
   font-size: 0.9rem;
   padding-left: 0.8rem;
 }
 
-#searchActivity::placeholder {
+#searchActivity::placeholder, #searchAttendance::placeholder {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
 }
+
+/* PARTICIPATION RECORD TABLE */
+
+/* activities table */
+
+.activities-table, .attendance-table {
+  margin-left: 1rem;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 60rem;
+  background-color: white;
+  color: var(--main-green);
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th, td {
+  border: 1px solid var(--darkest-green);
+  padding: 0.5rem;
+}
+
+td {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+#student-role-dropdown {
+  background-color: white;
+  border: 2px solid var(--darkest-green);
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding: 0 0.3rem;
+}
+
+#student-role-dropdown option[value="INDIV Participant"] {
+  color: #ac330d;
+  font-weight: bold;
+}
+
+#student-role-dropdown option[value="TEAM Participant"] {
+  color: #ac330d;
+  font-weight: bold;
+}
+
+#student-role-dropdown option[value="PROG. Spectator"] {
+  color: #3c7cdb;
+  font-weight: bold;
+}
+
+#student-role-dropdown option[value="OTH. Spectator"] {
+  color: #3c7cdb;
+  font-weight: bold;
+}
+
+.see-more {
+  color: rgba(60,98,85, 0.5);
+}
+
+/* activities subtotal */
+
+.grid-item-sixteen { grid-area: verification; }
+.grid-item-seventeen { grid-area: activity-subtotal; }
+.grid-item-eighteen { grid-area: activity-subtotal-points; }
+
+.results-grid-container {
+  display: grid;
+  grid-template-areas:
+    'verification verification'
+    'activity-subtotal activity-subtotal'
+    'activity-subtotal-points activity-subtotal-points';
+  gap: 1rem;
+  padding: 0.7rem;
+  margin-left: 63rem;
+  background-color: #61876E;
+  color: var(--darkest-green);
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  width: 10rem;
+  justify-content: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.grid-item-sixteen, .grid-item-seventeen, .grid-item-eighteen {
+  background-color: white;
+  width: 12rem;
+  text-align: center;
+  color: var(--darkest-green);
+}
+
+.grid-item-sixteen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  margin-top: 0.4rem;
+  padding: 0.5rem 0;
+}
+
+.verification-item {
+  padding: 0 0.5rem;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.checkmark {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 1.6em;
+  width: 1.6em;
+  border-radius: 50%;
+  background: var(--secondary-green);
+  transition: all 0.2s ease;
+}
+
+.checkmark {
+  opacity: 0.9;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--tertiary-green);
+  opacity: 0.9;
+  transition: all 0.2s ease;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 0.598em;
+  top: 0.43em;
+  width: 0.25em;
+  height: 0.5em;
+  border: solid rgb(255, 255, 255);
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+}
+
+.grid-item-sixteen img {
+  width: 1.8rem;
+}
+
+.grid-item-seventeen {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 5rem;
+  padding-top: 1.5rem;
+}
+
+.grid-item-eighteen {
+  margin-top: -1rem;
+  margin-bottom: -0.7rem;
+  height: 6rem;
+}
+
+/* attendance table */
+
+.ui-checkbox {
+  --primary-color: var(--main-green);
+  --secondary-color: #fff;
+  --primary-hover-color: #4096ff;
+  /* checkbox */
+  --checkbox-diameter: 20px;
+  --checkbox-border-radius: 5px;
+  --checkbox-border-color: #70a896;
+  --checkbox-border-width: 1px;
+  --checkbox-border-style: solid;
+  /* checkmark */
+  --checkmark-size: 1.2;
+}
+
+.ui-checkbox, 
+.ui-checkbox *, 
+.ui-checkbox *::before, 
+.ui-checkbox *::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.ui-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: var(--checkbox-diameter);
+  height: var(--checkbox-diameter);
+  border-radius: var(--checkbox-border-radius);
+  background: var(--secondary-color);
+  border: var(--checkbox-border-width) var(--checkbox-border-style) var(--checkbox-border-color);
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.ui-checkbox::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-box-shadow: 0 0 0 calc(var(--checkbox-diameter) / 2.5) var(--primary-color);
+  box-shadow: 0 0 0 calc(var(--checkbox-diameter) / 2.5) var(--primary-color);
+  border-radius: inherit;
+  opacity: 0;
+  -webkit-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+  -o-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+  transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+}
+
+.ui-checkbox::before {
+  top: 40%;
+  left: 50%;
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 7px;
+  border-right: 2px solid var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  -ms-transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  opacity: 0;
+  -webkit-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),opacity 0.1s;
+  -o-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),opacity 0.1s;
+  transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),opacity 0.1s;
+}
+
+/* actions */
+
+.ui-checkbox:hover {
+  border-color: var(--primary-color);
+}
+
+.ui-checkbox:checked {
+  background: var(--primary-color);
+  border-color: transparent;
+}
+
+.ui-checkbox:checked::before {
+  opacity: 1;
+  -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
+  -ms-transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
+  transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
+  -webkit-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+  -o-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+  transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+}
+
+.ui-checkbox:active:not(:checked)::after {
+  -webkit-transition: none;
+  -o-transition: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  transition: none;
+  opacity: 1;
+}
+
+
 
 /* @media screen and (max-height: 450px) {
 .sidenav {padding-top: 15px;}

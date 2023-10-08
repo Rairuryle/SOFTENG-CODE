@@ -16,3 +16,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+var selects = document.querySelectorAll("#student-role-dropdown");
+
+// Add an event listener to each select element
+selects.forEach(function(select) {
+    select.addEventListener("change", function() {
+        // Get the selected option
+        var selectedOption = select.options[select.selectedIndex];
+
+        // Set the color of the selected text to match the option text color
+        select.style.color = getComputedStyle(selectedOption).color;
+    });
+});

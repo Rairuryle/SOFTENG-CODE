@@ -65,18 +65,27 @@
             <div class="holder holder-widget">
                 <div class="container container-widget">
                     <div class="icon icon-widget">
-                        <img src="img/Sign_in_squre.png" alt="Admin View Icon">
+                        <img src="img/Menu.png" alt="Dashboard Icon">
                     </div>
-                    <div class="text text-widget">
-                        <a href="#" class="link-widget">ADMIN VIEW</a>
+                    <div class="text text-widget text-widget-dashboard">
+                        <a href="#" class="link-widget">DASHBOARD</a>
                     </div>
                 </div>
                 
                 <div class="container container-widget">
                     <div class="icon icon-widget">
+                        <img src="img/Edit.png" alt="Edit Mode Icon">
+                    </div>
+                    <div class="text text-widget text-widget-edit">
+                        <a href="#" class="link-widget">EDIT MODE</a>
+                    </div>
+                </div>
+
+                <div class="container container-widget">
+                    <div class="icon icon-widget">
                         <img src="img/On_button.png" alt="Log Out Icon">
                     </div>
-                    <div class="text text-widget">
+                    <div class="text text-widget text-widget-logout">
                         <a href="#" class="link-widget">LOG OUT</a>
                     </div>
                 </div>
@@ -167,13 +176,13 @@
             <div class="academic-period-container">
                 <div class="academic-year">
                     <div class="academic-year-name academic-year-present">
-                        S.Y. 2022-2023
+                        <a href="#" id="main-record-link">A.Y. 2022-2023</a>
                     </div>
                     <div class="academic-year-name academic-year-past academic-year-previous">
-                        S.Y. 2021-2022
+                        <a href="#" id="main-record-link">A.Y. 2021-2022</a>
                     </div>
                     <div class="academic-year-name academic-year-past academic-year-others">
-                        . . .
+                        <a href="#" id="main-record-link">. . .</a>
                     </div>
                 </div>
             </div>
@@ -183,34 +192,35 @@
                     <div class="activity-name">
                         CCSEA WEEK
                     </div>
+                    <div class="activity-day">
+                        <select name="activity day dropdown" id="activity-day-dropdown">
+                            <option value="DAY 1" class="options">DAY 1</option>
+                            <option value="DAY 2">DAY 2</option>
+                            <option value="DAY 3">DAY 3</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="semester">     
                     <div class="semester-name semester-one">
-                        1ST SEMESTER
+                        <a href="#" id="main-record-link">1ST SEMESTER</a>
                     </div>
                     <div class="semester-name semester-two">
-                        2ND SEMESTER
+                        <a href="#" id="main-record-link">2ND SEMESTER</a>
                     </div>
                 </div>
             </div>
         </section>
+        
         <article>
             <div class="record-container">
-                <div class="attendance-record">
-                    <div class="attendance-header">
-                        <div class="attendance-header-one">
+                <div class="activities-record">
+                    <div class="activities-header">
+                        <div class="activities-header-one">
                             <div class="activity-title">
                                 <h3>ACTIVITIES</h3>
                             </div>
-                            <div class="activity-day">
-                                <select name="activity day dropdown" id="activity-day-dropdown">
-                                    <option value="DAY 1" class="options">DAY 1</option>
-                                    <option value="DAY 2">DAY 2</option>
-                                    <option value="DAY 3">DAY 3</option>
-                                </select>
-                            </div>
                         </div> 
-                        <div class="attendance-header-two">
+                        <div class="activities-header-two">
                             <div class="sort-by">
                                 <div class="sort-by-container">
                                     <div class="sort-by-item">
@@ -246,10 +256,268 @@
                                 <div class="form-group">
                                     <input type="search" id="searchActivity"  class="form-control" placeholder="Search...">
                                 </div>
-                                <span class="material-symbols-outlined" style="color:white">
+                                <span class="material-symbols-outlined" style="color:white;">
                                     search
                                 </span>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- participation record table -->
+                    <div class="participation-record-table">
+                        <!-- activities table -->
+                        <table class="activities-table">
+                            <tr>
+                                <th>ACTIVITY NAME</th>
+                                <th>DATE</th>
+                                <th>ROLE</th>
+                                <th>POINTS</th>
+                                <th>OFFICER-IN-CHARGE</th>
+                            </tr>
+                            <tr>
+                                <td>Painting Contest</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>Tug of War</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>Paint War</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr>
+                                <td>Fashion Show</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr>
+                                <td>Volleyball</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr>
+                                <td class="see-more">See More / See Less</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <div class="results-grid-container">
+                            <div class="grid-item-sixteen">
+                                <div class="verification-item">VERIFY DAY</div>
+                                <div class="verification-check">
+                                    <label class="checkbox-container">
+                                        <input checked="checked" type="checkbox">
+                                        <div class="checkmark"></div>
+                                      </label>
+                                </div>
+                            </div>
+                            <div class="grid-item-seventeen">ACTIVITY <br> SUBTOTAL</div>
+                            <div class="grid-item-eighteen"><h1>25</h1></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attendance-record">
+                    <div class="attendance-header">
+                        <div class="activities-header-one">
+                            <div class="attendance-title">
+                                <h3>ATTENDANCE</h3>
+                            </div>
+                        </div> 
+                        <div class="attendance-header-two">
+                            <div class="sort-by">
+                                <div class="sort-by-container">
+                                    <div class="sort-by-item">
+                                        SORT BY
+                                    </div>
+                                    <div>
+                                        <img src="img/Group 30.png" alt="sort icon">
+                                    </div>
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href="#">DATE</a>
+                                    <a href="#">AM</a>
+                                    <a href="#">PM</a>
+                                    <a href="#">POINTS</a>
+                                    <a href="#">OFFICER-IN-CHARGE</a>
+                                </div>
+                            </div>
+                            <div class="filter-by">
+                                <div class="filter-by-container">
+                                    <div class="filter-by-item">
+                                        FILTER BY
+                                    </div>
+                                    <div>
+                                        <img src="img/Group 30.png" alt="filter icon">
+                                    </div>
+                                </div>
+                                <div class="dropdown-content dropdown-content-two">
+                                    <a href="#">MORNING ABSENCES</a>
+                                    <a href="#">AFTERNOON ABSENCES</a>
+                                </div>
+                            </div>
+                            <div class="attendance-searchspace">
+                                <div class="form-group">
+                                    <input type="search" id="searchAttendance"  class="form-control" placeholder="Search...">
+                                </div>
+                                <span class="material-symbols-outlined" style="color:white;">
+                                    search
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- participation record table -->
+                    <div class="participation-record-table">
+                        <!-- attendance table -->
+                        <table class="attendance-table">
+                            <tr>
+                                <th>DATE</th>
+                                <th>AM</th>
+                                <th colspan="2">PM</th>
+                                <th>POINTS</th>
+                                <th>OFFICER-IN-CHARGE</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">SEPTEMBER 8, 2022</td>
+                                <td>LOG-IN</td>
+                                <td>LOG-IN</td>
+                                <td>LOG-OUT</td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>SEPTEMBER 8, 2022</td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>SEPTEMBER 8, 2022</td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>SEPTEMBER 8, 2022</td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td class="see-more">See More / See Less</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <div class="results-grid-container">
+                            <div class="grid-item-sixteen">
+                                <div class="verification-item">VERIFY DAY</div>
+                                <div class="verification-check">
+                                    <label class="checkbox-container">
+                                        <input checked="checked" type="checkbox">
+                                        <div class="checkmark"></div>
+                                      </label>
+                                </div>
+                            </div>
+                            <div class="grid-item-seventeen">ATTENDANCE <br> SUBTOTAL</div>
+                            <div class="grid-item-eighteen"><h1>25</h1></div>
                         </div>
                     </div>
                 </div>
