@@ -29,3 +29,4 @@ selects.forEach(function(select) {
         select.style.color = getComputedStyle(selectedOption).color;
     });
 });
+

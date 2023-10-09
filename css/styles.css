@@ -22,6 +22,11 @@ body {
 
 /* sidenav */
 
+nav {
+  display: flex;
+  position: relative;
+}
+
 .sidenav {
 height: 100%;
 width: 225px;
@@ -151,6 +156,7 @@ bottom: 0;
 padding: 20px 0;
 display: flex;
 flex-direction: column;
+position: absolute;
 }
 
 .icon-widget {
@@ -179,6 +185,7 @@ border-bottom: 1px solid VAR(--secondary-green);
 /* main */
 
 main {
+  flex: 1;
   margin-left: 225px; /* Same as the width of the sidenav */
 }
 
@@ -469,6 +476,7 @@ main {
 
 .activities-header, .attendance-header {
   margin-top: 1rem;
+  justify-content: space-between;
 }
 
 .activity-title, .attendance-title {
@@ -489,15 +497,16 @@ main {
 
 .activities-header-two, .attendance-header-two {
   color: white;
+  margin-right: 1rem;
 }
 
-.activities-header-two {
+/* .activities-header-two {
   margin-left: 33rem;
-}
+} */
 
-.attendance-header-two {
+/* .attendance-header-two {
   margin-left: 32.3rem;
-}
+} */
 
 .sort-by, .filter-by {
   position: relative;
@@ -569,13 +578,18 @@ main {
 
 /* PARTICIPATION RECORD TABLE */
 
+.participation-record-table {
+  display: flex;
+  width: 100%;
+}
+
 /* activities table */
 
 .activities-table, .attendance-table {
   margin-left: 1rem;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  width: 60rem;
+  width: 78%;
   background-color: white;
   color: var(--main-green);
   border-collapse: collapse;
@@ -639,13 +653,12 @@ td {
     'activity-subtotal-points activity-subtotal-points';
   gap: 1rem;
   padding: 0.7rem;
-  margin-left: 63rem;
   background-color: #61876E;
   color: var(--darkest-green);
   font-weight: bold;
-  position: absolute;
   bottom: 0;
   width: 10rem;
+  margin-left: 2.5rem;
   justify-content: center;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -735,7 +748,7 @@ td {
 .grid-item-seventeen {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: 5rem;
+  height: 6rem;
   padding-top: 1.5rem;
 }
 
