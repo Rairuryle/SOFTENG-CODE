@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 var selects = document.querySelectorAll("#student-role-dropdown");
 
 // Add an event listener to each select element
@@ -30,3 +31,26 @@ selects.forEach(function(select) {
     });
 });
 
+
+// Get the "See More / See Less" button element
+const seeMoreButton = document.querySelector(".see-more");
+
+// Get all the hidden rows
+const hiddenRows = document.querySelectorAll(".hidden-row");
+
+// Add a click event listener to the button
+seeMoreButton.addEventListener("click", function () {
+    // Toggle the visibility of the hidden rows and update their data-visible attribute
+    hiddenRows.forEach((row) => {
+        const isVisible = row.getAttribute("data-visible") === "true";
+        row.style.display = isVisible ? "none" : "table-row";
+        row.setAttribute("data-visible", !isVisible);
+    });
+
+    // Change the text of the button
+    if (seeMoreButton.textContent === "See More") {
+        seeMoreButton.textContent = "See Less";
+    } else {
+        seeMoreButton.textContent = "See More";
+    }
+});

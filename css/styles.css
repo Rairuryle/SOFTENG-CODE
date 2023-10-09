@@ -18,7 +18,7 @@ body {
   margin: 0;
 }
 
-/* INDEX.HTML */
+/* COLLEGE-EVENTS-ADMIN.HTML */
 
 /* sidenav */
 
@@ -191,7 +191,7 @@ main {
 
 /* header */
 
-.header-container, .header-list, .academic-period-container, .academic-year, .semester-container, .activity, .semester, .activities-header, .activities-header-one, .activities-header-two, .sort-by-container, .filter-by-container, .attendance-header, .attendance-header-one, .attendance-header-two {
+#flex-container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -635,24 +635,34 @@ td {
   font-weight: bold;
 }
 
+.hidden-row {
+  display: none;
+}
+
+/* Style the "See More / See Less" button */
 .see-more {
-  color: rgba(60,98,85, 0.5);
+  cursor: pointer;
+  color: rgba(60, 98, 85, 0.5);
+  text-decoration: underline;
+}
+
+/* Style the button when it's hovered */
+.see-more:hover {
+  text-decoration: none;
 }
 
 /* activities subtotal */
 
 .grid-item-sixteen { grid-area: verification; }
 .grid-item-seventeen { grid-area: activity-subtotal; }
-.grid-item-eighteen { grid-area: activity-subtotal-points; }
 
 .results-grid-container {
   display: grid;
   grid-template-areas:
     'verification verification'
-    'activity-subtotal activity-subtotal'
-    'activity-subtotal-points activity-subtotal-points';
+    'activity-subtotal activity-subtotal';
   gap: 1rem;
-  padding: 0.7rem;
+  padding-top: 0.4rem;
   background-color: #61876E;
   color: var(--darkest-green);
   font-weight: bold;
@@ -664,7 +674,7 @@ td {
   border-top-right-radius: 15px;
 }
 
-.grid-item-sixteen, .grid-item-seventeen, .grid-item-eighteen {
+.grid-item-sixteen, .grid-item-seventeen{
   background-color: white;
   width: 12rem;
   text-align: center;
@@ -748,15 +758,14 @@ td {
 .grid-item-seventeen {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  height: 6rem;
   padding-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.grid-item-eighteen {
-  margin-top: -1rem;
-  margin-bottom: -0.7rem;
-  height: 6rem;
-}
+
 
 /* attendance table */
 

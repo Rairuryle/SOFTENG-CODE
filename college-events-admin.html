@@ -95,9 +95,9 @@
     <main>
         <header>
             <!-- header -->
-            <div class="header-container">
+            <div id="flex-container" class="header-container">
                 <div class="header-title">
-                    <ul class="list header-list">
+                    <ul id="flex-container" class="list header-list">
                         <li class="header-item item-one">
                             <h4>College of Computer Studies, Engineering, and Architecture</h4>
                         </li>
@@ -173,8 +173,8 @@
         </header>
         <section>
             <!-- academic period -->
-            <div class="academic-period-container">
-                <div class="academic-year">
+            <div id="flex-container" class="academic-period-container">
+                <div id="flex-container" class="academic-year">
                     <div class="academic-year-name academic-year-present">
                         <a href="#" id="main-record-link">A.Y. 2022-2023</a>
                     </div>
@@ -187,8 +187,8 @@
                 </div>
             </div>
             <!-- semester -->
-            <div class="semester-container">
-                <div class="activity">
+            <div id="flex-container" class="semester-container">
+                <div id="flex-container" class="activity">
                     <div class="activity-name">
                         CCSEA WEEK
                     </div>
@@ -200,7 +200,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="semester">     
+                <div id="flex-container" class="semester">     
                     <div class="semester-name semester-one">
                         <a href="#" id="main-record-link">1ST SEMESTER</a>
                     </div>
@@ -214,15 +214,15 @@
         <article>
             <div class="record-container">
                 <div class="activities-record">
-                    <div class="activities-header">
-                        <div class="activities-header-one">
+                    <div id="flex-container" class="activities-header">
+                        <div id="flex-container" class="activities-header-one">
                             <div class="activity-title">
                                 <h3>ACTIVITIES</h3>
                             </div>
                         </div> 
-                        <div class="activities-header-two">
+                        <div id="flex-container" class="activities-header-two">
                             <div class="sort-by">
-                                <div class="sort-by-container">
+                                <div id="flex-container" class="sort-by-container">
                                     <div class="sort-by-item">
                                         SORT BY
                                     </div>
@@ -239,7 +239,7 @@
                                 </div>
                             </div>
                             <div class="filter-by">
-                                <div class="filter-by-container">
+                                <div id="flex-container" class="filter-by-container">
                                     <div class="filter-by-item">
                                         FILTER BY
                                     </div>
@@ -319,7 +319,7 @@
                                 <td>5</td>
                                 <td>Angel Hisoler</td>
                             </tr>
-                            <tr>
+                            <tr class="hidden-row" data-visible="false">
                                 <td>Fashion Show</td>
                                 <td>09/08/22</td>
                                 <td>
@@ -334,7 +334,7 @@
                                 <td>5</td>
                                 <td>Angel Hisoler</td>
                             </tr>
-                            <tr>
+                            <tr class="hidden-row" data-visible="false">
                                 <td>Volleyball</td>
                                 <td>09/08/22</td>
                                 <td>
@@ -349,12 +349,8 @@
                                 <td>5</td>
                                 <td>Angel Hisoler</td>
                             </tr>
-                            <tr>
-                                <td class="see-more">See More / See Less</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr class="see-more-row">
+                                <td class="see-more" colspan="5">See More</td>
                             </tr>
                         </table>
                         <div class="results-grid-container">
@@ -367,22 +363,24 @@
                                       </label>
                                 </div>
                             </div>
-                            <div class="grid-item-seventeen">ACTIVITY <br> SUBTOTAL</div>
-                            <div class="grid-item-eighteen"><h1>25</h1></div>
+                            <div class="grid-item-seventeen">
+                                <div>ATTENDANCE <br> SUBTOTAL</div>
+                                <div><h1>25</h1></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="attendance-record">
-                    <div class="attendance-header">
-                        <div class="activities-header-one">
+                    <div id="flex-container" class="attendance-header">
+                        <div id="flex-container" class="activities-header-one">
                             <div class="attendance-title">
                                 <h3>ATTENDANCE</h3>
                             </div>
                         </div> 
-                        <div class="attendance-header-two">
+                        <div  id="flex-container"class="attendance-header-two">
                             <div class="sort-by">
-                                <div class="sort-by-container">
+                                <div id="flex-container" class="sort-by-container">
                                     <div class="sort-by-item">
                                         SORT BY
                                     </div>
@@ -399,7 +397,7 @@
                                 </div>
                             </div>
                             <div class="filter-by">
-                                <div class="filter-by-container">
+                                <div id="flex-container" class="filter-by-container">
                                     <div class="filter-by-item">
                                         FILTER BY
                                     </div>
@@ -428,35 +426,21 @@
                         <!-- attendance table -->
                         <table class="attendance-table">
                             <tr>
-                                <th>DATE</th>
+                                <th rowspan="2">DATE</th>
                                 <th>AM</th>
                                 <th colspan="2">PM</th>
-                                <th>POINTS</th>
-                                <th>OFFICER-IN-CHARGE</th>
+                                <th rowspan="2">POINTS</th>
+                                <th rowspan="2">OFFICER-IN-CHARGE</th>
                             </tr>
                             <tr>
-                                <td rowspan="2">SEPTEMBER 8, 2022</td>
                                 <td>LOG-IN</td>
                                 <td>LOG-IN</td>
                                 <td>LOG-OUT</td>
-                                <td>5</td>
-                                <td>Ryle Ilisan</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="ui-checkbox">
+                                    September 8, 2022
                                 </td>
-                                <td>
-                                    <input type="checkbox" class="ui-checkbox">
-                                </td>
-                                <td>
-                                    <input type="checkbox" class="ui-checkbox">
-                                </td>
-                                <td>5</td>
-                                <td>Ryle Ilisan</td>
-                            </tr>
-                            <tr>
-                                <td>SEPTEMBER 8, 2022</td>
                                 <td>
                                     <input type="checkbox" class="ui-checkbox">
                                 </td>
@@ -468,42 +452,6 @@
                                 </td>
                                 <td>5</td>
                                 <td>Ryle Ilisan</td>
-                            </tr>
-                            <tr>
-                                <td>SEPTEMBER 8, 2022</td>
-                                <td>
-                                    <input type="checkbox" class="ui-checkbox">
-                                </td>
-                                <td>
-                                    <input type="checkbox" class="ui-checkbox">
-                                </td>
-                                <td>
-                                    <input type="checkbox" class="ui-checkbox">
-                                </td>
-                                <td>5</td>
-                                <td>Ryle Ilisan</td>
-                            </tr>
-                            <tr>
-                                <td>SEPTEMBER 8, 2022</td>
-                                <td>
-                                    <input type="checkbox" class="ui-checkbox">
-                                </td>
-                                <td>
-                                    <input type="checkbox" class="ui-checkbox">
-                                </td>
-                                <td>
-                                    <input type="checkbox" class="ui-checkbox">
-                                </td>
-                                <td>5</td>
-                                <td>Ryle Ilisan</td>
-                            </tr>
-                            <tr>
-                                <td class="see-more">See More / See Less</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                             </tr>
                         </table>
                         <div class="results-grid-container">
@@ -516,8 +464,10 @@
                                       </label>
                                 </div>
                             </div>
-                            <div class="grid-item-seventeen">ATTENDANCE <br> SUBTOTAL</div>
-                            <div class="grid-item-eighteen"><h1>25</h1></div>
+                            <div class="grid-item-seventeen">
+                                <div>ATTENDANCE <br> SUBTOTAL</div>
+                                <div><h1>25</h1></div>
+                            </div>
                         </div>
                     </div>
                 </div>
