@@ -1,0 +1,27 @@
+// Common styles
+.common-styles {
+  height: 2rem;
+  padding-top: 0.4rem;
+  text-align: center;
+}
+
+.item-status {
+  @extend .common-styles;
+  color: var(--main-green);
+  background-color: white;
+  font-weight: bold;
+  border-radius: 15px;
+  margin: auto;
+}
+
+.grid-item-ten {
+  @extend .common-styles;
+  width: 10rem;
+}
+
+// Styles for the admin webpage
+.admin-webpage .item-status {
+  display: flex;
+  width: 15rem;
+  margin: auto;
+}

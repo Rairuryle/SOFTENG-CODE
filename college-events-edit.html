@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/styles.css">
-
+    <link rel="stylesheet" href="css/eventsedit.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
@@ -57,6 +56,9 @@
                     <div class="text text-textflag">
                         COLLEGE
                     </div>
+                    <div class="icon icon-textflag textflag-add-event">
+                        <img src="img/Add_ring_fill.png" alt="Add Event" class="image image-add-event">
+                    </div>
                 </div>
             </div>
             <a href="#" class="nav-link">CCSEA WEEK</a>
@@ -66,28 +68,10 @@
             <div class="holder holder-widget">
                 <div class="container container-widget">
                     <div class="icon icon-widget">
-                        <img src="img/Menu.png" alt="Dashboard Icon">
-                    </div>
-                    <div class="text text-widget text-widget-dashboard">
-                        <a href="#" class="link-widget">DASHBOARD</a>
-                    </div>
-                </div>
-                
-                <div class="container container-widget">
-                    <div class="icon icon-widget">
                         <img src="img/Edit.png" alt="Edit Mode Icon">
                     </div>
                     <div class="text text-widget text-widget-edit">
-                        <a href="#" class="link-widget">EDIT MODE</a>
-                    </div>
-                </div>
-
-                <div class="container container-widget">
-                    <div class="icon icon-widget">
-                        <img src="img/On_button.png" alt="Log Out Icon">
-                    </div>
-                    <div class="text text-widget text-widget-logout">
-                        <a href="#" class="link-widget">LOG OUT</a>
+                        <a href="#" class="link-widget">EXIT EDIT MODE</a>
                     </div>
                 </div>
             </div>
@@ -148,11 +132,23 @@
                         Year 3
                     </div>
                     <div class="grid-item-nine item-status">
-                        ACTIVE
+                        <label class="toggle">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                            <span class="labels" data-on="ACTIVE" data-off="INACTIVE"></span>
+                          </label>
                     </div>
                     <div class="grid-item-ten item-status">
-                        NOT EXEMPTED
+                        <div>
+                            <label class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                                <span class="labels" data-on="EXEMPT." data-off="N.EXEMPT."></span>
+                            </label>
+                        </div>
+                        <img src="img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile">
                     </div>
+
                     <!-- total points -->
                     <div class="grid-item-eleven item-points">
                         TOTAL POINTS ACQUIRED
@@ -217,8 +213,9 @@
                 <div class="activities-record">
                     <div id="flex-container" class="activities-header">
                         <div id="flex-container" class="activities-header-one">
-                            <div class="activity-title">
+                            <div id="flex-container" class="activity-title">
                                 <h3>ACTIVITIES</h3>
+                                <img src="img/Group 40.png" alt="Edit Student Profile" class="img-edit-activity">
                             </div>
                         </div> 
                         <div id="flex-container" class="activities-header-two">
@@ -276,10 +273,18 @@
                                 <th>OFFICER-IN-CHARGE</th>
                             </tr>
                             <tr>
-                                <td>Painting Contest</td>
+                                <td>
+                                    <div id="flex-container">
+                                        <div id="flex-container" class="edit-activity-images">
+                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        </div>
+                                        Painting Contest
+                                    </div>
+                                </td>
                                 <td>09/08/22</td>
                                 <td>
-                                    <select name="student role dropdown" id="student-role-dropdown">
+                                    <select name="student role dropdown" id="student-role-dropdown" disabled>
                                         <option disabled="disabled" selected="selected">Select Student Role</option>
                                         <option value="INDIV Participant">INDIV Participant</option>
                                         <option value="TEAM Participant">TEAM Participant</option>
@@ -291,10 +296,18 @@
                                 <td>Ryle Ilisan</td>
                             </tr>
                             <tr>
-                                <td>Tug of War</td>
+                                <td>
+                                    <div id="flex-container">
+                                        <div id="flex-container" class="edit-activity-images">
+                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        </div>
+                                        Tug of War
+                                    </div>
+                                </td>
                                 <td>09/08/22</td>
                                 <td>
-                                    <select name="student role dropdown" id="student-role-dropdown">
+                                    <select name="student role dropdown" id="student-role-dropdown" disabled>
                                         <option disabled="disabled" selected="selected">Select Student Role</option>
                                         <option value="INDIV Participant">INDIV Participant</option>
                                         <option value="TEAM Participant">TEAM Participant</option>
@@ -306,10 +319,18 @@
                                 <td>Ryle Ilisan</td>
                             </tr>
                             <tr>
-                                <td>Paint War</td>
+                                <td>
+                                    <div id="flex-container">
+                                        <div id="flex-container" class="edit-activity-images">
+                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        </div>
+                                        Paint War
+                                    </div>
+                                </td>
                                 <td>09/08/22</td>
                                 <td>
-                                    <select name="student role dropdown" id="student-role-dropdown">
+                                    <select name="student role dropdown" id="student-role-dropdown" disabled>
                                         <option disabled="disabled" selected="selected">Select Student Role</option>
                                         <option value="INDIV Participant">INDIV Participant</option>
                                         <option value="TEAM Participant">TEAM Participant</option>
@@ -321,10 +342,18 @@
                                 <td>Angel Hisoler</td>
                             </tr>
                             <tr class="hidden-row" data-visible="false">
-                                <td>Fashion Show</td>
+                                <td>
+                                    <div id="flex-container">
+                                        <div id="flex-container" class="edit-activity-images">
+                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        </div>
+                                        Fashion Show
+                                    </div>
+                                </td>
                                 <td>09/08/22</td>
                                 <td>
-                                    <select name="student role dropdown" id="student-role-dropdown">
+                                    <select name="student role dropdown" id="student-role-dropdown" disabled>
                                         <option disabled="disabled" selected="selected">Select Student Role</option>
                                         <option value="INDIV Participant">INDIV Participant</option>
                                         <option value="TEAM Participant">TEAM Participant</option>
@@ -336,10 +365,18 @@
                                 <td>Angel Hisoler</td>
                             </tr>
                             <tr class="hidden-row" data-visible="false">
-                                <td>Volleyball</td>
+                                <td>
+                                    <div id="flex-container">
+                                        <div id="flex-container" class="edit-activity-images">
+                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        </div>
+                                        Volleyball
+                                    </div>
+                                </td>
                                 <td>09/08/22</td>
                                 <td>
-                                    <select name="student role dropdown" id="student-role-dropdown">
+                                    <select name="student role dropdown" id="student-role-dropdown" disabled>
                                         <option disabled="disabled" selected="selected">Select Student Role</option>
                                         <option value="INDIV Participant">INDIV Participant</option>
                                         <option value="TEAM Participant">TEAM Participant</option>
@@ -359,7 +396,7 @@
                                 <div class="verification-item">VERIFY DAY</div>
                                 <div class="verification-check">
                                     <label class="checkbox-container">
-                                        <input checked="checked" type="checkbox">
+                                        <input checked="checked" type="checkbox" disabled>
                                         <div class="checkmark"></div>
                                       </label>
                                 </div>
@@ -443,13 +480,13 @@
                                     September 8, 2022
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="ui-checkbox">
+                                    <input type="checkbox" class="disabled-checkbox" class="hidden-checkbox" disabled>
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="ui-checkbox">
+                                    <input type="checkbox" class="disabled-checkbox" class="hidden-checkbox" disabled>
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="ui-checkbox">
+                                    <input type="checkbox" class="disabled-checkbox" class="hidden-checkbox" disabled>
                                 </td>
                                 <td>5</td>
                                 <td>Ryle Ilisan</td>
@@ -460,7 +497,7 @@
                                 <div class="verification-item">VERIFY DAY</div>
                                 <div class="verification-check">
                                     <label class="checkbox-container">
-                                        <input checked="checked" type="checkbox">
+                                        <input checked="checked" type="checkbox" disabled>
                                         <div class="checkmark"></div>
                                       </label>
                                 </div>

@@ -131,6 +131,11 @@ display: flex;
 display: flex;
 }
 
+.container-textflag {
+  display: flex;
+  align-items: center;
+}
+
 .icon {
 display: inline;
 margin-left: 18px;
@@ -140,12 +145,19 @@ margin-left: 18px;
 width: 28px;
 }
 
-.text-textflag {
-margin-top: 4px;
+.college-textflag {
+  margin-top: 40px;
 }
 
-.college-textflag {
-margin-top: 40px;
+.image-add-event {
+  width: 1.4rem;
+  cursor: pointer;
+}
+
+.textflag-add-event {
+  display: flex;
+  width: 4.2rem;
+  justify-content: flex-end;
 }
 
 /* sidenav widget */
@@ -212,8 +224,9 @@ main {
 
 .item-one {
   flex-grow: 2;
-  padding-right: 10rem;
   text-align: end;
+  display: flex;
+  justify-content: center;
 }
 
 .item-three {
@@ -710,6 +723,10 @@ td {
   user-select: none;
 }
 
+.disabled-container {
+  cursor: default;
+}
+
 .checkmark {
   position: relative;
   top: 0;
@@ -765,7 +782,15 @@ td {
   flex-direction: column;
 }
 
+.student-participant{
+  color: #ac330d;
+  font-weight: bold;
+}
 
+.student-spectator {
+  color: #3c7cdb;
+  font-weight: bold;
+}
 
 /* attendance table */
 
@@ -781,17 +806,6 @@ td {
   --checkbox-border-style: solid;
   /* checkmark */
   --checkmark-size: 1.2;
-}
-
-.ui-checkbox, 
-.ui-checkbox *, 
-.ui-checkbox *::before, 
-.ui-checkbox *::after {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.ui-checkbox {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -805,6 +819,14 @@ td {
   transition: all 0.3s;
   cursor: pointer;
   position: relative;
+}
+
+.ui-checkbox, 
+.ui-checkbox *, 
+.ui-checkbox *::before, 
+.ui-checkbox *::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .ui-checkbox::after {
@@ -840,6 +862,34 @@ td {
   -o-transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),opacity 0.1s;
   transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),opacity 0.1s;
 }
+
+.disabled-checkbox {
+  --primary-color: var(--main-green);
+  --secondary-color: #fff;
+  --primary-hover-color: #4096ff;
+  /* checkbox */
+  --checkbox-diameter: 20px;
+  --checkbox-border-radius: 5px;
+  --checkbox-border-color: #70a896;
+  --checkbox-border-width: 1px;
+  --checkbox-border-style: solid;
+  /* checkmark */
+  --checkmark-size: 1.2;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: var(--checkbox-diameter);
+  height: var(--checkbox-diameter);
+  border-radius: var(--checkbox-border-radius);
+  background: var(--secondary-color);
+  border: var(--checkbox-border-width) var(--checkbox-border-style) var(--checkbox-border-color);
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  position: relative;
+  pointer-events: none;
+}
+
 
 /* actions */
 
