@@ -442,7 +442,147 @@
   .toggle input:checked~.labels::before {
     opacity: 1;
   } 
-  
+
+button {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+  }
+
+.popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+
+.popup-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 1.3rem;
+    width: 40%;
+    font-weight: bolder;
+    border-radius: 15px;
+}
+
+.popup-content h1 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.add-events-holder {
+  justify-content: center;
+  margin-bottom: 1.3rem;
+}
+
+.add-event-inputs, input[name="activityname[]"], input[name="activitydate[]"] {
+  color: var(--main-green);
+  font-weight: bold;
+}
+
+.add-event-inputs::placeholder, input[name="activityname[]"]::placeholder, input[name="activitydate[]"]::placeholder {
+  font-weight: lighter;
+}
+
+#eventname {
+  border: 2px solid var(--main-green);
+  border-radius: 15px;
+  width: 95%;
+  padding: 0.4rem 0.3rem 0.4rem 0.7rem;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+#eventdate, #activityname, #activitydate {
+  border: 2px solid var(--main-green);
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+#eventdate {
+  padding: 0.2rem 2.5rem;
+}
+
+.set-events-date {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.popup-hr {
+  margin-top: 0.4rem;
+  margin-left: 0;
+  margin-bottom: 1.5rem;
+  width: 97%;
+}
+
+.add-activities-events-holder {
+  color: var(--main-green);
+  margin-bottom: 2rem;
+}
+
+#activityname {
+  padding: 0.2rem 7.8rem 0.2rem 0.7rem;
+  margin-right: 1.5rem;
+}
+
+#activitydate {
+  padding: 0.18rem 0.5rem;
+}
+
+/* Apply styles to input fields with name="activityname[]" */
+input[name="activityname[]"] {
+  /* Your CSS styles for activityname[] go here */
+  border: 2px solid var(--main-green);
+  border-radius: 15px;
+  font-size: 0.9rem;
+  padding: 0.2rem 7.8rem 0.2rem 0.7rem;
+  margin-right: 1.8rem;
+}
+
+/* Apply styles to input fields with name="activitydate[]" */
+input[name="activitydate[]"] {
+  /* Your CSS styles for activitydate[] go here */
+  border: 2px solid var(--main-green);
+  border-radius: 15px;
+  font-size: 0.9rem;
+  padding: 0.18rem 0.5rem;
+}
+
+.popup-content button {
+    display: block;
+    margin: 0 auto;
+    background-color: var(--main-green);
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 0.4rem 1rem;
+    margin-bottom: 1rem
+}
+
+.add-events-container-button {
+  width: 98%;
+}
+
+#addMore {
+  margin-left: 0;
+}
+
+#closePopup {
+  margin-right: 0;
+}
+
+.show {
+    display: block;
+}
+
   /* total points */
   
   .item-points {

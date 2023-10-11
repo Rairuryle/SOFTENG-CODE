@@ -54,3 +54,37 @@ seeMoreButton.addEventListener("click", function () {
         seeMoreButton.textContent = "See More";
     }
 });
+
+
+// popup button @ college-events-edit.html, myButton
+myButton.addEventListener("click", function () {
+    myPopup.classList.add("show");
+});
+closePopup.addEventListener("click", function () {
+    myPopup.classList.remove("show");
+});
+window.addEventListener("click", function (event) {
+    if (event.target == myPopup) {
+        myPopup.classList.remove("show");
+    }
+});
+
+// add new activity @ college-events-edit.html, add-activities-events-holder
+let addMore = document.getElementById('addMore');
+let inputs = document.querySelector('.inputs');
+
+addMore.addEventListener('click', function () {
+    let newInputName = document.createElement('input');
+    newInputName.type = 'text';
+    newInputName.placeholder = 'Activity Name';
+    newInputName.name = 'activityname[]';
+    newInputName.classList.add('input-style'); // Add a CSS class to the new input
+
+    let newInputDate = document.createElement('input');
+    newInputDate.type = 'date';
+    newInputDate.name = 'activitydate[]';
+    newInputDate.classList.add('input-style'); // Add the same CSS class to the new input
+
+    inputs.appendChild(newInputName);
+    inputs.appendChild(newInputDate);
+});

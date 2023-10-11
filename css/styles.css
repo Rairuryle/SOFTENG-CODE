@@ -233,6 +233,10 @@ main {
   padding: 0 0.5rem;
 }
 
+.img-help {
+  cursor: pointer;
+}
+
 /* student profile grid */
 
 .grid-item-one { grid-area: header; }
@@ -1087,3 +1091,6 @@ margin-bottom: -10px;
 .login-bottom input {
 color: white;
 }
+
+
+/* DASHBOARD.HTML */

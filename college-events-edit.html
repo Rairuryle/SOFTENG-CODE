@@ -57,7 +57,40 @@
                         COLLEGE
                     </div>
                     <div class="icon icon-textflag textflag-add-event">
-                        <img src="img/Add_ring_fill.png" alt="Add Event" class="image image-add-event">
+
+                        <button id="myButton">
+                            <img src="img/Add_ring_fill.png" alt="Add Event" class="image image-add-event">
+                        </button>
+                        
+                        <div id="myPopup" class="popup">
+                            <div id="flex-container" class="popup-content">
+                                <h1>ADD EVENT</h1>
+                                <div id="flex-container" class="add-events-container">
+                                    <div id="flex-container" class="add-events-holder">
+                                        <input type="text" id="eventname" name="eventname" class="add-event-inputs" placeholder="Event Name">
+                                        <div class="set-events-date">
+                                            <input type="date" id="eventdate" name="startdate" class="add-event-inputs">
+                                            -
+                                            <input type="date" id="eventdate" name="enddate" class="add-event-inputs">
+                                        </div>
+                                    </div>
+
+                                    <div id="flex-container" class="add-activities-events-holder">
+                                        Activities
+                                        <hr class="popup-hr">
+                                        <div class="inputs">
+                                            <input type="text" id="activityname" name="activityname" placeholder="Activity Name" class="add-event-inputs">
+                                            <input type="date" id="activitydate" name="activitydate" class="add-event-inputs">
+                                        </div>
+                                    </div>
+
+                                    <div id="flex-container" class="add-events-container-button">
+                                        <button id="addMore" type="button">Add More Activities</button>
+                                        <button id="closePopup" type="button">SAVE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -146,7 +179,41 @@
                                 <span class="labels" data-on="EXEMPT." data-off="N.EXEMPT."></span>
                             </label>
                         </div>
-                        <img src="img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile">
+
+                        <!-- <button id="myButton"> -->
+                        <button>
+                            <img src="img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile">
+                        </button>
+
+                        <!-- <div id="myPopup" class="popup">
+                            <div class="popup-content">
+                                <label for="fname">First Name</label>
+                                <input type="text" id="fname" name="fname">
+                                <label for="lname">Last Name</label>
+                                <input type="text" id="lname" name="lname">
+                                <hr>
+                                <label for="college">College</label>
+                                <select name="college dropdown" id="college-dropdown">
+                                    <option disabled="disabled" selected="selected"></option>
+                                    <option value="CAS">CAS</option>
+                                    <option value="CBA">CBA</option>
+                                    <option value="CCJE">CCJE</option>
+                                    <option value="CCSEA">CCSEA</option>
+                                    <option value="CON">CON</option>
+                                    <option value="CTE">CTE</option>
+                                    <option value="CTHM">CTHM</option>
+                                </select>
+                                <label for="year">Year</label>
+                                <input type="text" id="year" name="year">
+                                <label for="course">Course</label>
+                                <input type="text" id="course" name="course">
+                                <label for="idnum">ID Number</label>
+                                <input type="text" id="idnum" name="idnum">
+                                <button id="closePopup">
+                                      Save
+                                  </button>
+                            </div>
+                        </div> -->
                     </div>
 
                     <!-- total points -->
