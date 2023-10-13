@@ -84,3 +84,105 @@ section {
     font-weight: bold;
     color: var(--main-green);
 }
+
+/* DASHBOARD-ADD-STUDENT.HTML */
+
+.dashboard-student-profile-container {
+    color: var(--main-green);
+    width: 85%;
+}
+
+.dashboard-student-profile-container input {
+    border: 2px solid var(--main-green);
+}
+
+.dashboard-student-profile-header h4 {
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-student-profile-header input, .dashboard-student-profile-body input {
+    border-radius: 15px;
+    padding: 0.3rem 0 0.3rem 0.5rem;
+}
+
+.dashboard-lastname-input {
+    width: 12rem;
+    margin-right: 1.2rem;
+}
+
+.dashboard-firstname-input {
+    width: 12rem;
+    margin-right: 1.2rem;
+}
+
+.dashboard-middlename-input {
+    width: 10.4rem;
+}
+
+.dashboard-student-profile-container hr {
+    width: 100%;
+    margin-top: 3rem;
+}
+
+.dashboard-idnumber-input, .dashboard-course-input {
+    margin-right: 7.88rem;
+}
+
+.dashboard-button {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 5rem;
+}
+
+.buttons {
+    border-radius: 15px;
+    background-color: var(--main-green);
+    color: white;
+    width: 7rem;
+    height: 2rem;
+    border: 1px solid var(--main-green);
+    cursor: pointer;
+}
+
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    z-index: 999;
+}
+
+  /* Styles for the popup box */
+.popup-box {
+    background-color: #fff;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+  /* Styles for the close button */
+.close-button {
+    float: right;
+    cursor: pointer;
+}
+  
+.paragraphPass {
+    font-weight: bold;
+    text-align: left;
+    border-radius: 15px;
+    border: 1px solid rgba(217,217,217,0.3);
+    background-color: rgba(217,217,217,0.3);
+    margin: 0.9rem 0;
+    padding: 0.5rem 0 0.5rem 0.8rem;
+}
+
+.popup-box p {
+    margin-top: -1rem;
+    color: rgba(60,98,85, 0.55)    ;
+}

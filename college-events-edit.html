@@ -24,7 +24,7 @@
             <div class="holder holder-logo">
                 <div class="container container-logo">
                     <div class="icon icon-logo">
-                        <img src="img/lsu.png" alt="LSU Logo" class="image image-logo">
+                        <a href="college-events-admin.html"><img src="img/lsu.png" alt="LSU Logo" class="image image-logo"></a>
                     </div>
                     <div class="text text-logo">
                         Events and Attendance Tracking Website
@@ -58,11 +58,11 @@
                     </div>
                     <div class="icon icon-textflag textflag-add-event">
 
-                        <button id="myButton">
+                        <button id="myButtonEvent">
                             <img src="img/Add_ring_fill.png" alt="Add Event" class="image image-add-event">
                         </button>
                         
-                        <div id="myPopup" class="popup">
+                        <div id="myPopupEvent" class="popup" style="display: none;">
                             <div id="flex-container" class="popup-content">
                                 <h1>ADD EVENT</h1>
                                 <div id="flex-container" class="add-events-container">
@@ -101,10 +101,12 @@
             <div class="holder holder-widget">
                 <div class="container container-widget">
                     <div class="icon icon-widget">
-                        <img src="img/Edit.png" alt="Edit Mode Icon">
+                        <a href="college-events-admin.html">
+                            <img src="img/Edit.png" alt="Edit Mode Icon">
+                        </a>
                     </div>
                     <div class="text text-widget text-widget-edit">
-                        <a href="#" class="link-widget">EXIT EDIT MODE</a>
+                        <a href="college-events-admin.html" class="link-widget">EXIT EDIT MODE</a>
                     </div>
                 </div>
             </div>
@@ -126,7 +128,7 @@
                             <img src="img/User_cicrle_duotone.png" alt="Profile Image">
                         </li>
                         <li class="header-item item-four">
-                            <img src="img/Question_fill.png" alt="Help and Resources">
+                            <a href="help.html"><img src="img/Question_fill.png" alt="Help and Resources"></a>
                         </li>
                     </ul>
                 </div>
@@ -282,7 +284,28 @@
                         <div id="flex-container" class="activities-header-one">
                             <div id="flex-container" class="activity-title">
                                 <h3>ACTIVITIES</h3>
-                                <img src="img/Group 40.png" alt="Edit Student Profile" class="img-edit-activity">
+                                <button id="myButtonActivity">
+                                    <img src="img/Group 40.png" alt="Edit Student Profile" class="img-edit-activity">
+                                </button>
+                                <div id="myPopupActivity" class="popup" style="display: none;">
+                                    <div id="flex-container" class="popup-content">
+                                        <h1>ADD ACTIVITY</h1>
+                                        <div id="flex-container" class="add-events-container">
+                                            <div id="flex-container" class="add-activities-events-holder">
+                                                <div class="inputsActivity">
+                                                    <input type="text" id="activityname" name="activityname" placeholder="Activity Name" class="add-event-inputs">
+                                                    <input type="date" id="activitydate" name="activitydate" class="add-event-inputs">
+                                                </div>
+                                            </div>
+        
+                                            <div id="flex-container" class="add-events-container-button">
+                                                <button id="addMoreActivity" type="button">Add More Activities</button>
+                                                <button id="closePopup" type="button">SAVE</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div> 
                         <div id="flex-container" class="activities-header-two">

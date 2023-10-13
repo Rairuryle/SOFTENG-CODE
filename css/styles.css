@@ -944,19 +944,6 @@ td {
   margin: 20px 40px;
 }
 
-.column-help {
-  background-color: #e8f0d1;
-  width: 45px;
-  height: 35px;
-  border-radius: 5px;
-}
-
-.column-help a {
-  display: block;
-  margin-top: 8px;
-  margin-left: 18px;
-}
-
 .image-logo-landing {
   width: 28px;
 }
@@ -965,6 +952,7 @@ td {
   display: table;
   text-align: center;
   margin: 0 auto;
+  color: white;
 }
 
 .title {
@@ -1002,7 +990,9 @@ align-items: center;
 background-color: white;
 width: 40%;
 height: 9rem;
-border-radius: 15px;
+border-top-right-radius: 15px;
+border-top-left-radius: 15px;
+margin-top: auto;
 }
 
 #searchIDNumber {
@@ -1010,7 +1000,7 @@ border: none;
 outline: none;
 border-bottom: 1px solid #213A31;
 padding-bottom: 7px;
-width: 30vw; 
+width: 30vw;
 }
 
 .material-symbols-outlined {
@@ -1020,57 +1010,89 @@ font-variation-settings:
 'GRAD' 0,
 'opsz' 24;
 margin-left: 20px;
+cursor: pointer;
 }
 
+.folder-bottom-container {
+  position: fixed;
+  z-index: -1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: none;
+  flex-direction: column;
+}
+
+.folder-bottom-up {
+  width: 50%;
+  border-radius: 15px 15px 0 0;
+  height: 45vh;
+  }
+
 .folder-bottom {
-margin: -15px auto;
 background-color: #213A31;
 width: 50%;
-height: 21rem;
 border-radius: 15px 15px 0 0;
+height: 55vh;
 }
 
 /* LOGIN.HTML */
 
-.login {
-position: relative;
-}
-
 .login-bg {
-position: absolute;
+position: fixed;
 top:0;
 left:0;
 z-index: -100;
-height: 51.89vh;
+width: 100%;
+}
+
+.login-space {
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
 }
 
 .login-form {
-margin-top: 100px;
 width: 28%;
 height: 7rem;
+margin: 0;
 }
 
 .login-form h2 {
 color:var(--main-green);
 }
 
-.login-bottom {
+.folder-bottom-above {
+  height: 18vh;
+  background-color: black;
+}
+
+.folder-bottom-login {
 width: 35%;
-height: 25.7rem;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+margin: 0;
+background-color: var(--darkest-green);
+border-radius: 15px 15px 0 0;
+justify-content: center;
+height: 58.5vh;
 }
 
 #username, #password {
 border: none;
 outline: none;
-background-color: #213A31;
+background-color: var(--darkest-green);
 border-bottom: 1px solid rgba(255, 255, 255, 0.7);
 margin-bottom: 70px;
 padding-bottom: 7px;
 width: 22vw;
+color: white;
 }
 
 #username::placeholder, #password::placeholder {
@@ -1079,18 +1101,77 @@ color: white;
 opacity: 0.7;
 }
 
+#togglePassword {
+  position: absolute;
+    top: 10%;
+    right: 2px; /* Adjust the right margin as needed */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: white;
+}
+
+.form-group {
+  position: relative;
+}
+
 .password-form {
-padding-left: 4px;
+  position: relative; /* Set the position to relative for proper absolute positioning */
 }
 
-.searchspace .form-group img {
-margin-left: -35px;
-margin-bottom: -10px;
+#login-login-button {
+  width: 22vw;
+  border-radius: 20px;
+  border-color: 1px solid var(--darkest-green);
+  padding: 0.5rem 0;
+  color: var(--main-green);
+  font-weight: bold;
+  letter-spacing: 0.3em;
+  cursor: pointer;
 }
 
-.login-bottom input {
-color: white;
+/* HELP.HTML */
+.title h1 {
+  font-size: 5rem;
+  margin-bottom: -1.5rem;
+  letter-spacing: 0.2em;
 }
 
+.title-help {
+  margin-top: -4rem;
+  text-align: center;
+}
 
-/* DASHBOARD.HTML */
+.help-container {
+  width: 60%;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+}
+
+.help-container-section {
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.help-container-text {
+  width: 80%;
+  margin: auto;
+}
+
+.help-question {
+  background-color: var(--main-green);
+  color: white;
+  border-radius: 25px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+}
+
+.help-answer {
+  width: 95%;
+  margin: auto;
+  color: var(--darkest-green);
+}

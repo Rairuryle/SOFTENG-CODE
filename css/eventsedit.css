@@ -475,6 +475,8 @@ button {
   display: flex;
   justify-content: center;
   width: 100%;
+  color: var(--main-green);
+  font-size: 1.5rem;
 }
 
 .add-events-holder {

@@ -56,18 +56,55 @@ seeMoreButton.addEventListener("click", function () {
 });
 
 
-// popup button @ college-events-edit.html, myButton
-myButton.addEventListener("click", function () {
-    myPopup.classList.add("show");
+// popup button @ college-events-edit.html
+// Get references to the buttons and the popup
+const myButtonEvent = document.getElementById("myButtonEvent");
+const myButtonActivity = document.getElementById("myButtonActivity");
+const myPopupEvent = document.getElementById("myPopupEvent");
+const myPopupActivity = document.getElementById("myPopupActivity");
+
+function showPopup(popup) {
+    // Hide all popups
+    myPopupEvent.style.display = "none";
+    myPopupActivity.style.display = "none";
+
+    // Display the selected popup
+    popup.style.display = "block";
+}
+
+function closePopup() {
+    myPopupEvent.style.display = "none";
+    myPopupActivity.style.display = "none";
+}
+
+myButtonEvent.addEventListener("click", function () {
+    showPopup(myPopupEvent);
 });
-closePopup.addEventListener("click", function () {
-    myPopup.classList.remove("show");
+
+myButtonActivity.addEventListener("click", function () {
+    showPopup(myPopupActivity);
 });
-window.addEventListener("click", function (event) {
-    if (event.target == myPopup) {
-        myPopup.classList.remove("show");
+
+// Close the popups when clicking outside or on "SAVE" button
+myPopupEvent.addEventListener("click", function (event) {
+    if (event.target === myPopupEvent) {
+        closePopup();
     }
 });
+
+myPopupActivity.addEventListener("click", function (event) {
+    if (event.target === myPopupActivity) {
+        closePopup();
+    }
+});
+
+const saveButtonEvent = myPopupEvent.querySelector("#closePopup");
+const saveButtonActivity = myPopupActivity.querySelector("#closePopup");
+
+saveButtonEvent.addEventListener("click", closePopup);
+saveButtonActivity.addEventListener("click", closePopup);
+
+
 
 // add new activity @ college-events-edit.html, add-activities-events-holder
 let addMore = document.getElementById('addMore');
@@ -88,3 +125,38 @@ addMore.addEventListener('click', function () {
     inputs.appendChild(newInputName);
     inputs.appendChild(newInputDate);
 });
+
+let addMoreActivity = document.getElementById('addMoreActivity');
+let inputsActivity = document.querySelector('.inputsActivity');
+
+addMoreActivity.addEventListener('click', function () {
+    let newInputNameActivity = document.createElement('input');
+    newInputNameActivity.type = 'text';
+    newInputNameActivity.placeholder = 'Activity Name';
+    newInputNameActivity.name = 'activityname[]';
+    newInputNameActivity.classList.add('input-style'); // Add a CSS class to the new input
+
+    let newInputDateActivity = document.createElement('input');
+    newInputDateActivity.type = 'date';
+    newInputDateActivity.name = 'activitydate[]';
+    newInputDateActivity.classList.add('input-style'); // Add the same CSS class to the new input
+
+    inputsActivity.appendChild(newInputNameActivity);
+    inputsActivity.appendChild(newInputDateActivity);
+});
+
+
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("password");
+    const toggleButton = document.getElementById("togglePassword");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleButton.classList.remove("far", "fa-eye");
+        toggleButton.classList.add("fas", "fa-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        toggleButton.classList.remove("fas", "fa-eye-slash");
+        toggleButton.classList.add("far", "fa-eye");
+    }
+}
