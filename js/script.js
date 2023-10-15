@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 var selects = document.querySelectorAll("#student-role-dropdown");
 
 // Add an event listener to each select element
@@ -59,14 +58,28 @@ seeMoreButton.addEventListener("click", function () {
 // popup button @ college-events-edit.html
 // Get references to the buttons and the popup
 const myButtonEvent = document.getElementById("myButtonEvent");
+const myButtonEventEdit = document.getElementById("myButtonEventEdit");
+const myButtonEventDelete = document.getElementById("myButtonEventDelete");
 const myButtonActivity = document.getElementById("myButtonActivity");
+const myButtonActivityEdit = document.getElementById("myButtonActivityEdit");
+const myButtonActivityDelete = document.getElementById("myButtonActivityDelete");
+
 const myPopupEvent = document.getElementById("myPopupEvent");
+const myPopupEventEdit = document.getElementById("myPopupEventEdit");
+const myPopupEventDelete = document.getElementById("myPopupEventDelete");
 const myPopupActivity = document.getElementById("myPopupActivity");
+const myPopupActivityEdit = document.getElementById("myPopupActivityEdit");
+const myPopupActivityDelete = document.getElementById("myPopupActivityDelete");
+
 
 function showPopup(popup) {
     // Hide all popups
     myPopupEvent.style.display = "none";
+    myPopupEventEdit.style.display = "none";
+    myPopupEventDelete.style.display = "none";
     myPopupActivity.style.display = "none";
+    myPopupActivityEdit.style.display = "none";
+    myPopupActivityDelete.style.display = "none";
 
     // Display the selected popup
     popup.style.display = "block";
@@ -74,20 +87,52 @@ function showPopup(popup) {
 
 function closePopup() {
     myPopupEvent.style.display = "none";
+    myPopupEventEdit.style.display = "none";
+    myPopupEventDelete.style.display = "none";
     myPopupActivity.style.display = "none";
+    myPopupActivityEdit.style.display = "none";
+    myPopupActivityDelete.style.display = "none";
 }
 
 myButtonEvent.addEventListener("click", function () {
     showPopup(myPopupEvent);
 });
 
+myButtonEventEdit.addEventListener("click", function () {
+    showPopup(myPopupEventEdit);
+});
+
+myButtonEventDelete.addEventListener("click", function () {
+    showPopup(myPopupEventDelete);
+});
+
 myButtonActivity.addEventListener("click", function () {
     showPopup(myPopupActivity);
+});
+
+myButtonActivityEdit.addEventListener("click", function () {
+    showPopup(myPopupActivityEdit);
+});
+
+myButtonActivityDelete.addEventListener("click", function () {
+    showPopup(myPopupActivityDelete);
 });
 
 // Close the popups when clicking outside or on "SAVE" button
 myPopupEvent.addEventListener("click", function (event) {
     if (event.target === myPopupEvent) {
+        closePopup();
+    }
+});
+
+myPopupEventEdit.addEventListener("click", function (event) {
+    if (event.target === myPopupEventEdit) {
+        closePopup();
+    }
+});
+
+myPopupEventDelete.addEventListener("click", function (event) {
+    if (event.target === myPopupEventDelete) {
         closePopup();
     }
 });
@@ -98,11 +143,59 @@ myPopupActivity.addEventListener("click", function (event) {
     }
 });
 
+myPopupActivityEdit.addEventListener("click", function (event) {
+    if (event.target === myPopupActivityEdit) {
+        closePopup();
+    }
+});
+
+myPopupActivityDelete.addEventListener("click", function (event) {
+    if (event.target === myPopupActivityDelete) {
+        closePopup();
+    }
+});
+
 const saveButtonEvent = myPopupEvent.querySelector("#closePopup");
+const saveButtonEventEdit = myPopupEventEdit.querySelector("#closePopup");
+const saveButtonEventDelete = myPopupEventDelete.querySelector("#closeDeletePopup");
 const saveButtonActivity = myPopupActivity.querySelector("#closePopup");
+const saveButtonActivityEdit = myPopupActivityEdit.querySelector("#closePopup");
+const saveButtonActivityDelete = myPopupActivityDelete.querySelector("#closeDeletePopup");
 
 saveButtonEvent.addEventListener("click", closePopup);
+saveButtonEventEdit.addEventListener("click", closePopup);
+saveButtonEventDelete.addEventListener("click", closePopup);
 saveButtonActivity.addEventListener("click", closePopup);
+saveButtonActivityEdit.addEventListener("click", closePopup);
+saveButtonActivityDelete.addEventListener("click", closePopup);
+
+
+myButtonActivityEdit.addEventListener("click", function () {
+    // Get the text from #activityNameSpecific
+    const activityNameSpecific = document.getElementById("activityNameSpecific").textContent;
+
+    // Update all elements with class .activityname
+    const activityNameElements = document.querySelectorAll(".activityname");
+    activityNameElements.forEach(function (element) {
+        if (element.tagName === 'INPUT') {
+            element.value = activityNameSpecific;
+        }
+    });
+});
+
+myButtonEventEdit.addEventListener("click", function () {
+    // Get the text from #activityNameSpecific
+    const eventNameSpecific = document.getElementById("eventNameSpecific").textContent;
+
+    // Update all elements with class .activityname
+    const eventNameElements = document.querySelectorAll(".eventname");
+    eventNameElements.forEach(function (element) {
+        if (element.tagName === 'INPUT') {
+            element.value = eventNameSpecific;
+        }
+    });
+});
+
 
 
 
@@ -146,6 +239,7 @@ addMoreActivity.addEventListener('click', function () {
 });
 
 
+// show/hide password @ login.html
 function togglePasswordVisibility() {
     const passwordInput = document.getElementById("password");
     const toggleButton = document.getElementById("togglePassword");
@@ -160,3 +254,11 @@ function togglePasswordVisibility() {
         toggleButton.classList.add("far", "fa-eye");
     }
 }
+
+$(function() {
+    $('input[name="daterange"]').daterangepicker({
+      opens: 'left'
+    }, function(start, end, label) {
+      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+  });

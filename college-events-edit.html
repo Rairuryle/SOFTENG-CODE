@@ -10,21 +10,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/eventsedit.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
+    
     <title>LSU Events and Attendance Tracking Website</title>
 </head>
 <body>
     <nav class="sidenav">
         <!-- sidenav -->
         <div class="navi">
-            <div class="holder holder-logo">
-                <div class="container container-logo">
+            <div class="container container-logo">
+                <div class="holder holder-logo">
                     <div class="icon icon-logo">
-                        <a href="college-events-admin.html"><img src="img/lsu.png" alt="LSU Logo" class="image image-logo"></a>
+                        <a href="college-events-admin.html"><img src="img/lsu.png" alt="LSU Logo" class="img-logo"></a>
                     </div>
                     <div class="text text-logo">
                         Events and Attendance Tracking Website
@@ -33,10 +35,10 @@
             </div>
             <h1>EVENTS</h1>
             <hr>
-            <div class="holder holder-textflag">
-                <div class="container container-textflag">
+            <div class="container container-textflag">
+                <div class="flex-container">
                     <div class="icon icon-textflag">
-                        <img src="img/Stackframe_fill.png" alt="Text Flag" class="image image-textflag">
+                        <img src="img/Stackframe_fill.png" alt="Text Flag" class="img-textflag">
                     </div>
                     <div class="text text-textflag">
                         INSTITUTIONAL
@@ -48,43 +50,38 @@
             <a href="#" class="nav-link">PANAGHUGPONG</a>
             <a href="#" class="nav-link">PANAGSADYA</a>
 
-            <div class="holder holder-textflag college-textflag">
-                <div class="container container-textflag">
+            <div class="container container-textflag college-textflag">
+                <div class="flex-container">
                     <div class="icon icon-textflag">
-                        <img src="img/Stackframe_fill.png" alt="Text Flag" class="image image-textflag">
+                        <img src="img/Stackframe_fill.png" alt="Text Flag" class="img-textflag">
                     </div>
                     <div class="text text-textflag">
                         COLLEGE
                     </div>
                     <div class="icon icon-textflag textflag-add-event">
-
                         <button id="myButtonEvent">
-                            <img src="img/Add_ring_fill.png" alt="Add Event" class="image image-add-event">
+                            <img src="img/Add_ring_fill.png" alt="Add Event" class="img-add-event">
                         </button>
                         
                         <div id="myPopupEvent" class="popup" style="display: none;">
-                            <div id="flex-container" class="popup-content">
+                            <div class="flex-container popup-content">
                                 <h1>ADD EVENT</h1>
-                                <div id="flex-container" class="add-events-container">
-                                    <div id="flex-container" class="add-events-holder">
-                                        <input type="text" id="eventname" name="eventname" class="add-event-inputs" placeholder="Event Name">
-                                        <div class="set-events-date">
-                                            <input type="date" id="eventdate" name="startdate" class="add-event-inputs">
-                                            -
-                                            <input type="date" id="eventdate" name="enddate" class="add-event-inputs">
-                                        </div>
+                                <div class="flex-container add-events-container">
+                                    <div class="flex-container add-events-holder">
+                                        <input type="text" name="eventname" class="eventname add-event-inputs" placeholder="Event Name">
+                                        <input type="text" name="daterange" class="eventdate add-event-inputs">
                                     </div>
 
-                                    <div id="flex-container" class="add-activities-events-holder">
+                                    <div class="flex-container add-activities-events-holder">
                                         Activities
                                         <hr class="popup-hr">
                                         <div class="inputs">
-                                            <input type="text" id="activityname" name="activityname" placeholder="Activity Name" class="add-event-inputs">
-                                            <input type="date" id="activitydate" name="activitydate" class="add-event-inputs">
+                                            <input type="text" name="activityname" placeholder="Activity Name" class="activityname-main add-event-inputs">
+                                            <input type="date" name="activitydate" class="activitydate add-event-inputs">
                                         </div>
                                     </div>
 
-                                    <div id="flex-container" class="add-events-container-button">
+                                    <div class="flex-container add-events-container-button">
                                         <button id="addMore" type="button">Add More Activities</button>
                                         <button id="closePopup" type="button">SAVE</button>
                                     </div>
@@ -94,12 +91,69 @@
                     </div>
                 </div>
             </div>
-            <a href="#" class="nav-link">CCSEA WEEK</a>
-            <a href="#" class="nav-link">GENERAL ASSEMBLY</a>
-            <a href="#" class="nav-link">TEAM BUILDING</a>
+            <a href="#" class="nav-link">
+                <div class="img-modify-event-container">
+                    <button type="button" id="myButtonEventEdit" class="modify-button">
+                        <img src="img/Group 40.png" alt="Edit Event" class="img-edit-event">
+                    </button>
+                    <!-- edit event -->
+                    <div id="myPopupEventEdit" class="popup" style="display: none;">
+                        <div class="flex-container popup-content">
+                            <h1>EDIT EVENT</h1>
+                            <div class="flex-container add-events-container">
+                                <div class="flex-container add-events-holder">
+                                    <input type="text" name="eventname" class="eventname add-event-inputs" placeholder="Event Name">
+                                    <input type="text" name="daterange" class="eventdate add-event-inputs">
+                                </div>
 
-            <div class="holder holder-widget">
-                <div class="container container-widget">
+                                <div class="flex-container add-events-container-button">
+                                    <button id="closePopup" type="button">SAVE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" id="myButtonEventDelete" class="modify-button">
+                        <img src="img/Group 41.png" alt="Delete Event" class="img-delete-event">
+                    </button>
+                    <div id="myPopupEventDelete" class="popup" style="display: none;">
+                        <div class="flex-container popup-content">
+                            <h1>DELETE EVENT?</h1>
+                            <div class="flex-container add-events-container-button">
+                                <button id="closeDeletePopup" type="button">DELETE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="eventNameSpecific">CCSEA WEEK</p>
+            </a>
+            
+            <a href="#" class="nav-link">
+                <div class="img-modify-event-container">
+                    <button type="button" id="myButtonEventEdit" class="modify-button">
+                        <img src="img/Group 40.png" alt="Edit Event" class="img-edit-event">
+                    </button>
+                    <button type="button" id="myButtonEventDelete" class="modify-button">
+                        <img src="img/Group 41.png" alt="Delete Event" class="img-delete-event">
+                    </button>
+                </div>
+                GENERAL ASSEMBLY
+            </a>
+
+            <a href="#" class="nav-link">
+                <div class="img-modify-event-container">
+                    <button type="button" id="myButtonEventEdit" class="modify-button">
+                        <img src="img/Group 40.png" alt="Edit Event" class="img-edit-event">
+                    </button>
+                    <button type="button" id="myButtonEventDelete" class="modify-button">
+                        <img src="img/Group 41.png" alt="Delete Event" class="img-delete-event">
+                    </button>
+                </div>
+                TEAM BUILDING
+            </a>
+
+            <div class="container container-widget">
+                <div class="holder holder-widget">
                     <div class="icon icon-widget">
                         <a href="college-events-admin.html">
                             <img src="img/Edit.png" alt="Edit Mode Icon">
@@ -115,9 +169,9 @@
     <main>
         <header>
             <!-- header -->
-            <div id="flex-container" class="header-container">
+            <div class="flex-container header-container">
                 <div class="header-title">
-                    <ul id="flex-container" class="list header-list">
+                    <ul class="flex-container list header-list">
                         <li class="header-item item-one">
                             <h4>College of Computer Studies, Engineering, and Architecture</h4>
                         </li>
@@ -181,41 +235,9 @@
                                 <span class="labels" data-on="EXEMPT." data-off="N.EXEMPT."></span>
                             </label>
                         </div>
-
-                        <!-- <button id="myButton"> -->
                         <button>
                             <img src="img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile">
                         </button>
-
-                        <!-- <div id="myPopup" class="popup">
-                            <div class="popup-content">
-                                <label for="fname">First Name</label>
-                                <input type="text" id="fname" name="fname">
-                                <label for="lname">Last Name</label>
-                                <input type="text" id="lname" name="lname">
-                                <hr>
-                                <label for="college">College</label>
-                                <select name="college dropdown" id="college-dropdown">
-                                    <option disabled="disabled" selected="selected"></option>
-                                    <option value="CAS">CAS</option>
-                                    <option value="CBA">CBA</option>
-                                    <option value="CCJE">CCJE</option>
-                                    <option value="CCSEA">CCSEA</option>
-                                    <option value="CON">CON</option>
-                                    <option value="CTE">CTE</option>
-                                    <option value="CTHM">CTHM</option>
-                                </select>
-                                <label for="year">Year</label>
-                                <input type="text" id="year" name="year">
-                                <label for="course">Course</label>
-                                <input type="text" id="course" name="course">
-                                <label for="idnum">ID Number</label>
-                                <input type="text" id="idnum" name="idnum">
-                                <button id="closePopup">
-                                      Save
-                                  </button>
-                            </div>
-                        </div> -->
                     </div>
 
                     <!-- total points -->
@@ -239,8 +261,8 @@
         </header>
         <section>
             <!-- academic period -->
-            <div id="flex-container" class="academic-period-container">
-                <div id="flex-container" class="academic-year">
+            <div class="flex-container academic-period-container">
+                <div class="flex-container academic-year">
                     <div class="academic-year-name academic-year-present">
                         <a href="#" id="main-record-link">A.Y. 2022-2023</a>
                     </div>
@@ -253,8 +275,8 @@
                 </div>
             </div>
             <!-- semester -->
-            <div id="flex-container" class="semester-container">
-                <div id="flex-container" class="activity">
+            <div class="flex-container semester-container">
+                <div class="flex-container activity">
                     <div class="activity-name">
                         CCSEA WEEK
                     </div>
@@ -266,7 +288,7 @@
                         </select>
                     </div>
                 </div>
-                <div id="flex-container" class="semester">     
+                <div class="flex-container semester">     
                     <div class="semester-name semester-one">
                         <a href="#" id="main-record-link">1ST SEMESTER</a>
                     </div>
@@ -280,37 +302,36 @@
         <article>
             <div class="record-container">
                 <div class="activities-record">
-                    <div id="flex-container" class="activities-header">
-                        <div id="flex-container" class="activities-header-one">
-                            <div id="flex-container" class="activity-title">
+                    <div class="flex-container activities-header">
+                        <div class="flex-container activities-header-one">
+                            <div class="flex-container activity-title">
                                 <h3>ACTIVITIES</h3>
                                 <button id="myButtonActivity">
-                                    <img src="img/Group 40.png" alt="Edit Student Profile" class="img-edit-activity">
+                                    <img src="img/Group 40.png" alt="Add Activity" class="img-add-activity">
                                 </button>
                                 <div id="myPopupActivity" class="popup" style="display: none;">
-                                    <div id="flex-container" class="popup-content">
+                                    <div class="flex-container popup-content">
                                         <h1>ADD ACTIVITY</h1>
-                                        <div id="flex-container" class="add-events-container">
-                                            <div id="flex-container" class="add-activities-events-holder">
+                                        <div class="flex-container add-events-container">
+                                            <div class="flex-container add-activities-events-holder">
                                                 <div class="inputsActivity">
-                                                    <input type="text" id="activityname" name="activityname" placeholder="Activity Name" class="add-event-inputs">
-                                                    <input type="date" id="activitydate" name="activitydate" class="add-event-inputs">
+                                                    <input type="text" name="activityname" placeholder="Activity Name" class="activityname-main add-event-inputs">
+                                                    <input type="date" name="activitydate" class="activitydate add-event-inputs">
                                                 </div>
                                             </div>
         
-                                            <div id="flex-container" class="add-events-container-button">
+                                            <div class="flex-container add-events-container-button">
                                                 <button id="addMoreActivity" type="button">Add More Activities</button>
                                                 <button id="closePopup" type="button">SAVE</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div> 
-                        <div id="flex-container" class="activities-header-two">
+                        <div class="flex-container activities-header-two">
                             <div class="sort-by">
-                                <div id="flex-container" class="sort-by-container">
+                                <div class="flex-container sort-by-container">
                                     <div class="sort-by-item">
                                         SORT BY
                                     </div>
@@ -327,7 +348,7 @@
                                 </div>
                             </div>
                             <div class="filter-by">
-                                <div id="flex-container" class="filter-by-container">
+                                <div class="flex-container filter-by-container">
                                     <div class="filter-by-item">
                                         FILTER BY
                                     </div>
@@ -364,12 +385,42 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div id="flex-container">
-                                        <div id="flex-container" class="edit-activity-images">
-                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
-                                            <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                    <div class="flex-container">
+                                        <div class="flex-container edit-activity-images">
+                                            <button id="myButtonActivityEdit">
+                                                <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            </button>
+                                            <div id="myPopupActivityEdit" class="popup" style="display: none;">
+                                                <div class="flex-container popup-content">
+                                                    <h1>EDIT ACTIVITY</h1>
+                                                    <div class="flex-container add-events-container">
+                                                        <div class="flex-container add-activities-events-holder">
+                                                            <div class="inputsActivityEdit">
+                                                                <input type="text" class="activityname add-event-inputs">
+                                                                <input type="date" name="activitydate" class="activitydate add-event-inputs">
+                                                            </div>
+                                                        </div>
+                    
+                                                        <div class="flex-container add-events-container-button">
+                                                            <button id="closePopup" type="button">SAVE</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button id="myButtonActivityDelete">
+                                                <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                            </button>
+                                            <div id="myPopupActivityDelete" class="popup" style="display: none;">
+                                                <div class="flex-container popup-content">
+                                                    <h1>DELETE ACTIVITY?</h1>
+                                                    <div class="flex-container add-events-container-button">
+                                                        <button id="closeDeletePopup" type="button">DELETE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        Painting Contest
+                                        <p id="activityNameSpecific">Painting Contest</p>
                                     </div>
                                 </td>
                                 <td>09/08/22</td>
@@ -387,12 +438,31 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div id="flex-container">
-                                        <div id="flex-container" class="edit-activity-images">
-                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                    <div class="flex-container">
+                                        <div class="flex-container edit-activity-images">
+                                            <button id="myButtonActivityEdit">
+                                                <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            </button>
+                                            <div id="myPopupActivityEdit" class="popup" style="display: none;">
+                                                <div class="flex-container popup-content">
+                                                    <h1>EDIT ACTIVITY</h1>
+                                                    <div class="flex-container add-events-container">
+                                                        <div class="flex-container add-activities-events-holder">
+                                                            <div class="inputsActivityEdit">
+                                                                <div class="activityname add-event-inputs"></div>
+                                                                <input type="date" name="activitydate" class="activitydate add-event-inputs">
+                                                            </div>
+                                                        </div>
+                    
+                                                        <div class="flex-container add-events-container-button">
+                                                            <button id="closePopup" type="button">SAVE</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
                                         </div>
-                                        Tug of War
+                                        <p id="activityNameSpecific">Tug of War</p>
                                     </div>
                                 </td>
                                 <td>09/08/22</td>
@@ -410,12 +480,31 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div id="flex-container">
-                                        <div id="flex-container" class="edit-activity-images">
-                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                    <div class="flex-container">
+                                        <div class="flex-container edit-activity-images">
+                                            <button id="myButtonActivityEdit">
+                                                <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            </button>
+                                            <div id="myPopupActivityEdit" class="popup" style="display: none;">
+                                                <div class="flex-container popup-content">
+                                                    <h1>EDIT ACTIVITY</h1>
+                                                    <div class="flex-container add-events-container">
+                                                        <div class="flex-container add-activities-events-holder">
+                                                            <div class="inputsActivityEdit">
+                                                                <div class="activityname add-event-inputs"></div>
+                                                                <input type="date" name="activitydate" class="activitydate add-event-inputs">
+                                                            </div>
+                                                        </div>
+                    
+                                                        <div class="flex-container add-events-container-button">
+                                                            <button id="closePopup" type="button">SAVE</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
                                         </div>
-                                        Paint War
+                                        <p id="activityNameSpecific">Paint War</p>
                                     </div>
                                 </td>
                                 <td>09/08/22</td>
@@ -433,12 +522,31 @@
                             </tr>
                             <tr class="hidden-row" data-visible="false">
                                 <td>
-                                    <div id="flex-container">
-                                        <div id="flex-container" class="edit-activity-images">
-                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                    <div class="flex-container">
+                                        <div class="flex-container edit-activity-images">
+                                            <button id="myButtonActivityEdit">
+                                                <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            </button>
+                                            <div id="myPopupActivityEdit" class="popup" style="display: none;">
+                                                <div class="flex-container popup-content">
+                                                    <h1>EDIT ACTIVITY</h1>
+                                                    <div class="flex-container add-events-container">
+                                                        <div class="flex-container add-activities-events-holder">
+                                                            <div class="inputsActivityEdit">
+                                                                <div class="activityname add-event-inputs"></div>
+                                                                <input type="date" name="activitydate" class="activitydate add-event-inputs">
+                                                            </div>
+                                                        </div>
+                    
+                                                        <div class="flex-container add-events-container-button">
+                                                            <button id="closePopup" type="button">SAVE</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
                                         </div>
-                                        Fashion Show
+                                        <p id="activityNameSpecific">Fashion Show</p>
                                     </div>
                                 </td>
                                 <td>09/08/22</td>
@@ -456,12 +564,31 @@
                             </tr>
                             <tr class="hidden-row" data-visible="false">
                                 <td>
-                                    <div id="flex-container">
-                                        <div id="flex-container" class="edit-activity-images">
-                                            <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                    <div class="flex-container">
+                                        <div class="flex-container edit-activity-images">
+                                            <button id="myButtonActivityEdit">
+                                                <img src="img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                                            </button>
+                                            <div id="myPopupActivityEdit" class="popup" style="display: none;">
+                                                <div class="flex-container popup-content">
+                                                    <h1>EDIT ACTIVITY</h1>
+                                                    <div class="flex-container add-events-container">
+                                                        <div class="flex-container add-activities-events-holder">
+                                                            <div class="inputsActivityEdit">
+                                                                <div class="activityname add-event-inputs"></div>
+                                                                <input type="date" name="activitydate" class="activitydate add-event-inputs">
+                                                            </div>
+                                                        </div>
+                    
+                                                        <div class="flex-container add-events-container-button">
+                                                            <button id="closePopup" type="button">SAVE</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <img src="img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
                                         </div>
-                                        Volleyball
+                                        <p id="activityNameSpecific">Volleyball</p>
                                     </div>
                                 </td>
                                 <td>09/08/22</td>
@@ -500,15 +627,15 @@
                 </div>
 
                 <div class="attendance-record">
-                    <div id="flex-container" class="attendance-header">
-                        <div id="flex-container" class="activities-header-one">
+                    <div class="flex-container attendance-header">
+                        <div class="flex-container activities-header-one">
                             <div class="attendance-title">
                                 <h3>ATTENDANCE</h3>
                             </div>
                         </div> 
-                        <div  id="flex-container"class="attendance-header-two">
+                        <div class="flex-container attendance-header-two">
                             <div class="sort-by">
-                                <div id="flex-container" class="sort-by-container">
+                                <div class="flex-container sort-by-container">
                                     <div class="sort-by-item">
                                         SORT BY
                                     </div>
@@ -525,7 +652,7 @@
                                 </div>
                             </div>
                             <div class="filter-by">
-                                <div id="flex-container" class="filter-by-container">
+                                <div class="flex-container filter-by-container">
                                     <div class="filter-by-item">
                                         FILTER BY
                                     </div>
@@ -602,6 +729,10 @@
             </div>
         </article>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html> 

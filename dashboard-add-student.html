@@ -20,7 +20,7 @@
     <header>
         <div class="row">
             <div class="column">
-                <a href="dashboard.html"><img src="/img/lsu.png" alt="LSU Logo" class="image image-logo-landing"></a>
+                <a href="dashboard.html"><img src="/img/lsu.png" alt="LSU Logo" class="img-logo-landing"></a>
             </div>
             <div class="column">
                 <a href="help.html"><img src="img/Question_fill.png" alt="Help and Resources" class="img-help"></a>
@@ -34,8 +34,8 @@
         <!-- navbar -->
         <nav>
             <div class="dashboard-nav">
-                <div id="flex-container" class="dashboard-nav-container">
-                    <div id="flex-container" class="img-participation-record-nav">
+                <div class="flex-container dashboard-nav-container">
+                    <div class="flex-container img-participation-record-nav">
                         <a href="university-events-admin.html">
                             <img src="img/Folder.png" alt="Participation Record Nav Icon">
                         </a>
@@ -43,23 +43,23 @@
                     <a href="university-events-admin.html">Participation Record</a>
                 </div>
                 <hr>
-                <div id="flex-container" class="dashboard-nav-container main-icons-container">
-                    <div id="flex-container" class="img-add-student-nav main-nav-icons">
+                <div class="flex-container dashboard-nav-container main-icons-container">
+                    <div class="flex-container img-add-student-nav main-nav-icons">
                         <a href="dashboard-add-student.html">
                             <img src="img/User_cicrle.png" alt="Add Student Account Nav Icon">
                         </a>
                     </div>
                     <a href="dashboard-add-student.html">ADD STUDENT</a>
                 </div>
-                <div id="flex-container" class="dashboard-nav-container main-icons-container">
-                    <div id="flex-container" class="img-archives-nav main-nav-icons">
+                <div class="flex-container dashboard-nav-container main-icons-container">
+                    <div class="flex-container img-archives-nav main-nav-icons">
                         <img src="img/Arhive_alt_small.png" alt="Archives Nav Icon">
                     </div>
                     <a href="#">ARCHIVES</a>
                 </div>
 
-                <div class="holder holder-widget">
-                    <div class="container container-widget">
+                <div class="container container-widget">
+                    <div class="holder holder-widget">
                         <div class="icon icon-widget">
                             <a href="login.html">
                                 <img src="img/On_button.png" alt="Log Out Icon">
@@ -75,42 +75,42 @@
 
         <!-- add student profile -->
         <section>
-            <div class="dashboard-holder">
-                <div id="flex-container" class="dashboard-container">
-                    <div id="flex-container" class="dashboard-student-profile-container">
+            <div class="container-dashboard">
+                <div class="flex-container holder-dashboard">
+                    <div class="flex-container container-dashboard-student-profile">
                         <div class="dashboard-student-profile-header">
                             <h4>LAST NAME</h4>
-                            <input type="text" class="dashboard-lastname-input" id="lastname-input">
+                            <input type="text" id="lastname-input">
                         </div>
                         <div class="dashboard-student-profile-header">
                             <h4>FIRST NAME</h4>
-                            <input type="text" class="dashboard-firstname-input" id="firstname-input">
+                            <input type="text" id="firstname-input">
                         </div>
                         <div class="dashboard-student-profile-header">
                             <h4>MIDDLE NAME</h4>
-                            <input type="text" class="dashboard-middlename-input" id="middlename-input">
+                            <input type="text" id="middlename-input">
                         </div>
                     
                         <hr>
                     
                         <div class="dashboard-student-profile-body">
                             <h4>ID NUMBER</h4>
-                            <input type="text" class="dashboard-idnumber-input" id="idnumber-input">
+                            <input type="text" class="dashboard-input-body" id="idnumber-input">
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>DEPARTMENT</h4>
-                            <input type="text" class="dashboard-department-input" id="department-input">
+                            <input type="text" class="dashboard-input-body" id="department-input">
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>COURSE</h4>
-                            <input type="text" class="dashboard-course-input" id="course-input">
+                            <input type="text" class="dashboard-input-body" id="course-input">
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>YEAR</h4>
-                            <input type="text" class="dashboard-year-input" id="year-input">
+                            <input type="text" class="dashboard-input-body" id="year-input">
                         </div>
                     
-                        <div id="flex-container" class="dashboard-button">
+                        <div class="flex-container dashboard-button">
                             <button type="button" id="addStudentProfile" class="buttons">ADD</button>
                         </div>
 
@@ -164,15 +164,9 @@
             
             document.getElementById("paragraphOne").innerHTML = 
             `${confirmationMessageOne}, ${confirmationMessageTwo} ${confirmationMessageThree}`;
-
-            document.getElementById("paragraphTwo").innerHTML = 
-            `${confirmationMessageFour}`;
-
-            document.getElementById("paragraphThree").innerHTML = 
-            `${confirmationMessageFive}`;
-
-            document.getElementById("paragraphFour").innerHTML = 
-            `${confirmationMessageSix} - ${confirmationMessageSeven}`;
+            document.getElementById("paragraphTwo").innerHTML = `${confirmationMessageFour}`;
+            document.getElementById("paragraphThree").innerHTML = `${confirmationMessageFive}`;
+            document.getElementById("paragraphFour").innerHTML = `${confirmationMessageSix} - ${confirmationMessageSeven}`;
 
             const popup = document.getElementById('popupContainer');
             popup.style.display = 'block';
