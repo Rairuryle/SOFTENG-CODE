@@ -1,18 +1,25 @@
+<?php 
+session_start();
+
+if (isset($_SESSION['AdminID']) && isset($_SESSION['Username'])) {
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/img/lsu.ico" type="image/x-icon">
-        <link rel="shortcut icon" href="/img/lsu.ico" type="image/x-icon">
+        <link rel="icon" href="img/lsu.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="img/lsu.ico" type="image/x-icon">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="/css/normalize.css">
-        <link rel="stylesheet" href="/css/styles.css">
-        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/dashboard.css">
         
         <title>LSU Events and Attendance Tracking Website</title>
     </head>
@@ -20,7 +27,7 @@
     <header>
         <div class="row">
             <div class="column">
-                <img src="/img/lsu.png" alt="LSU Logo" class="img-logo-landing">
+                <img src="img/lsu.png" alt="LSU Logo" class="img-logo-landing">
             </div>
             <div class="column">
                 <a href="help.html"><img src="img/Question_fill.png" alt="Help and Resources" class="img-help"></a>
@@ -30,7 +37,7 @@
             <h2>DASHBOARD</h2>
         </div>
     </header>
-    <section>
+    <div class="container-main-dashboard">
         <nav>
             <div class="dashboard-nav">
                 <div class="flex-container dashboard-nav-container">
@@ -72,7 +79,7 @@
             </div>
         </nav>
 
-        <section>
+        <article>
             <div class="container-dashboard">
                 <div class="flex-container holder-dashboard">
                     <div class="flex-container container-dashboard-message">
@@ -83,7 +90,14 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </section>
+        </article>
+    </div>
 </body>
 </html>
+
+<?php 
+}else{
+     header("Location: login.php");
+     exit();
+}
+ ?>

@@ -218,6 +218,7 @@ input[name="activitydate[]"]::placeholder {
 .activityname-main {
   padding: 0.2rem 7.8rem 0.2rem 0.7rem;
   margin-right: 1.5rem;
+  width: 60%;
 }
 
 .activitydate {
@@ -237,6 +238,7 @@ input[name="activityname[]"] {
   font-size: 0.9rem;
   padding: 0.2rem 7.8rem 0.2rem 0.7rem;
   margin-right: 1.8rem;
+  width: 60%;
 }
 
 /* Apply styles to input fields with name="activitydate[]" */

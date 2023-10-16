@@ -1,14 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-:root {
-  --main-green: #3c6255;
-  --secondary-green: #39594e;
-  --tertiary-green: #2f5045;
-  --darkest-green: #213a31;
-}
-
 .dashboard-title {
   color: white;
   text-align: center;
@@ -65,15 +54,20 @@ hr {
 
 /* dashboard main */
 
-section {
+.container-main-dashboard {
+  height: 65vh;
+}
+
+.container-main-dashboard,
+article {
   flex: 1;
   margin-left: 14rem;
 }
 
 .holder-dashboard {
   background-color: white;
-  height: 33.35rem;
-  width: 70%;
+  height: 65vh;
+  width: 80%;
   border-radius: 20px;
   margin-left: 2rem;
   justify-content: center;
@@ -90,6 +84,7 @@ section {
 .container-dashboard-student-profile {
   color: var(--main-green);
   width: 85%;
+  height: 100%;
 }
 
 .container-dashboard-student-profile input {
@@ -100,6 +95,16 @@ section {
   margin-bottom: 0.5rem;
 }
 
+.container-dashboard-student-profile-header,
+.container-dashboard-student-profile-body {
+  justify-content: space-between;
+}
+
+.container-dashboard-student-profile-body {
+  margin-top: -2rem;
+}
+
+
 .dashboard-student-profile-header input,
 .dashboard-student-profile-body input {
   border-radius: 15px;
@@ -109,7 +114,7 @@ section {
 #lastname-input,
 #firstname-input {
   width: 12rem;
-  margin-right: 1.2rem;
+  margin-right: 2rem;
 }
 
 #middlename-input {
@@ -118,22 +123,16 @@ section {
 
 .container-dashboard-student-profile hr {
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .dashboard-input-body {
   margin-top: -3rem;
 }
 
-#idnumber-input,
-#course-input {
-  margin-right: 7.88rem;
-}
-
 .dashboard-button {
   width: 100%;
   justify-content: flex-end;
-  margin-top: 5rem;
 }
 
 .buttons {

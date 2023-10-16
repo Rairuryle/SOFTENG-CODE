@@ -20,7 +20,7 @@
     <header>
         <div class="row">
             <div class="column">
-                <a href="dashboard.html"><img src="/img/lsu.png" alt="LSU Logo" class="img-logo-landing"></a>
+                <a href="dashboard.html"><img src="img/lsu.png" alt="LSU Logo" class="img-logo-landing"></a>
             </div>
             <div class="column">
                 <a href="help.html"><img src="img/Question_fill.png" alt="Help and Resources" class="img-help"></a>
@@ -30,7 +30,7 @@
             <h2>STUDENT PROFILE</h2>
         </div>
     </header>
-    <section>
+    <div class="container-main-dashboard">
         <!-- navbar -->
         <nav>
             <div class="dashboard-nav">
@@ -74,40 +74,44 @@
         </nav>
 
         <!-- add student profile -->
-        <section>
+        <article>
             <div class="container-dashboard">
                 <div class="flex-container holder-dashboard">
                     <div class="flex-container container-dashboard-student-profile">
-                        <div class="dashboard-student-profile-header">
-                            <h4>LAST NAME</h4>
-                            <input type="text" id="lastname-input">
-                        </div>
-                        <div class="dashboard-student-profile-header">
-                            <h4>FIRST NAME</h4>
-                            <input type="text" id="firstname-input">
-                        </div>
-                        <div class="dashboard-student-profile-header">
-                            <h4>MIDDLE NAME</h4>
-                            <input type="text" id="middlename-input">
+                        <div class="flex-container container-dashboard-student-profile-header">
+                            <div class="dashboard-student-profile-header">
+                                <h4>LAST NAME</h4>
+                                <input type="text" id="lastname-input">
+                            </div>
+                            <div class="dashboard-student-profile-header">
+                                <h4>FIRST NAME</h4>
+                                <input type="text" id="firstname-input">
+                            </div>
+                            <div class="dashboard-student-profile-header">
+                                <h4>MIDDLE NAME</h4>
+                                <input type="text" id="middlename-input">
+                            </div>
                         </div>
                     
                         <hr>
                     
-                        <div class="dashboard-student-profile-body">
-                            <h4>ID NUMBER</h4>
-                            <input type="text" class="dashboard-input-body" id="idnumber-input">
-                        </div>
-                        <div class="dashboard-student-profile-body">
-                            <h4>DEPARTMENT</h4>
-                            <input type="text" class="dashboard-input-body" id="department-input">
-                        </div>
-                        <div class="dashboard-student-profile-body">
-                            <h4>COURSE</h4>
-                            <input type="text" class="dashboard-input-body" id="course-input">
-                        </div>
-                        <div class="dashboard-student-profile-body">
-                            <h4>YEAR</h4>
-                            <input type="text" class="dashboard-input-body" id="year-input">
+                        <div class="flex-container container-dashboard-student-profile-body">
+                            <div class="dashboard-student-profile-body">
+                                <h4>ID NUMBER</h4>
+                                <input type="text" class="dashboard-input-body" id="idnumber-input">
+                            </div>
+                            <div class="dashboard-student-profile-body">
+                                <h4>DEPARTMENT</h4>
+                                <input type="text" class="dashboard-input-body" id="department-input">
+                            </div>
+                            <div class="dashboard-student-profile-body">
+                                <h4>COURSE</h4>
+                                <input type="text" class="dashboard-input-body" id="course-input">
+                            </div>
+                            <div class="dashboard-student-profile-body">
+                                <h4>YEAR</h4>
+                                <input type="text" class="dashboard-input-body" id="year-input">
+                            </div>
                         </div>
                     
                         <div class="flex-container dashboard-button">
@@ -130,8 +134,8 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </section>
+        </article>
+    </div>
     <script>
         function showPopupConfirmation() {
             const lastNameInput = document.getElementById('lastname-input');
