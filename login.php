@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (isset($_GET['error']) && $_GET['error'] === 'true') {
+    $error_message = "Incorrect username or password. Please try again.";
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,6 +25,14 @@
         <link rel="stylesheet" href="css/welcome.css">
 
         <title>LSU Events and Attendance Tracking Website</title>
+        <script>
+            if (window.history && window.history.pushState) {
+                window.history.pushState(null, null, window.location.href);
+                window.onpopstate = function(event) {
+                    window.history.pushState(null, null, window.location.href);
+                };
+            }
+        </script>
     </head>
 <body>
     <header>
@@ -39,8 +57,9 @@
             <form method="POST" action="login-process.php" class="folder-bottom-login">
                 <div class="form-group">
                 <?php if (isset($_GET['error'])) { ?>
-     		        <p class="error"><?php echo $_GET['error']; ?></p>
-     	        <?php } ?>
+                    <p class="error"><?php echo $_GET['error']; ?></p>
+                <?php } ?>
+
                     <input type="text" id="username" name="username" class="form-control" placeholder="USERNAME" required>
                 </div>
                 <div class="form-group password-form">

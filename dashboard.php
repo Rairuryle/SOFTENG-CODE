@@ -1,10 +1,11 @@
 <?php 
 session_start();
 
-if (isset($_SESSION['AdminID']) && isset($_SESSION['Username'])) {
-
- ?>
-
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+    header("Location: login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,6 +23,15 @@ if (isset($_SESSION['AdminID']) && isset($_SESSION['Username'])) {
         <link rel="stylesheet" href="css/dashboard.css">
         
         <title>LSU Events and Attendance Tracking Website</title>
+        <script>
+            if (window.history && window.history.pushState) {
+                window.history.pushState(null, null, window.location.href);
+                window.onpopstate = function(event) {
+                    window.history.pushState(null, null, window.location.href);
+                };
+            }
+        </script>
+
     </head>
 <body>
     <header>
@@ -94,10 +104,3 @@ if (isset($_SESSION['AdminID']) && isset($_SESSION['Username'])) {
     </div>
 </body>
 </html>
-
-<?php 
-}else{
-     header("Location: login.php");
-     exit();
-}
- ?>

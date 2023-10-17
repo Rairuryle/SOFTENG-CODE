@@ -127,6 +127,7 @@ body {
   height: 100%;
   width: 100%;
   justify-content: center;
+  margin-top: -1.9rem;
 }
 
 .login-form {
