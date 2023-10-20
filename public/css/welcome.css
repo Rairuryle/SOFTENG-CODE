@@ -1,0 +1,264 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --main-green: #3c6255;
+  --secondary-green: #39594e;
+  --tertiary-green: #2f5045;
+  --darkest-green: #213a31;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  height: 100%;
+  background-image: linear-gradient(
+    var(--main-green) 45%,
+    var(--secondary-green) 45%,
+    VAR(--secondary-green) 66.66%,
+    var(--tertiary-green) 66.66%
+  );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+/* LANDINGPAGE.HTML */
+
+.title,
+.introduction {
+  display: table;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+}
+
+.title {
+  width: 20rem;
+  height: 5rem;
+  margin-bottom: 15px;
+}
+
+.introduction {
+  width: 35rem;
+  margin-bottom: 30px;
+}
+
+.title h2,
+.introduction span {
+  color: white;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.introduction span {
+  font-style: italic;
+}
+
+.searchspace,
+.folder-bottom {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.searchspace {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 40%;
+  height: 9rem;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  margin-top: auto;
+}
+
+#searchIDNumber {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #213a31;
+  padding-bottom: 7px;
+  width: 30vw;
+}
+
+/* .container-folder-bottom {
+  position: fixed;
+  z-index: -1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: none;
+  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.folder-bottom-up {
+  width: 50%;
+  border-radius: 15px 15px 0 0;
+  height: 45vh;
+} */
+
+.folder-bottom {
+  background-color: #213a31;
+  width: 50%;
+  border-radius: 15px 15px 0 0;
+  height: 46.9vh;
+}
+
+/* LOGIN.HTML */
+
+.login-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  width: 100%;
+}
+
+.login-space {
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  margin-top: -1.9rem;
+}
+
+.login-form {
+  width: 28%;
+  height: 7rem;
+  margin: 0;
+}
+
+.login-form h2 {
+  color: var(--main-green);
+}
+
+.folder-bottom-above {
+  height: 18vh;
+  background-color: black;
+}
+
+.folder-bottom-login {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: var(--darkest-green);
+  border-radius: 15px 15px 0 0;
+  justify-content: center;
+  height: 58.5vh;
+}
+
+.form-login {
+  border: none;
+  outline: none;
+  background-color: var(--darkest-green);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  margin-bottom: 70px;
+  padding-bottom: 7px;
+  width: 22vw;
+  color: white;
+}
+
+.form-register {
+  border: none;
+  outline: none;
+  background-color: var(--darkest-green);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.6rem;
+  padding-bottom: 7px;
+  width: 22vw;
+  color: white;
+}
+
+.form-login::placeholder,
+.form-register::placeholder {
+  letter-spacing: 0.3em;
+  color: white;
+  opacity: 0.7;
+}
+
+#togglePassword {
+  position: absolute;
+  top: 10%;
+  right: 2px; /* Adjust the right margin as needed */
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+}
+
+.password-form {
+  position: relative; /* Set the position to relative for proper absolute positioning */
+}
+
+#register-button,
+#login-login-button {
+  width: 22vw;
+  border-radius: 20px;
+  border-color: 1px solid var(--darkest-green);
+  padding: 0.5rem 0;
+  color: var(--main-green);
+  font-weight: bold;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+}
+
+/* HELP.HTML */
+.title h1 {
+  font-size: 5rem;
+  margin-bottom: -1.5rem;
+  letter-spacing: 0.2em;
+}
+
+.title-help {
+  margin-top: -4rem;
+  text-align: center;
+}
+
+.container-help {
+  width: 60%;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+}
+
+.container-help-section {
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.container-help-text {
+  width: 80%;
+  margin: auto;
+}
+
+.help-question {
+  background-color: var(--main-green);
+  color: white;
+  border-radius: 25px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+}
+
+.help-answer {
+  width: 95%;
+  margin: auto;
+  color: var(--darkest-green);
+}
+
+.img-help-main {
+  cursor: default;
+}

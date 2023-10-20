@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/lsu.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/lsu.ico" type="image/x-icon">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+    <title>LSU Events and Attendance Tracking Website</title>
+</head>
+<body>
+    <nav class="sidenav">
+        <!-- sidenav -->
+        <div class="navi">
+            <div class="container container-logo">
+                <div class="holder holder-logo">
+                    <div class="icon icon-logo">
+                        <img src="../img/lsu.png" alt="LSU Logo" class="img-logo">
+                    </div>
+                    <div class="text text-logo">
+                        <a href="university-events-admin.html">Events and Attendance Tracking Website</a>
+                    </div>
+                </div>
+            </div>
+            <h1>EVENTS</h1>
+            <hr>
+            <div class="container">
+                <div class="flex-container">
+                    <div class="icon icon-textflag">
+                        <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag">
+                    </div>
+                    <div class="text text-textflag">
+                        INSTITUTIONAL
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="nav-link">PASIMULA</a>
+            <a href="#" class="nav-link">KULTURANIMO</a>
+            <a href="#" class="nav-link">PANAGHUGPONG</a>
+            <a href="#" class="nav-link">PANAGSADYA</a>
+
+            <div class="container container-widget">
+                <div class="holder holder-widget">
+                    <div class="icon icon-widget">
+                        <a href="dashboard.html">
+                            <img src="../img/Menu.png" alt="Dashboard Icon">
+                        </a>
+                    </div>
+                    <div class="text text-widget text-widget-dashboard">
+                        <a href="dashboard.html" class="link-widget">DASHBOARD</a>
+                    </div>
+                </div>
+                
+                <div class="holder holder-widget">
+                    <div class="icon icon-widget">
+                        <a href="university-events-edit.html">
+                            <img src="../img/Edit.png" alt="Edit Mode Icon">
+                        </a>
+                    </div>
+                    <div class="text text-widget text-widget-edit">
+                        <a href="university-events-edit.html" class="link-widget">EDIT MODE</a>
+                    </div>
+                </div>
+
+                <div class="holder holder-widget">
+                    <div class="icon icon-widget">
+                        <a href="login.html"><img src="../img/On_button.png" alt="Log Out Icon"></a>
+                    </div>
+                    <div class="text text-widget text-widget-logout">
+                        <a href="login.html" class="link-widget">LOG OUT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <header>
+            <!-- header -->
+            <div class="flex-container header-container">
+                <div class="header-title">
+                    <ul class="flex-container list header-list">
+                        <li class="header-item item-one">
+                            <h4>College of Computer Studies, Engineering, and Architecture</h4>
+                        </li>
+                        <li class="header-item item-two">
+                            <h5>RYLE ILISAN</h5>
+                        </li>
+                        <li class="header-item item-three">
+                            <img src="../img/User_cicrle_duotone.png" alt="Profile Image">
+                        </li>
+                        <li class="header-item item-four">
+                            <a href="help.html"><img src="../img/Question_fill.png" alt="Help and Resources"></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- profile -->
+                <div class="grid-container">
+                    <div class="grid-item-one grid-headers">
+                        <div class="grid-searchspace">
+                            <div class="form-group">
+                                <input type="search" id="gridsearchIDNumber"  class="form-control" placeholder="Search ID Number...">
+                            </div>
+                            <span class="material-symbols-outlined" style="color:white">
+                                search
+                            </span>
+                        </div>
+                    </div>
+                    <div class="grid-item-two grid-headers">
+                        <h2 class="studentname">Hisoler, Angel Mae A.</h2>
+                        <div class="IDNumber"><p>G11545742</p></div>
+                    </div>
+                    <div class="grid-item-three item-profile item-profile-basis">
+                        Department
+                    </div>
+                    <div class="grid-item-four item-profile item-profile-basis">
+                        Course
+                    </div>
+                    <div class="grid-item-five item-profile item-profile-basis">
+                        Year
+                    </div>
+                    <div class="grid-item-six item-profile item-profile-name">
+                        CCSEA
+                    </div>
+                    <div class="grid-item-seven item-profile item-profile-name">
+                        BSIT
+                    </div>
+                    <div class="grid-item-eight item-profile item-profile-name">
+                        Year 3
+                    </div>
+                    <div class="grid-item-nine item-status">
+                        ACTIVE
+                    </div>
+                    <div class="grid-item-ten item-status">
+                        NOT EXEMPTED
+                    </div>
+                    <!-- total points -->
+                    <div class="grid-item-eleven item-points">
+                        TOTAL POINTS ACQUIRED
+                    </div>
+                    <div class="grid-item-twelve item-points total-points points-title">
+                        CURRENT DAY
+                    </div>
+                    <div class="grid-item-thirteen item-points total-points grid-points">
+                        <h1>8</h1>
+                    </div>
+                    <div class="grid-item-fourteen item-points total-points points-title">
+                        CURRENT SEMESTER
+                    </div>
+                    <div class="grid-item-fifteen item-points total-points grid-points">
+                        <h1>32</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section>
+            <!-- academic period -->
+            <div class="flex-container academic-period-container">
+                <div class="flex-container academic-year">
+                    <div class="academic-year-name academic-year-present">
+                        <a href="#" id="main-record-link">A.Y. 2022-2023</a>
+                    </div>
+                    <div class="academic-year-name academic-year-past academic-year-previous">
+                        <a href="#" id="main-record-link">A.Y. 2021-2022</a>
+                    </div>
+                    <div class="academic-year-name academic-year-past academic-year-others">
+                        <a href="#" id="main-record-link">. . .</a>
+                    </div>
+                </div>
+            </div>
+            <!-- semester -->
+            <div class="flex-container semester-container">
+                <div class="flex-container activity">
+                    <div class="activity-name">
+                        CCSEA WEEK
+                    </div>
+                    <div class="activity-day">
+                        <select name="activity day dropdown" id="activity-day-dropdown">
+                            <option value="DAY 1" class="options">DAY 1</option>
+                            <option value="DAY 2">DAY 2</option>
+                            <option value="DAY 3">DAY 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex-container semester">     
+                    <div class="semester-name semester-one">
+                        <a href="#" id="main-record-link">1ST SEMESTER</a>
+                    </div>
+                    <div class="semester-name semester-two">
+                        <a href="#" id="main-record-link">2ND SEMESTER</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <article>
+            <div class="record-container">
+                <div class="activities-record">
+                    <div class="flex-container activities-header">
+                        <div class="flex-container activities-header-one">
+                            <div class="activity-title">
+                                <h3>ACTIVITIES</h3>
+                            </div>
+                        </div> 
+                        <div class="flex-container activities-header-two">
+                            <div class="sort-by">
+                                <div class="flex-container sort-by-container">
+                                    <div class="sort-by-item">
+                                        SORT BY
+                                    </div>
+                                    <div>
+                                        <img src="../img/Group 30.png" alt="sort icon">
+                                    </div>
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href="#">ACTIVITY NAME</a>
+                                    <a href="#">DATE</a>
+                                    <a href="#">ROLE</a>
+                                    <a href="#">POINTS</a>
+                                    <a href="#">OFFICER-IN-CHARGE</a>
+                                </div>
+                            </div>
+                            <div class="filter-by">
+                                <div class="flex-container filter-by-container">
+                                    <div class="filter-by-item">
+                                        FILTER BY
+                                    </div>
+                                    <div>
+                                        <img src="../img/Group 30.png" alt="filter icon">
+                                    </div>
+                                </div>
+                                <div class="dropdown-content dropdown-content-two">
+                                    <a href="#">ACTIVITIES PARTICIPATED</a>
+                                    <a href="#">ACTIVITIES MISSED</a>
+                                </div>
+                            </div>
+                            <div class="activity-searchspace">
+                                <div class="form-group">
+                                    <input type="search" id="searchActivity"  class="form-control" placeholder="Search...">
+                                </div>
+                                <span class="material-symbols-outlined" style="color:white;">
+                                    search
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- participation record table -->
+                    <div class="participation-record-table">
+                        <!-- activities table -->
+                        <table class="activities-table">
+                            <tr>
+                                <th>ACTIVITY NAME</th>
+                                <th>DATE</th>
+                                <th>ROLE</th>
+                                <th>POINTS</th>
+                                <th>OFFICER-IN-CHARGE</th>
+                            </tr>
+                            <tr>
+                                <td>Orientation about Student Services</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>E-Games (ML, COD) Open Category Championship</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr>
+                                <td>Canvas Painting Contest</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>Shoot your Trash</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr class="hidden-row" data-visible="false">
+                                <td>Color War</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr class="hidden-row" data-visible="false">
+                                <td>Catch the Dragon's Tail</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr class="hidden-row" data-visible="false">
+                                <td>Zumba</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr>
+                                <tr class="hidden-row" data-visible="false">
+                                <td>Pahina sa La Salle</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr class="hidden-row" data-visible="false">
+                                <td>Fashion Show</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr class="hidden-row" data-visible="false">
+                                <td>Volleyball</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" id="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Angel Hisoler</td>
+                            </tr>
+                            <tr class="see-more-row">
+                                <td class="see-more" colspan="5">See More</td>
+                            </tr>
+                        </table>
+
+                        <div class="results-grid-container">
+                            <div class="grid-item-sixteen">
+                                <div class="verification-item">VERIFY DAY</div>
+                                <div class="verification-check">
+                                    <label class="checkbox-container">
+                                        <input checked="checked" type="checkbox">
+                                        <div class="checkmark"></div>
+                                      </label>
+                                </div>
+                            </div>
+                            <div class="grid-item-seventeen">
+                                ACTIVITY <br> SUBTOTAL <br> 
+                                <h1>25</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="attendance-record">
+                    <div class="flex-container attendance-header">
+                        <div class="flex-container activities-header-one">
+                            <div class="attendance-title">
+                                <h3>ATTENDANCE</h3>
+                            </div>
+                        </div> 
+                        <div class="flex-container attendance-header-two">
+                            <div class="sort-by">
+                                <div class="flex-container sort-by-container">
+                                    <div class="sort-by-item">
+                                        SORT BY
+                                    </div>
+                                    <div>
+                                        <img src="../img/Group 30.png" alt="sort icon">
+                                    </div>
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href="#">DATE</a>
+                                    <a href="#">AM</a>
+                                    <a href="#">PM</a>
+                                    <a href="#">POINTS</a>
+                                    <a href="#">OFFICER-IN-CHARGE</a>
+                                </div>
+                            </div>
+                            <div class="filter-by">
+                                <div class="flex-container filter-by-container">
+                                    <div class="filter-by-item">
+                                        FILTER BY
+                                    </div>
+                                    <div>
+                                        <img src="../img/Group 30.png" alt="filter icon">
+                                    </div>
+                                </div>
+                                <div class="dropdown-content dropdown-content-two">
+                                    <a href="#">MORNING ABSENCES</a>
+                                    <a href="#">AFTERNOON ABSENCES</a>
+                                </div>
+                            </div>
+                            <div class="attendance-searchspace">
+                                <div class="form-group">
+                                    <input type="search" id="searchAttendance"  class="form-control" placeholder="Search...">
+                                </div>
+                                <span class="material-symbols-outlined" style="color:white;">
+                                    search
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- participation record table -->
+                    <div class="participation-record-table">
+                        <!-- attendance table -->
+                        <table class="attendance-table">
+                            <tr>
+                                <th>DATE</th>
+                                <th>AM</th>
+                                <th colspan="2">PM</th>
+                                <th>POINTS</th>
+                                <th>OFFICER-IN-CHARGE</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">SEPTEMBER 8, 2022</td>
+                                <td>LOG-IN</td>
+                                <td>LOG-IN</td>
+                                <td>LOG-OUT</td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="ui-checkbox">
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr>
+                        </table>
+
+                        <div class="results-grid-container">
+                            <div class="grid-item-sixteen">
+                                <div class="verification-item">VERIFY DAY</div>
+                                <div class="verification-check">
+                                    <label class="checkbox-container">
+                                        <input checked="checked" type="checkbox">
+                                        <div class="checkmark"></div>
+                                      </label>
+                                </div>
+                            </div>
+                            <div class="grid-item-seventeen">
+                                <div>ATTENDANCE <br> SUBTOTAL</div>
+                                <div><h1>25</h1></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+    <script src="../js/script.js"></script>
+</body>
+</html> 
