@@ -1,6 +1,8 @@
 const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const express = require('express');
+const app = express();
 
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
@@ -49,7 +51,7 @@ exports.login = async (req, res) => {
 
         if (!username || !password) {
             return res.render('login', {
-                message: 'Please provide both username and password.'
+                message: 'Please provide both username and password'
             });
         }
 
@@ -61,36 +63,60 @@ exports.login = async (req, res) => {
                 });
             }
 
-            if (results.length === 0) {
-                console.log("User not found:", username);
+            if (results.length === 0 || !(await bcrypt.compare(password, results[0].password))) {
                 return res.render('login', {
-                    message: 'User not found. Please try again.'
-                });
-            }
-
-            const user = results[0];
-            console.log("User data from the database:", user);
-
-            const isPasswordValid = await bcrypt.compare(password, user.password);
-
-            if (!isPasswordValid) {
-                console.log("Incorrect password for user:", username);
-                return res.render('login', {
-                    message: 'Incorrect password. Please try again.'
+                    message: 'Username or password is incorrect'
                 });
             } else {
-                // Set the session variable to indicate that the user is authenticated
+                // If the username and password are correct, create a JWT token for authentication
+                const user = results[0];
+                console.log("User data from the database:", user);
+                const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+                    expiresIn: process.env.JWT_EXPIRES_IN
+                });
+                
+
+                console.log('Token is: ' + token);
+
+                // Store the token in a cookie
+                const cookieOptions = {
+                    expires: new Date(
+                        Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                    ),
+                    httpOnly: true
+                };
+                res.cookie('jwt', token, cookieOptions);
+
+                // Redirect to a dashboard or other authenticated page
                 req.session.isAuthenticated = true;
                 console.log("User logged in:", username);
-
-                // User successfully logged in
-                return res.redirect('/dashboard');
+                res.redirect('/dashboard');
             }
         });
     } catch (error) {
-        console.log(error);
-        return res.render('login', {
-            message: 'An error occurred. Please try again.'
-        });
+        console.error(error);
     }
 };
+
+// app.get('/dashboard-add-student', (req, res) => {
+//   const token = req.headers.authorization;
+
+//   if (!token) {
+//     return res.status(401).send('Unauthorized');
+//   }
+
+//   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+//     if (err) {
+//       return res.status(401).send('Unauthorized');
+//     }
+
+//     // At this point, the token is verified, and decoded contains the token payload.
+//     const userId = decoded.id; // Assuming you stored the user's ID in the token during login
+
+//     // You can now identify the user and display their information.
+//     console.log('User ID from token:', userId);
+
+//     // Continue with serving the /records route.
+//     res.send('This is the records page.');
+//   });
+// });
