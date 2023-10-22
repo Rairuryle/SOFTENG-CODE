@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="stylesheet" href="../css/styles.css">
         <link rel="stylesheet" href="../css/dashboard.css">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         
         <title>LSU Events and Attendance Tracking Website</title>
     </head>
@@ -75,21 +77,21 @@
 
         <!-- add student profile -->
         <article>
-            <div class="container-dashboard">
+            <form action="/university-events-admin" method="POST" class="container-dashboard">
                 <div class="flex-container holder-dashboard">
                     <div class="flex-container container-dashboard-student-profile">
                         <div class="flex-container container-dashboard-student-profile-header">
                             <div class="dashboard-student-profile-header">
                                 <h4>LAST NAME</h4>
-                                <input type="text" id="lastname-input">
+                                <input type="text" id="lastnameInput" name="lastnameInput">
                             </div>
                             <div class="dashboard-student-profile-header">
                                 <h4>FIRST NAME</h4>
-                                <input type="text" id="firstname-input">
+                                <input type="text" id="firstnameInput" name="firstnameInput">
                             </div>
                             <div class="dashboard-student-profile-header">
                                 <h4>MIDDLE NAME</h4>
-                                <input type="text" id="middlename-input">
+                                <input type="text" id="middlenameInput" name="middlenameInput">
                             </div>
                         </div>
                     
@@ -98,19 +100,28 @@
                         <div class="flex-container container-dashboard-student-profile-body">
                             <div class="dashboard-student-profile-body">
                                 <h4>ID NUMBER</h4>
-                                <input type="text" class="dashboard-input-body" id="idnumber-input">
+                                <input type="text" id="idnumberInput" class="dashboard-input-body" name="idnumberInput" maxlength="10">
                             </div>
                             <div class="dashboard-student-profile-body">
                                 <h4>DEPARTMENT</h4>
-                                <input type="text" class="dashboard-input-body" id="department-input">
+                                <select id="departmentInput" class="form-control dashboard-input-body" name="departmentInput" >
+                                    <option disabled="disabled" selected="selected"></option>
+                                    <option value="CAS">CAS</option>
+                                    <option value="CBA">CBA</option>
+                                    <option value="CCJE">CCJE</option>
+                                    <option value="CCSEA">CCSEA</option>
+                                    <option value="CON">CON</option>
+                                    <option value="CTE">CTE</option>
+                                    <option value="CTHM">CTHM</option>
+                                </select>
                             </div>
                             <div class="dashboard-student-profile-body">
                                 <h4>COURSE</h4>
-                                <input type="text" class="dashboard-input-body" id="course-input">
+                                <input type="text" class="dashboard-input-body" id="courseInput" name="courseInput">
                             </div>
                             <div class="dashboard-student-profile-body">
                                 <h4>YEAR</h4>
-                                <input type="text" class="dashboard-input-body" id="year-input">
+                                <input type="number" class="dashboard-input-body" id="yearInput" name="yearInput">
                             </div>
                         </div>
                     
@@ -133,36 +144,37 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </article>
     </div>
+     Welcome {{ first_name }} {{ last_name }}
     <script>
         function showPopupConfirmation() {
-            const lastNameInput = document.getElementById('lastname-input');
+            const lastNameInput = document.getElementById('lastnameInput');
             const lastName = lastNameInput.value;
             const confirmationMessageOne = `${lastName}`;
 
-            const firstNameInput = document.getElementById('firstname-input');
+            const firstNameInput = document.getElementById('firstnameInput');
             const firstName = firstNameInput.value;
             const confirmationMessageTwo = `${firstName}`;
 
-            const middleNameInput = document.getElementById('middlename-input');
+            const middleNameInput = document.getElementById('middlenameInput');
             const middleName = middleNameInput.value;
             const confirmationMessageThree = `${middleName}`;
 
-            const idNumberInput = document.getElementById('idnumber-input');
+            const idNumberInput = document.getElementById('idnumberInput');
             const idNumber = idNumberInput.value;
             const confirmationMessageFour = `${idNumber}`;
 
-            const departmentInput = document.getElementById('department-input');
+            const departmentInput = document.getElementById('departmentInput');
             const department = departmentInput.value;
             const confirmationMessageFive = `${department}`;
 
-            const courseInput = document.getElementById('course-input');
+            const courseInput = document.getElementById('courseInput');
             const course = courseInput.value;
             const confirmationMessageSix = `${course}`;
 
-            const yearInput = document.getElementById('year-input');
+            const yearInput = document.getElementById('yearInput');
             const year = yearInput.value;
             const confirmationMessageSeven = `${year}`;
             
@@ -182,12 +194,44 @@
         }
 
         function confirmAction() {
-            // Perform the action you want to take when the user confirms
-            // For example, you can send the data to a server or update the UI.
+            // Extract data from the form
+            const lastName = $('#lastnameInput').val();
+            const firstName = $('#firstnameInput').val();
+            const middleName = $('#middlenameInput').val();
+            const idNumber = $('#idnumberInput').val();
+            const department = $('#departmentInput').val();
+            const course = $('#courseInput').val();
+            const year = $('#yearInput').val();
 
-            // Then, close the popup
-            
-            closePopupConfirmation();
+            // Create a data object to send to the server
+            const formData = {
+                lastnameInput: lastName,
+                firstnameInput: firstName,
+                middlenameInput: middleName,
+                idnumberInput: idNumber,
+                departmentInput: department,
+                courseInput: course,
+                yearInput: year,
+            };
+
+            // Send a POST request to your Express route
+            $.ajax({
+                type: 'POST',
+                url: '/university-events-admin',
+                data: formData,
+                success: function (response) {
+                    // Handle the server's response if needed
+                    console.log(response);
+
+                    // Close the popup
+                    closePopupConfirmation();
+                },
+
+                error: function (error) {
+                    console.error('Error:', error);
+                    // Handle the error if needed
+                },
+            });
         }
 
         // Attach the showPopup function to the "ADD" button click event

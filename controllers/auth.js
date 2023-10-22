@@ -74,7 +74,6 @@ exports.login = async (req, res) => {
                 const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
                 });
-                
 
                 console.log('Token is: ' + token);
 
@@ -89,6 +88,8 @@ exports.login = async (req, res) => {
 
                 // Redirect to a dashboard or other authenticated page
                 req.session.isAuthenticated = true;
+                req.session.first_name = user.first_name; // Store the username in the session
+                req.session.last_name = user.last_name; // Store the username in the session
                 console.log("User logged in:", username);
                 res.redirect('/dashboard');
             }
@@ -120,3 +121,5 @@ exports.login = async (req, res) => {
 //     res.send('This is the records page.');
 //   });
 // });
+
+

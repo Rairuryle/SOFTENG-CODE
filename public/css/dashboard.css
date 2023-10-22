@@ -87,8 +87,13 @@ article {
   height: 100%;
 }
 
-.container-dashboard-student-profile input {
+.container-dashboard-student-profile input,
+.container-dashboard-student-profile select {
   border: 2px solid var(--main-green);
+}
+
+.container-dashboard-student-profile-header {
+  width: 100%;
 }
 
 .dashboard-student-profile-header h4 {
@@ -104,20 +109,19 @@ article {
   margin-top: -2rem;
 }
 
-
 .dashboard-student-profile-header input,
 .dashboard-student-profile-body input {
   border-radius: 15px;
   padding: 0.3rem 0 0.3rem 0.5rem;
 }
 
-#lastname-input,
-#firstname-input {
+#lastnameInput,
+#firstnameInput {
   width: 12rem;
   margin-right: 2rem;
 }
 
-#middlename-input {
+#middlenameInput {
   width: 10.4rem;
 }
 
@@ -128,6 +132,14 @@ article {
 
 .dashboard-input-body {
   margin-top: -3rem;
+}
+
+#departmentInput {
+  border-radius: 15px;
+  width: 14.7rem;
+  height: 1.9rem;
+  padding: 0.1rem 0 0.3rem 0.5rem;
+  font-size: 1rem;
 }
 
 .dashboard-button {

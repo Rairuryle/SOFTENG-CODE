@@ -18,8 +18,6 @@
     </head>
 <body>
     <header>
-            <h1>Welcome, {{ username }}!</h1>
-
         <div class="row">
             <div class="column">
                 <img src="../img/lsu.png" alt="LSU Logo" class="img-logo-landing">
@@ -38,11 +36,11 @@
             <div class="dashboard-nav">
                 <div class="flex-container dashboard-nav-container">
                     <div class="flex-container img-participation-record-nav">
-                        <a href="/university-events-admin">
+                        <a href="/college-events-admin">
                             <img src="../img/Folder.png" alt="Participation Record Nav Icon">
                         </a>
                     </div>
-                    <a href="/university-events-admin">Participation Record</a>
+                    <a href="/college-events-admin">Participation Record</a>
                 </div>
                 <hr>
                 <div class="flex-container dashboard-nav-container main-icons-container">
@@ -88,5 +86,6 @@
             </div>
         </article>
     </div>
+    Welcome {{ first_name }} {{ last_name }}
 </body>
 </html>
