@@ -18,13 +18,21 @@
     </head>
 <body>
     <header>
-        <div class="row">
-            <div class="column">
-                <img src="../img/lsu.png" alt="LSU Logo" class="img-logo-landing">
-            </div>
-            <div class="column">
-                <a href="/help"><img src="../img/Question_fill.png" alt="Help and Resources" class="img-help"></a>
-            </div>
+        <div class="header-title-dashboard">
+            <ul class="flex-container list header-list">
+                <li class="header-item item-one-dashboard">
+                    <img src="../img/lsu.png" alt="LSU Logo" class="img-logo-landing">
+                </li>
+                <li class="header-item item-two">
+                    <h5> {{ first_name }} {{ last_name }}</h5>
+                </li>
+                <li class="header-item item-three">
+                    <img src="../img/User_cicrle_duotone.png" alt="Profile Image">
+                </li>
+                <li class="header-item item-four">
+                    <a href="/help"><img src="../img/Question_fill.png" alt="Help and Resources"></a>
+                </li>
+            </ul>
         </div>
         <div class="dashboard-title">
             <h2>DASHBOARD</h2>
@@ -36,11 +44,11 @@
             <div class="dashboard-nav">
                 <div class="flex-container dashboard-nav-container">
                     <div class="flex-container img-participation-record-nav">
-                        <a href="/college-events-admin">
+                        <a href="/university-events-admin">
                             <img src="../img/Folder.png" alt="Participation Record Nav Icon">
                         </a>
                     </div>
-                    <a href="/college-events-admin">Participation Record</a>
+                    <a href="/university-events-admin">Participation Record</a>
                 </div>
                 <hr>
                 <div class="flex-container dashboard-nav-container main-icons-container">
@@ -86,6 +94,5 @@
             </div>
         </article>
     </div>
-    Welcome {{ first_name }} {{ last_name }}
 </body>
 </html>

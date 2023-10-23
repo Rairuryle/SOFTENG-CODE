@@ -34,7 +34,12 @@ exports.register = (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 8);
         console.log("Hashed Password (Registration):", hashedPassword);
         
-        db.query('INSERT INTO admin SET?', { last_name: lastnameRegister, first_name: firstnameRegister, organization: organizationRegister, username: username, password: hashedPassword }, (error, results) => {
+        db.query('INSERT INTO admin SET?', { 
+            last_name: lastnameRegister, 
+            first_name: firstnameRegister, 
+            organization: organizationRegister, 
+            username: username, 
+            password: hashedPassword }, (error, results) => {
             if(error) {
                 console.log(error);
             } else {

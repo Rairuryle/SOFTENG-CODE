@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/eventsedit.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
     <title>LSU Events and Attendance Tracking Website</title>
 </head>
 <body>
@@ -43,7 +41,35 @@
                         INSTITUTIONAL
                     </div>
                     <div class="icon icon-textflag textflag-add-institutional-event">
-                        <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event">
+                       <button id="myButtonEvent">
+                            <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event">
+                        </button>
+
+                        <div id="myPopupEvent" class="popup" style="display: none;">
+                            <div class="flex-container popup-content">
+                                <h1>ADD EVENT</h1>
+                                <div class="flex-container add-events-container">
+                                    <div class="flex-container add-events-holder">
+                                        <input type="text" name="eventname" class="eventname add-event-inputs" placeholder="Event Name">
+                                        <input type="text" name="daterange" class="eventdate add-event-inputs">
+                                    </div>
+
+                                    <div class="flex-container add-activities-events-holder">
+                                        Activities
+                                        <hr class="popup-hr">
+                                        <div class="inputs">
+                                            <input type="text" name="activityname" placeholder="Activity Name" class="activityname-main add-event-inputs">
+                                            <input type="date" name="activitydate" class="activitydate add-event-inputs">
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-container add-events-container-button">
+                                        <button id="addMore" type="button">Add More Activities</button>
+                                        <button id="closePopup" type="button">SAVE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -544,6 +570,7 @@
             </div>
         </article>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
     <script src="../js/script.js"></script>
 </body>
 </html> 

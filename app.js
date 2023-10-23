@@ -70,7 +70,14 @@ app.post('/university-events-admin', (req, res) => {
             console.log(error);
         }
         
-        db.query('INSERT INTO student SET?', { id_number: idnumberInput, last_name: lastnameInput, first_name: firstnameInput, middle_name: middlenameInput, department_name: departmentInput, course_name: courseInput, year_level: yearInput }, (error, results) => {
+        db.query('INSERT INTO student SET?', { 
+            id_number: idnumberInput, 
+            last_name: lastnameInput, 
+            first_name: firstnameInput, 
+            middle_name: middlenameInput, 
+            department_name: departmentInput, 
+            course_name: courseInput, 
+            year_level: yearInput }, (error, results) => {
             if(error) {
                 console.log(error);
             } else {

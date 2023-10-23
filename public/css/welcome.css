@@ -163,7 +163,7 @@ body {
   outline: none;
   background-color: var(--darkest-green);
   border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-  margin-bottom: 70px;
+  margin-bottom: 3rem;
   padding-bottom: 7px;
   width: 22vw;
   color: white;
@@ -210,6 +210,16 @@ body {
   font-weight: bold;
   letter-spacing: 0.3em;
   cursor: pointer;
+}
+
+#register-choice {
+  color: white;
+  display: flex;
+}
+
+#register-choice a {
+  padding-left: 0.4rem;
+  color: var(--main-green);
 }
 
 /* HELP.HTML */

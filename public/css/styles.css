@@ -997,6 +997,7 @@ td {
 
 .column {
   margin: 20px 40px;
+  display: flex;
 }
 
 .img-logo-landing {
