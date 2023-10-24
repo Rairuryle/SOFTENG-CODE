@@ -1,176 +1,15 @@
 <head>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
     <link rel="stylesheet" href="../css/eventsedit.css">
-
 </head>
-
-<nav class="sidenav">
-    <!-- sidenav -->
-    <div class="navi">
-        <div class="container container-logo">
-            <div class="holder holder-logo">
-                <div class="icon icon-logo">
-                    <a href="/university-events-admin"><img src="../img/lsu.png" alt="LSU Logo" class="img-logo"></a>
-                </div>
-                <div class="text text-logo">
-                    <a href="/university-events-admin">Events and Attendance Tracking Website</a>
-                </div>
-            </div>
-        </div>
-        <h1>EVENTS</h1>
-        <hr>
-        <div class="container container-textflag">
-            <div class="flex-container">
-                <div class="icon icon-textflag">
-                    <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag">
-                </div>
-                <div class="text text-textflag">
-                    INSTITUTIONAL
-                </div>
-                <div class="icon icon-textflag textflag-add-institutional-event">
-                    <button id="myButtonEventUniv">
-                        <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event">
-                    </button>
-
-                    <div id="myPopupEventUniv" class="popup" style="display: none;">
-                        <div class="flex-container popup-content">
-                            <h1>ADD EVENT</h1>
-                            <div class="flex-container add-events-container">
-                                <div class="flex-container add-events-holder">
-                                    <input type="text" name="eventname" class="eventname add-event-inputs"
-                                        placeholder="Event Name">
-                                    <input type="text" name="daterange" class="eventdate add-event-inputs">
-                                </div>
-
-                                <div class="flex-container add-activities-events-holder">
-                                    Activities
-                                    <hr class="popup-hr">
-                                    <div class="inputs">
-                                        <input type="text" name="activityname" placeholder="Activity Name"
-                                            class="activityname-main add-event-inputs">
-                                        <input type="date" name="activitydate" class="activitydate add-event-inputs">
-                                    </div>
-                                </div>
-
-                                <div class="flex-container add-events-container-button">
-                                    <button id="addMore" type="button">Add More Activities</button>
-                                    <button id="closePopup" type="button">SAVE</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="nav-link">
-            <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit" class="modify-button">
-                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
-                </button>
-                <button type="button" id="myButtonEventDelete" class="modify-button">
-                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
-                </button>
-            </div>
-            PASIMULA
-        </a>
-
-        <a href="#" class="nav-link">
-            <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit" class="modify-button">
-                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
-                </button>
-                <button type="button" id="myButtonEventDelete" class="modify-button">
-                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
-                </button>
-            </div>
-            KULTURANIMO
-        </a>
-
-        <a href="#" class="nav-link">
-            <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit" class="modify-button">
-                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
-                </button>
-                <button type="button" id="myButtonEventDelete" class="modify-button">
-                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
-                </button>
-            </div>
-            PANAGHUGPONG
-        </a>
-
-        <a href="#" class="nav-link">
-            <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit" class="modify-button">
-                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
-                </button>
-                <button type="button" id="myButtonEventDelete" class="modify-button">
-                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
-                </button>
-            </div>
-            PANAGSADYA
-        </a>
-
-        <div class="container container-widget">
-            <div class="holder holder-widget">
-                <div class="icon icon-widget">
-                    <a href="/university-events-admin">
-                        <img src="../img/Edit.png" alt="Edit Mode Icon">
-                    </a>
-                </div>
-                <div class="text text-widget text-widget-edit">
-                    <a href="/university-events-admin" class="link-widget">EXIT EDIT MODE</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
+{{> navbarUniversityEdit}}
 <main>
     <header>
         <!-- header -->
         <div class="flex-container header-container">
-            <div class="header-title">
-                <ul class="flex-container list header-list">
-                    <li class="header-item item-one">
-                        <h4>College of Computer Studies, Engineering, and Architecture</h4>
-                    </li>
-                    <li class="header-item item-two">
-                        <h5>{{ first_name }} {{ last_name }}</h5>
-                    </li>
-                    <li class="header-item item-three">
-                        <img src="../img/User_cicrle_duotone.png" alt="Profile Image">
-                    </li>
-                    <li class="header-item item-four">
-                        <a href="/help"><img src="../img/Question_fill.png" alt="Help and Resources"></a>
-                    </li>
-                </ul>
-            </div>
+            {{> headerRecords}}
             <!-- profile -->
             <div class="grid-container">
-                <div class="grid-item-one grid-headers">
-                    <div class="grid-searchspace">
-                        <div class="form-group">
-                            <input type="search" id="gridsearchIDNumber" class="form-control"
-                                placeholder="Search ID Number...">
-                        </div>
-                        <span class="material-symbols-outlined" style="color:white">
-                            search
-                        </span>
-                    </div>
-                </div>
-                <div class="grid-item-two grid-headers">
-                    <h2 class="studentname">Hisoler, Angel Mae A.</h2>
-                    <div class="IDNumber">
-                        <p>G11545742</p>
-                    </div>
-                </div>
-                <div class="grid-item-three item-profile item-profile-basis">Department</div>
-                <div class="grid-item-four item-profile item-profile-basis">Course</div>
-                <div class="grid-item-five item-profile item-profile-basis">Year</div>
-                <div class="grid-item-six item-profile item-profile-name">CCSEA</div>
-                <div class="grid-item-seven item-profile item-profile-name">BSIT</div>
-                <div class="grid-item-eight item-profile item-profile-name">3</div>
+                {{> profileStudent}}
                 <div class="grid-item-nine item-status">
                     <label class="toggle">
                         <input type="checkbox">
@@ -186,18 +25,9 @@
                             <span class="labels" data-on="EXEMPT." data-off="N.EXEMPT."></span>
                         </label>
                     </div>
-                    <img src="../img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile">
-                </div>
-
-                <!-- total points -->
-                <div class="grid-item-eleven item-points">TOTAL POINTS ACQUIRED</div>
-                <div class="grid-item-twelve item-points total-points points-title">CURRENT DAY</div>
-                <div class="grid-item-thirteen item-points total-points grid-points">
-                    <h1>8</h1>
-                </div>
-                <div class="grid-item-fourteen item-points total-points points-title">CURRENT SEMESTER</div>
-                <div class="grid-item-fifteen item-points total-points grid-points">
-                    <h1>32</h1>
+                    <button>
+                        <img src="../img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile" />
+                    </button>
                 </div>
             </div>
         </div>
@@ -546,3 +376,7 @@
     </article>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

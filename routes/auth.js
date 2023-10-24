@@ -7,4 +7,6 @@ router.post('/register', authController.register );
 
 router.post('/login', authController.login );
 
+// router.post('/dashboard-add-student', authController.login );
+
 module.exports = router;

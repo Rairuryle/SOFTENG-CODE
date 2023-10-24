@@ -62,9 +62,27 @@ hr {
   margin-left: 0.5rem;
 }
 
-.text-widget-logout {
+.holder-widget {
+  margin-bottom: 0.5rem;
+}
+
+.icon-widget-register {
+  margin-left: 1rem;
+}
+
+.text-widget {
   padding-top: 0.1rem;
   font-size: 1rem;
+}
+
+.text-widget-register {
+  margin-left: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.text-widget-logout {
+  margin-left: 0.6rem;
+  margin-top: 0.1rem;
 }
 
 /* dashboard main */

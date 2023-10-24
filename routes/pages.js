@@ -28,8 +28,8 @@ router.get('/help', (req, res) => {
     res.render('help', { title: 'Help and Resources | LSU Events and Attendance Tracking Website' });
 });
 
-router.get('/student-participation-record-student', (req, res) => {
-    res.render('student-participation-record-student', { title: 'Student Participation Record | LSU Events and Attendance Tracking Website' });
+router.get('/student-participation-record', (req, res) => {
+    res.render('student-participation-record', { title: 'Student Participation Record | LSU Events and Attendance Tracking Website' });
 });
 
 router.get('/dashboard', (req, res) => {
@@ -56,7 +56,8 @@ router.get('/college-events-admin', (req, res) => {
     if (req.session.isAuthenticated) {
         const first_name = req.session.first_name;
         const last_name = req.session.last_name;
-        res.render('college-events-admin', { first_name, last_name, title: 'Admin Main Page | LSU Events and Attendance Tracking Website' });
+        const studentData = req.session.studentData;
+        res.render('college-events-admin', { first_name, last_name, studentData, title: 'Admin Main Page | LSU Events and Attendance Tracking Website' });
     } else {
         res.redirect('/login');
     }
@@ -66,7 +67,8 @@ router.get('/college-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {
         const first_name = req.session.first_name;
         const last_name = req.session.last_name;
-        res.render('college-events-edit', { first_name, last_name, title: 'Admin Edit Page | LSU Events and Attendance Tracking Website' });
+        const studentData = req.session.studentData;
+        res.render('college-events-edit', { first_name, last_name, studentData, title: 'Admin Edit Page | LSU Events and Attendance Tracking Website' });
     } else {
         res.redirect('/login');
     }
@@ -76,7 +78,8 @@ router.get('/university-events-admin', (req, res) => {
     if (req.session.isAuthenticated) {
         const first_name = req.session.first_name; 
         const last_name = req.session.last_name;
-        res.render('university-events-admin', { first_name, last_name, title: 'Admin Main Page | LSU Events and Attendance Tracking Website' });
+        const studentData = req.session.studentData;
+        res.render('university-events-admin', { first_name, last_name, studentData, title: 'Admin Main Page | LSU Events and Attendance Tracking Website' });
     } else {
         res.redirect('/login');
     }
@@ -86,7 +89,8 @@ router.get('/university-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {
         const first_name = req.session.first_name;
         const last_name = req.session.last_name;
-        res.render('university-events-edit', { first_name, last_name, title: 'Admin Edit Page | LSU Events and Attendance Tracking Website' });
+        const studentData = req.session.studentData;
+        res.render('university-events-edit', { first_name, last_name, studentData, title: 'Admin Edit Page | LSU Events and Attendance Tracking Website' });
     } else {
         res.redirect('/login');
     }

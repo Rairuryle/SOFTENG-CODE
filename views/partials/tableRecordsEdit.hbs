@@ -1,79 +1,4 @@
-<head>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
-  <link rel="stylesheet" href="/resources/demos/style.css" />
-  <link rel="stylesheet" href="../css/eventsedit.css" />
-</head>
-{{> navbarCollegeEdit}}
-<main>
-  <header>
-    <!-- header -->
-    <div class="flex-container header-container">
-      {{> headerRecords}}
-      <!-- profile -->
-      <div class="grid-container">
-        {{> profileStudent}}
-        <div class="grid-item-nine item-status">
-          <label class="toggle">
-            <input type="checkbox" />
-            <span class="slider"></span>
-            <span class="labels" data-on="ACTIVE" data-off="INACTIVE"></span>
-          </label>
-        </div>
-        <div class="grid-item-ten item-status">
-          <div>
-            <label class="toggle">
-              <input type="checkbox" />
-              <span class="slider"></span>
-              <span class="labels" data-on="EXEMPT." data-off="N.EXEMPT."></span>
-            </label>
-          </div>
-          <button>
-            <img src="../img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile" />
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
-  <section>
-    <!-- academic period -->
-    <div class="flex-container academic-period-container">
-      <div class="flex-container academic-year">
-        <div class="academic-year-name academic-year-present">
-          <a href="#" id="main-record-link">A.Y. 2022-2023</a>
-        </div>
-        <div class="academic-year-name academic-year-past academic-year-previous">
-          <a href="#" id="main-record-link">A.Y. 2021-2022</a>
-        </div>
-        <div class="academic-year-name academic-year-past academic-year-others">
-          <a href="#" id="main-record-link">. . .</a>
-        </div>
-      </div>
-    </div>
-    <!-- semester -->
-    <div class="flex-container semester-container">
-      <div class="flex-container activity">
-        <div class="activity-name">CCSEA WEEK</div>
-        <div class="activity-day">
-          <select name="activity day dropdown" id="activity-day-dropdown">
-            <option value="DAY 1" class="options">DAY 1</option>
-            <option value="DAY 2">DAY 2</option>
-            <option value="DAY 3">DAY 3</option>
-          </select>
-        </div>
-      </div>
-      <div class="flex-container semester">
-        <div class="semester-name semester-one">
-          <a href="#" id="main-record-link">1ST SEMESTER</a>
-        </div>
-        <div class="semester-name semester-two">
-          <a href="#" id="main-record-link">2ND SEMESTER</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <article>
+<article>
     <div class="record-container">
       <div class="activities-record">
         <div class="flex-container activities-header">
@@ -493,8 +418,3 @@
       </div>
     </div>
   </article>
-</main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

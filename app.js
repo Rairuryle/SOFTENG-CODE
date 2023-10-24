@@ -71,28 +71,45 @@ app.post('/university-events-admin', (req, res) => {
 
     const { lastnameInput, firstnameInput, middlenameInput, idnumberInput, departmentInput, courseInput, yearInput } = req.body;
 
+    // Check if the user with the provided ID number exists in the student table
     db.query('SELECT id_number FROM student WHERE id_number = ?', [idnumberInput], async (error, results) => {
-        if(error) {
+        if (error) {
             console.log(error);
         }
-        
-        db.query('INSERT INTO student SET?', { 
-            id_number: idnumberInput, 
-            last_name: lastnameInput, 
-            first_name: firstnameInput, 
-            middle_name: middlenameInput, 
-            department_name: departmentInput, 
-            course_name: courseInput, 
-            year_level: yearInput }, (error, results) => {
-            if(error) {
-                console.log(error);
-            } else {
-                console.log(results);
-                res.redirect('/university-events-admin');
-            }
-        })
+
+        // Insert the student data into the student table if it doesn't already exist
+        if (results.length === 0) {
+            db.query('INSERT INTO student SET ?', {
+                id_number: idnumberInput,
+                last_name: lastnameInput,
+                first_name: firstnameInput,
+                middle_name: middlenameInput,
+                department_name: departmentInput,
+                course_name: courseInput,
+                year_level: yearInput
+            }, (error, results) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(results);
+                }
+            });
+        }
+
+        // Store user-related data in the session
+        req.session.studentData = { 
+            id_number: idnumberInput,
+            last_name: lastnameInput,
+            first_name: firstnameInput,
+            middle_name: middlenameInput,
+            department_name: departmentInput,
+            course_name: courseInput,
+            year_level: yearInput 
+        };
+
+        res.redirect('/university-events-admin');
     });
-})
+});
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000");

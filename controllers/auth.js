@@ -128,3 +128,40 @@ exports.login = async (req, res) => {
 // });
 
 
+// exports.addStudent = (req, res) => {
+//     console.log(req.body);
+
+//     const { lastnameInput, firstnameInput, middlenameInput, idnumberInput, departmentInput, courseInput, yearInput } = req.body;
+
+//     db.query('SELECT id_number FROM student WHERE id_number = ?', [idnumberInput], async (error, results) => {
+//         if(error) {
+//             console.log(error);
+//         }
+
+//         // if(results.length > 0) {
+//         //     return res.render('register', {
+//         //         message: 'That username is already in use'
+//         //     })
+//         // } else if( password !== passwordConfirm ) {
+//         //     return res.render('register', {
+//         //         message: 'Passwords do not match'
+//         //     });
+//         // }
+        
+//         db.query('INSERT INTO student SET?', { 
+//             last_name: lastnameInput, 
+//             first_name: firstnameInput, 
+//             middle_name: middlenameInput,
+//             id_number: idnumberInput, 
+//             department_name: departmentInput, 
+//             course_name: courseInput,
+//             year_level: yearInput }, (error, results) => {
+//             if(error) {
+//                 console.log(error);
+//             } else {
+//                 console.log(results);
+//                 res.redirect('/dashboard-add-student');
+//             }
+//         })
+//     });
+// }
