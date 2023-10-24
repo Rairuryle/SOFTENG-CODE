@@ -321,7 +321,7 @@ input[name="activitydate[]"] {
   padding: 0;
 }
 
-#eventNameSpecific {
+.eventNameSpecific {
   margin: 0;
 }
 

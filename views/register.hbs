@@ -1,79 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="../img/lsu.ico" type="image/x-icon">
-        <link rel="shortcut icon" href="../img/lsu.ico" type="image/x-icon">
+<head>
+    <link rel="stylesheet" href="../css/welcome.css">
+</head>
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-
-        <link rel="stylesheet" href="../css/normalize.css">
-        <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="../css/welcome.css">
-
-        <title>LSU Events and Attendance Tracking Website</title>
-        
-    </head>
-<body>
-    <header>
-        <img src="../img/image 6.png" alt="" class="login-bg">
-        <div class="row">
-            <div class="column">
-                <img src="../img/lsu.png" alt="LSU Logo" class="img-logo-landing">
-            </div>
-            <div class="column">
-                <a href="/help">
-                    <img src="../img/Question_fill.png" alt="Help and Resources" class="img-help">
-                </a>
-            </div>
+<header>
+    <img src="../img/image 6.png" alt="" class="login-bg">
+    <div class="row">
+        <div class="column">
+            <img src="../img/lsu.png" alt="LSU Logo" class="img-logo-landing">
         </div>
-        
-        <div class="flex-container login-space">
-            <div class="folder-bottom-above"></div>
-            <div class="searchspace login-form">
-                <h2>REGISTER</h2>
-                
+        <div class="column">
+            <a href="/help">
+                <img src="../img/Question_fill.png" alt="Help and Resources" class="img-help">
+            </a>
+        </div>
+    </div>
+
+    <div class="flex-container login-space">
+        <div class="folder-bottom-above"></div>
+        <div class="searchspace login-form">
+            <h2>REGISTER</h2>
+
+        </div>
+        <form action="/auth/register" method="POST" class="folder-bottom-login">
+            <div class="form-group">
+                <input type="text" id="lastnameRegister" name="lastnameRegister" class="form-control form-register"
+                    placeholder="LAST NAME" required>
             </div>
-            <form action="/auth/register" method="POST" class="folder-bottom-login">
-                <div class="form-group">
-                    <input type="text" id="lastnameRegister" name="lastnameRegister" class="form-control form-register" placeholder="LAST NAME" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="firstnameRegister" name="firstnameRegister" class="form-control form-register" placeholder="FIRST NAME" required>
-                </div>
-                <div class="form-group">
-                    <select id="organizationRegister" name="organizationRegister" class="form-control form-register">
-                            <option disabled="disabled" selected="selected">ORGANIZATION</option>
-                            <option value="SAO">SAO</option>
-                            <option value="USG">USG</option>
-                            <option value="CAS">CAS</option>
-                            <option value="CBA">CBA</option>
-                            <option value="CCJE">CCJE</option>
-                            <option value="CCSEA">CCSEA</option>
-                            <option value="CON">CON</option>
-                            <option value="CTE">CTE</option>
-                            <option value="CTHM">CTHM</option>
-                        </select>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="username" name="username" class="form-control form-register" placeholder="USERNAME" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="password" name="password" class="form-control form-register" placeholder="PASSWORD" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control form-register" placeholder="CONFIRM PASSWORD" required>
-                </div>
-                <button type="submit" id="register-button">
+            <div class="form-group">
+                <input type="text" id="firstnameRegister" name="firstnameRegister" class="form-control form-register"
+                    placeholder="FIRST NAME" required>
+            </div>
+            <div class="form-group">
+                <select id="organizationRegister" name="organizationRegister" class="form-control form-register">
+                    <option disabled="disabled" selected="selected">ORGANIZATION</option>
+                    <option value="SAO">SAO</option>
+                    <option value="USG">USG</option>
+                    <option value="CAS">CAS</option>
+                    <option value="CBA">CBA</option>
+                    <option value="CCJE">CCJE</option>
+                    <option value="CCSEA">CCSEA</option>
+                    <option value="CON">CON</option>
+                    <option value="CTE">CTE</option>
+                    <option value="CTHM">CTHM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" id="username" name="username" class="form-control form-register"
+                    placeholder="USERNAME" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" class="form-control form-register"
+                    placeholder="PASSWORD" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control form-register"
+                    placeholder="CONFIRM PASSWORD" required>
+            </div>
+            <button type="submit" id="register-button">
                 REGISTER
-                </button>
-            </form>
-            {{#if message }}
-            <h4>{{message}}</h4>
+            </button>
+        </form>
+        {{#if message }}
+        <h4>{{message}}</h4>
         {{/if}}
-        </div>
-    </header>
-</body>
-</html>
+    </div>
+</header>

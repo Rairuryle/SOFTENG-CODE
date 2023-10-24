@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const path = require('path');
 const mysql = require("mysql");
 const dotenv = require('dotenv');
+const exphbs = require('express-handlebars'); 
 const session = require('express-session'); // Import express-session
 const authMiddleware = require('./middleware/authMiddleware'); // Import the authentication middleware
 const bodyParser = require('body-parser'); // For parsing form data
-
 
 dotenv.config({ path: './.env' });
 
@@ -25,6 +25,13 @@ app.use(express.static(publicDirectory));
 app.use(express.urlencoded({ extended: false }));
 //  parse JSON bodies (as sent by API clients)
 app.use(express.json());
+
+app.engine('hbs', exphbs.engine({
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: __dirname + '/views/layouts',
+    partialsDir: __dirname + '/views/partials' // Specify the partials directory
+}));
 
 app.set('view engine', 'hbs');
 
@@ -46,7 +53,6 @@ db.connect( (error) => {
 //define routes
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
-
 app.use('/dashboard', authMiddleware);
 
 app.get('/logout', (req, res) => {

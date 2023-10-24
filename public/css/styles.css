@@ -66,6 +66,8 @@ a {
   position: relative;
   overflow: hidden;
   display: flex;
+  padding: 5px 0 5px 60px;
+  font-size: 1rem;
 }
 
 .nav-link:before {
@@ -92,11 +94,6 @@ a {
 .nav-link.active:before {
   transform: scaleX(1);
   background-color: VAR(--secondary-green);
-}
-
-.nav-link {
-  padding: 5px 0 5px 60px;
-  font-size: 1rem;
 }
 
 hr {
@@ -130,7 +127,6 @@ hr {
   margin-left: 8px;
 }
 
-/* sidenav logo & textflag */
 
 .holder {
   display: flex;
@@ -671,7 +667,7 @@ td {
   font-size: 0.8rem;
 }
 
-#student-role-dropdown {
+.student-role-dropdown {
   background-color: white;
   border: 2px solid var(--darkest-green);
   border-radius: 15px;
@@ -680,22 +676,22 @@ td {
   padding: 0 0.3rem;
 }
 
-#student-role-dropdown option[value="INDIV Participant"] {
+.student-role-dropdown option[value="INDIV Participant"] {
   color: #ac330d;
   font-weight: bold;
 }
 
-#student-role-dropdown option[value="TEAM Participant"] {
+.student-role-dropdown option[value="TEAM Participant"] {
   color: #ac330d;
   font-weight: bold;
 }
 
-#student-role-dropdown option[value="PROG. Spectator"] {
+.student-role-dropdown option[value="PROG. Spectator"] {
   color: #3c7cdb;
   font-weight: bold;
 }
 
-#student-role-dropdown option[value="OTH. Spectator"] {
+.student-role-dropdown option[value="OTH. Spectator"] {
   color: #3c7cdb;
   font-weight: bold;
 }

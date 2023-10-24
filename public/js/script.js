@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-var selects = document.querySelectorAll("#student-role-dropdown");
+var selects = document.querySelectorAll(".student-role-dropdown");
 
 // Add an event listener to each select element
 selects.forEach(function(select) {
@@ -55,7 +55,7 @@ seeMoreButton.addEventListener("click", function () {
 });
 
 
-// popup button @ college-events-edit.html
+// popup button @ university-events-edit & college-events-edit
 // Get references to the buttons and the popup
 const myButtonEvent = document.getElementById("myButtonEvent");
 const myButtonEventEdit = document.getElementById("myButtonEventEdit");
@@ -94,6 +94,7 @@ function closePopup() {
     myPopupActivityDelete.style.display = "none";
 }
 
+
 myButtonEvent.addEventListener("click", function () {
     showPopup(myPopupEvent);
 });
@@ -119,6 +120,8 @@ myButtonActivityDelete.addEventListener("click", function () {
 });
 
 // Close the popups when clicking outside or on "SAVE" button
+
+
 myPopupEvent.addEventListener("click", function (event) {
     if (event.target === myPopupEvent) {
         closePopup();
@@ -172,7 +175,7 @@ saveButtonActivityDelete.addEventListener("click", closePopup);
 
 myButtonActivityEdit.addEventListener("click", function () {
     // Get the text from #activityNameSpecific
-    const activityNameSpecific = document.getElementById("activityNameSpecific").textContent;
+    const activityNameSpecific = document.querySelector(".activityNameSpecific").textContent;
 
     // Update all elements with class .activityname
     const activityNameElements = document.querySelectorAll(".activityname");
@@ -185,7 +188,7 @@ myButtonActivityEdit.addEventListener("click", function () {
 
 myButtonEventEdit.addEventListener("click", function () {
     // Get the text from #activityNameSpecific
-    const eventNameSpecific = document.getElementById("eventNameSpecific").textContent;
+    const eventNameSpecific = document.querySelector(".eventNameSpecific").textContent;
 
     // Update all elements with class .activityname
     const eventNameElements = document.querySelectorAll(".eventname");
