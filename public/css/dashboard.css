@@ -167,7 +167,7 @@ article {
   margin-top: -3rem;
 }
 
-#departmentInput {
+.dashboard-dropdown {
   border-radius: 15px;
   width: 14.7rem;
   height: 1.9rem;

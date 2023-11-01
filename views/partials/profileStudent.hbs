@@ -3,21 +3,26 @@
         <div class="form-group">
             <input type="search" id="gridsearchIDNumber" class="form-control" placeholder="Search ID Number...">
         </div>
-        <span class="material-symbols-outlined" style="color:white">search</span>
+        <span id="searchButton" class="material-symbols-outlined" style="color:white">search</span>
     </div>
 </div>
 <div class="grid-item-two grid-headers">
+    <!-- Display student information here -->
+    {{#if studentData}}
     <h2 class="studentname">{{studentData.last_name}}, {{studentData.first_name}} {{studentData.middle_name}}</h2>
     <div class="IDNumber">
         <p>{{studentData.id_number}}</p>
     </div>
+    {{else}}
+    <p>No student found with the provided ID number.</p>
+    {{/if}}
 </div>
 <div class="grid-item-three item-profile item-profile-basis">Department</div>
 <div class="grid-item-four item-profile item-profile-basis">Course</div>
 <div class="grid-item-five item-profile item-profile-basis">Year</div>
-<div class="grid-item-six item-profile item-profile-name">{{studentData.department_name}}</div>
-<div class="grid-item-seven item-profile item-profile-name">{{studentData.course_name}}</div>
-<div class="grid-item-eight item-profile item-profile-name">{{studentData.year_level}}</div>
+<div class="departmentname grid-item-six item-profile item-profile-name">{{studentData.department_name}}</div>
+<div class="coursename grid-item-seven item-profile item-profile-name">{{studentData.course_name}}</div>
+<div class="yearlevel grid-item-eight item-profile item-profile-name">{{studentData.year_level}}</div>
 
 <!-- total points -->
 <div class="grid-item-eleven item-points">TOTAL POINTS ACQUIRED</div>

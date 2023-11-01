@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+document.getElementById("gridsearchIDNumber").maxLength = "9";
+
 var selects = document.querySelectorAll(".student-role-dropdown");
 
 // Add an event listener to each select element
@@ -266,6 +268,7 @@ $(function() {
     });
   });
   
+
 
 document.AddEventListener('DOMContentLoaded', function () {
     loadHTMLTable([]);

@@ -10,9 +10,7 @@
                 <div class="icon icon-logo">
                     <img src="../img/lsu.png" alt="LSU Logo" class="img-logo">
                 </div>
-                <div class="text text-logo">
-                    <a href="/student-participation-record-student">Events and Attendance Tracking Website</a>
-                </div>
+                <div class="text text-logo">Events and Attendance Tracking Website</div>
             </div>
         </div>
         <h1>EVENTS</h1>
@@ -22,9 +20,7 @@
                 <div class="icon icon-textflag">
                     <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag">
                 </div>
-                <div class="text text-textflag">
-                    INSTITUTIONAL
-                </div>
+                <div class="text text-textflag">INSTITUTIONAL</div>
             </div>
         </div>
         <a href="#" class="nav-link">PASIMULA</a>
@@ -37,9 +33,7 @@
                 <div class="icon icon-textflag">
                     <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag">
                 </div>
-                <div class="text text-textflag">
-                    COLLEGE
-                </div>
+                <div class="text text-textflag">COLLEGE</div>
             </div>
         </div>
         <a href="#" class="nav-link">CCSEA WEEK</a>
@@ -54,7 +48,7 @@
             <div class="header-title">
                 <ul class="flex-container list header-list">
                     <li class="header-item item-one">
-                        <h4>College of Computer Studies, Engineering, and Architecture</h4>
+                        <h4>LSU Events and Attendance Tracking Website</h4>
                     </li>
                     <li class="header-item item-four">
                         <a href="/help"><img src="../img/Question_fill.png" alt="Help and Resources"></a>
@@ -63,13 +57,9 @@
             </div>
             <!-- profile -->
             <div class="grid-container">
-                {{> studentProfile}}
-                <div class="grid-item-nine item-status">
-                    ACTIVE
-                </div>
-                <div class="grid-item-ten item-status">
-                    NOT EXEMPTED
-                </div>
+                {{> profileStudent}}
+                <div class="activestatus grid-item-nine item-status">{{studentData.active_status}}</div>
+                <div class="exemptionstatus grid-item-ten item-status">{{studentData.exemption_status}}</div>
             </div>
         </div>
     </header>
@@ -91,9 +81,7 @@
         <!-- semester -->
         <div class="flex-container semester-container">
             <div class="flex-container activity">
-                <div class="activity-name">
-                    CCSEA WEEK
-                </div>
+                <div class="activity-name">CCSEA WEEK</div>
                 <div class="activity-day">
                     <select name="activity day dropdown" id="activity-day-dropdown">
                         <option value="DAY 1" class="options">DAY 1</option>
@@ -125,9 +113,7 @@
                     <div class="flex-container activities-header-two">
                         <div class="sort-by">
                             <div class="flex-container sort-by-container">
-                                <div class="sort-by-item">
-                                    SORT BY
-                                </div>
+                                <div class="sort-by-item">SORT BY</div>
                                 <div>
                                     <img src="../img/Group 30.png" alt="sort icon">
                                 </div>
@@ -142,12 +128,8 @@
                         </div>
                         <div class="filter-by">
                             <div class="flex-container filter-by-container">
-                                <div class="filter-by-item">
-                                    FILTER BY
-                                </div>
-                                <div>
-                                    <img src="../img/Group 30.png" alt="filter icon">
-                                </div>
+                                <div class="filter-by-item">FILTER BY</div>
+                                <div><img src="../img/Group 30.png" alt="filter icon"></div>
                             </div>
                             <div class="dropdown-content dropdown-content-two">
                                 <a href="#">ACTIVITIES PARTICIPATED</a>
@@ -251,9 +233,7 @@
                     <div class="flex-container attendance-header-two">
                         <div class="sort-by">
                             <div class="flex-container sort-by-container">
-                                <div class="sort-by-item">
-                                    SORT BY
-                                </div>
+                                <div class="sort-by-item">SORT BY</div>
                                 <div>
                                     <img src="../img/Group 30.png" alt="sort icon">
                                 </div>
@@ -268,9 +248,7 @@
                         </div>
                         <div class="filter-by">
                             <div class="flex-container filter-by-container">
-                                <div class="filter-by-item">
-                                    FILTER BY
-                                </div>
+                                <div class="filter-by-item">FILTER BY</div>
                                 <div>
                                     <img src="../img/Group 30.png" alt="filter icon">
                                 </div>
@@ -284,9 +262,7 @@
                             <div class="form-group">
                                 <input type="search" id="searchAttendance" class="form-control" placeholder="Search...">
                             </div>
-                            <span class="material-symbols-outlined" style="color:white;">
-                                search
-                            </span>
+                            <span class="material-symbols-outlined" style="color:white;">search</span>
                         </div>
                     </div>
                 </div>
@@ -308,9 +284,7 @@
                             <td>LOG-OUT</td>
                         </tr>
                         <tr>
-                            <td>
-                                September 8, 2022
-                            </td>
+                            <td>September 8, 2022</td>
                             <td>
                                 <input type="checkbox" class="disabled-checkbox" class="hidden-checkbox" disabled>
                             </td>

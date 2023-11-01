@@ -40,11 +40,11 @@
                         <div class="dashboard-student-profile-body">
                             <h4>ID NUMBER</h4>
                             <input type="text" id="idnumberInput" class="dashboard-input-body" name="idnumberInput"
-                                maxlength="10">
+                                maxlength="9">
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>DEPARTMENT</h4>
-                            <select id="departmentInput" class="form-control dashboard-input-body"
+                            <select id="departmentInput" class="form-control dashboard-input-body dashboard-dropdown"
                                 name="departmentInput">
                                 <option disabled="disabled" selected="selected"></option>
                                 <option value="CAS">CAS</option>
@@ -64,6 +64,25 @@
                             <h4>YEAR</h4>
                             <input type="number" class="dashboard-input-body" id="yearInput" name="yearInput">
                         </div>
+                        <div class="dashboard-student-profile-body">
+                            <h4>ACTIVE STATUS</h4>
+                            <select id="activeStatusInput" class="form-control dashboard-input-body dashboard-dropdown"
+                                name="activeStatusInput">
+                                <option disabled="disabled" selected="selected"></option>
+                                <option value="ACTIVE">ACTIVE</option>
+                                <option value="INACTIVE">INACTIVE</option>
+                            </select>
+                        </div>
+                        <div class="dashboard-student-profile-body">
+                            <h4>EXEMPTION STATUS</h4>
+                            <select id="exemptionStatusInput"
+                                class="form-control dashboard-input-body dashboard-dropdown"
+                                name="exemptionStatusInput">
+                                <option disabled="disabled" selected="selected"></option>
+                                <option value="EXEMPTED">EXEMPTED</option>
+                                <option value="NOT EXEMPTED">NOT EXEMPTED</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="flex-container dashboard-button">
@@ -79,6 +98,8 @@
                             <div id="paragraphTwo" class="paragraphPass"></div>
                             <div id="paragraphThree" class="paragraphPass"></div>
                             <div id="paragraphFour" class="paragraphPass"></div>
+                            <div id="paragraphFive" class="paragraphPass"></div>
+                            <div id="paragraphSix" class="paragraphPass"></div>
                             <button class="buttons" onclick="confirmAction()">CONFIRM</button>
                             <button class="buttons" onclick="closePopupConfirmation()">CANCEL</button>
                         </div>
@@ -88,56 +109,7 @@
         </form>
     </article>
 </div>
-<script>
-    function showPopupConfirmation() {
-        const lastNameInput = document.getElementById('lastnameInput');
-        const lastName = lastNameInput.value;
-        const confirmationMessageOne = `${lastName}`;
-
-        const firstNameInput = document.getElementById('firstnameInput');
-        const firstName = firstNameInput.value;
-        const confirmationMessageTwo = `${firstName}`;
-
-        const middleNameInput = document.getElementById('middlenameInput');
-        const middleName = middleNameInput.value;
-        const confirmationMessageThree = `${middleName}`;
-
-        const idNumberInput = document.getElementById('idnumberInput');
-        const idNumber = idNumberInput.value;
-        const confirmationMessageFour = `${idNumber}`;
-
-        const departmentInput = document.getElementById('departmentInput');
-        const department = departmentInput.value;
-        const confirmationMessageFive = `${department}`;
-
-        const courseInput = document.getElementById('courseInput');
-        const course = courseInput.value;
-        const confirmationMessageSix = `${course}`;
-
-        const yearInput = document.getElementById('yearInput');
-        const year = yearInput.value;
-        const confirmationMessageSeven = `${year}`;
-
-        document.getElementById("paragraphOne").innerHTML =
-            `${confirmationMessageOne}, ${confirmationMessageTwo} ${confirmationMessageThree}`;
-        document.getElementById("paragraphTwo").innerHTML = `${confirmationMessageFour}`;
-        document.getElementById("paragraphThree").innerHTML = `${confirmationMessageFive}`;
-        document.getElementById("paragraphFour").innerHTML = `${confirmationMessageSix} - ${confirmationMessageSeven}`;
-
-        const popup = document.getElementById('popupContainer');
-        popup.style.display = 'block';
-    }
-
-    function closePopupConfirmation() {
-        const popup = document.getElementById('popupContainer');
-        popup.style.display = 'none';
-    }
-
-    function confirmAction() {
-        closePopupConfirmation();
-        // Extract data from the form
-    }
-
-    // Attach the showPopup function to the "ADD" button click event
-    document.getElementById('addStudentProfile').addEventListener('click', showPopupConfirmation);
-</script>
+{{#if message }}
+<h4>{{message}}</h4>
+{{/if}}
+<script src="../js/dashboardAddStudent.js"></script>

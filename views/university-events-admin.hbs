@@ -12,8 +12,8 @@
             <!-- profile -->
             <div class="grid-container">
                 {{> profileStudent}}
-                <div class="grid-item-nine item-status">ACTIVE</div>
-                <div class="grid-item-ten item-status">NOT EXEMPTED</div>
+                <div class="activestatus grid-item-nine item-status">{{studentData.active_status}}</div>
+                <div class="exemptionstatus grid-item-ten item-status">{{studentData.exemption_status}}</div>
             </div>
         </div>
     </header>
@@ -57,3 +57,4 @@
 
     {{> tableRecords}}
 </main>
+<script src="../js/searchStudentProfile.js"></script>

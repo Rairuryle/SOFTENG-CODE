@@ -334,11 +334,11 @@ main {
   width: 5.5rem;
   text-align: center;
   font-size: 0.7rem;
+  display: flex; /* Add this to use flexbox */
+  flex-direction: column; /* Stack child elements vertically */
+  justify-content: center; /* Vertically center the text */
 }
 
-.IDNumber p {
-  margin-top: 0.3rem;
-}
 
 /* department, course, year */
 
