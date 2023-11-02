@@ -2,6 +2,7 @@ const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const express = require('express');
+const session = require('express-session'); 
 const app = express();
 
 const db = mysql.createConnection({
@@ -91,12 +92,24 @@ exports.login = async (req, res) => {
                 };
                 res.cookie('jwt', token, cookieOptions);
 
-                // Redirect to a dashboard or other authenticated page
+                // Store user data in the session
                 req.session.isAuthenticated = true;
-                req.session.first_name = user.first_name; // Store the username in the session
-                req.session.last_name = user.last_name; // Store the username in the session
-                console.log("User logged in:", username);
-                res.redirect('/dashboard');
+
+                req.session.adminData = {
+                    last_name: user.last_name,
+                    first_name: user.first_name,
+                    organization: user.organization,
+                    username: user.username
+                };
+
+                console.log("User logged in:", user.username);
+                console.log("User organization:", user.organization);
+
+                if(user.organization === "USG" || user.organization === "SAO") {
+                    res.redirect('/dashboard');
+                } else {
+                    res.redirect('/dashboard-college');
+                }
             }
         });
     } catch (error) {

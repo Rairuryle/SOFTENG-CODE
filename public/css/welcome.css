@@ -75,12 +75,24 @@ body {
   margin-top: auto;
 }
 
-#searchIDNumber {
+#gridsearchIDNumber {
   border: none;
   outline: none;
   border-bottom: 1px solid #213a31;
   padding-bottom: 7px;
   width: 30vw;
+  position: relative;
+  border-radius: 0;
+  background-color: transparent;
+  padding-left: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+#gridsearchIDNumber::placeholder {
+  color: black;
+  font-size: 1rem;
+  text-transform: none;
 }
 
 /* .container-folder-bottom {

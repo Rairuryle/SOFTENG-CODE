@@ -1,8 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const mysql = require("mysql");
 const exphbs = require('express-handlebars'); 
 
 const app = express();
+
+const db = mysql.createConnection({
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE
+});
 
 app.engine('hbs', exphbs.engine({
     extname: 'hbs',
@@ -38,13 +46,11 @@ router.get('/help', (req, res) => {
 });
 
 router.get('/student-participation-record', (req, res) => {
-    const first_name = req.session.first_name;
-    const last_name = req.session.last_name;
+    const adminData = req.session.adminData;
     const studentData = req.session.studentData;
 
     res.render('student-participation-record', { 
-        first_name, 
-        last_name, 
+        adminData, 
         studentData, 
         title: 'Student Participation Record | LSU Events and Attendance Tracking Website' 
     });
@@ -52,12 +58,29 @@ router.get('/student-participation-record', (req, res) => {
 
 router.get('/dashboard', (req, res) => {
     if (req.session.isAuthenticated) {
-        const first_name = req.session.first_name; // Get the username from the session
-        const last_name = req.session.last_name; // Get the username from the session
+        const adminData = req.session.adminData;
+        const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
+        const studentData = req.session.studentData;
 
         res.render('dashboard', { 
-            first_name, 
-            last_name, 
+            adminData,
+            isUSGorSAO,
+            studentData,
+            title: 'Dashboard | LSU Events and Attendance Tracking Website' 
+        });
+    } else {
+        res.redirect('/login'); // Redirect if the user is not authenticated
+    }
+});
+
+router.get('/dashboard-college', (req, res) => {
+    if (req.session.isAuthenticated) {
+        const adminData = req.session.adminData;
+        const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
+
+        res.render('dashboard-college', { 
+            adminData,
+            isUSGorSAO,
             title: 'Dashboard | LSU Events and Attendance Tracking Website' 
         });
     } else {
@@ -67,12 +90,27 @@ router.get('/dashboard', (req, res) => {
 
 router.get('/dashboard-add-student', (req, res) => {
     if (req.session.isAuthenticated) {
-        const first_name = req.session.first_name;
-        const last_name = req.session.last_name; 
+        const adminData = req.session.adminData;
+        const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
 
         res.render('dashboard-add-student', { 
-            first_name, 
-            last_name, 
+            adminData,
+            isUSGorSAO,
+            title: 'Dashboard Add Student Profile | LSU Events and Attendance Tracking Website',
+        });
+    } else {
+        res.redirect('/login'); 
+    }
+});
+
+router.get('/dashboard-add-student-college', (req, res) => {
+    if (req.session.isAuthenticated) {
+        const adminData = req.session.adminData;
+        const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
+
+        res.render('dashboard-add-student-college', { 
+            adminData,
+            isUSGorSAO,
             title: 'Dashboard Add Student Profile | LSU Events and Attendance Tracking Website' 
         });
     } else {
@@ -80,32 +118,59 @@ router.get('/dashboard-add-student', (req, res) => {
     }
 });
 
+// router.get('/university-events-admin', (req, res) => {
+//     if (req.session.isAuthenticated) {
+//         const adminData = req.session.adminData; 
+//         const studentData = req.session.studentData;
+        
+//         res.render('university-events-admin', { 
+//             adminData,
+//             studentData, 
+//             title: 'Admin Main Page | LSU Events and Attendance Tracking Website' 
+//         });
+//     } else {
+//         res.redirect('/login');
+//     }
+// });
+
 router.get('/university-events-admin', (req, res) => {
     if (req.session.isAuthenticated) {
-        const first_name = req.session.first_name; 
-        const last_name = req.session.last_name;
+        const idNumber = req.query.id_number; // Get the ID number from the query parameters
+        const adminData = req.session.adminData;
         const studentData = req.session.studentData;
-        
-        res.render('university-events-admin', { 
-            first_name, 
-            last_name, 
-            studentData, 
-            title: 'Admin Main Page | LSU Events and Attendance Tracking Website' 
+
+        db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
+            if (error) {
+                console.log(error);
+                res.redirect('/dashboard'); // Handle the error, maybe redirect to the dashboard
+            } else {
+                if (results.length > 0) {
+                    const studentData = results[0]; // Assuming there's only one matching student
+                    // Render your university-events-admin template with the student data
+                    res.render('university-events-admin', {
+                        adminData,
+                        studentData,
+                        title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
+                    });
+                } else {
+                    // Handle the case where the student is not found
+                    res.redirect('/dashboard');
+                }
+            }
         });
     } else {
         res.redirect('/login');
     }
 });
 
+
 router.get('/university-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {
-        const first_name = req.session.first_name;
-        const last_name = req.session.last_name;
+        const adminData = req.session.adminData;
         const studentData = req.session.studentData;
 
         res.render('university-events-edit', { 
-            first_name, 
-            last_name, 
+            adminData,
             studentData, 
             title: 'Admin Edit Page | LSU Events and Attendance Tracking Website' 
         });
@@ -116,15 +181,28 @@ router.get('/university-events-edit', (req, res) => {
 
 router.get('/college-events-admin', (req, res) => {
     if (req.session.isAuthenticated) {
-        const first_name = req.session.first_name;
-        const last_name = req.session.last_name;
+        const idNumber = req.query.id_number; // Get the ID number from the query parameters
+        const adminData = req.session.adminData;
         const studentData = req.session.studentData;
 
-        res.render('college-events-admin', { 
-            first_name, 
-            last_name, 
-            studentData, 
-            title: 'Admin Main Page | LSU Events and Attendance Tracking Website' 
+        db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
+            if (error) {
+                console.log(error);
+                res.redirect('/dashboard'); // Handle the error, maybe redirect to the dashboard
+            } else {
+                if (results.length > 0) {
+                    const studentData = results[0]; // Assuming there's only one matching student
+                    // Render your university-events-admin template with the student data
+                    res.render('college-events-admin', {
+                        adminData,
+                        studentData,
+                        title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
+                    });
+                } else {
+                    // Handle the case where the student is not found
+                    res.redirect('/dashboard');
+                }
+            }
         });
     } else {
         res.redirect('/login');
@@ -133,15 +211,28 @@ router.get('/college-events-admin', (req, res) => {
 
 router.get('/college-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {
-        const first_name = req.session.first_name;
-        const last_name = req.session.last_name;
+        const idNumber = req.query.id_number; // Get the ID number from the query parameters
+        const adminData = req.session.adminData;
         const studentData = req.session.studentData;
 
-        res.render('college-events-edit', { 
-            first_name, 
-            last_name, 
-            studentData, 
-            title: 'Admin Edit Page | LSU Events and Attendance Tracking Website' 
+        db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
+            if (error) {
+                console.log(error);
+                res.redirect('/dashboard'); // Handle the error, maybe redirect to the dashboard
+            } else {
+                if (results.length > 0) {
+                    const studentData = results[0]; // Assuming there's only one matching student
+                    // Render your university-events-admin template with the student data
+                    res.render('college-events-edit', {
+                        adminData,
+                        studentData,
+                        title: 'Admin Edit Page | LSU Events and Attendance Tracking Website'
+                    });
+                } else {
+                    // Handle the case where the student is not found
+                    res.redirect('/dashboard');
+                }
+            }
         });
     } else {
         res.redirect('/login');

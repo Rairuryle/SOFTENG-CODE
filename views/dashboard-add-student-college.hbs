@@ -16,7 +16,7 @@
 
     <!-- add student profile -->
     <article>
-        <form action="/insert-into-database" method="POST" id="addForm" class="container-dashboard">
+        <form action="/university-events-admin" method="POST" class="container-dashboard">
             <div class="flex-container holder-dashboard">
                 <div class="flex-container container-dashboard-student-profile">
                     <div class="flex-container container-dashboard-student-profile-header">
@@ -62,7 +62,7 @@
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>YEAR</h4>
-                            <input type="text" class="dashboard-input-body" id="yearInput" name="yearInput" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <input type="number" class="dashboard-input-body" id="yearInput" name="yearInput">
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>ACTIVE STATUS</h4>
@@ -100,8 +100,8 @@
                             <div id="paragraphFour" class="paragraphPass"></div>
                             <div id="paragraphFive" class="paragraphPass"></div>
                             <div id="paragraphSix" class="paragraphPass"></div>
-                            <button type="submit" id="confirmButton" class="buttons">CONFIRM</button>
-                            <button id="cancelButton" class="buttons">CANCEL</button>
+                            <button class="buttons" onclick="confirmAction()">CONFIRM</button>
+                            <button class="buttons" onclick="closePopupConfirmation()">CANCEL</button>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
         </form>
     </article>
 </div>
-{{#if message}}
+{{#if message }}
 <h4>{{message}}</h4>
 {{/if}}
 <script src="../js/dashboardAddStudent.js"></script>

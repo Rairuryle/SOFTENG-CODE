@@ -1,21 +1,30 @@
 <nav>
     <div class="dashboard-nav">
         <div class="flex-container dashboard-nav-container">
-            <div class="flex-container img-participation-record-nav">
-                <a href="/">
-                    <img src="../img/Folder.png" alt="Participation Record Nav Icon">
-                </a>
+            <div class="grid-searchspace">
+                <div class="form-group">
+                    <input type="search" id="gridsearchIDNumber" class="form-control" placeholder="Search ID Number...">
+                </div>
+                <span id="searchButton" class="material-symbols-outlined">search</span>
             </div>
-            <a href="/">Participation Record</a>
         </div>
         <hr>
         <div class="flex-container dashboard-nav-container main-icons-container">
+            {{#if isUSGorSAO}}
             <div class="flex-container img-add-student-nav main-nav-icons">
                 <a href="/dashboard-add-student">
                     <img src="../img/User_cicrle.png" alt="Add Student Account Nav Icon">
                 </a>
             </div>
             <a href="/dashboard-add-student">ADD STUDENT</a>
+            {{else}}
+            <div class="flex-container img-add-student-nav main-nav-icons">
+                <a href="/dashboard-add-student-college">
+                    <img src="../img/User_cicrle.png" alt="Add Student Account Nav Icon">
+                </a>
+            </div>
+            <a href="/dashboard-add-student-college">ADD STUDENT</a>
+            {{/if}}
         </div>
         <div class="flex-container dashboard-nav-container main-icons-container">
             <div class="flex-container img-archives-nav main-nav-icons">
@@ -48,3 +57,4 @@
         </div>
     </div>
 </nav>
+<script src="../js/searchStudentProfileDashboard.js"></script>

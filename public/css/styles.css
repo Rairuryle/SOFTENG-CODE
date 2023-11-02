@@ -311,11 +311,13 @@ main {
   background-color: rgba(237, 241, 214, 0.7);
   font-size: 0.9rem;
   padding-left: 0.8rem;
+  text-transform: uppercase;
 }
 
 #gridsearchIDNumber::placeholder {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
+  text-transform: none;
 }
 
 .grid-item-two {

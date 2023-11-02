@@ -34,3 +34,34 @@
 <div class="grid-item-fifteen item-points total-points grid-points">
     <h1>32</h1>
 </div>
+
+{{!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        console.log('Script is running.');
+
+        // In your /university-events-admin page
+        const queryParams = new URLSearchParams(window.location.search);
+        const studentData = JSON.parse(queryParams.get('studentData'));
+        console.log('Parsed studentData:', studentData);
+
+        // Update your HTML to display the studentData
+        const studentNameElement = document.querySelector('.studentname');
+        const idNumberElement = document.querySelector('.IDNumber');
+        const departmentNameElement = document.querySelector('.departmentname');
+        const courseNameElement = document.querySelector('.coursename');
+        const yearLevelElement = document.querySelector('.yearlevel');
+        const activeStatusElement = document.querySelector('.activestatus');
+        const exemptionStatusElement = document.querySelector('.exemptionstatus');
+
+
+        // In addition, you can use the studentData to populate your HTML elements
+        studentNameElement.textContent = `${studentData.last_name}, ${studentData.first_name} ${studentData.middle_name}`;
+        idNumberElement.textContent = studentData.id_number;
+        departmentNameElement.textContent = studentData.department_name;
+        courseNameElement.textContent = studentData.course_name;
+        yearLevelElement.textContent = studentData.year_level;
+        activeStatusElement.textContent = studentData.active_status;
+        exemptionStatusElement.textContent = studentData.exemption_status;
+    });
+</script> --}}
