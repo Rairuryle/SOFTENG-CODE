@@ -15,6 +15,15 @@ function searchStudentProfile() {
             // Update the page with the search results
             if (data.studentFound) {
 
+                const adminData = data.adminData;
+
+                const isUSGorSAO = document.querySelector('#isUSGorSAO').value === "true";
+
+                if (isUSGorSAO) {
+                    window.location.href = `/university-events-admin?id_number=${data.studentData.id_number}`;
+                } else {
+                    window.location.href = `/college-events-admin?id_number=${data.studentData.id_number}`;
+                }
                 // Display the student's information
                 const studentData = data.studentData;
 

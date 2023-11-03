@@ -97,6 +97,8 @@ document.getElementById('confirmButton').addEventListener('click', function (eve
     clearInputFields();
 });
 
+
+
 function sendDataToServer() {
     // Collect form data from input fields
     const formData = {
@@ -119,20 +121,33 @@ function sendDataToServer() {
         },
         body: JSON.stringify(formData),
     })
-        .then((response) => {
-            if (response.ok) {
-                // Handle a successful response from the server
-                // For example, you can show a success message to the user
+    .then((response) => {
+        if (response.ok) {
+            return response.json(); // Assuming the server sends a JSON response
+        } else {
+            console.error('Error sending data to the server');
 
-            } else {
-                // Handle errors if the server request fails
-                console.error('Error sending data to the server');
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            const errorResponse = document.getElementById('errorResponse');
+            errorResponse.textContent = `ID number is already in use.`;
+            setTimeout(function () {
+                errorResponse.classList.add("hidden");
+            }, 3000);
+
+            throw new Error('Server error');
+        }
+    })
+    .then((data) => {
+        const successResponse = document.getElementById('successResponse');
+        successResponse.textContent = data.message; // Set the content of successResponse to the response message
+        setTimeout(function () {
+            successResponse.classList.add("hidden");
+        }, 3000); // Hide after x seconds (adjust the duration as needed)
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
+
 
 function clearInputFields() {
     // Reset the values of the input fields to empty strings
@@ -140,7 +155,25 @@ function clearInputFields() {
     document.getElementById('firstnameInput').value = '';
     document.getElementById('middlenameInput').value = '';
     document.getElementById('idnumberInput').value = '';
-    document.getElementById('departmentInput').value = '';
+
+    const selectDepartment = document.getElementById('departmentInput');
+
+    if (selectDepartment && selectDepartment.tagName === 'SELECT') {
+        // Clear the <select> element
+        selectDepartment.value = '';
+    }
+    document.getElementById('courseInput').value = '';
+    document.getElementById('yearInput').value = '';
+    document.getElementById('activeStatusInput').value = '';
+    document.getElementById('exemptionStatusInput').value = '';
+}
+
+function clearInputFieldsCollege() {
+    // Reset the values of the input fields to empty strings
+    document.getElementById('lastnameInput').value = '';
+    document.getElementById('firstnameInput').value = '';
+    document.getElementById('middlenameInput').value = '';
+    document.getElementById('idnumberInput').value = '';
     document.getElementById('courseInput').value = '';
     document.getElementById('yearInput').value = '';
     document.getElementById('activeStatusInput').value = '';
@@ -149,22 +182,22 @@ function clearInputFields() {
 
 
 // confirmButton.addEventListener('click', function() {
-    
+
 //     closePopupConfirmation();
 
-    // document.getElementById('lastnameInput').value = '';
-    // document.getElementById('firstnameInput').value = '';
-    // document.getElementById('middlenameInput').value = '';
-    // document.getElementById('idnumberInput').value = '';
-    // document.getElementById('departmentInput').value = '';
-    // document.getElementById('courseInput').value = '';
-    // document.getElementById('yearInput').value = '';
-    // document.getElementById('activeStatusInput').value = '';
-    // document.getElementById('exemptionStatusInput').value = '';
+// document.getElementById('lastnameInput').value = '';
+// document.getElementById('firstnameInput').value = '';
+// document.getElementById('middlenameInput').value = '';
+// document.getElementById('idnumberInput').value = '';
+// document.getElementById('departmentInput').value = '';
+// document.getElementById('courseInput').value = '';
+// document.getElementById('yearInput').value = '';
+// document.getElementById('activeStatusInput').value = '';
+// document.getElementById('exemptionStatusInput').value = '';
 // });
 
 const cancelButton = document.getElementById('cancelButton');
- // Set a flag to prevent form submission initially
+// Set a flag to prevent form submission initially
 
 cancelButton.addEventListener('click', function () {
     const form = document.querySelector('.container-dashboard');

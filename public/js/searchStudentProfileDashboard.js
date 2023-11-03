@@ -1,5 +1,3 @@
-// In your /dashboard route JavaScript code
-
 function searchStudentProfile() {
     const idNumberInput = document.getElementById('gridsearchIDNumber');
     if (!idNumberInput) {
@@ -15,10 +13,14 @@ function searchStudentProfile() {
         .then(response => response.json())
         .then(data => {
             if (data.studentFound) {
-                // Redirect to the student's profile page (/university-events-admin) with student data as query parameters
-                window.location.href = `/university-events-admin?id_number=${data.studentData.id_number}`;
+                const isUSGorSAO = document.querySelector('#isUSGorSAO').value === "true";
+
+                if (isUSGorSAO) {
+                    window.location.href = `/university-events-admin?id_number=${data.studentData.id_number}`;
+                } else {
+                    window.location.href = `/college-events-admin?id_number=${data.studentData.id_number}`;
+                }
             } else {
-                // Display a message that the student was not found
                 alert('Student not found.');
             }
         })

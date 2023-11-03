@@ -105,11 +105,7 @@ exports.login = async (req, res) => {
                 console.log("User logged in:", user.username);
                 console.log("User organization:", user.organization);
 
-                if(user.organization === "USG" || user.organization === "SAO") {
-                    res.redirect('/dashboard');
-                } else {
-                    res.redirect('/dashboard-college');
-                }
+                res.redirect('/dashboard');
             }
         });
     } catch (error) {

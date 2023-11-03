@@ -31,7 +31,7 @@
         <form action="/auth/login" method="POST" class="folder-bottom-login">
             <div class="form-group">
                 {{#if message}}
-                <p class="error">{{message}}</p>
+                <p id="errorMessage" class="error">{{message}}</p>
                 {{/if}}
                 <input type="text" id="username" name="username" class="form-control form-login" placeholder="USERNAME"
                     required />

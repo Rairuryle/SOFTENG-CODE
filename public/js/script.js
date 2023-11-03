@@ -1,3 +1,14 @@
+const errorMessage = document.getElementById('errorMessage').textContent;
+
+// Display the message
+const errorMessageElement = document.getElementById('errorMessage');
+
+// Hide the message after 3000 milliseconds (3 seconds)
+setTimeout(function () {
+    errorMessageElement.classList.add("hidden");
+}, 3000);
+
+
 document.addEventListener("DOMContentLoaded", function() {
     const navLinks = document.querySelectorAll(".nav-link");
 

@@ -186,12 +186,21 @@ app.post('/insert-into-database', (req, res) => {
             console.log(error);
         }
 
-        if (results.length > 0) {
-            return res.render('dashboard-add-student', {
-                message: 'That ID Number is already in use'
-            });
-            // res.redirect('/dashboard-add-student'); // Redirect to the dashboard-add-student route
-        }
+        // if (results.length > 0) {
+        //     // return res.status(400).json({ message: 'That ID Number is already in use' });
+        //     // return res.status(400).send('That ID Number is already in use');
+        //     const errorMessage = 'ID Number is already in use';
+        //     console.log(errorMessage);
+        //     return res.status(400).render('dashboard-add-student', { message: 'That ID Number is already in use' });
+        // }
+
+        // if(results.length > 0) {
+        //     const errorMessage = 'ID Number is already in use';
+        //     console.log(errorMessage);
+        //     return res.render('dashboard-add-student', {
+        //         message: 'That ID Number is already in use'
+        //     })
+        // }
 
         // Insert the student data into the student table if it doesn't already exist
         if (results.length === 0) {
@@ -210,8 +219,11 @@ app.post('/insert-into-database', (req, res) => {
                     console.log(error);
                 } else {
                     console.log(results);
+                    return res.status(200).json({ message: 'Data inserted successfully' });
                 }
             });
+        } else {
+            return res.status(400).json({ error: 'ID number already in use', idNumber: idnumberInput });
         }
 
         // const activeStatusText = activeStatus === 1 ? "ACTIVE" : "INACTIVE";
@@ -235,7 +247,7 @@ app.post('/insert-into-database', (req, res) => {
 });
 
 // app.post('/insert-into-database', (req, res) => {
-    
+
 
 //     // Perform the database insertion here
 //     // Example: Insert formData into your database
@@ -276,12 +288,12 @@ app.get('/university-events-admin/search', (req, res) => {
     });
 });
 
-// app.get('/college-events-admin/search', (req, res) => {
-//     const gridsearchIDNumber = req.query.gridsearchIDNumber;
-//     searchStudentByGridsearchIDNumber(gridsearchIDNumber, (result) => {
-//         res.status(result.studentFound ? 200 : 500).json(result);
-//     });
-// });
+app.get('/college-events-admin/search', (req, res) => {
+    const gridsearchIDNumber = req.query.gridsearchIDNumber;
+    searchStudentByGridsearchIDNumber(gridsearchIDNumber, (result) => {
+        res.status(result.studentFound ? 200 : 500).json(result);
+    });
+});
 
 // app.get('/dashboard/search', (req, res) => {
 //     const gridsearchIDNumber = req.query.gridsearchIDNumber;
@@ -321,17 +333,9 @@ app.post('/university-events-admin/search', (req, res) => {
     });
 });
 
-// In your server code
-
 app.get('/dashboard/search', (req, res) => {
     const idNumber = req.query.gridsearchIDNumber;
 
-    // Query the database to check if the student with the provided ID number exists
-    // If found, send the student data back in the response
-    // If not found, send a response indicating that the student was not found
-    // You may need to adjust this based on your database structure and query methods
-
-    // Example:
     db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
         if (error) {
             console.log(error);

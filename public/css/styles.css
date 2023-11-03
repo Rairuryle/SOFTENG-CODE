@@ -1015,3 +1015,7 @@ td {
   color: white;
   text-align: center;
 }
+
+.hidden {
+  display: none;
+}
