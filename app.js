@@ -66,102 +66,6 @@ app.get('/logout', (req, res) => {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.get('/university-events-admin', (req, res) => {
-//     if (req.session.isAuthenticated) {
-//         const first_name = req.session.first_name;
-//         const last_name = req.session.last_name;
-//         const studentData = req.session.studentData;
-
-//         res.render('university-events-admin', { first_name, last_name, studentData, title: 'Admin Main Page | LSU Events and Attendance Tracking Website' });
-//     } else {
-//         res.redirect('/login');
-//     }
-// });
-
-// app.post('/university-events-admin', (req, res) => {
-//     console.log(req.body);
-
-//     const {
-//         lastnameInput,
-//         firstnameInput,
-//         middlenameInput,
-//         idnumberInput,
-//         departmentInput,
-//         courseInput,
-//         yearInput,
-//         activeStatusInput,
-//         exemptionStatusInput,
-//     } = req.body;
-
-//     const activeStatus = activeStatusInput === "ACTIVE" ? 1 : 0;
-//     const exemptionStatus = exemptionStatusInput === "EXEMPTED" ? 1 : 0;
-
-//     // Check if the user with the provided ID number exists in the student table
-//     db.query('SELECT id_number FROM student WHERE id_number = ?', [idnumberInput], async (error, results) => {
-//         if (error) {
-//             console.log(error);
-//         }
-
-//         if (results.length > 0) {
-//             return res.render('dashboard-add-student', {
-//                 message: 'That ID Number is already in use'
-//             })
-//             res.redirect('/dashboard-add-student'); // Redirect to the dashboard-add-student route
-//         }
-
-//         // Insert the student data into the student table if it doesn't already exist
-//         if (results.length === 0) {
-//             db.query('INSERT INTO student SET ?', {
-//                 id_number: idnumberInput,
-//                 last_name: lastnameInput,
-//                 first_name: firstnameInput,
-//                 middle_name: middlenameInput,
-//                 department_name: departmentInput,
-//                 course_name: courseInput,
-//                 year_level: yearInput,
-//                 active_status: activeStatus,
-//                 exemption_status: exemptionStatus
-//             }, (error, results) => {
-//                 if (error) {
-//                     console.log(error);
-//                 } else {
-//                     console.log(results);
-//                 }
-//             });
-//         }
-
-//         const activeStatusText = activeStatus === 1 ? "ACTIVE" : "INACTIVE";
-//         const exemptionStatusText = exemptionStatus === 1 ? "EXEMPTED" : "NOT EXEMPTED";
-
-//         // Store user-related data in the session
-//         req.session.studentData = {
-//             id_number: idnumberInput,
-//             last_name: lastnameInput,
-//             first_name: firstnameInput,
-//             middle_name: middlenameInput,
-//             department_name: departmentInput,
-//             course_name: courseInput,
-//             year_level: yearInput,
-//             active_status: activeStatusText,
-//             exemption_status: exemptionStatusText
-//         };
-
-//         // res.redirect('/university-events-admin');
-//     });
-// });
-
-// app.get('/university-events-admin', (req, res) => {
-//     if (req.session.isAuthenticated) {
-//         const first_name = req.session.first_name;
-//         const last_name = req.session.last_name;
-//         const studentData = req.session.studentData;
-
-//         res.render('university-events-admin', { first_name, last_name, studentData, title: 'Admin Main Page | LSU Events and Attendance Tracking Website' });
-//     } else {
-//         res.redirect('/login');
-//     }
-// });
-
 app.post('/insert-into-database', (req, res) => {
     console.log(req.body);
 
@@ -185,14 +89,6 @@ app.post('/insert-into-database', (req, res) => {
         if (error) {
             console.log(error);
         }
-
-        // if (results.length > 0) {
-        //     // return res.status(400).json({ message: 'That ID Number is already in use' });
-        //     // return res.status(400).send('That ID Number is already in use');
-        //     const errorMessage = 'ID Number is already in use';
-        //     console.log(errorMessage);
-        //     return res.status(400).render('dashboard-add-student', { message: 'That ID Number is already in use' });
-        // }
 
         // if(results.length > 0) {
         //     const errorMessage = 'ID Number is already in use';
@@ -219,7 +115,9 @@ app.post('/insert-into-database', (req, res) => {
                     console.log(error);
                 } else {
                     console.log(results);
-                    return res.status(200).json({ message: 'Data inserted successfully' });
+                    return res.status(200).json({
+                        message: `Successfully created account for ${idnumberInput}`
+                    });
                 }
             });
         } else {
@@ -245,16 +143,6 @@ app.post('/insert-into-database', (req, res) => {
         // res.redirect('/university-events-admin');
     });
 });
-
-// app.post('/insert-into-database', (req, res) => {
-
-
-//     // Perform the database insertion here
-//     // Example: Insert formData into your database
-
-//     // Respond to the client, indicating success or failure
-//     res.json({ message: 'Data inserted successfully' });
-// });
 
 function searchStudentByGridsearchIDNumber(gridsearchIDNumber, callback) {
     db.query('SELECT * FROM student WHERE id_number = ?', [gridsearchIDNumber], (error, results) => {
@@ -288,14 +176,7 @@ app.get('/university-events-admin/search', (req, res) => {
     });
 });
 
-app.get('/college-events-admin/search', (req, res) => {
-    const gridsearchIDNumber = req.query.gridsearchIDNumber;
-    searchStudentByGridsearchIDNumber(gridsearchIDNumber, (result) => {
-        res.status(result.studentFound ? 200 : 500).json(result);
-    });
-});
-
-// app.get('/dashboard/search', (req, res) => {
+// app.get('/college-events-admin/search', (req, res) => {
 //     const gridsearchIDNumber = req.query.gridsearchIDNumber;
 //     searchStudentByGridsearchIDNumber(gridsearchIDNumber, (result) => {
 //         res.status(result.studentFound ? 200 : 500).json(result);
@@ -321,7 +202,6 @@ app.post('/university-events-admin/search', (req, res) => {
                     title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
                 });
             } else {
-                // No student with the provided ID number was found
                 res.render('university-events-admin', {
                     first_name: req.session.first_name,
                     last_name: req.session.last_name,
@@ -343,10 +223,9 @@ app.get('/dashboard/search', (req, res) => {
         } else {
             if (results.length > 0) {
                 // Student found
-                const studentData = results[0]; // Assuming there's only one matching student
+                const studentData = results[0];
                 res.status(200).json({ studentFound: true, studentData });
             } else {
-                // Student not found
                 res.status(404).json({ studentFound: false });
             }
         }

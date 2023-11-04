@@ -15,11 +15,11 @@ function searchStudentProfile() {
             if (data.studentFound) {
                 const isUSGorSAO = document.querySelector('#isUSGorSAO').value === "true";
 
-                if (isUSGorSAO) {
-                    window.location.href = `/university-events-admin?id_number=${data.studentData.id_number}`;
-                } else {
-                    window.location.href = `/college-events-admin?id_number=${data.studentData.id_number}`;
-                }
+                // if (isUSGorSAO) {
+                window.location.href = `/university-events-admin?id_number=${data.studentData.id_number}`;
+                // } else {
+                //     window.location.href = `/college-events-admin?id_number=${data.studentData.id_number}`;
+                // }
             } else {
                 alert('Student not found.');
             }

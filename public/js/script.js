@@ -1,19 +1,8 @@
-const errorMessage = document.getElementById('errorMessage').textContent;
-
-// Display the message
-const errorMessageElement = document.getElementById('errorMessage');
-
-// Hide the message after 3000 milliseconds (3 seconds)
-setTimeout(function () {
-    errorMessageElement.classList.add("hidden");
-}, 3000);
-
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const navLinks = document.querySelectorAll(".nav-link");
 
     navLinks.forEach(link => {
-        link.addEventListener("click", function(event) {
+        link.addEventListener("click", function (event) {
             // Prevent the default behavior of the link
             event.preventDefault();
 
@@ -26,23 +15,20 @@ document.addEventListener("DOMContentLoaded", function() {
             this.classList.add("active");
         });
     });
-});
 
-document.getElementById("gridsearchIDNumber").maxLength = "9";
+    var selects = document.querySelectorAll(".student-role-dropdown");
 
-var selects = document.querySelectorAll(".student-role-dropdown");
+    // Add an event listener to each select element
+    selects.forEach(function (select) {
+        select.addEventListener("change", function () {
+            // Get the selected option
+            var selectedOption = select.options[select.selectedIndex];
 
-// Add an event listener to each select element
-selects.forEach(function(select) {
-    select.addEventListener("change", function() {
-        // Get the selected option
-        var selectedOption = select.options[select.selectedIndex];
-
-        // Set the color of the selected text to match the option text color
-        select.style.color = getComputedStyle(selectedOption).color;
+            // Set the color of the selected text to match the option text color
+            select.style.color = getComputedStyle(selectedOption).color;
+        });
     });
 });
-
 
 // Get the "See More / See Less" button element
 const seeMoreButton = document.querySelector(".see-more");
@@ -271,24 +257,38 @@ function togglePasswordVisibility() {
     }
 }
 
-$(function() {
+document.getElementById("gridsearchIDNumber").maxLength = "9";
+
+const errorMessage = document.getElementById('errorMessage').textContent;
+
+// Display the message
+const errorMessageElement = document.getElementById('errorMessage');
+
+// Hide the message after 3000 milliseconds (3 seconds)
+setTimeout(function () {
+    errorMessageElement.classList.add("hidden");
+}, 3000);
+
+$(function () {
     $('input[name="daterange"]').daterangepicker({
-      opens: 'left'
-    }, function(start, end, label) {
-      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        opens: 'left'
+    }, function (start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
-  });
-  
-
-
-document.AddEventListener('DOMContentLoaded', function () {
-    loadHTMLTable([]);
 });
 
-function loadHTMLTable(data) {
-    const table = document.querySelector('table tbody');
-    let tableHTML = "";
-    if (data.length === 0) {
-        table.innerHTML = "<tr><td class='no-data' colspan='5'>No data</td></tr>";
-    }
-}
+
+
+// document.AddEventListener('DOMContentLoaded', function () {
+//     loadHTMLTable([]);
+// });
+
+// function loadHTMLTable(data) {
+//     const table = document.querySelector('table tbody');
+//     let tableHTML = "";
+//     if (data.length === 0) {
+//         table.innerHTML = "<tr><td class='no-data' colspan='5'>No data</td></tr>";
+//     }
+// }
+
+//for navbarUniversity to go to university-events-edit

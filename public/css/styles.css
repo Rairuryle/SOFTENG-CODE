@@ -165,6 +165,11 @@ hr {
   position: absolute;
 }
 
+.icon-widget,
+.link-widget {
+  cursor: pointer;
+}
+
 .icon-widget {
   margin-bottom: 5px;
 }
@@ -340,7 +345,6 @@ main {
   flex-direction: column; /* Stack child elements vertically */
   justify-content: center; /* Vertically center the text */
 }
-
 
 /* department, course, year */
 

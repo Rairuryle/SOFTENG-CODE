@@ -14,16 +14,21 @@ function searchStudentProfile() {
         .then(data => {
             // Update the page with the search results
             if (data.studentFound) {
-
                 const adminData = data.adminData;
-
                 const isUSGorSAO = document.querySelector('#isUSGorSAO').value === "true";
+                const isAdminURL = document.querySelector('#isAdminURL').value === "true";
 
-                if (isUSGorSAO) {
+                if (isAdminURL) {
                     window.location.href = `/university-events-admin?id_number=${data.studentData.id_number}`;
                 } else {
-                    window.location.href = `/college-events-admin?id_number=${data.studentData.id_number}`;
+                    window.location.href = `/university-events-edit?id_number=${data.studentData.id_number}`;
                 }
+
+                // if (isUSGorSAO) {
+                // window.location.href = `/university-events-admin?id_number=${data.studentData.id_number}`;
+                // } else {
+                //     window.location.href = `/college-events-admin?id_number=${data.studentData.id_number}`;
+                // }
                 // Display the student's information
                 const studentData = data.studentData;
 
@@ -48,7 +53,6 @@ function searchStudentProfile() {
                     console.log('One or more elements not found. Ensure your HTML has the correct class names.');
                 }
             } else {
-                // Display a message that the student was not found
                 alert('Student not found.');
             }
         })

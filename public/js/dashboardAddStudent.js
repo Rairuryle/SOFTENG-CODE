@@ -97,8 +97,6 @@ document.getElementById('confirmButton').addEventListener('click', function (eve
     clearInputFields();
 });
 
-
-
 function sendDataToServer() {
     // Collect form data from input fields
     const formData = {
@@ -121,31 +119,33 @@ function sendDataToServer() {
         },
         body: JSON.stringify(formData),
     })
-    .then((response) => {
-        if (response.ok) {
-            return response.json(); // Assuming the server sends a JSON response
-        } else {
-            console.error('Error sending data to the server');
+        .then((response) => {
+            if (response.ok) {
+                return response.json(); // Assuming the server sends a JSON response
+            } else {
+                console.error('Error sending data to the server');
 
-            const errorResponse = document.getElementById('errorResponse');
-            errorResponse.textContent = `ID number is already in use.`;
+                const errorResponse = document.getElementById('errorResponse');
+                errorResponse.textContent = `ID number is already in use`;
+                errorResponse.classList.remove("hidden");
+                setTimeout(function () {
+                    errorResponse.classList.add("hidden");
+                }, 3000);
+
+                throw new Error('Server error');
+            }
+        })
+        .then((data) => {
+            const successResponse = document.getElementById('successResponse');
+            successResponse.textContent = data.message; // Set the content of successResponse to the response message
+            successResponse.classList.remove("hidden");
             setTimeout(function () {
-                errorResponse.classList.add("hidden");
-            }, 3000);
-
-            throw new Error('Server error');
-        }
-    })
-    .then((data) => {
-        const successResponse = document.getElementById('successResponse');
-        successResponse.textContent = data.message; // Set the content of successResponse to the response message
-        setTimeout(function () {
-            successResponse.classList.add("hidden");
-        }, 3000); // Hide after x seconds (adjust the duration as needed)
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+                successResponse.classList.add("hidden");
+            }, 3000); // Hide after x seconds (adjust the duration as needed)
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 

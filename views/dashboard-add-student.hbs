@@ -44,6 +44,7 @@
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>DEPARTMENT</h4>
+                            {{#if isUSGorSAO}}
                             <select id="departmentInput" class="form-control dashboard-input-body dashboard-dropdown"
                                 name="departmentInput">
                                 <option disabled="disabled" selected="selected"></option>
@@ -55,6 +56,10 @@
                                 <option value="CTE">CTE</option>
                                 <option value="CTHM">CTHM</option>
                             </select>
+                            {{else}}
+                            <input type="text" id="departmentInput" class="form-control dashboard-input-body"
+                                name="departmentInput" value="{{ adminData.organization }}" readonly>
+                            {{/if}}
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>COURSE</h4>
@@ -62,7 +67,15 @@
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>YEAR</h4>
-                            <input type="text" class="dashboard-input-body" id="yearInput" name="yearInput" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <select id="yearInput" class="form-control dashboard-input-body dashboard-dropdown"
+                                name="yearInput">
+                                <option disabled="disabled" selected="selected"></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
                         <div class="dashboard-student-profile-body">
                             <h4>ACTIVE STATUS</h4>

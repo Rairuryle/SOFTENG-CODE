@@ -195,14 +195,11 @@ article {
 
 .dashboard-input-body {
   margin-top: -3rem;
-}
-
-.dashboard-dropdown {
-  border-radius: 15px;
   width: 14.7rem;
   height: 1.9rem;
   padding: 0.1rem 0 0.3rem 0.5rem;
   font-size: 1rem;
+  border-radius: 15px;
 }
 
 .dashboard-button {
