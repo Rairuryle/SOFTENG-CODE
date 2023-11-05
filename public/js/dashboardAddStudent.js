@@ -128,9 +128,10 @@ function sendDataToServer() {
                 const errorResponse = document.getElementById('errorResponse');
                 errorResponse.textContent = `ID number is already in use`;
                 errorResponse.classList.remove("hidden");
+                errorResponse.classList.add("user-prompt", "slide-in");
                 setTimeout(function () {
                     errorResponse.classList.add("hidden");
-                }, 3000);
+                }, 4000);
 
                 throw new Error('Server error');
             }
@@ -138,10 +139,12 @@ function sendDataToServer() {
         .then((data) => {
             const successResponse = document.getElementById('successResponse');
             successResponse.textContent = data.message; // Set the content of successResponse to the response message
+
             successResponse.classList.remove("hidden");
+            successResponse.classList.add("user-prompt", "slide-in");
             setTimeout(function () {
                 successResponse.classList.add("hidden");
-            }, 3000); // Hide after x seconds (adjust the duration as needed)
+            }, 4000); // Hide after x seconds (adjust the duration as needed)
         })
         .catch((error) => {
             console.error('Error:', error);

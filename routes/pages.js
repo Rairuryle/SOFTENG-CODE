@@ -34,8 +34,11 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
+    const isLoggedOut = req.query.isLoggedOut === 'true';
+
     res.render('login', {
-        title: 'Login | LSU Events and Attendance Tracking Website'
+        title: 'Login | LSU Events and Attendance Tracking Website',
+        isLoggedOut: isLoggedOut
     });
 });
 
@@ -106,7 +109,12 @@ router.get('/dashboard-add-student', (req, res) => {
     if (req.session.isAuthenticated) {
         const adminData = req.session.adminData;
         const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
+        // const isInsertSuccessful = req.query.isInsertSuccessful === 'true';
 
+        // res.render('login', {
+        //     title: 'Login | LSU Events and Attendance Tracking Website',
+        //     isLoggedOut: isLoggedOut
+        // });
         // Initialize an error message variable
         let errorMessage = '';
 

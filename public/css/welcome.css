@@ -1,26 +1,10 @@
-* {
-  box-sizing: border-box;
+.row {
+  display: flex;
+  justify-content: space-between;
 }
 
-:root {
-  --main-green: #3c6255;
-  --secondary-green: #39594e;
-  --tertiary-green: #2f5045;
-  --darkest-green: #213a31;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  height: 100%;
-  background-image: linear-gradient(
-    var(--main-green) 45%,
-    var(--secondary-green) 45%,
-    VAR(--secondary-green) 66.66%,
-    var(--tertiary-green) 66.66%
-  );
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  margin: 0;
+.column {
+  margin: 20px 40px;
 }
 
 /* LANDINGPAGE.HTML */

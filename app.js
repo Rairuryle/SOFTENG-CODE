@@ -60,9 +60,18 @@ app.get('/logout', (req, res) => {
         if (err) {
             console.error('Error destroying session:', err);
         }
-        res.redirect('/login');
+
+        res.redirect('/login?isLoggedOut=true');
+
+        // return res.render('login', {
+        //     isLoggedOut,
+        //     title: 'Login | LSU Events and Attendance Tracking Website'
+        // })
+
     });
 });
+
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -116,7 +125,7 @@ app.post('/insert-into-database', (req, res) => {
                 } else {
                     console.log(results);
                     return res.status(200).json({
-                        message: `Successfully created account for ${idnumberInput}`
+                        message: `Account created for ${idnumberInput}`
                     });
                 }
             });

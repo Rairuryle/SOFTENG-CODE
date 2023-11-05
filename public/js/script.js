@@ -28,6 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
             select.style.color = getComputedStyle(selectedOption).color;
         });
     });
+
+    const errorResponse = document.getElementById("errorResponse");
+    errorResponse.classList.remove("user-prompt", "slide-in");
+
+    const successResponse = document.getElementById("successResponse");
+    successResponse.classList.remove("user-prompt", "slide-in");
 });
 
 // Get the "See More / See Less" button element
@@ -259,15 +265,26 @@ function togglePasswordVisibility() {
 
 document.getElementById("gridsearchIDNumber").maxLength = "9";
 
-const errorMessage = document.getElementById('errorMessage').textContent;
+// const errorMessage = document.getElementById('errorMessage').textContent;
 
-// Display the message
-const errorMessageElement = document.getElementById('errorMessage');
+// // Display the message
+// const errorMessageElement = document.getElementById('errorMessage');
 
-// Hide the message after 3000 milliseconds (3 seconds)
-setTimeout(function () {
-    errorMessageElement.classList.add("hidden");
-}, 3000);
+// // Hide the message after 3000 milliseconds (3 seconds)
+// setTimeout(function () {
+//     errorMessageElement.classList.add("hidden");
+// }, 3000);
+
+
+// const logoutPrompt = document.getElementById('logoutPrompt').textContent;
+
+// // Display the message
+// const logoutPromptElement = document.getElementById('logoutPrompt');
+
+// // Hide the message after 3000 milliseconds (3 seconds)
+// setTimeout(function () {
+//     logoutPrompt.classList.add("hidden");
+// }, 3000);
 
 $(function () {
     $('input[name="daterange"]').daterangepicker({

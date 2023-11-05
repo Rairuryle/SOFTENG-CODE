@@ -23,7 +23,74 @@ body {
   margin: 0;
 }
 
-/* COLLEGE-EVENTS-ADMIN.HTML */
+.user-prompt {
+  background-color: white;
+  width: 20rem;
+  text-align: center;
+  margin-top: -1rem;
+  justify-content: center;
+  padding: 1rem;
+  color: var(--main-green);
+  font-weight: bold;
+  border-radius: 25px;
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+  transition: opacity 0.5s, transform 0.5s;
+  opacity: 0; /* Start with 0 opacity */
+}
+
+.slide-in {
+  animation: slide-in 3.5s cubic-bezier(0.5, 0, 0, 1) forwards,
+    fadein 1s linear forwards, fadeout 1s linear forwards;
+  -webkit-animation: slide-in 3.5s cubic-bezier(0.5, 0, 0, 1) forwards,
+    fadein 1s linear forwards, fadeout 1s 1.5s linear forwards;
+}
+
+@keyframes slide-in {
+  0%,
+  100% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(150%);
+  }
+}
+
+@-webkit-keyframes slide-in {
+  0%,
+  100% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(150%);
+  }
+}
+
+@-webkit-keyframes fadein {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  100% {
+    opacity: 0;
+  }
+}
+
+/* UNIVERSITY-EVENTS-ADMIN */
 
 /* sidenav */
 
@@ -991,16 +1058,6 @@ td {
 
 /* others */
 
-.row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.column {
-  margin: 20px 40px;
-  display: flex;
-}
-
 .img-logo-landing {
   width: 28px;
 }
@@ -1013,11 +1070,6 @@ td {
 
 .form-group {
   position: relative;
-}
-
-.error {
-  color: white;
-  text-align: center;
 }
 
 .hidden {
