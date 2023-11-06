@@ -26,7 +26,7 @@
                         <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event">
                     </button>
 
-                    <div id="myPopupEventUniv" class="popup" style="display: none;">
+                    <div id="myPopupEventUniv" class="popup">
                         <div class="flex-container popup-content">
                             <h1>ADD EVENT</h1>
                             <div class="flex-container add-events-container">
@@ -39,7 +39,7 @@
                                 <div class="flex-container add-activities-events-holder">
                                     Activities
                                     <hr class="popup-hr">
-                                    <div class="inputs">
+                                    <div class="inputsUniv">
                                         <input type="text" name="activityname" placeholder="Activity Name"
                                             class="activityname-main add-event-inputs">
                                         <input type="date" name="activitydate" class="activitydate add-event-inputs">
@@ -47,8 +47,8 @@
                                 </div>
 
                                 <div class="flex-container add-events-container-button">
-                                    <button id="addMore" type="button">Add More Activities</button>
-                                    <button id="closePopup" type="button">SAVE</button>
+                                    <button id="addMore" class="addMoreUniv" type="button">Add More Activities</button>
+                                    <button id="closePopup" class="closePopup" type="button">SAVE</button>
                                 </div>
                             </div>
                         </div>
@@ -58,10 +58,10 @@
         </div>
         <a href="#" class="nav-link">
             <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit" class="modify-button">
+                <button type="button" id="myButtonEventEditUniv" class="modify-button">
                     <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
                 </button>
-                <button type="button" id="myButtonEventDelete" class="modify-button">
+                <button type="button" id="myButtonEventDeleteUniv" class="modify-button">
                     <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
                 </button>
             </div>
@@ -70,10 +70,10 @@
 
         <a href="#" class="nav-link">
             <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit" class="modify-button">
+                <button type="button" id="myButtonEventEditUniv" class="modify-button">
                     <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
                 </button>
-                <button type="button" id="myButtonEventDelete" class="modify-button">
+                <button type="button" id="myButtonEventDeleteUniv" class="modify-button">
                     <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
                 </button>
             </div>
@@ -82,10 +82,10 @@
 
         <a href="#" class="nav-link">
             <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit" class="modify-button">
+                <button type="button" id="myButtonEventEditUniv" class="modify-button">
                     <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
                 </button>
-                <button type="button" id="myButtonEventDelete" class="modify-button">
+                <button type="button" id="myButtonEventDeleteUniv" class="modify-button">
                     <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
                 </button>
             </div>
@@ -94,10 +94,10 @@
 
         <a href="#" class="nav-link">
             <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit" class="modify-button">
+                <button type="button" id="myButtonEventEditUniv" class="modify-button">
                     <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
                 </button>
-                <button type="button" id="myButtonEventDelete" class="modify-button">
+                <button type="button" id="myButtonEventDeleteUniv" class="modify-button">
                     <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
                 </button>
             </div>
@@ -111,7 +111,7 @@
                 <div class="container container-logo">
                     <div class="holder holder-logo">
                         <div class="icon icon-logo">
-                            <a href="/college-events-admin"><img src="../img/lsu.png" alt="LSU Logo"
+                            <a href="/university-events-admin"><img src="../img/lsu.png" alt="LSU Logo"
                                     class="img-logo" /></a>
                         </div>
                         <div class="text text-logo">
@@ -134,6 +134,8 @@
                 <a href="#" class="nav-link">PANAGHUGPONG</a>
                 <a href="#" class="nav-link">PANAGSADYA</a>
 
+                {{!-- COLLEGE --}}
+
                 <div class="container container-textflag college-textflag">
                     <div class="flex-container">
                         <div class="icon icon-textflag">
@@ -145,14 +147,23 @@
                                 <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event" />
                             </button>
 
-                            <div id="myPopupEvent" class="popup myPopupEvent" style="display: none;">
+                            <div id="myPopupEvent" class="popup myPopupEvent">
                                 <div class="flex-container popup-content">
+                                    <span id="closeButton" class="close-button closePopup"
+                                        data-popup-id="myPopupEvent">&times;</span>
                                     <h1>ADD EVENT</h1>
                                     <div class="flex-container add-events-container">
                                         <div class="flex-container add-events-holder">
                                             <input type="text" name="eventname" class="eventname add-event-inputs"
                                                 placeholder="Event Name" />
-                                            <input type="text" name="daterange" class="eventdate add-event-inputs" />
+                                            {{!-- <input type="text" name="daterange"
+                                                class="eventdate add-event-inputs" />
+                                            --}}
+
+                                            <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                                            <p class="date-dash">-</p>
+                                            <input type="date" name="enddate" class="eventdate add-event-inputs" />
+
                                         </div>
 
                                         <div class="flex-container add-activities-events-holder">
@@ -167,8 +178,10 @@
                                         </div>
 
                                         <div class="flex-container add-events-container-button">
-                                            <button id="addMore" type="button">Add More Activities</button>
-                                            <button id="closePopup" type="button">SAVE</button>
+                                            <button id="addMore" class="addMore" type="button">Add More
+                                                Activities</button>
+                                            <button id="closePopup" class="closePopup" data-popup-id="myPopupEvent"
+                                                type="button">SAVE</button>
                                         </div>
                                     </div>
                                 </div>
@@ -182,18 +195,23 @@
                             <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                         </button>
                         <!-- edit event -->
-                        <div id="myPopupEventEdit" class="popup" style="display: none;">
+                        <div id="myPopupEventEdit" class="popup">
                             <div class="flex-container popup-content">
+                                <span id="closeButton" class="close-button closePopup"
+                                    data-popup-id="myPopupEventEdit">&times;</span>
                                 <h1>EDIT EVENT</h1>
                                 <div class="flex-container add-events-container">
                                     <div class="flex-container add-events-holder">
                                         <input type="text" name="eventname" class="eventname add-event-inputs"
                                             placeholder="Event Name" />
-                                        <input type="text" name="daterange" class="eventdate add-event-inputs" />
+                                        <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                                        <p class="date-dash">-</p>
+                                        <input type="date" name="enddate" class="eventdate add-event-inputs" />
                                     </div>
 
                                     <div class="flex-container add-events-container-button">
-                                        <button id="closePopup" type="button">SAVE</button>
+                                        <button id="closePopup" class="closePopup" type="button"
+                                            data-popup-id="myPopupEventEdit">SAVE</button>
                                     </div>
                                 </div>
                             </div>
@@ -202,11 +220,19 @@
                         <button type="button" id="myButtonEventDelete" class="modify-button">
                             <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                         </button>
-                        <div id="myPopupEventDelete" class="popup" style="display: none;">
+                        <div id="myPopupEventDelete" class="popup">
                             <div class="flex-container popup-content">
+                                <span id="closeButton" class="close-button closePopup"
+                                    data-popup-id="myPopupEventDelete">&times;</span>
                                 <h1>DELETE EVENT?</h1>
+                                <h3>WARNING</h3>
+                                <p class="delete-warning">This will remove all existing records stored within the
+                                    event page. Are you sure you wish to proceed?
+                                </p>
+
                                 <div class="flex-container add-events-container-button">
-                                    <button id="closeDeletePopup" type="button">DELETE</button>
+                                    <button id="closeDeletePopup" class="closePopup" type="button"
+                                        data-popup-id="myPopupEventDelete">DELETE</button>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +246,7 @@
                             <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                         </button>
                         <!-- edit event -->
-                        <div id="myPopupEventEdit" class="popup" style="display: none;">
+                        <div id="myPopupEventEdit" class="popup">
                             <div class="flex-container popup-content">
                                 <h1>EDIT EVENT</h1>
                                 <div class="flex-container add-events-container">
@@ -231,7 +257,7 @@
                                     </div>
 
                                     <div class="flex-container add-events-container-button">
-                                        <button id="closePopup" type="button">SAVE</button>
+                                        <button id="closePopup" class="closePopup" type="button">SAVE</button>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +266,7 @@
                         <button type="button" id="myButtonEventDelete" class="modify-button">
                             <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                         </button>
-                        <div id="myPopupEventDelete" class="popup" style="display: none;">
+                        <div id="myPopupEventDelete" class="popup">
                             <div class="flex-container popup-content">
                                 <h1>DELETE EVENT?</h1>
                                 <div class="flex-container add-events-container-button">
@@ -258,7 +284,7 @@
                             <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                         </button>
                         <!-- edit event -->
-                        <div id="myPopupEventEdit" class="popup" style="display: none;">
+                        <div id="myPopupEventEdit" class="popup">
                             <div class="flex-container popup-content">
                                 <h1>EDIT EVENT</h1>
                                 <div class="flex-container add-events-container">
@@ -269,7 +295,7 @@
                                     </div>
 
                                     <div class="flex-container add-events-container-button">
-                                        <button id="closePopup" type="button">SAVE</button>
+                                        <button id="closePopup" class="closePopup" type="button">SAVE</button>
                                     </div>
                                 </div>
                             </div>
@@ -278,7 +304,7 @@
                         <button type="button" id="myButtonEventDelete" class="modify-button">
                             <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                         </button>
-                        <div id="myPopupEventDelete" class="popup" style="display: none;">
+                        <div id="myPopupEventDelete" class="popup">
                             <div class="flex-container popup-content">
                                 <h1>DELETE EVENT?</h1>
                                 <div class="flex-container add-events-container-button">

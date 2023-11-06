@@ -142,6 +142,7 @@ button {
   width: 40%;
   font-weight: bolder;
   border-radius: 15px;
+  justify-content: center;
 }
 
 .popup-content h1 {
@@ -150,6 +151,24 @@ button {
   width: 100%;
   color: var(--main-green);
   font-size: 1.5rem;
+  margin-top: -0.5rem;
+}
+
+.popup-content h3 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: red;
+  margin-top: -0.1rem;
+}
+
+.close-button {
+  text-align: end;
+  width: 100%;
+}
+
+.add-events-container {
+  width: 95%;
 }
 
 .add-events-holder {
@@ -171,14 +190,28 @@ input[name="activitydate[]"]::placeholder {
   font-weight: lighter;
 }
 
+.eventname {
+  text-align: center;
+  width: 100%;
+}
+
 .eventname,
 .eventdate {
   border: 2px solid var(--main-green);
   border-radius: 15px;
-  width: 95%;
   padding: 0.4rem 0.3rem 0.4rem 0.7rem;
   font-size: 0.9rem;
   margin-bottom: 1rem;
+}
+
+.eventdate {
+  width: 47%;
+}
+
+.date-dash {
+  margin-top: -0.3rem;
+  padding: 0 0.5rem;
+  color: black;
 }
 
 .activityname,
@@ -279,6 +312,12 @@ input[name="activitydate[]"] {
 
 #closePopup {
   margin-right: 0;
+}
+
+.delete-warning {
+  color: black;
+  text-align: center;
+  margin-top: -0.5rem;
 }
 
 .show {

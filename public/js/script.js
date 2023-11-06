@@ -62,189 +62,7 @@ seeMoreButton.addEventListener("click", function () {
 
 // popup button @ university-events-edit & college-events-edit
 // Get references to the buttons and the popup
-const myButtonEvent = document.getElementById("myButtonEvent");
-const myButtonEventEdit = document.getElementById("myButtonEventEdit");
-const myButtonEventDelete = document.getElementById("myButtonEventDelete");
-const myButtonActivity = document.getElementById("myButtonActivity");
-const myButtonActivityEdit = document.getElementById("myButtonActivityEdit");
-const myButtonActivityDelete = document.getElementById("myButtonActivityDelete");
 
-const myPopupEvent = document.getElementById("myPopupEvent");
-const myPopupEventEdit = document.getElementById("myPopupEventEdit");
-const myPopupEventDelete = document.getElementById("myPopupEventDelete");
-const myPopupActivity = document.getElementById("myPopupActivity");
-const myPopupActivityEdit = document.getElementById("myPopupActivityEdit");
-const myPopupActivityDelete = document.getElementById("myPopupActivityDelete");
-
-
-function showPopup(popup) {
-    // Hide all popups
-    myPopupEvent.style.display = "none";
-    myPopupEventEdit.style.display = "none";
-    myPopupEventDelete.style.display = "none";
-    myPopupActivity.style.display = "none";
-    myPopupActivityEdit.style.display = "none";
-    myPopupActivityDelete.style.display = "none";
-
-    // Display the selected popup
-    popup.style.display = "block";
-}
-
-function closePopup() {
-    myPopupEvent.style.display = "none";
-    myPopupEventEdit.style.display = "none";
-    myPopupEventDelete.style.display = "none";
-    myPopupActivity.style.display = "none";
-    myPopupActivityEdit.style.display = "none";
-    myPopupActivityDelete.style.display = "none";
-}
-
-
-myButtonEvent.addEventListener("click", function () {
-    showPopup(myPopupEvent);
-});
-
-myButtonEventEdit.addEventListener("click", function () {
-    showPopup(myPopupEventEdit);
-});
-
-myButtonEventDelete.addEventListener("click", function () {
-    showPopup(myPopupEventDelete);
-});
-
-myButtonActivity.addEventListener("click", function () {
-    showPopup(myPopupActivity);
-});
-
-myButtonActivityEdit.addEventListener("click", function () {
-    showPopup(myPopupActivityEdit);
-});
-
-myButtonActivityDelete.addEventListener("click", function () {
-    showPopup(myPopupActivityDelete);
-});
-
-// Close the popups when clicking outside or on "SAVE" button
-
-
-myPopupEvent.addEventListener("click", function (event) {
-    if (event.target === myPopupEvent) {
-        closePopup();
-    }
-});
-
-myPopupEventEdit.addEventListener("click", function (event) {
-    if (event.target === myPopupEventEdit) {
-        closePopup();
-    }
-});
-
-myPopupEventDelete.addEventListener("click", function (event) {
-    if (event.target === myPopupEventDelete) {
-        closePopup();
-    }
-});
-
-myPopupActivity.addEventListener("click", function (event) {
-    if (event.target === myPopupActivity) {
-        closePopup();
-    }
-});
-
-myPopupActivityEdit.addEventListener("click", function (event) {
-    if (event.target === myPopupActivityEdit) {
-        closePopup();
-    }
-});
-
-myPopupActivityDelete.addEventListener("click", function (event) {
-    if (event.target === myPopupActivityDelete) {
-        closePopup();
-    }
-});
-
-const saveButtonEvent = myPopupEvent.querySelector("#closePopup");
-const saveButtonEventEdit = myPopupEventEdit.querySelector("#closePopup");
-const saveButtonEventDelete = myPopupEventDelete.querySelector("#closeDeletePopup");
-const saveButtonActivity = myPopupActivity.querySelector("#closePopup");
-const saveButtonActivityEdit = myPopupActivityEdit.querySelector("#closePopup");
-const saveButtonActivityDelete = myPopupActivityDelete.querySelector("#closeDeletePopup");
-
-saveButtonEvent.addEventListener("click", closePopup);
-saveButtonEventEdit.addEventListener("click", closePopup);
-saveButtonEventDelete.addEventListener("click", closePopup);
-saveButtonActivity.addEventListener("click", closePopup);
-saveButtonActivityEdit.addEventListener("click", closePopup);
-saveButtonActivityDelete.addEventListener("click", closePopup);
-
-
-myButtonActivityEdit.addEventListener("click", function () {
-    // Get the text from #activityNameSpecific
-    const activityNameSpecific = document.querySelector(".activityNameSpecific").textContent;
-
-    // Update all elements with class .activityname
-    const activityNameElements = document.querySelectorAll(".activityname");
-    activityNameElements.forEach(function (element) {
-        if (element.tagName === 'INPUT') {
-            element.value = activityNameSpecific;
-        }
-    });
-});
-
-myButtonEventEdit.addEventListener("click", function () {
-    // Get the text from #activityNameSpecific
-    const eventNameSpecific = document.querySelector(".eventNameSpecific").textContent;
-
-    // Update all elements with class .activityname
-    const eventNameElements = document.querySelectorAll(".eventname");
-    eventNameElements.forEach(function (element) {
-        if (element.tagName === 'INPUT') {
-            element.value = eventNameSpecific;
-        }
-    });
-});
-
-
-
-
-// add new activity @ college-events-edit.html, add-activities-events-holder
-let addMore = document.getElementById('addMore');
-let inputs = document.querySelector('.inputs');
-
-addMore.addEventListener('click', function () {
-    let newInputName = document.createElement('input');
-    newInputName.type = 'text';
-    newInputName.placeholder = 'Activity Name';
-    newInputName.name = 'activityname[]';
-    newInputName.classList.add('input-style'); // Add a CSS class to the new input
-
-    let newInputDate = document.createElement('input');
-    newInputDate.type = 'date';
-    newInputDate.name = 'activitydate[]';
-    newInputDate.classList.add('input-style'); // Add the same CSS class to the new input
-
-    inputs.appendChild(newInputName);
-    inputs.appendChild(newInputDate);
-});
-
-let addMoreActivity = document.getElementById('addMoreActivity');
-let inputsActivity = document.querySelector('.inputsActivity');
-
-addMoreActivity.addEventListener('click', function () {
-    let newInputNameActivity = document.createElement('input');
-    newInputNameActivity.type = 'text';
-    newInputNameActivity.placeholder = 'Activity Name';
-    newInputNameActivity.name = 'activityname[]';
-    newInputNameActivity.classList.add('input-style'); // Add a CSS class to the new input
-
-    let newInputDateActivity = document.createElement('input');
-    newInputDateActivity.type = 'date';
-    newInputDateActivity.name = 'activitydate[]';
-    newInputDateActivity.classList.add('input-style'); // Add the same CSS class to the new input
-
-    inputsActivity.appendChild(newInputNameActivity);
-    inputsActivity.appendChild(newInputDateActivity);
-});
 
 
 // show/hide password @ login.html
@@ -309,3 +127,14 @@ $(function () {
 // }
 
 //for navbarUniversity to go to university-events-edit
+
+// function editModeDirect() {
+//     let url = window.location.toString();
+//     window.location = url.replace(/admin/, `edit`);
+//     console.log(window.location);
+// }
+
+// const editModeElements = document.querySelectorAll('.editMode');
+// editModeElements.forEach(function (element) {
+//     element.addEventListener('click', editModeDirect);
+// });

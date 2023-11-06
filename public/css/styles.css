@@ -1075,3 +1075,9 @@ td {
 .hidden {
   display: none;
 }
+
+.close-button {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--main-green);
+}
