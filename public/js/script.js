@@ -16,6 +16,93 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // const navLinks = document.querySelectorAll(".nav-link");
+    // const myButton = document.getElementById("myButton");
+
+    // navLinks.forEach(link => {
+    //     link.addEventListener("click", function (event) {
+    //         // Prevent the default behavior of the link
+    //         event.preventDefault();
+
+    //         // Remove the 'active' class from all links
+    //         navLinks.forEach(link => {
+    //             link.classList.remove("active");
+    //         });
+
+    //         // Add the 'active' class to the clicked link
+    //         this.classList.add("active");
+
+    //         // Update button's background color
+    //         if (this.classList.contains("active")) {
+    //             myButton.style.backgroundColor = "blue";
+    //         } else {
+    //             myButton.style.backgroundColor = ""; // Reset the background color
+    //         }
+    //     });
+    // });
+
+    // const navLinks = document.querySelectorAll(".nav-link");
+    // const myButton = document.getElementById("myButton");
+
+    // function removeButtonColor() {
+    //     myButton.style.backgroundColor = "";
+    // }
+
+    // navLinks.forEach(link => {
+    //     link.addEventListener("click", function (event) {
+    //         // Prevent the default behavior of the link
+    //         event.preventDefault();
+
+    //         // Remove the 'active' class from all links
+    //         navLinks.forEach(link => {
+    //             link.classList.remove("active");
+    //         });
+
+    //         // Add the 'active' class to the clicked link
+    //         this.classList.add("active");
+
+    //         // Update button's background color
+    //         myButton.style.backgroundColor = "blue";
+    //     });
+    // });
+
+    // document.addEventListener("click", function (event) {
+    //     const isNavLink = Array.from(navLinks).some(link => link.contains(event.target));
+    //     if (!isNavLink) {
+    //         // Clicked outside of the navigation links, so remove the button's background color
+    //         removeButtonColor();
+    //     }
+    // });
+    
+    // const navLinks = document.querySelectorAll(".nav-link");
+    // const buttons = document.querySelectorAll(".buttones");
+
+    // navLinks.forEach(link => {
+    //     link.addEventListener("click", function (event) {
+    //         event.preventDefault();
+
+    //         const buttonTarget = this.getAttribute("data-button-target");
+
+    //         // Remove the 'active' class from all links
+    //         navLinks.forEach(link => {
+    //             link.classList.remove("active");
+    //         });
+
+    //         // Add the 'active' class to the clicked link
+    //         this.classList.add("active");
+
+    //         // Update button's background color based on the data attribute
+    //         buttons.forEach(button => {
+    //             const buttonColor = button.getAttribute("data-button-color");
+    //             if (buttonTarget === buttonColor) {
+    //                 button.style.backgroundColor = buttonColor;
+    //             } else {
+    //                 button.style.backgroundColor = "";
+    //             }
+    //         });
+    //     });
+    // });
+
     var selects = document.querySelectorAll(".student-role-dropdown");
 
     // Add an event listener to each select element
@@ -60,11 +147,6 @@ seeMoreButton.addEventListener("click", function () {
 });
 
 
-// popup button @ university-events-edit & college-events-edit
-// Get references to the buttons and the popup
-
-
-
 // show/hide password @ login.html
 function togglePasswordVisibility() {
     const passwordInput = document.getElementById("password");
@@ -103,16 +185,6 @@ document.getElementById("gridsearchIDNumber").maxLength = "9";
 // setTimeout(function () {
 //     logoutPrompt.classList.add("hidden");
 // }, 3000);
-
-$(function () {
-    $('input[name="daterange"]').daterangepicker({
-        opens: 'left'
-    }, function (start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    });
-});
-
-
 
 // document.AddEventListener('DOMContentLoaded', function () {
 //     loadHTMLTable([]);

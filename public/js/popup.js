@@ -23,6 +23,148 @@ addMoreButtons.forEach(function (addMoreButton) {
     });
 });
 
+// Get all elements with the 'addMore' class
+const addMoreActivitiesButtons = document.querySelectorAll('.addMoreActivities');
+
+// Loop through all 'addMore' buttons and add a click event listener to each
+addMoreActivitiesButtons.forEach(function (addMoreActivitiesButton) {
+    addMoreActivitiesButton.addEventListener('click', function () {
+        console.log('ok');
+        // Find the corresponding '.inputs' container for this button
+        let inputs = document.querySelector('.inputsActivity');
+
+        let newInputName = document.createElement('input');
+        newInputName.type = 'text';
+        newInputName.placeholder = 'Activity Name';
+        newInputName.name = 'activityname[]';
+        newInputName.classList.add('input-style');
+
+        let newInputDate = document.createElement('input');
+        newInputDate.type = 'date';
+        newInputDate.name = 'activitydate[]';
+        newInputDate.classList.add('input-style');
+
+        inputs.appendChild(newInputName);
+        inputs.appendChild(newInputDate);
+    });
+});
+
+
+// let addMoreActivity = document.getElementById('addMoreActivity');
+// let inputsActivity = document.querySelector('.inputsActivity');
+
+// addMoreActivity.addEventListener('click', function () {
+//     let newInputNameActivity = document.createElement('input');
+//     newInputNameActivity.type = 'text';
+//     newInputNameActivity.placeholder = 'Activity Name';
+//     newInputNameActivity.name = 'activityname[]';
+//     newInputNameActivity.classList.add('input-style'); // Add a CSS class to the new input
+
+//     let newInputDateActivity = document.createElement('input');
+//     newInputDateActivity.type = 'date';
+//     newInputDateActivity.name = 'activitydate[]';
+//     newInputDateActivity.classList.add('input-style'); // Add the same CSS class to the new input
+
+//     inputsActivity.appendChild(newInputNameActivity);
+//     inputsActivity.appendChild(newInputDateActivity);
+// });
+
+
+const myButtonEvent = document.querySelectorAll('.myButtonEvent');
+
+myButtonEvent.forEach(button => {
+    button.addEventListener('click', function () {
+        const popupId = this.getAttribute('data-popup-id');
+        const popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = 'block';
+        }
+    });
+});
+
+const myButtonEventEdit = document.querySelectorAll('.myButtonEventEdit');
+
+myButtonEventEdit.forEach(button => {
+    button.addEventListener('click', function () {
+        const popupId = this.getAttribute('data-popup-id');
+        const popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = 'block';
+        }
+    });
+});
+
+// const myButtonEvent = document.querySelectorAll('.myButtonEvent');
+
+// myButtonEvent.forEach(button => {
+//     button.addEventListener('click', function () {
+//         const popupId = this.getAttribute('data-popup-id');
+//         const popup = document.getElementById(popupId);
+//         const eventNameID = this.getAttribute('data-event-name-specific');
+//         const eventName = document.getElementById(eventNameID);
+
+//         if (popup && eventName) {
+//             popup.style.display = 'block';
+
+//             const eventNameElements = popup.querySelectorAll(".eventname");
+//             eventNameElements.forEach(function (element) {
+//                 if (element.tagName === 'INPUT') {
+//                     element.value = eventName.textContent;
+//                 }
+//             });
+//         }
+
+
+const myButtonEventDelete = document.querySelectorAll('.myButtonEventDelete');
+
+myButtonEventDelete.forEach(button => {
+    button.addEventListener('click', function () {
+        const popupId = this.getAttribute('data-popup-id');
+        const popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = 'block';
+        }
+    });
+});
+
+const myButtonActivityAdd = document.querySelectorAll('.myButtonActivityAdd');
+
+myButtonActivityAdd.forEach(button => {
+    button.addEventListener('click', function () {
+        console.log('ok');
+        const popupId = this.getAttribute('data-popup-id');
+        const popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = 'block';
+        }
+    });
+});
+
+const myButtonActivityEdit = document.querySelectorAll('.myButtonActivityEdit');
+
+myButtonActivityEdit.forEach(button => {
+    button.addEventListener('click', function () {
+        console.log('ok');
+        const popupId = this.getAttribute('data-popup-id');
+        const popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = 'block';
+        }
+    });
+});
+
+const myButtonActivityDelete = document.querySelectorAll('.myButtonActivityDelete');
+
+myButtonActivityDelete.forEach(button => {
+    button.addEventListener('click', function () {
+        console.log('ok');
+        const popupId = this.getAttribute('data-popup-id');
+        const popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = 'block';
+        }
+    });
+});
 
 const closeButtons = document.querySelectorAll('.closePopup');
 
@@ -36,41 +178,30 @@ closeButtons.forEach(button => {
     });
 });
 
-// const myButtonEvents = document.querySelectorAll('.myButtonEvent');
-
-// myButtonEvents.forEach(button => {
-//     button.addEventListener('click', function () {
-//         const popupId = this.getAttribute('data-popup-id');
-//         const popup = document.getElementById(popupId);
-//         if (popup) {
-//             popup.style.display = 'block';
+// function showEventName() {
+//     const eventNameSpecific = document.querySelector(".eventNameSpecific").textContent;
+//     const eventNameElements = document.querySelectorAll(".eventname");
+//     eventNameElements.forEach(function (element) {
+//         if (element.tagName === 'INPUT') {
+//             element.value = eventNameSpecific;
 //         }
 //     });
-// });
+// };
+
+// function showPopup(popup) {
+//     // Hide all popups
+//     myPopupEvent.style.display = "none";
+//     myPopupEventEdit.style.display = "none";
+//     myPopupEventDelete.style.display = "none";
+//     // myPopupActivity.style.display = "none";
+//     // myPopupActivityEdit.style.display = "none";
+//     // myPopupActivityDelete.style.display = "none";
+
+//     // Display the selected popup
+//     popup.style.display = "block";
+// }
 
 
-function showPopup(popup) {
-    // Hide all popups
-    myPopupEvent.style.display = "none";
-    myPopupEventEdit.style.display = "none";
-    myPopupEventDelete.style.display = "none";
-    // myPopupActivity.style.display = "none";
-    // myPopupActivityEdit.style.display = "none";
-    // myPopupActivityDelete.style.display = "none";
-
-    // Display the selected popup
-    popup.style.display = "block";
-}
-
-function showEventName() {
-    const eventNameSpecific = document.querySelector(".eventNameSpecific").textContent;
-    const eventNameElements = document.querySelectorAll(".eventname");
-    eventNameElements.forEach(function (element) {
-        if (element.tagName === 'INPUT') {
-            element.value = eventNameSpecific;
-        }
-    });
-};
 
 // function closePopup() {
 //     myPopupEvent.style.display = "none";
@@ -81,44 +212,44 @@ function showEventName() {
 //     // myPopupActivityDelete.style.display = "none";
 // }
 
-const myButtonEvent = document.getElementById("myButtonEvent");
-const myButtonEventEdit = document.getElementById("myButtonEventEdit");
-const myButtonEventDelete = document.getElementById("myButtonEventDelete");
-const myButtonActivity = document.getElementById("myButtonActivity");
-const myButtonActivityEdit = document.getElementById("myButtonActivityEdit");
-const myButtonActivityDelete = document.getElementById("myButtonActivityDelete");
+// const myButtonEvent = document.getElementById("myButtonEvent");
+// const myButtonEventEdit = document.getElementById("myButtonEventEdit");
+// const myButtonEventDelete = document.getElementById("myButtonEventDelete");
+// const myButtonActivity = document.getElementById("myButtonActivity");
+// const myButtonActivityEdit = document.getElementById("myButtonActivityEdit");
+// const myButtonActivityDelete = document.getElementById("myButtonActivityDelete");
 
-const myPopupEvent = document.getElementById("myPopupEvent");
-const myPopupEventEdit = document.getElementById("myPopupEventEdit");
-const myPopupEventDelete = document.getElementById("myPopupEventDelete");
-const myPopupActivity = document.getElementById("myPopupActivity");
-const myPopupActivityEdit = document.getElementById("myPopupActivityEdit");
-const myPopupActivityDelete = document.getElementById("myPopupActivityDelete");
+// const myPopupEvent = document.getElementById("myPopupEvent");
+// const myPopupEventEdit = document.getElementById("myPopupEventEdit");
+// const myPopupEventDelete = document.getElementById("myPopupEventDelete");
+// const myPopupActivity = document.getElementById("myPopupActivity");
+// const myPopupActivityEdit = document.getElementById("myPopupActivityEdit");
+// const myPopupActivityDelete = document.getElementById("myPopupActivityDelete");
 
-myButtonEvent.addEventListener("click", function () {
-    showPopup(myPopupEvent);
-});
+// myButtonEvent.addEventListener("click", function () {
+//     showPopup(myPopupEvent);
+// });
 
-myButtonEventEdit.addEventListener("click", function () {
-    showPopup(myPopupEventEdit);
-    showEventName();
-});
+// myButtonEventEdit.addEventListener("click", function () {
+//     showPopup(myPopupEventEdit);
+//     showEventName();
+// });
 
-myButtonEventDelete.addEventListener("click", function () {
-    showPopup(myPopupEventDelete);
-});
+// myButtonEventDelete.addEventListener("click", function () {
+//     showPopup(myPopupEventDelete);
+// });
 
-myButtonActivity.addEventListener("click", function () {
-    showPopup(myPopupActivity);
-});
+// myButtonActivity.addEventListener("click", function () {
+//     showPopup(myPopupActivity);
+// });
 
-myButtonActivityEdit.addEventListener("click", function () {
-    showPopup(myPopupActivityEdit);
-});
+// myButtonActivityEdit.addEventListener("click", function () {
+//     showPopup(myPopupActivityEdit);
+// });
 
-myButtonActivityDelete.addEventListener("click", function () {
-    showPopup(myPopupActivityDelete);
-});
+// myButtonActivityDelete.addEventListener("click", function () {
+//     showPopup(myPopupActivityDelete);
+// });
 
 
 // Close the popups when clicking outside or on "SAVE" button
@@ -176,34 +307,15 @@ myButtonActivityDelete.addEventListener("click", function () {
 
 
 
-myButtonActivityEdit.addEventListener("click", function () {
-    // Get the text from #activityNameSpecific
-    const activityNameSpecific = document.querySelector(".activityNameSpecific").textContent;
+// myButtonActivityEdit.addEventListener("click", function () {
+//     // Get the text from #activityNameSpecific
+//     const activityNameSpecific = document.querySelector(".activityNameSpecific").textContent;
 
-    // Update all elements with class .activityname
-    const activityNameElements = document.querySelectorAll(".activityname");
-    activityNameElements.forEach(function (element) {
-        if (element.tagName === 'INPUT') {
-            element.value = activityNameSpecific;
-        }
-    });
-});
-
-let addMoreActivity = document.getElementById('addMoreActivity');
-let inputsActivity = document.querySelector('.inputsActivity');
-
-addMoreActivity.addEventListener('click', function () {
-    let newInputNameActivity = document.createElement('input');
-    newInputNameActivity.type = 'text';
-    newInputNameActivity.placeholder = 'Activity Name';
-    newInputNameActivity.name = 'activityname[]';
-    newInputNameActivity.classList.add('input-style'); // Add a CSS class to the new input
-
-    let newInputDateActivity = document.createElement('input');
-    newInputDateActivity.type = 'date';
-    newInputDateActivity.name = 'activitydate[]';
-    newInputDateActivity.classList.add('input-style'); // Add the same CSS class to the new input
-
-    inputsActivity.appendChild(newInputNameActivity);
-    inputsActivity.appendChild(newInputDateActivity);
-});
+//     // Update all elements with class .activityname
+//     const activityNameElements = document.querySelectorAll(".activityname");
+//     activityNameElements.forEach(function (element) {
+//         if (element.tagName === 'INPUT') {
+//             element.value = activityNameSpecific;
+//         }
+//     });
+// });

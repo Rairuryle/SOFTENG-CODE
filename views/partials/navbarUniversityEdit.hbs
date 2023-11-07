@@ -16,39 +16,47 @@
         <div class="container container-textflag">
             <div class="flex-container">
                 <div class="icon icon-textflag">
-                    <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag">
+                    <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
                 </div>
-                <div class="text text-textflag">
-                    INSTITUTIONAL
-                </div>
+                <div class="text text-textflag">INSTITUTIONAL</div>
                 <div class="icon icon-textflag textflag-add-institutional-event">
-                    <button id="myButtonEventUniv">
-                        <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event">
+                    <button id="myButtonEvent" class="myButtonEvent" data-popup-id="myPopupEvent">
+                        <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event" />
                     </button>
 
-                    <div id="myPopupEventUniv" class="popup">
+                    <div id="myPopupEvent" class="popup myPopupEvent">
                         <div class="flex-container popup-content">
+                            <span id="closeButton" class="close-button closePopup"
+                                data-popup-id="myPopupEvent">&times;</span>
                             <h1>ADD EVENT</h1>
                             <div class="flex-container add-events-container">
                                 <div class="flex-container add-events-holder">
                                     <input type="text" name="eventname" class="eventname add-event-inputs"
-                                        placeholder="Event Name">
-                                    <input type="text" name="daterange" class="eventdate add-event-inputs">
+                                        placeholder="Event Name" />
+                                    {{!-- <input type="text" name="daterange" class="eventdate add-event-inputs" />
+                                    --}}
+
+                                    <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                                    <p class="date-dash">-</p>
+                                    <input type="date" name="enddate" class="eventdate add-event-inputs" />
+
                                 </div>
 
                                 <div class="flex-container add-activities-events-holder">
                                     Activities
-                                    <hr class="popup-hr">
-                                    <div class="inputsUniv">
+                                    <hr class="popup-hr" />
+                                    <div class="inputs">
                                         <input type="text" name="activityname" placeholder="Activity Name"
-                                            class="activityname-main add-event-inputs">
-                                        <input type="date" name="activitydate" class="activitydate add-event-inputs">
+                                            class="activityname-main add-event-inputs" />
+                                        <input type="date" name="activitydate" class="activitydate add-event-inputs" />
                                     </div>
                                 </div>
 
                                 <div class="flex-container add-events-container-button">
-                                    <button id="addMore" class="addMoreUniv" type="button">Add More Activities</button>
-                                    <button id="closePopup" class="closePopup" type="button">SAVE</button>
+                                    <button id="addMore" class="addMore" type="button">Add More
+                                        Activities</button>
+                                    <button id="closePopup" class="closePopup" data-popup-id="myPopupEvent"
+                                        type="button">SAVE</button>
                                 </div>
                             </div>
                         </div>
@@ -56,53 +64,220 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="nav-link">
-            <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEditUniv" class="modify-button">
-                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
-                </button>
-                <button type="button" id="myButtonEventDeleteUniv" class="modify-button">
-                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
-                </button>
-            </div>
-            PASIMULA
-        </a>
 
         <a href="#" class="nav-link">
             <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEditUniv" class="modify-button">
-                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
+                <button type="button" id="myButtonEventEdit1" class="myButtonEventEdit modify-button"
+                    data-popup-id="myPopupEventEdit1">
+                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                 </button>
-                <button type="button" id="myButtonEventDeleteUniv" class="modify-button">
-                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
+                <button type="button" id="myButtonEventDelete1" class="myButtonEventDelete modify-button"
+                    data-popup-id="myPopupEventDelete1">
+                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                 </button>
             </div>
-            KULTURANIMO
+            <p class="eventNameSpecific">PASIMULA</p>
         </a>
+        <!-- edit event -->
+        <div id="myPopupEventEdit1" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup" data-popup-id="myPopupEventEdit1">&times;</span>
+                <h1>EDIT EVENT</h1>
+                <div class="flex-container add-events-container">
+                    <div class="flex-container add-events-holder">
+                        <input type="text" name="eventname" class="eventname add-event-inputs"
+                            placeholder="Event Name" />
+                        <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                        <p class="date-dash">-</p>
+                        <input type="date" name="enddate" class="eventdate add-event-inputs" />
+                    </div>
+
+                    <div class="flex-container add-events-container-button">
+                        <button id="closePopup" class="closePopup" type="button"
+                            data-popup-id="myPopupEventEdit1">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="myPopupEventDelete1" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup"
+                    data-popup-id="myPopupEventDelete1">&times;</span>
+                <h1>DELETE EVENT?</h1>
+                <h3>WARNING</h3>
+                <p class="delete-warning">This will remove all existing records stored within the
+                    event page. Are you sure you wish to proceed?
+                </p>
+
+                <div class="flex-container add-events-container-button">
+                    <button id="closeDeletePopup" class="closePopup" type="button"
+                        data-popup-id="myPopupEventDelete1">DELETE</button>
+                </div>
+            </div>
+        </div>
+
 
         <a href="#" class="nav-link">
             <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEditUniv" class="modify-button">
-                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
+                <button type="button" id="myButtonEventEdit2" class="myButtonEventEdit modify-button"
+                    data-popup-id="myPopupEventEdit2">
+                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                 </button>
-                <button type="button" id="myButtonEventDeleteUniv" class="modify-button">
-                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
+                <button type="button" id="myButtonEventDelete2" class="myButtonEventDelete modify-button"
+                    data-popup-id="myPopupEventDelete2">
+                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                 </button>
             </div>
-            PANAGHUGPONG
+            <p class="eventNameSpecific">KULTURANIMO</p>
         </a>
+        <div id="myPopupEventEdit2" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup" data-popup-id="myPopupEventEdit2">&times;</span>
+                <h1>EDIT EVENT</h1>
+                <div class="flex-container add-events-container">
+                    <div class="flex-container add-events-holder">
+                        <input type="text" name="eventname" class="eventname add-event-inputs"
+                            placeholder="Event Name" />
+                        <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                        <p class="date-dash">-</p>
+                        <input type="date" name="enddate" class="eventdate add-event-inputs" />
+                    </div>
+
+                    <div class="flex-container add-events-container-button">
+                        <button id="closePopup" class="closePopup" type="button"
+                            data-popup-id="myPopupEventEdit2">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="myPopupEventDelete2" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup"
+                    data-popup-id="myPopupEventDelete2">&times;</span>
+                <h1>DELETE EVENT?</h1>
+                <h3>WARNING</h3>
+                <p class="delete-warning">This will remove all existing records stored within the
+                    event page. Are you sure you wish to proceed?
+                </p>
+
+                <div class="flex-container add-events-container-button">
+                    <button id="closeDeletePopup" class="closePopup" type="button"
+                        data-popup-id="myPopupEventDelete2">DELETE</button>
+                </div>
+            </div>
+        </div>
 
         <a href="#" class="nav-link">
             <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEditUniv" class="modify-button">
-                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event">
+                <button type="button" id="myButtonEventEdit3" class="myButtonEventEdit modify-button"
+                    data-popup-id="myPopupEventEdit3">
+                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                 </button>
-                <button type="button" id="myButtonEventDeleteUniv" class="modify-button">
-                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event">
+                <button type="button" id="myButtonEventDelete3" class="myButtonEventDelete modify-button"
+                    data-popup-id="myPopupEventDelete3">
+                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                 </button>
             </div>
-            PANAGSADYA
+            <p class="eventNameSpecific">PANAGHUGPONG</p>
         </a>
+        <!-- edit event -->
+        <div id="myPopupEventEdit3" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup" data-popup-id="myPopupEventEdit3">&times;</span>
+                <h1>EDIT EVENT</h1>
+                <div class="flex-container add-events-container">
+                    <div class="flex-container add-events-holder">
+                        <input type="text" name="eventname" class="eventname add-event-inputs"
+                            placeholder="Event Name" />
+                        <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                        <p class="date-dash">-</p>
+                        <input type="date" name="enddate" class="eventdate add-event-inputs" />
+                    </div>
+
+                    <div class="flex-container add-events-container-button">
+                        <button id="closePopup" class="closePopup" type="button"
+                            data-popup-id="myPopupEventEdit3">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myPopupEventDelete3" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup"
+                    data-popup-id="myPopupEventDelete3">&times;</span>
+                <h1>DELETE EVENT?</h1>
+                <h3>WARNING</h3>
+                <p class="delete-warning">This will remove all existing records stored within the
+                    event page. Are you sure you wish to proceed?
+                </p>
+
+                <div class="flex-container add-events-container-button">
+                    <button id="closeDeletePopup" class="closePopup" type="button"
+                        data-popup-id="myPopupEventDelete3">DELETE</button>
+                </div>
+            </div>
+        </div>
+
+        <a href="#" class="nav-link">
+            <div class="img-modify-event-container">
+                <button type="button" id="myButtonEventEdit4" class="myButtonEventEdit modify-button"
+                    data-popup-id="myPopupEventEdit4">
+                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
+                </button>
+                <button type="button" id="myButtonEventDelete4" class="myButtonEventDelete modify-button"
+                    data-popup-id="myPopupEventDelete4">
+                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
+                </button>
+            </div>
+            <p class="eventNameSpecific">PANAGSADYA</p>
+        </a>
+        <!-- edit event -->
+        <div id="myPopupEventEdit4" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup" data-popup-id="myPopupEventEdit4">&times;</span>
+                <h1>EDIT EVENT</h1>
+                <div class="flex-container add-events-container">
+                    <div class="flex-container add-events-holder">
+                        <input type="text" name="eventname" class="eventname add-event-inputs"
+                            placeholder="Event Name" />
+                        <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                        <p class="date-dash">-</p>
+                        <input type="date" name="enddate" class="eventdate add-event-inputs" />
+                    </div>
+
+                    <div class="flex-container add-events-container-button">
+                        <button id="closePopup" class="closePopup" type="button"
+                            data-popup-id="myPopupEventEdit4">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="myPopupEventDelete4" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup"
+                    data-popup-id="myPopupEventDelete4">&times;</span>
+                <h1>DELETE EVENT?</h1>
+                <h3>WARNING</h3>
+                <p class="delete-warning">This will remove all existing records stored within the
+                    event page. Are you sure you wish to proceed?
+                </p>
+
+                <div class="flex-container add-events-container-button">
+                    <button id="closeDeletePopup" class="closePopup" type="button"
+                        data-popup-id="myPopupEventDelete4">DELETE</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
 
         {{#unless isUSGorSAO}}
         <nav class="sidenav">
@@ -143,7 +318,7 @@
                         </div>
                         <div class="text text-textflag">COLLEGE</div>
                         <div class="icon icon-textflag textflag-add-event">
-                            <button id="myButtonEvent" class="myButtonEvent">
+                            <button id="myButtonEvent" class="myButtonEvent" data-popup-id="myPopupEvent">
                                 <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event" />
                             </button>
 
@@ -191,130 +366,163 @@
                 </div>
                 <a href="#" class="nav-link">
                     <div class="img-modify-event-container">
-                        <button type="button" id="myButtonEventEdit" class="modify-button">
+                        <button type="button" id="myButtonEventEdit5" class="myButtonEventEdit modify-button"
+                            data-popup-id="myPopupEventEdit5">
                             <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                         </button>
-                        <!-- edit event -->
-                        <div id="myPopupEventEdit" class="popup">
-                            <div class="flex-container popup-content">
-                                <span id="closeButton" class="close-button closePopup"
-                                    data-popup-id="myPopupEventEdit">&times;</span>
-                                <h1>EDIT EVENT</h1>
-                                <div class="flex-container add-events-container">
-                                    <div class="flex-container add-events-holder">
-                                        <input type="text" name="eventname" class="eventname add-event-inputs"
-                                            placeholder="Event Name" />
-                                        <input type="date" name="startdate" class="eventdate add-event-inputs" />
-                                        <p class="date-dash">-</p>
-                                        <input type="date" name="enddate" class="eventdate add-event-inputs" />
-                                    </div>
-
-                                    <div class="flex-container add-events-container-button">
-                                        <button id="closePopup" class="closePopup" type="button"
-                                            data-popup-id="myPopupEventEdit">SAVE</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="button" id="myButtonEventDelete" class="modify-button">
+                        <button type="button" id="myButtonEventDelete5" class="myButtonEventDelete modify-button"
+                            data-popup-id="myPopupEventDelete5">
                             <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                         </button>
-                        <div id="myPopupEventDelete" class="popup">
-                            <div class="flex-container popup-content">
-                                <span id="closeButton" class="close-button closePopup"
-                                    data-popup-id="myPopupEventDelete">&times;</span>
-                                <h1>DELETE EVENT?</h1>
-                                <h3>WARNING</h3>
-                                <p class="delete-warning">This will remove all existing records stored within the
-                                    event page. Are you sure you wish to proceed?
-                                </p>
-
-                                <div class="flex-container add-events-container-button">
-                                    <button id="closeDeletePopup" class="closePopup" type="button"
-                                        data-popup-id="myPopupEventDelete">DELETE</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <p class="eventNameSpecific">CCSEA WEEK</p>
                 </a>
+                <!-- edit event -->
+                <div id="myPopupEventEdit5" class="popup">
+                    <div class="flex-container popup-content">
+                        <span id="closeButton" class="close-button closePopup"
+                            data-popup-id="myPopupEventEdit5">&times;</span>
+                        <h1>EDIT EVENT</h1>
+                        <div class="flex-container add-events-container">
+                            <div class="flex-container add-events-holder">
+                                <input type="text" name="eventname" class="eventname add-event-inputs"
+                                    placeholder="Event Name" />
+                                <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                                <p class="date-dash">-</p>
+                                <input type="date" name="enddate" class="eventdate add-event-inputs" />
+                            </div>
+
+                            <div class="flex-container add-events-container-button">
+                                <button id="closePopup" class="closePopup" type="button"
+                                    data-popup-id="myPopupEventEdit5">SAVE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myPopupEventDelete5" class="popup">
+                    <div class="flex-container popup-content">
+                        <span id="closeButton" class="close-button closePopup"
+                            data-popup-id="myPopupEventDelete5">&times;</span>
+                        <h1>DELETE EVENT?</h1>
+                        <h3>WARNING</h3>
+                        <p class="delete-warning">This will remove all existing records stored within the
+                            event page. Are you sure you wish to proceed?
+                        </p>
+
+                        <div class="flex-container add-events-container-button">
+                            <button id="closeDeletePopup" class="closePopup" type="button"
+                                data-popup-id="myPopupEventDelete5">DELETE</button>
+                        </div>
+                    </div>
+                </div>
 
                 <a href="#" class="nav-link">
                     <div class="img-modify-event-container">
-                        <button type="button" id="myButtonEventEdit" class="modify-button">
+                        <button type="button" id="myButtonEventEdit6" class="myButtonEventEdit modify-button"
+                            data-popup-id="myPopupEventEdit6">
                             <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                         </button>
-                        <!-- edit event -->
-                        <div id="myPopupEventEdit" class="popup">
-                            <div class="flex-container popup-content">
-                                <h1>EDIT EVENT</h1>
-                                <div class="flex-container add-events-container">
-                                    <div class="flex-container add-events-holder">
-                                        <input type="text" name="eventname" class="eventname add-event-inputs"
-                                            placeholder="Event Name" />
-                                        <input type="text" name="daterange" class="eventdate add-event-inputs" />
-                                    </div>
-
-                                    <div class="flex-container add-events-container-button">
-                                        <button id="closePopup" class="closePopup" type="button">SAVE</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="button" id="myButtonEventDelete" class="modify-button">
+                        <button type="button" id="myButtonEventDelete6" class="myButtonEventDelete modify-button"
+                            data-popup-id="myPopupEventDelete6">
                             <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                         </button>
-                        <div id="myPopupEventDelete" class="popup">
-                            <div class="flex-container popup-content">
-                                <h1>DELETE EVENT?</h1>
-                                <div class="flex-container add-events-container-button">
-                                    <button id="closeDeletePopup" type="button">DELETE</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <p class="eventNameSpecific">GENERAL ASSEMBLY</p>
                 </a>
-
-                <a href="#" class="nav-link">
-                    <div class="img-modify-event-container">
-                        <button type="button" id="myButtonEventEdit" class="modify-button">
-                            <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
-                        </button>
-                        <!-- edit event -->
-                        <div id="myPopupEventEdit" class="popup">
-                            <div class="flex-container popup-content">
-                                <h1>EDIT EVENT</h1>
-                                <div class="flex-container add-events-container">
-                                    <div class="flex-container add-events-holder">
-                                        <input type="text" name="eventname" class="eventname add-event-inputs"
-                                            placeholder="Event Name" />
-                                        <input type="text" name="daterange" class="eventdate add-event-inputs" />
-                                    </div>
-
-                                    <div class="flex-container add-events-container-button">
-                                        <button id="closePopup" class="closePopup" type="button">SAVE</button>
-                                    </div>
-                                </div>
+                <!-- edit event -->
+                <div id="myPopupEventEdit6" class="popup">
+                    <div class="flex-container popup-content">
+                        <span id="closeButton" class="close-button closePopup"
+                            data-popup-id="myPopupEventEdit6">&times;</span>
+                        <h1>EDIT EVENT</h1>
+                        <div class="flex-container add-events-container">
+                            <div class="flex-container add-events-holder">
+                                <input type="text" name="eventname" class="eventname add-event-inputs"
+                                    placeholder="Event Name" />
+                                <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                                <p class="date-dash">-</p>
+                                <input type="date" name="enddate" class="eventdate add-event-inputs" />
                             </div>
-                        </div>
 
-                        <button type="button" id="myButtonEventDelete" class="modify-button">
-                            <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
-                        </button>
-                        <div id="myPopupEventDelete" class="popup">
-                            <div class="flex-container popup-content">
-                                <h1>DELETE EVENT?</h1>
-                                <div class="flex-container add-events-container-button">
-                                    <button id="closeDeletePopup" type="button">DELETE</button>
-                                </div>
+                            <div class="flex-container add-events-container-button">
+                                <button id="closePopup" class="closePopup" type="button"
+                                    data-popup-id="myPopupEventEdit6">SAVE</button>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div id="myPopupEventDelete6" class="popup">
+                    <div class="flex-container popup-content">
+                        <span id="closeButton" class="close-button closePopup"
+                            data-popup-id="myPopupEventDelete6">&times;</span>
+                        <h1>DELETE EVENT?</h1>
+                        <h3>WARNING</h3>
+                        <p class="delete-warning">This will remove all existing records stored within the
+                            event page. Are you sure you wish to proceed?
+                        </p>
+
+                        <div class="flex-container add-events-container-button">
+                            <button id="closeDeletePopup" class="closePopup" type="button"
+                                data-popup-id="myPopupEventDelete6">DELETE</button>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="nav-link">
+                    <div class="img-modify-event-container">
+                        <button type="button" id="myButtonEventEdit7" class="myButtonEventEdit modify-button"
+                            data-popup-id="myPopupEventEdit7">
+                            <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
+                        </button>
+                        <button type="button" id="myButtonEventDelete7" class="myButtonEventDelete modify-button"
+                            data-popup-id="myPopupEventDelete7">
+                            <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
+                        </button>
+                    </div>
                     <p class="eventNameSpecific">TEAM BUILDING</p>
                 </a>
+                <!-- edit event -->
+                <div id="myPopupEventEdit7" class="popup">
+                    <div class="flex-container popup-content">
+                        <span id="closeButton" class="close-button closePopup"
+                            data-popup-id="myPopupEventEdit7">&times;</span>
+                        <h1>EDIT EVENT</h1>
+                        <div class="flex-container add-events-container">
+                            <div class="flex-container add-events-holder">
+                                <input type="text" name="eventname" class="eventname add-event-inputs"
+                                    placeholder="Event Name" />
+                                <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                                <p class="date-dash">-</p>
+                                <input type="date" name="enddate" class="eventdate add-event-inputs" />
+                            </div>
+
+                            <div class="flex-container add-events-container-button">
+                                <button id="closePopup" class="closePopup" type="button"
+                                    data-popup-id="myPopupEventEdit7">SAVE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myPopupEventDelete7" class="popup">
+                    <div class="flex-container popup-content">
+                        <span id="closeButton" class="close-button closePopup"
+                            data-popup-id="myPopupEventDelete7">&times;</span>
+                        <h1>DELETE EVENT?</h1>
+                        <h3>WARNING</h3>
+                        <p class="delete-warning">This will remove all existing records stored within the
+                            event page. Are you sure you wish to proceed?
+                        </p>
+
+                        <div class="flex-container add-events-container-button">
+                            <button id="closeDeletePopup" class="closePopup" type="button"
+                                data-popup-id="myPopupEventDelete7">DELETE</button>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="container container-widget">
                     <div class="holder holder-widget">
@@ -346,7 +554,16 @@
         </div>
     </div>
 </nav>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $('[id^="myButtonEventEdit"]').on('click', function () {
+        var buttonId = $(this).attr('id');
+        var popupId = $(this).attr('data-popup-id');
+        var eventNameSpecific = $('#' + buttonId).closest('.nav-link').find('.eventNameSpecific').text();
+        var eventnameInput = $('#' + popupId).find('.eventname');
+        eventnameInput.val(eventNameSpecific);
+    });
+
     function exitModeDirect() {
         let url = window.location.toString();
         window.location = url.replace(/edit/, `admin`);

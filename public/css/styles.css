@@ -165,9 +165,9 @@ a {
 
 hr {
   border: 1px solid #3c5b4f;
-  width: 78%;
+  width: 82%;
   margin-top: -10px;
-  margin-left: auto;
+  margin-left: 1.45rem;
 }
 
 /* sidenav logo & textflag */
@@ -440,7 +440,7 @@ main {
 }
 
 .grid-item-nine {
-  width: 6rem;
+  width: 10rem;
 }
 
 .grid-item-ten {

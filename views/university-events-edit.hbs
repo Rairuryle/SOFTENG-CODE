@@ -10,7 +10,13 @@
             <!-- profile -->
             <div class="grid-container">
                 {{> profileStudent}}
-                <div class="grid-item-nine item-status">
+                <div class="activestatus grid-item-nine item-status">{{studentData.active_status}}</div>
+                <div class="exemptionstatus grid-item-ten item-status">{{studentData.exemption_status}}</div>
+                <button id="myButtonProfileEdit" class="grid-item-ten myButtonProfileEdit">
+                    <img src="../img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile" />
+                </button>
+
+                {{!-- <div class="grid-item-nine item-status">
                     <label class="toggle">
                         <input type="checkbox">
                         <span class="slider"></span>
@@ -28,7 +34,8 @@
                     <button>
                         <img src="../img/Group 40.png" alt="Edit Student Profile" class="img-edit-student-profile" />
                     </button>
-                </div>
+                </div> --}}
+
             </div>
         </div>
     </header>
@@ -77,7 +84,45 @@
                     <div class="flex-container activities-header-one">
                         <div class="flex-container activity-title">
                             <h3>ACTIVITIES</h3>
-                            <img src="../img/Group 40.png" alt="Add Activity" class="img-add-activity">
+                            <button id="myButtonActivityAdd" class="myButtonActivityAdd"
+                                data-popup-id="myPopupActivityAdd">
+                                <img src="../img/Add_ring_fill2.png" alt="Add Activity" class="img-add-activity" />
+                            </button>
+                            <div id="myPopupActivityAdd" class="popup myPopupActivity">
+                                <div class="flex-container popup-content">
+                                    <span id="closeButton" class="close-button closePopup"
+                                        data-popup-id="myPopupActivityAdd">&times;</span>
+                                    <h1>ADD ACTIVITY</h1>
+                                    <div class="flex-container add-events-container">
+                                        <div class="flex-container add-events-holder">
+                                            <input type="text" name="eventname" class="eventname add-event-inputs"
+                                                placeholder="Activity Name" />
+                                            <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                                            <p class="date-dash">-</p>
+                                            <input type="date" name="enddate" class="eventdate add-event-inputs" />
+                                        </div>
+
+                                        <div class="flex-container add-activities-events-holder">
+                                            Activities
+                                            <hr class="popup-hr" />
+                                            <div class="inputsActivity">
+                                                <input type="text" name="activityname" placeholder="Activity Name"
+                                                    class="activityname-main add-event-inputs" />
+                                                <input type="date" name="activitydate"
+                                                    class="activitydate add-event-inputs" />
+                                            </div>
+                                        </div>
+
+                                        <div class="flex-container add-events-container-button">
+                                            <button id="addMoreActivities" class="addMoreActivities" type="button">Add
+                                                More
+                                                Activities</button>
+                                            <button id="closePopup" class="closePopup"
+                                                data-popup-id="myPopupActivityAdd" type="button">SAVE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="flex-container activities-header-two">
@@ -132,11 +177,64 @@
                             <td>
                                 <div class="flex-container">
                                     <div class="flex-container edit-activity-images">
-                                        <img src="../img/Edit (1).png" alt="Edit Activity"
-                                            class="img-edit-activity-details">
-                                        <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        <button type="button" id="myButtonActivityEdit1"
+                                            class="myButtonActivityEdit modify-button"
+                                            data-popup-id="myPopupActivityEdit1">
+                                            <img src="../img/Edit (1).png" alt="Edit Activity"
+                                                class="img-edit-activity-details">
+                                        </button>
+
+                                        <div id="myPopupActivityEdit1" class="popup">
+                                            <div class="flex-container popup-content">
+                                                <span id="closeButton" class="close-button closePopup"
+                                                    data-popup-id="myPopupActivityEdit1">&times;</span>
+                                                <h1>EDIT EVENT</h1>
+                                                <div class="flex-container add-events-container">
+                                                    <div class="flex-container add-events-holder">
+                                                        <input type="text" name="activityname"
+                                                            class="activityname add-event-inputs"
+                                                            placeholder="Activity Name" />
+                                                        <input type="date" name="startdate"
+                                                            class="activitydate add-event-inputs" />
+                                                        <p class="date-dash">-</p>
+                                                        <input type="date" name="enddate"
+                                                            class="activitydate add-event-inputs" />
+                                                    </div>
+                                                    <div class="flex-container add-events-container-button">
+                                                        <button id="closePopup" class="closePopup" type="button"
+                                                            data-popup-id="myPopupActivityEdit1">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="myButtonActivityDelete1"
+                                            class="myButtonActivityDelete modify-button"
+                                            data-popup-id="myPopupActivityDelete1">
+                                            <img src="../img/Cancel.png" alt="Delete Activity"
+                                                class="img-delete-activity">
+                                        </button>
+
+                                        <div id="myPopupActivityDelete1" class="popup">
+                                            <div class="flex-container popup-content">
+                                                <span id="closeButton" class="close-button closePopup"
+                                                    data-popup-id="myPopupActivityDelete1">&times;</span>
+                                                <h1>DELETE EVENT?</h1>
+                                                <h3>WARNING</h3>
+                                                <p class="delete-warning">This will remove all existing records
+                                                    stored
+                                                    within the
+                                                    event page. Are you sure you wish to proceed?
+                                                </p>
+
+                                                <div class="flex-container add-events-container-button">
+                                                    <button id="closeDeletePopup" class="closePopup" type="button"
+                                                        data-popup-id="myPopupActivityDelete1">DELETE</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    Painting Contest
+                                    <p class="activityNameSpecific">Painting Contest</p>
                                 </div>
                             </td>
                             <td>09/08/22</td>
@@ -156,11 +254,64 @@
                             <td>
                                 <div class="flex-container">
                                     <div class="flex-container edit-activity-images">
-                                        <img src="../img/Edit (1).png" alt="Edit Activity"
-                                            class="img-edit-activity-details">
-                                        <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        <button type="button" id="myButtonActivityEdit2"
+                                            class="myButtonActivityEdit modify-button"
+                                            data-popup-id="myPopupActivityEdit2">
+                                            <img src="../img/Edit (1).png" alt="Edit Activity"
+                                                class="img-edit-activity-details">
+                                        </button>
+
+                                        <div id="myPopupActivityEdit2" class="popup">
+                                            <div class="flex-container popup-content">
+                                                <span id="closeButton" class="close-button closePopup"
+                                                    data-popup-id="myPopupActivityEdit2">&times;</span>
+                                                <h1>EDIT EVENT</h1>
+                                                <div class="flex-container add-events-container">
+                                                    <div class="flex-container add-events-holder">
+                                                        <input type="text" name="activityname"
+                                                            class="activityname add-event-inputs"
+                                                            placeholder="Activity Name" />
+                                                        <input type="date" name="startdate"
+                                                            class="activitydate add-event-inputs" />
+                                                        <p class="date-dash">-</p>
+                                                        <input type="date" name="enddate"
+                                                            class="activitydate add-event-inputs" />
+                                                    </div>
+                                                    <div class="flex-container add-events-container-button">
+                                                        <button id="closePopup" class="closePopup" type="button"
+                                                            data-popup-id="myPopupActivityEdit2">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="myButtonActivityDelete2"
+                                            class="myButtonActivityDelete modify-button"
+                                            data-popup-id="myPopupActivityDelete2">
+                                            <img src="../img/Cancel.png" alt="Delete Activity"
+                                                class="img-delete-activity">
+                                        </button>
+
+                                        <div id="myPopupActivityDelete2" class="popup">
+                                            <div class="flex-container popup-content">
+                                                <span id="closeButton" class="close-button closePopup"
+                                                    data-popup-id="myPopupActivityDelete2">&times;</span>
+                                                <h1>DELETE EVENT?</h1>
+                                                <h3>WARNING</h3>
+                                                <p class="delete-warning">This will remove all existing records
+                                                    stored
+                                                    within the
+                                                    event page. Are you sure you wish to proceed?
+                                                </p>
+
+                                                <div class="flex-container add-events-container-button">
+                                                    <button id="closeDeletePopup" class="closePopup" type="button"
+                                                        data-popup-id="myPopupActivityDelete2">DELETE</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    Tug of War
+                                    <p class="activityNameSpecific">Tug of War</p>
                                 </div>
                             </td>
                             <td>09/08/22</td>
@@ -180,11 +331,64 @@
                             <td>
                                 <div class="flex-container">
                                     <div class="flex-container edit-activity-images">
-                                        <img src="../img/Edit (1).png" alt="Edit Activity"
-                                            class="img-edit-activity-details">
-                                        <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        <button type="button" id="myButtonActivityEdit3"
+                                            class="myButtonActivityEdit modify-button"
+                                            data-popup-id="myPopupActivityEdit3">
+                                            <img src="../img/Edit (1).png" alt="Edit Activity"
+                                                class="img-edit-activity-details">
+                                        </button>
+
+                                        <div id="myPopupActivityEdit3" class="popup">
+                                            <div class="flex-container popup-content">
+                                                <span id="closeButton" class="close-button closePopup"
+                                                    data-popup-id="myPopupActivityEdit3">&times;</span>
+                                                <h1>EDIT EVENT</h1>
+                                                <div class="flex-container add-events-container">
+                                                    <div class="flex-container add-events-holder">
+                                                        <input type="text" name="activityname"
+                                                            class="activityname add-event-inputs"
+                                                            placeholder="Activity Name" />
+                                                        <input type="date" name="startdate"
+                                                            class="activitydate add-event-inputs" />
+                                                        <p class="date-dash">-</p>
+                                                        <input type="date" name="enddate"
+                                                            class="activitydate add-event-inputs" />
+                                                    </div>
+                                                    <div class="flex-container add-events-container-button">
+                                                        <button id="closePopup" class="closePopup" type="button"
+                                                            data-popup-id="myPopupActivityEdit3">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="myButtonActivityDelete3"
+                                            class="myButtonActivityDelete modify-button"
+                                            data-popup-id="myPopupActivityDelete3">
+                                            <img src="../img/Cancel.png" alt="Delete Activity"
+                                                class="img-delete-activity">
+                                        </button>
+
+                                        <div id="myPopupActivityDelete3" class="popup">
+                                            <div class="flex-container popup-content">
+                                                <span id="closeButton" class="close-button closePopup"
+                                                    data-popup-id="myPopupActivityDelete3">&times;</span>
+                                                <h1>DELETE EVENT?</h1>
+                                                <h3>WARNING</h3>
+                                                <p class="delete-warning">This will remove all existing records
+                                                    stored
+                                                    within the
+                                                    event page. Are you sure you wish to proceed?
+                                                </p>
+
+                                                <div class="flex-container add-events-container-button">
+                                                    <button id="closeDeletePopup" class="closePopup" type="button"
+                                                        data-popup-id="myPopupActivityDelete3">DELETE</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    Paint War
+                                    <p class="activityNameSpecific">Paint War</p>
                                 </div>
                             </td>
                             <td>09/08/22</td>
@@ -204,11 +408,64 @@
                             <td>
                                 <div class="flex-container">
                                     <div class="flex-container edit-activity-images">
-                                        <img src="../img/Edit (1).png" alt="Edit Activity"
-                                            class="img-edit-activity-details">
-                                        <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                        <button type="button" id="myButtonActivityEdit4"
+                                            class="myButtonActivityEdit modify-button"
+                                            data-popup-id="myPopupActivityEdit4">
+                                            <img src="../img/Edit (1).png" alt="Edit Activity"
+                                                class="img-edit-activity-details">
+                                        </button>
+
+                                        <div id="myPopupActivityEdit4" class="popup">
+                                            <div class="flex-container popup-content">
+                                                <span id="closeButton" class="close-button closePopup"
+                                                    data-popup-id="myPopupActivityEdit4">&times;</span>
+                                                <h1>EDIT EVENT</h1>
+                                                <div class="flex-container add-events-container">
+                                                    <div class="flex-container add-events-holder">
+                                                        <input type="text" name="activityname"
+                                                            class="activityname add-event-inputs"
+                                                            placeholder="Activity Name" />
+                                                        <input type="date" name="startdate"
+                                                            class="activitydate add-event-inputs" />
+                                                        <p class="date-dash">-</p>
+                                                        <input type="date" name="enddate"
+                                                            class="activitydate add-event-inputs" />
+                                                    </div>
+                                                    <div class="flex-container add-events-container-button">
+                                                        <button id="closePopup" class="closePopup" type="button"
+                                                            data-popup-id="myPopupActivityEdit4">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="myButtonActivityDelete4"
+                                            class="myButtonActivityDelete modify-button"
+                                            data-popup-id="myPopupActivityDelete4">
+                                            <img src="../img/Cancel.png" alt="Delete Activity"
+                                                class="img-delete-activity">
+                                        </button>
+
+                                        <div id="myPopupActivityDelete4" class="popup">
+                                            <div class="flex-container popup-content">
+                                                <span id="closeButton" class="close-button closePopup"
+                                                    data-popup-id="myPopupActivityDelete4">&times;</span>
+                                                <h1>DELETE EVENT?</h1>
+                                                <h3>WARNING</h3>
+                                                <p class="delete-warning">This will remove all existing records
+                                                    stored
+                                                    within the
+                                                    event page. Are you sure you wish to proceed?
+                                                </p>
+
+                                                <div class="flex-container add-events-container-button">
+                                                    <button id="closeDeletePopup" class="closePopup" type="button"
+                                                        data-popup-id="myPopupActivityDelete4">DELETE</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    Fashion Show
+                                    <p class="activityNameSpecific">Fashion Show</p>
                                 </div>
                             </td>
                             <td>09/08/22</td>
@@ -226,14 +483,63 @@
                         </tr>
                         <tr class="hidden-row" data-visible="false">
                             <td>
-                                <div class="flex-container">
-                                    <div class="flex-container edit-activity-images">
+                                <div class="flex-container edit-activity-images">
+                                    <button type="button" id="myButtonActivityEdit5"
+                                        class="myButtonActivityEdit modify-button" data-popup-id="myPopupActivityEdit5">
                                         <img src="../img/Edit (1).png" alt="Edit Activity"
                                             class="img-edit-activity-details">
-                                        <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                    </button>
+
+                                    <div id="myPopupActivityEdit5" class="popup">
+                                        <div class="flex-container popup-content">
+                                            <span id="closeButton" class="close-button closePopup"
+                                                data-popup-id="myPopupActivityEdit5">&times;</span>
+                                            <h1>EDIT EVENT</h1>
+                                            <div class="flex-container add-events-container">
+                                                <div class="flex-container add-events-holder">
+                                                    <input type="text" name="activityname"
+                                                        class="activityname add-event-inputs"
+                                                        placeholder="Activity Name" />
+                                                    <input type="date" name="startdate"
+                                                        class="activitydate add-event-inputs" />
+                                                    <p class="date-dash">-</p>
+                                                    <input type="date" name="enddate"
+                                                        class="activitydate add-event-inputs" />
+                                                </div>
+                                                <div class="flex-container add-events-container-button">
+                                                    <button id="closePopup" class="closePopup" type="button"
+                                                        data-popup-id="myPopupActivityEdit5">SAVE</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    Volleyball
+
+                                    <button type="button" id="myButtonActivityDelete5"
+                                        class="myButtonActivityDelete modify-button"
+                                        data-popup-id="myPopupActivityDelete5">
+                                        <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                                    </button>
+
+                                    <div id="myPopupActivityDelete5" class="popup">
+                                        <div class="flex-container popup-content">
+                                            <span id="closeButton" class="close-button closePopup"
+                                                data-popup-id="myPopupActivityDelete5">&times;</span>
+                                            <h1>DELETE EVENT?</h1>
+                                            <h3>WARNING</h3>
+                                            <p class="delete-warning">This will remove all existing records
+                                                stored
+                                                within the
+                                                event page. Are you sure you wish to proceed?
+                                            </p>
+
+                                            <div class="flex-container add-events-container-button">
+                                                <button id="closeDeletePopup" class="closePopup" type="button"
+                                                    data-popup-id="myPopupActivityDelete5">DELETE</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <p class="activityNameSpecific">Volleyball</p>
                             </td>
                             <td>09/08/22</td>
                             <td>
@@ -381,3 +687,12 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="../js/popup.js"></script>
+<script>
+    $('[id^="myButtonActivityEdit"]').on('click', function () {
+        var buttonId = $(this).attr('id');
+        var popupId = $(this).attr('data-popup-id');
+        var activitiyNameSpecific = $('#' + buttonId).closest('.nav-link').find('.activitiyNameSpecific').text();
+        var activitynameInput = $('#' + popupId).find('.activityname');
+        activitynameInput.val(activitiyNameSpecific);
+    });
+</script>

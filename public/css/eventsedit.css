@@ -2,17 +2,37 @@
   width: 1.4rem;
   cursor: pointer;
   margin-left: -1rem;
+  margin-top: 0.1rem;
 }
 
 /* activity & exemption status */
 
-.item-status {
+/* .item-status {
   text-align: center;
   background-color: var(--main-green);
+} */
+
+/* .grid-item-ten {
+  display: flex;
+} */
+
+.item-status {
+  height: 1.7rem;
+  font-size: 0.8rem;
+}
+
+.grid-item-nine {
+  width: 8rem;
+  margin-left: 1.5rem;
 }
 
 .grid-item-ten {
-  display: flex;
+  width: 8rem;
+  margin-left: -4rem;
+}
+
+.myButtonProfileEdit {
+  padding-left: 6rem;
 }
 
 .img-edit-student-profile {
@@ -190,13 +210,16 @@ input[name="activitydate[]"]::placeholder {
   font-weight: lighter;
 }
 
-.eventname {
+.eventname,
+.activityname {
   text-align: center;
   width: 100%;
 }
 
 .eventname,
-.eventdate {
+.eventdate,
+.activityname,
+.activitydate {
   border: 2px solid var(--main-green);
   border-radius: 15px;
   padding: 0.4rem 0.3rem 0.4rem 0.7rem;
@@ -204,7 +227,8 @@ input[name="activitydate[]"]::placeholder {
   margin-bottom: 1rem;
 }
 
-.eventdate {
+.eventdate,
+.activitydate {
   width: 47%;
 }
 
@@ -328,7 +352,7 @@ input[name="activitydate[]"] {
 
 .img-add-activity {
   width: 1.5rem;
-  margin-left: 1rem;
+  margin-left: 0.2rem;
 }
 
 /* activities table */
