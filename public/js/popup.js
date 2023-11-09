@@ -49,27 +49,6 @@ addMoreActivitiesButtons.forEach(function (addMoreActivitiesButton) {
     });
 });
 
-
-// let addMoreActivity = document.getElementById('addMoreActivity');
-// let inputsActivity = document.querySelector('.inputsActivity');
-
-// addMoreActivity.addEventListener('click', function () {
-//     let newInputNameActivity = document.createElement('input');
-//     newInputNameActivity.type = 'text';
-//     newInputNameActivity.placeholder = 'Activity Name';
-//     newInputNameActivity.name = 'activityname[]';
-//     newInputNameActivity.classList.add('input-style'); // Add a CSS class to the new input
-
-//     let newInputDateActivity = document.createElement('input');
-//     newInputDateActivity.type = 'date';
-//     newInputDateActivity.name = 'activitydate[]';
-//     newInputDateActivity.classList.add('input-style'); // Add the same CSS class to the new input
-
-//     inputsActivity.appendChild(newInputNameActivity);
-//     inputsActivity.appendChild(newInputDateActivity);
-// });
-
-
 const myButtonEvent = document.querySelectorAll('.myButtonEvent');
 
 myButtonEvent.forEach(button => {
@@ -93,27 +72,6 @@ myButtonEventEdit.forEach(button => {
         }
     });
 });
-
-// const myButtonEvent = document.querySelectorAll('.myButtonEvent');
-
-// myButtonEvent.forEach(button => {
-//     button.addEventListener('click', function () {
-//         const popupId = this.getAttribute('data-popup-id');
-//         const popup = document.getElementById(popupId);
-//         const eventNameID = this.getAttribute('data-event-name-specific');
-//         const eventName = document.getElementById(eventNameID);
-
-//         if (popup && eventName) {
-//             popup.style.display = 'block';
-
-//             const eventNameElements = popup.querySelectorAll(".eventname");
-//             eventNameElements.forEach(function (element) {
-//                 if (element.tagName === 'INPUT') {
-//                     element.value = eventName.textContent;
-//                 }
-//             });
-//         }
-
 
 const myButtonEventDelete = document.querySelectorAll('.myButtonEventDelete');
 
@@ -144,7 +102,6 @@ const myButtonActivityEdit = document.querySelectorAll('.myButtonActivityEdit');
 
 myButtonActivityEdit.forEach(button => {
     button.addEventListener('click', function () {
-        console.log('ok');
         const popupId = this.getAttribute('data-popup-id');
         const popup = document.getElementById(popupId);
         if (popup) {
@@ -178,144 +135,109 @@ closeButtons.forEach(button => {
     });
 });
 
-// function showEventName() {
-//     const eventNameSpecific = document.querySelector(".eventNameSpecific").textContent;
-//     const eventNameElements = document.querySelectorAll(".eventname");
-//     eventNameElements.forEach(function (element) {
-//         if (element.tagName === 'INPUT') {
-//             element.value = eventNameSpecific;
-//         }
-//     });
-// };
+const confirmButtons = document.querySelectorAll('.confirmButton');
 
-// function showPopup(popup) {
-//     // Hide all popups
-//     myPopupEvent.style.display = "none";
-//     myPopupEventEdit.style.display = "none";
-//     myPopupEventDelete.style.display = "none";
-//     // myPopupActivity.style.display = "none";
-//     // myPopupActivityEdit.style.display = "none";
-//     // myPopupActivityDelete.style.display = "none";
+confirmButtons.forEach(button => {
+    button.addEventListener('click', function (event) {
+        event.preventDefault();
 
-//     // Display the selected popup
-//     popup.style.display = "block";
-// }
+        // Collect form data from input fields
+        const formData = {
+            eventnameInput: document.getElementById('eventnameInput').value,
+            startDateEvent: document.getElementById('startDateEvent').value,
+            endDateEvent: document.getElementById('endDateEvent').value,
+            eventScope: document.getElementById('eventScope').textContent,
+            eventDays: document.getElementById('eventDays').value,
+        };
 
+        // Send the data to the server using the Fetch API
+        fetch('/insert-event-database', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.error('Error sending data to the server');
+                    throw new Error('Server error');
+                }
+            })
+            .then((data) => {
+                const successResponse = document.getElementById('successResponse');
+                successResponse.textContent = data.message;
 
-
-// function closePopup() {
-//     myPopupEvent.style.display = "none";
-//     myPopupEventEdit.style.display = "none";
-//     myPopupEventDelete.style.display = "none";
-//     // myPopupActivity.style.display = "none";
-//     // myPopupActivityEdit.style.display = "none";
-//     // myPopupActivityDelete.style.display = "none";
-// }
-
-// const myButtonEvent = document.getElementById("myButtonEvent");
-// const myButtonEventEdit = document.getElementById("myButtonEventEdit");
-// const myButtonEventDelete = document.getElementById("myButtonEventDelete");
-// const myButtonActivity = document.getElementById("myButtonActivity");
-// const myButtonActivityEdit = document.getElementById("myButtonActivityEdit");
-// const myButtonActivityDelete = document.getElementById("myButtonActivityDelete");
-
-// const myPopupEvent = document.getElementById("myPopupEvent");
-// const myPopupEventEdit = document.getElementById("myPopupEventEdit");
-// const myPopupEventDelete = document.getElementById("myPopupEventDelete");
-// const myPopupActivity = document.getElementById("myPopupActivity");
-// const myPopupActivityEdit = document.getElementById("myPopupActivityEdit");
-// const myPopupActivityDelete = document.getElementById("myPopupActivityDelete");
-
-// myButtonEvent.addEventListener("click", function () {
-//     showPopup(myPopupEvent);
-// });
-
-// myButtonEventEdit.addEventListener("click", function () {
-//     showPopup(myPopupEventEdit);
-//     showEventName();
-// });
-
-// myButtonEventDelete.addEventListener("click", function () {
-//     showPopup(myPopupEventDelete);
-// });
-
-// myButtonActivity.addEventListener("click", function () {
-//     showPopup(myPopupActivity);
-// });
-
-// myButtonActivityEdit.addEventListener("click", function () {
-//     showPopup(myPopupActivityEdit);
-// });
-
-// myButtonActivityDelete.addEventListener("click", function () {
-//     showPopup(myPopupActivityDelete);
-// });
+                successResponse.classList.remove("hidden");
+                successResponse.classList.add("user-prompt", "slide-in");
+                setTimeout(function () {
+                    successResponse.classList.add("hidden");
+                    // Close the popup after successfully submitting the form
+                    const popupId = this.getAttribute('data-popup-id');
+                    const popup = document.getElementById(popupId);
+                    if (popup) {
+                        popup.style.display = 'none';
+                    }
+                }, 4000);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+});
 
 
-// Close the popups when clicking outside or on "SAVE" button
+// Get references to the date input elements
+const startDateInput = document.getElementById('startDateEvent');
+const endDateInput = document.getElementById('endDateEvent');
+
+// Get the input element for storing the number of days
+const eventDaysInput = document.getElementById('eventDays');
+
+// Get the current date in the format YYYY-MM-DD
+const today = new Date().toISOString().split('T')[0];
+
+// Set the minimum date for startDateEvent to today
+startDateInput.min = today;
+
+// Add an event listener to startDateEvent to update endDateEvent constraints
+startDateInput.addEventListener('change', function () {
+    // Set the minimum date for endDateEvent to the selected startDateEvent
+    endDateInput.min = this.value;
+
+    // Calculate the maximum date for endDateEvent (7 days from startDateEvent)
+    const maxDate = new Date(this.value);
+    maxDate.setDate(maxDate.getDate() + 7);
+
+    // Set the maximum date for endDateEvent
+    endDateInput.max = maxDate.toISOString().split('T')[0];
+
+    // Calculate and update the number of days
+    updateEventDays();
+});
+
+// Add an event listener to endDateEvent to update startDateEvent constraints
+endDateInput.addEventListener('change', function () {
+    // Set the maximum date for startDateEvent to the selected endDateEvent
+    startDateInput.max = this.value;
+
+    // Calculate and update the number of days
+    updateEventDays();
+});
+
+// Function to calculate and update the number of days
+function updateEventDays() {
+    const startDate = new Date(startDateInput.value);
+    const endDate = new Date(endDateInput.value);
 
 
-// myPopupEvent.addEventListener("click", function (event) {
-//     if (event.target === myPopupEvent) {
-//         closePopup();
-//     }
-// });
+    // Calculate the difference in days
+    const timeDifference = endDate - startDate + 1;
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
-// myPopupEventEdit.addEventListener("click", function (event) {
-//     if (event.target === myPopupEventEdit) {
-//         closePopup();
-//     }
-// });
+    // Update the eventDays input element with the calculated number of days
+    eventDaysInput.value = daysDifference;
 
-// myPopupEventDelete.addEventListener("click", function (event) {
-//     if (event.target === myPopupEventDelete) {
-//         closePopup();
-//     }
-// });
-
-// myPopupActivity.addEventListener("click", function (event) {
-//     if (event.target === myPopupActivity) {
-//         closePopup();
-//     }
-// });
-
-// myPopupActivityEdit.addEventListener("click", function (event) {
-//     if (event.target === myPopupActivityEdit) {
-//         closePopup();
-//     }
-// });
-
-// myPopupActivityDelete.addEventListener("click", function (event) {
-//     if (event.target === myPopupActivityDelete) {
-//         closePopup();
-//     }
-// });
-
-// const saveButtonEvent = myPopupEvent.querySelector("#closePopup");
-// const saveButtonEventEdit = myPopupEventEdit.querySelector("#closePopup");
-// const saveButtonEventDelete = myPopupEventDelete.querySelector("#closeDeletePopup");
-// const saveButtonActivity = myPopupActivity.querySelector("#closePopup");
-// const saveButtonActivityEdit = myPopupActivityEdit.querySelector("#closePopup");
-// const saveButtonActivityDelete = myPopupActivityDelete.querySelector("#closeDeletePopup");
-
-// saveButtonEvent.addEventListener("click", closePopup);
-// saveButtonEventEdit.addEventListener("click", closePopup);
-// saveButtonEventDelete.addEventListener("click", closePopup);
-// saveButtonActivity.addEventListener("click", closePopup);
-// saveButtonActivityEdit.addEventListener("click", closePopup);
-// saveButtonActivityDelete.addEventListener("click", closePopup);
-
-
-
-// myButtonActivityEdit.addEventListener("click", function () {
-//     // Get the text from #activityNameSpecific
-//     const activityNameSpecific = document.querySelector(".activityNameSpecific").textContent;
-
-//     // Update all elements with class .activityname
-//     const activityNameElements = document.querySelectorAll(".activityname");
-//     activityNameElements.forEach(function (element) {
-//         if (element.tagName === 'INPUT') {
-//             element.value = activityNameSpecific;
-//         }
-//     });
-// });
+}

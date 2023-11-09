@@ -23,10 +23,11 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="nav-link">PASIMULA</a>
-        <a href="#" class="nav-link">KULTURANIMO</a>
-        <a href="#" class="nav-link">PANAGHUGPONG</a>
-        <a href="#" class="nav-link">PANAGSADYA</a>
+        {{#each events}}
+        <a href="#" class="nav-link nav-link-univ">
+            <p class="eventNameSpecific">{{this.event_name}}</p>
+        </a>
+        {{/each}}
 
         {{#unless isUSGorSAO}}
         <div class="container container-textflag college-textflag">

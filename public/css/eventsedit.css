@@ -187,17 +187,29 @@ button {
   width: 100%;
 }
 
-.add-events-container {
-  width: 95%;
+#eventScope {
+  padding: 0 0.5rem;
 }
 
-.add-events-holder {
+.event-titlehead {
+  margin-bottom: -0.4rem;
+}
+
+.add-events-container,
+.add-activities-container {
+  width: 95%;
+  margin-top: -1rem;
+}
+
+.add-events-holder,
+.add-activity-holder {
   justify-content: center;
   margin-bottom: 1.3rem;
   margin: auto;
 }
 
 .add-event-inputs,
+.add-activity-inputs,
 input[name="activityname[]"],
 input[name="activitydate[]"] {
   color: var(--main-green);
@@ -205,21 +217,22 @@ input[name="activitydate[]"] {
 }
 
 .add-event-inputs::placeholder,
+.add-activity-inputs::placeholder,
 input[name="activityname[]"]::placeholder,
 input[name="activitydate[]"]::placeholder {
   font-weight: lighter;
 }
 
 .eventname,
-.activityname {
+.activityname-title {
   text-align: center;
   width: 100%;
 }
 
 .eventname,
 .eventdate,
-.activityname,
-.activitydate {
+.activityname-title,
+.activitydate-main {
   border: 2px solid var(--main-green);
   border-radius: 15px;
   padding: 0.4rem 0.3rem 0.4rem 0.7rem;
@@ -228,7 +241,7 @@ input[name="activitydate[]"]::placeholder {
 }
 
 .eventdate,
-.activitydate {
+.activitydate-main {
   width: 47%;
 }
 
@@ -246,9 +259,25 @@ input[name="activitydate[]"]::placeholder {
   font-size: 0.9rem;
 }
 
-.eventdate {
+.eventdate,
+.activitydate-main {
   padding: 0.2rem 2.5rem;
   text-align: center;
+}
+
+.container-event-days {
+  justify-content: start;
+  width: 98%;
+  margin-top: -0.7rem;
+}
+
+.eventdays {
+  border: 2px solid var(--main-green);
+  border-radius: 15px;
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  font-size: 0.9rem;
+  margin-left: 0.3rem;
+  width: 2rem;
 }
 
 .set-events-date {
@@ -265,7 +294,8 @@ input[name="activitydate[]"]::placeholder {
   width: 97%;
 }
 
-.add-activities-events-holder {
+.add-activities-events-holder,
+.add-activities-holder {
   color: var(--main-green);
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -318,22 +348,26 @@ input[name="activitydate[]"] {
   margin-bottom: 1rem;
 }
 
-.add-events-container-button {
+.add-events-container-button,
+.add-activities-container-button {
   width: 98%;
+  margin-top: 1rem;
 }
 
 #addMore,
-#addMoreActivity,
+#addMoreActivities,
+#confirmButton,
 #closePopup,
 #closeDeletePopup {
   font-size: 1rem;
 }
 
 #addMore,
-#addMoreActivity {
+#addMoreActivities {
   margin-left: 0;
 }
 
+#confirmButton,
 #closePopup {
   margin-right: 0;
 }
@@ -382,10 +416,6 @@ input[name="activitydate[]"] {
 #myButtonActivityDelete,
 .modify-button {
   padding: 0;
-}
-
-.eventNameSpecific {
-  margin: 0;
 }
 
 /* subtotal */

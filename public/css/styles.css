@@ -170,6 +170,10 @@ hr {
   margin-left: 1.45rem;
 }
 
+.eventNameSpecific {
+  margin: 0;
+}
+
 /* sidenav logo & textflag */
 
 .container-logo {

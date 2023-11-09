@@ -195,8 +195,8 @@ article {
 }
 
 .container-dashboard-student-profile hr {
+  margin: 1rem auto auto auto;
   width: 100%;
-  margin-top: 1rem;
 }
 
 .dashboard-input-body {

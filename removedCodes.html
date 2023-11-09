@@ -1,5 +1,5 @@
 !!! navbarUniversity.hbs
-{{!--<nav class="sidenav">
+<nav class="sidenav">
     <!-- sidenav -->
     <div class="navi">
         <div class="container container-logo">
@@ -70,4 +70,165 @@
             </div>
         </div>
     </div>
-</nav> --}}
+</nav>
+
+
+
+!!! popup.js REMOVED ACTIVITIES
+document.getElementById('confirmButton').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    // Collect form data from input fields
+    const formData = {
+        eventnameInput: document.getElementById('eventnameInput').value,
+        startDateEvent: document.getElementById('startDateEvent').value,
+        endDateEvent: document.getElementById('endDateEvent').value,
+        eventScope: document.getElementById('eventScope').textContent,
+        activityname: Array.from(document.querySelectorAll('[name="activityname[]"]')).map(input => input.value),
+        activitydate: Array.from(document.querySelectorAll('[name="activitydate[]"]')).map(input => input.value),
+    };
+
+    // Send the data to the server using the Fetch API
+    fetch('/insert-event-database', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.error('Error sending data to the server');
+                throw new Error('Server error');
+            }
+        })
+        .then((data) => {
+            const successResponse = document.getElementById('successResponse');
+            successResponse.textContent = data.message;
+
+            successResponse.classList.remove("hidden");
+            successResponse.classList.add("user-prompt", "slide-in");
+            setTimeout(function () {
+                successResponse.classList.add("hidden");
+            }, 4000);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+});
+
+
+!!! app.js REMOVED ACTIVITIES
+app.post('/insert-event-database', (req, res) => {
+    console.log(req.body);
+
+    const {
+        eventnameInput,
+        startDateEvent,
+        endDateEvent,
+        eventScope,
+        activityname,
+        activitydate
+    } = req.body;
+
+    // Check if the event with the provided name already exists in the event table
+    db.query('SELECT event_name FROM event WHERE event_name = ?', [eventnameInput], async (error, results) => {
+        if (error) {
+            console.log(error);
+            return res.status(500).json({ error: 'Error checking existing event' });
+        }
+
+        // Insert the event data into the event table if it doesn't already exist
+        if (results.length === 0) {
+            db.query('INSERT INTO event SET ?', {
+                event_name: eventnameInput,
+                event_date_start: startDateEvent,
+                event_date_end: endDateEvent,
+                event_scope: eventScope
+            }, (error, eventResults) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).json({ error: 'Error inserting event data' });
+                }
+
+                const eventId = eventResults.insertId;
+
+                // Insert data into activities table
+                if (Array.isArray(activityname) && Array.isArray(activitydate)) {
+                    for (let i = 0; i < activityname.length; i++) {
+                        db.query('INSERT INTO activities SET ?', {
+                            activity_name: activityname[i],
+                            activity_date: activitydate[i],
+                            event_id: eventId,
+                        }, (error, activityResults) => {
+                            if (error) {
+                                console.log(error);
+                                return res.status(500).json({ error: 'Error inserting activity data' });
+                            }
+                            console.log(activityResults);
+                        });
+                    }
+                }
+
+                return res.status(200).json({
+                    message: `Event ${eventnameInput} and activities successfully created`
+                });
+            });
+        } else {
+            return res.status(400).json({ error: 'There is already an existing event', event_name: eventnameInput });
+        }
+
+        // Store user-related data in the session
+        req.session.eventDate = {
+            event_name: eventnameInput,
+            event_date_start: startDateEvent,
+            event_date_end: endDateEvent,
+            event_scope: eventScope,
+            // activity_name: activityname,
+            // activity_date: activitydate
+        };
+    });
+});
+
+
+!!! navbarUniversityEdit REMOVED ACTIVITIES
+<form action="/insert-event-database" method="POST" id="addForm">
+    <div id="myPopupEvent" class="popup myPopupEvent">
+        <div class="flex-container popup-content">
+            <span id="closeButton" class="close-button closePopup"
+                data-popup-id="myPopupEvent">&times;</span>
+            <h1 class="flex-container">ADD <p id="eventScope" name="eventScope">INSTITUTIONAL</p>
+                EVENT</h1>
+            <div class="flex-container add-events-container">
+                <div class="flex-container add-events-holder">
+                    <input type="text" id="eventnameInput" name="eventnameInput"
+                        class="eventname add-event-inputs" placeholder="Event Name" />
+                    <input type="date" id="startDateEvent" name="startDateEvent"
+                        class="eventdate add-event-inputs" />
+                    <p class="date-dash">-</p>
+                    <input type="date" id="endDateEvent" name="endDateEvent"
+                        class="eventdate add-event-inputs" />
+                </div>
+                <div class="flex-container add-activities-events-holder">
+                    Activities
+                    <hr class="popup-hr" />
+                    <div class="inputs">
+                        <input type="text" id="activityname" name="activityname"
+                            placeholder="Activity Name"
+                            class="activityname-main add-event-inputs" />
+                        <input type="date" id="activitydate" name="activitydate"
+                            class="activitydate add-event-inputs" />
+                    </div>
+                </div>
+                <div class="flex-container add-events-container-button">
+                    <button id="addMore" class="addMore" type="button">Add More
+                        Activities</button>
+                    <button id="confirmButton" class="confirmButton" data-popup-id="myPopupEvent"
+                        type="button">CONFIRM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

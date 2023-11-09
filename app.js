@@ -62,12 +62,6 @@ app.get('/logout', (req, res) => {
         }
 
         res.redirect('/login?isLoggedOut=true');
-
-        // return res.render('login', {
-        //     isLoggedOut,
-        //     title: 'Login | LSU Events and Attendance Tracking Website'
-        // })
-
     });
 });
 
@@ -90,22 +84,11 @@ app.post('/insert-into-database', (req, res) => {
         exemptionStatusInput,
     } = req.body;
 
-    // const activeStatus = activeStatusInput === "ACTIVE" ? 1 : 0;
-    // const exemptionStatus = exemptionStatusInput === "EXEMPTED" ? 1 : 0;
-
     // Check if the user with the provided ID number exists in the student table
     db.query('SELECT id_number FROM student WHERE id_number = ?', [idnumberInput], async (error, results) => {
         if (error) {
             console.log(error);
         }
-
-        // if(results.length > 0) {
-        //     const errorMessage = 'ID Number is already in use';
-        //     console.log(errorMessage);
-        //     return res.render('dashboard-add-student', {
-        //         message: 'That ID Number is already in use'
-        //     })
-        // }
 
         // Insert the student data into the student table if it doesn't already exist
         if (results.length === 0) {
@@ -133,9 +116,6 @@ app.post('/insert-into-database', (req, res) => {
             return res.status(400).json({ error: 'ID number already in use', idNumber: idnumberInput });
         }
 
-        // const activeStatusText = activeStatus === 1 ? "ACTIVE" : "INACTIVE";
-        // const exemptionStatusText = exemptionStatus === 1 ? "EXEMPTED" : "NOT EXEMPTED";
-
         // Store user-related data in the session
         req.session.studentData = {
             id_number: idnumberInput,
@@ -148,8 +128,6 @@ app.post('/insert-into-database', (req, res) => {
             active_status: activeStatusInput,
             exemption_status: exemptionStatusInput
         };
-
-        // res.redirect('/university-events-admin');
     });
 });
 
@@ -161,14 +139,6 @@ function searchStudentByGridsearchIDNumber(gridsearchIDNumber, callback) {
         } else {
             if (results.length > 0) {
                 const studentData = results[0]; // Assuming there's only one matching student
-
-                // Convert activeStatus and exemptionStatus to text values
-                // const activeStatusText = studentData.active_status === 1 ? "ACTIVE" : "INACTIVE";
-                // const exemptionStatusText = studentData.exemption_status === 1 ? "EXEMPTED" : "NOT EXEMPTED";
-
-                // // Replace the database values with the text values
-                // studentData.active_status = activeStatusText;
-                // studentData.exemption_status = exemptionStatusText;
 
                 return callback({ studentFound: true, studentData });
             } else {
@@ -184,13 +154,6 @@ app.get('/university-events-admin/search', (req, res) => {
         res.status(result.studentFound ? 200 : 500).json(result);
     });
 });
-
-// app.get('/college-events-admin/search', (req, res) => {
-//     const gridsearchIDNumber = req.query.gridsearchIDNumber;
-//     searchStudentByGridsearchIDNumber(gridsearchIDNumber, (result) => {
-//         res.status(result.studentFound ? 200 : 500).json(result);
-//     });
-// });
 
 app.post('/university-events-admin/search', (req, res) => {
     const idNumber = req.body.gridsearchIDNumber; // Get the ID number from the form
@@ -241,38 +204,49 @@ app.get('/dashboard/search', (req, res) => {
     });
 });
 
+app.post('/insert-event-database', (req, res) => {
+    console.log(req.body);
 
-// app.post('/dashboard/search', (req, res) => {
-//         console.log('Reached /dashboard/search route'); // Add this line for debugging
+    const {
+        eventnameInput,
+        startDateEvent,
+        endDateEvent,
+        eventScope,
+        eventDays,
+    } = req.body;
 
-//     const idNumber = req.body.gridsearchIDNumber; // Get the ID number from the form
+    // Check if the event with the provided name already exists in the event table
+    db.query('INSERT INTO event SET ?', {
+        event_name: eventnameInput,
+        event_date_start: startDateEvent,
+        event_date_end: endDateEvent,
+        event_scope: eventScope,
+        event_days: eventDays,
+    }, (error, results) => {
+        if (error) {
+            console.log(error);
+            return res.status(500).json({ error: 'Error inserting event data' });
+        } else {
+            console.log(results);
 
-//     // Query the database to search for the student with the given ID number
-//     db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
-//         if (error) {
-//             console.log(error);
-//             res.status(500).send('Error searching for student');
-//         } else {
-//             // Check if a student with the provided ID number was found
-//             if (results.length > 0) {
-//                 const studentData = results[0]; // Assuming there's only one matching student
-
-//                 // Redirect to the /university-events-admin route with the student data as a query parameter
-//                 res.redirect(`/university-events-admin?studentData=${JSON.stringify(studentData)}`);
-//             } else {
-//                 // No student with the provided ID number was found
-//                 res.status(404).send('Student not found');
-//             }
-//         }
-//     });
-// });
+            // Fetch all events after adding the new event
+            db.query('SELECT * FROM event', (error, events) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).json({ error: 'Error fetching events' });
+                } else {
+                    // Return the updated list of events to the client
+                    return res.status(200).json({
+                        message: `Event ${eventnameInput} successfully created`,
+                        events: events,
+                    });
+                }
+            });
+        }
+    });
+});
 
 
-// app.get('/set-cookie', (req, res) => {
-//     // Example: Store student information in a cookie
-//     res.cookie('studentInfo', JSON.stringify(studentData));
-//     res.send('Cookie set');
-//   });
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000");

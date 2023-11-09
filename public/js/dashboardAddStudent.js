@@ -42,50 +42,6 @@ function closePopupConfirmation() {
     popup.style.display = 'none';
 }
 
-// confirmButton.addEventListener('click', function () {
-//     // Extract data from the form and prepare it for submission
-//     const lastNameInput = document.getElementById('lastnameInput').value;
-//     const firstNameInput = document.getElementById('firstnameInput').value;
-//     const middleNameInput = document.getElementById('middlenameInput').value;
-//     const idNumberInput = document.getElementById('idnumberInput').value;
-//     const departmentInput = document.getElementById('departmentInput').value;
-//     const courseInput = document.getElementById('courseInput').value;
-//     const yearInput = document.getElementById('yearInput').value;
-//     const activeStatusInput = document.getElementById('activeStatusInput').value;
-//     const exemptionStatusInput = document.getElementById('exemptionStatusInput').value;
-
-//     // Create an object with the form data
-//     const formData = {
-//         lastnameInput,
-//         firstnameInput,
-//         middlenameInput,
-//         idnumberInput,
-//         departmentInput,
-//         courseInput,
-//         yearInput,
-//         activeStatusInput,
-//         exemptionStatusInput,
-//     };
-
-//     // Perform any additional processing if needed
-
-//     // Submit the form with the data
-//     fetch('/university-events-admin', {
-//         method: 'POST',
-//         body: JSON.stringify(formData),
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             resizeBy.redirect('/university-events-admin')
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//         });
-// });
-
 let preventSubmit = true;
 
 
@@ -182,22 +138,6 @@ function clearInputFieldsCollege() {
     document.getElementById('activeStatusInput').value = '';
     document.getElementById('exemptionStatusInput').value = '';
 }
-
-
-// confirmButton.addEventListener('click', function() {
-
-//     closePopupConfirmation();
-
-// document.getElementById('lastnameInput').value = '';
-// document.getElementById('firstnameInput').value = '';
-// document.getElementById('middlenameInput').value = '';
-// document.getElementById('idnumberInput').value = '';
-// document.getElementById('departmentInput').value = '';
-// document.getElementById('courseInput').value = '';
-// document.getElementById('yearInput').value = '';
-// document.getElementById('activeStatusInput').value = '';
-// document.getElementById('exemptionStatusInput').value = '';
-// });
 
 const cancelButton = document.getElementById('cancelButton');
 // Set a flag to prevent form submission initially
