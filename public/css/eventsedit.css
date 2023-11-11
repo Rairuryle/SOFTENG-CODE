@@ -358,6 +358,7 @@ input[name="activitydate[]"] {
 #addMoreActivities,
 #confirmButton,
 #closePopup,
+#saveEventButton,
 #closeDeletePopup {
   font-size: 1rem;
 }
@@ -368,7 +369,8 @@ input[name="activitydate[]"] {
 }
 
 #confirmButton,
-#closePopup {
+#closePopup,
+#saveEventButton {
   margin-right: 0;
 }
 

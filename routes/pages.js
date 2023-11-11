@@ -42,6 +42,16 @@ router.get('/login', (req, res) => {
     });
 });
 
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+        }
+
+        res.redirect('/login?isLoggedOut=true');
+    });
+});
+
 router.get('/help', (req, res) => {
     res.render('help', {
         title: 'Help and Resources | LSU Events and Attendance Tracking Website'
@@ -188,8 +198,6 @@ router.get('/university-events-admin', (req, res) => {
         res.redirect('/login');
     }
 });
-
-
 
 router.get('/university-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {

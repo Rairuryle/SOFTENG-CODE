@@ -162,11 +162,32 @@ confirmButtons.forEach(button => {
                 if (response.ok) {
                     return response.json();
                 } else {
+                    const popupId = this.getAttribute('data-popup-id');
+                    const popup = document.getElementById(popupId);
+                    if (popup) {
+                        popup.style.display = 'none';
+                    }
+
                     console.error('Error sending data to the server');
+
+                    const errorResponse = document.getElementById('errorResponse');
+                    errorResponse.textContent = `There is already an existing event`;
+                    errorResponse.classList.remove("hidden");
+                    errorResponse.classList.add("user-prompt", "slide-in");
+                    setTimeout(function () {
+                        errorResponse.classList.add("hidden");
+                    }, 4000);
+
                     throw new Error('Server error');
                 }
             })
             .then((data) => {
+                const popupId = this.getAttribute('data-popup-id');
+                const popup = document.getElementById(popupId);
+                if (popup) {
+                    popup.style.display = 'none';
+                }
+
                 const successResponse = document.getElementById('successResponse');
                 successResponse.textContent = data.message;
 
@@ -174,13 +195,8 @@ confirmButtons.forEach(button => {
                 successResponse.classList.add("user-prompt", "slide-in");
                 setTimeout(function () {
                     successResponse.classList.add("hidden");
-                    // Close the popup after successfully submitting the form
-                    const popupId = this.getAttribute('data-popup-id');
-                    const popup = document.getElementById(popupId);
-                    if (popup) {
-                        popup.style.display = 'none';
-                    }
-                }, 4000);
+                    location.reload();
+                }, 2500);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -189,55 +205,111 @@ confirmButtons.forEach(button => {
 });
 
 
-// Get references to the date input elements
-const startDateInput = document.getElementById('startDateEvent');
-const endDateInput = document.getElementById('endDateEvent');
+    // Get references to the date input elements
+    const startDateInput = document.getElementById('startDateEvent');
+    const endDateInput = document.getElementById('endDateEvent');
 
-// Get the input element for storing the number of days
-const eventDaysInput = document.getElementById('eventDays');
+    // Get the input element for storing the number of days
+    const eventDaysInput = document.getElementById('eventDays');
 
-// Get the current date in the format YYYY-MM-DD
-const today = new Date().toISOString().split('T')[0];
+    // Get the select element for activity days
+    const activityDayDropdown = document.getElementById('activity-day-dropdown');
 
-// Set the minimum date for startDateEvent to today
-startDateInput.min = today;
+    // Get the current date in the format YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0];
 
-// Add an event listener to startDateEvent to update endDateEvent constraints
-startDateInput.addEventListener('change', function () {
-    // Set the minimum date for endDateEvent to the selected startDateEvent
-    endDateInput.min = this.value;
+    // Set the minimum date for startDateEvent to today
+    startDateInput.min = today;
 
-    // Calculate the maximum date for endDateEvent (7 days from startDateEvent)
-    const maxDate = new Date(this.value);
-    maxDate.setDate(maxDate.getDate() + 7);
+    // Add an event listener to startDateEvent to update endDateEvent constraints
+    startDateInput.addEventListener('change', function () {
+        // Set the minimum date for endDateEvent to the selected startDateEvent
+        endDateInput.min = this.value;
 
-    // Set the maximum date for endDateEvent
-    endDateInput.max = maxDate.toISOString().split('T')[0];
+        // Calculate the maximum date for endDateEvent (7 days from startDateEvent)
+        const maxDate = new Date(this.value);
+        maxDate.setDate(maxDate.getDate() + 7);
 
-    // Calculate and update the number of days
-    updateEventDays();
-});
+        // Set the maximum date for endDateEvent
+        endDateInput.max = maxDate.toISOString().split('T')[0];
 
-// Add an event listener to endDateEvent to update startDateEvent constraints
-endDateInput.addEventListener('change', function () {
-    // Set the maximum date for startDateEvent to the selected endDateEvent
-    startDateInput.max = this.value;
+        // Calculate and update the number of days
+        updateEventDays();
 
-    // Calculate and update the number of days
-    updateEventDays();
-});
+        // Populate the activity day dropdown
+        populateActivityDayDropdown();
+    });
 
-// Function to calculate and update the number of days
-function updateEventDays() {
-    const startDate = new Date(startDateInput.value);
-    const endDate = new Date(endDateInput.value);
+    // Add an event listener to endDateEvent to update startDateEvent constraints
+    endDateInput.addEventListener('change', function () {
+        // Set the maximum date for startDateEvent to the selected endDateEvent
+        startDateInput.max = this.value;
 
+        // Calculate and update the number of days
+        updateEventDays();
 
-    // Calculate the difference in days
-    const timeDifference = endDate - startDate + 1;
-    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+        // Populate the activity day dropdown
+        populateActivityDayDropdown();
+    });
 
-    // Update the eventDays input element with the calculated number of days
-    eventDaysInput.value = daysDifference;
+    // Function to calculate and update the number of days
+    function updateEventDays() {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
 
-}
+        // Calculate the difference in days
+        const timeDifference = endDate - startDate + 1;
+        const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+        // Update the eventDays input element with the calculated number of days
+        eventDaysInput.value = daysDifference;
+    }
+
+// const saveEventButtons = document.querySelectorAll('.saveEventButton');
+
+// saveEventButtons.forEach(button => {
+//     button.addEventListener('click', function () {
+//         const index = this.getAttribute('data-index'); // Correctly retrieve the index from the button
+//         const popupId = this.getAttribute('data-popup-id');
+//         const popup = document.getElementById(popupId);
+
+//         // Collect updated information from the input fields in the specific popup
+//         const updatedEventData = {
+//             eventname: popup.querySelector('.eventname').value,
+//             startdate: popup.querySelector('.startdate').value,  // Add the correct selector
+//             enddate: popup.querySelector('.enddate').value,      // Add the correct selector
+//             eventays: popup.querySelector('.eventdays').value,
+//         };
+
+//         // Send the updated information to the server using the Fetch API
+//         fetch(`/update-event/${index}`, {
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(updatedEventData),
+//         })
+//             .then(response => {
+//                 if (response.ok) {
+//                     return response.json();
+//                 } else {
+//                     console.error('Error updating event data');
+//                     throw new Error('Server error');
+//                 }
+//             })
+//             .then(data => {
+//                 // Handle success, e.g., close the popup, show a success message, etc.
+//                 console.log(data);
+            
+//                 // Example: Update the UI with the new event name
+//                 const eventNameElement = document.querySelector(`#myPopupEventEdit${index} .eventNameSpecific`);
+//                 eventNameElement.textContent = updatedEventData.eventname;
+            
+//                 popup.style.display = 'none';
+//             })
+            
+//             .catch(error => {
+//                 console.error('Error:', error);
+//             });
+//     });
+// });

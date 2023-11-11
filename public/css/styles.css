@@ -24,6 +24,7 @@ body {
 }
 
 .user-prompt {
+  position: absolute;
   background-color: white;
   width: 20rem;
   text-align: center;
@@ -298,6 +299,8 @@ main {
   text-align: end;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .item-three {

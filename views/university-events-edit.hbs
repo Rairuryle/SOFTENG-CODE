@@ -60,9 +60,7 @@
                 <div class="activity-name">CCSEA WEEK</div>
                 <div class="activity-day">
                     <select name="activity day dropdown" id="activity-day-dropdown">
-                        <option value="DAY 1" class="options">DAY 1</option>
-                        <option value="DAY 2">DAY 2</option>
-                        <option value="DAY 3">DAY 3</option>
+
                     </select>
                 </div>
             </div>
@@ -666,6 +664,26 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="../js/popup.js"></script>
 <script>
+
+
+    // Function to populate the activity day dropdown
+    function populateActivityDayDropdown() {
+        // Clear existing options
+        activityDayDropdown.innerHTML = '';
+
+        // Get the number of days from the eventDays input
+        const numDays = parseInt(eventDaysInput.value);
+
+        // Populate options for each day
+        for (let i = 1; i <= numDays; i++) {
+            const option = document.createElement('option');
+            option.value = `DAY ${i}`;
+            option.textContent = `DAY ${i}`;
+            activityDayDropdown.appendChild(option);
+        }
+    }
+
+
     $('[id^="myButtonActivityEdit"]').on('click', function () {
         var buttonId = $(this).attr('id');
         var popupId = $(this).attr('data-popup-id');

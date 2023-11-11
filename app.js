@@ -55,17 +55,15 @@ app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 app.use('/dashboard', authMiddleware);
 
-app.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            console.error('Error destroying session:', err);
-        }
+// app.get('/logout', (req, res) => {
+//     req.session.destroy((err) => {
+//         if (err) {
+//             console.error('Error destroying session:', err);
+//         }
 
-        res.redirect('/login?isLoggedOut=true');
-    });
-});
-
-
+//         res.redirect('/login?isLoggedOut=true');
+//     });
+// });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -131,6 +129,25 @@ app.post('/insert-into-database', (req, res) => {
     });
 });
 
+app.get('/dashboard/search', (req, res) => {
+    const idNumber = req.query.gridsearchIDNumber;
+
+    db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ studentFound: false });
+        } else {
+            if (results.length > 0) {
+                // Student found
+                const studentData = results[0];
+                res.status(200).json({ studentFound: true, studentData });
+            } else {
+                res.status(404).json({ studentFound: false });
+            }
+        }
+    });
+});
+
 function searchStudentByGridsearchIDNumber(gridsearchIDNumber, callback) {
     db.query('SELECT * FROM student WHERE id_number = ?', [gridsearchIDNumber], (error, results) => {
         if (error) {
@@ -185,24 +202,6 @@ app.post('/university-events-admin/search', (req, res) => {
     });
 });
 
-app.get('/dashboard/search', (req, res) => {
-    const idNumber = req.query.gridsearchIDNumber;
-
-    db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
-        if (error) {
-            console.log(error);
-            res.status(500).json({ studentFound: false });
-        } else {
-            if (results.length > 0) {
-                // Student found
-                const studentData = results[0];
-                res.status(200).json({ studentFound: true, studentData });
-            } else {
-                res.status(404).json({ studentFound: false });
-            }
-        }
-    });
-});
 
 app.post('/insert-event-database', (req, res) => {
     console.log(req.body);
@@ -215,38 +214,71 @@ app.post('/insert-event-database', (req, res) => {
         eventDays,
     } = req.body;
 
-    // Check if the event with the provided name already exists in the event table
-    db.query('INSERT INTO event SET ?', {
-        event_name: eventnameInput,
-        event_date_start: startDateEvent,
-        event_date_end: endDateEvent,
-        event_scope: eventScope,
-        event_days: eventDays,
-    }, (error, results) => {
+    db.query('SELECT event_name FROM event WHERE event_name = ?', [eventnameInput], async (error, results) => {
         if (error) {
             console.log(error);
-            return res.status(500).json({ error: 'Error inserting event data' });
-        } else {
-            console.log(results);
+        }
 
-            // Fetch all events after adding the new event
-            db.query('SELECT * FROM event', (error, events) => {
+        // Insert the student data into the student table if it doesn't already exist
+        if (results.length === 0) {
+            // Check if the event with the provided name already exists in the event table
+            db.query('INSERT INTO event SET ?', {
+                event_name: eventnameInput,
+                event_date_start: startDateEvent,
+                event_date_end: endDateEvent,
+                event_scope: eventScope,
+                event_days: eventDays,
+            }, (error, results) => {
                 if (error) {
                     console.log(error);
-                    return res.status(500).json({ error: 'Error fetching events' });
+                    return res.status(500).json({ error: 'Error inserting event data' });
                 } else {
-                    // Return the updated list of events to the client
-                    return res.status(200).json({
-                        message: `Event ${eventnameInput} successfully created`,
-                        events: events,
+                    console.log(results);
+
+                    // Fetch all events after adding the new event
+                    db.query('SELECT * FROM event', (error, events) => {
+                        if (error) {
+                            console.log(error);
+                            return res.status(500).json({ error: 'Error fetching events' });
+                        } else {
+                            // Return the updated list of events to the client
+                            return res.status(200).json({
+                                message: `Event ${eventnameInput} successfully created`,
+                                events: events,
+                            });
+                        }
                     });
                 }
             });
+        } else {
+            return res.status(400).json({ error: 'There is already an existing event', eventname: eventnameInput });
         }
     });
 });
 
+// app.put('/update-event/:eventId', (req, res) => {
+//     const eventId = req.params.eventId;
+//     const updatedEventData = req.body; // Contains the updated event information
 
+//     console.log('Received update request for event ID:', eventId);
+//     console.log('Updated event data:', updatedEventData);
+
+//     // ... your existing code ...
+
+//     db.query(
+//         'UPDATE event SET event_name = ?, event_date_start = ?, event_date_end = ? WHERE event_id = ?',
+//         [updatedEventData.eventname, updatedEventData.startdate, updatedEventData.enddate, eventId],
+//         (error, results) => {
+//             if (error) {
+//                 console.error('Error updating event:', error);
+//                 res.status(500).json({ error: 'Error updating event' });
+//             } else {
+//                 console.log('Event updated successfully');
+//                 res.status(200).json({ message: 'Event updated successfully' });
+//             }
+//         }
+//     );
+// });
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000");

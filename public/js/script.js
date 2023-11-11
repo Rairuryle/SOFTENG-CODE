@@ -34,6 +34,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const successResponse = document.getElementById("successResponse");
     successResponse.classList.remove("user-prompt", "slide-in");
+
+    function exitModeDirect() {
+        let url = window.location.toString();
+        window.location = url.replace(/edit/, `admin`);
+        console.log(window.location);
+    }
+
+    const exitModeElements = document.querySelectorAll('.exitMode');
+    exitModeElements.forEach(function (element) {
+        element.addEventListener('click', exitModeDirect);
+    });
 });
 
 // Get the "See More / See Less" button element
@@ -77,3 +88,10 @@ function togglePasswordVisibility() {
 }
 
 document.getElementById("gridsearchIDNumber").maxLength = "9";
+
+// function redirectToEventEdit(event_name, student_id) {
+//     // Construct the new URL with the student ID and event name
+//     const editUrl = `/university-events-admin?id_number=${encodeURIComponent(student_id)}&event_name=${encodeURIComponent(event_name)}`;
+
+//     console.log(editUrl);
+// }

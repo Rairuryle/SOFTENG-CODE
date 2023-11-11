@@ -24,12 +24,6 @@ function searchStudentProfile() {
                     window.location.href = `/university-events-edit?id_number=${data.studentData.id_number}`;
                 }
 
-                // if (isUSGorSAO) {
-                // window.location.href = `/university-events-admin?id_number=${data.studentData.id_number}`;
-                // } else {
-                //     window.location.href = `/college-events-admin?id_number=${data.studentData.id_number}`;
-                // }
-                // Display the student's information
                 const studentData = data.studentData;
 
                 // Update your HTML to display the studentData

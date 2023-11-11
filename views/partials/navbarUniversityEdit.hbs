@@ -59,14 +59,17 @@
         </div>
 
         {{#each events}}
+        {{!-- <a href="http://localhost:5000/university-events-admin?id_number=df" class="nav-link"
+            onclick="redirectToEventEdit('{{this.event_name}}', '{{this.student_id}}')"></a> --}}
         <a href="#" class="nav-link">
             <div class="img-modify-event-container">
-                <button type="button" id="myButtonEventEdit1" class="myButtonEventEdit modify-button"
-                    data-popup-id="myPopupEventEdit1">
+                <button type="button" id="myButtonEventEdit{{@index}}" class="myButtonEventEdit modify-button"
+                    data-popup-id="myPopupEventEdit{{@index}}" data-index="{{@index}}">
                     <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
                 </button>
-                <button type="button" id="myButtonEventDelete1" class="myButtonEventDelete modify-button"
-                    data-popup-id="myPopupEventDelete1">
+
+                <button type="button" id="myButtonEventDelete{{@index}}" class="myButtonEventDelete modify-button"
+                    data-popup-id="myPopupEventDelete{{@index}}">
                     <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
                 </button>
             </div>
@@ -74,32 +77,40 @@
         </a>
 
         <!-- edit event -->
-        <div id="myPopupEventEdit1" class="popup">
+        <div id="myPopupEventEdit{{@index}}" class="popup">
             <div class="flex-container popup-content">
-                <span id="closeButton" class="close-button closePopup" data-popup-id="myPopupEventEdit1">&times;</span>
+                <span id="closeButton" class="close-button closePopup"
+                    data-popup-id="myPopupEventEdit{{@index}}">&times;</span>
                 <h1 class="flex-container">EDIT<p id="eventScope" class="eventScope" name="eventScope">INSTITUTIONAL</p>
                     EVENT</h1>
                 <div class="flex-container add-events-container">
                     <div class="flex-container add-events-holder">
-                        <input type="text" name="eventname" class="eventname add-event-inputs"
-                            placeholder="Event Name" />
-                        <input type="date" name="startdate" class="eventdate add-event-inputs" />
+                        <input type="text" id="editEventName{{@index}}" name="eventname"
+                            class="eventname add-event-inputs" placeholder="Event Name" />
+                        <input type="date" id="editStartDate{{@index}}" name="startdate"
+                            class="eventdate add-event-inputs" />
                         <p class="date-dash">-</p>
-                        <input type="date" name="enddate" class="eventdate add-event-inputs" />
+                        <input type="date" id="editEndDate{{@index}}" name="enddate"
+                            class="eventdate add-event-inputs" />
+
                     </div>
 
                     <div class="flex-container add-events-container-button">
                         <button id="closePopup" class="closePopup" type="button"
-                            data-popup-id="myPopupEventEdit1">SAVE</button>
+                            data-popup-id="myPopupEventEdit{{@index}}">SAVE</button>
+
+                        {{!-- <button id="saveEventButton{{@index}}" class="saveEventButton" type="button"
+                            data-popup-id="myPopupEventEdit{{@index}}" data-index="{{@index}}">SAVE
+                        </button> --}}
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="myPopupEventDelete1" class="popup">
+        <div id="myPopupEventDelete{{@index}}" class="popup">
             <div class="flex-container popup-content">
                 <span id="closeButton" class="close-button closePopup"
-                    data-popup-id="myPopupEventDelete1">&times;</span>
+                    data-popup-id="myPopupEventDelete{{@index}}">&times;</span>
                 <h1 class="flex-container event-titlehead">DELETE<p id="eventScope" class="eventScope"
                         name="eventScope">INSTITUTIONAL
                     </p>EVENT</h1>
@@ -110,7 +121,7 @@
 
                 <div class="flex-container add-events-container-button">
                     <button id="closeDeletePopup" class="closePopup" type="button"
-                        data-popup-id="myPopupEventDelete1">DELETE</button>
+                        data-popup-id="myPopupEventDelete{{@index}}">DELETE</button>
                 </div>
             </div>
         </div>
@@ -566,22 +577,13 @@
 </nav>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+
     $('[id^="myButtonEventEdit"]').on('click', function () {
         var buttonId = $(this).attr('id');
         var popupId = $(this).attr('data-popup-id');
         var eventNameSpecific = $('#' + buttonId).closest('.nav-link').find('.eventNameSpecific').text();
         var eventnameInput = $('#' + popupId).find('.eventname');
         eventnameInput.val(eventNameSpecific);
-    });
-
-    function exitModeDirect() {
-        let url = window.location.toString();
-        window.location = url.replace(/edit/, `admin`);
-        console.log(window.location);
-    }
-
-    const exitModeElements = document.querySelectorAll('.exitMode');
-    exitModeElements.forEach(function (element) {
-        element.addEventListener('click', exitModeDirect);
     });
 </script>
