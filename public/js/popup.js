@@ -1,22 +1,22 @@
 // Get all elements with the 'addMore' class
-const addMoreButtons = document.querySelectorAll('.addMore');
+const addMoreButtons = document.querySelectorAll(".addMore");
 
 // Loop through all 'addMore' buttons and add a click event listener to each
 addMoreButtons.forEach(function (addMoreButton) {
-    addMoreButton.addEventListener('click', function () {
+    addMoreButton.addEventListener("click", function () {
         // Find the corresponding '.inputs' container for this button
-        let inputs = document.querySelector('.inputs');
+        let inputs = document.querySelector(".inputs");
 
-        let newInputName = document.createElement('input');
-        newInputName.type = 'text';
-        newInputName.placeholder = 'Activity Name';
-        newInputName.name = 'activityname[]';
-        newInputName.classList.add('input-style');
+        let newInputName = document.createElement("input");
+        newInputName.type = "text";
+        newInputName.placeholder = "Activity Name";
+        newInputName.name = "activityname[]";
+        newInputName.classList.add("input-style");
 
-        let newInputDate = document.createElement('input');
-        newInputDate.type = 'date';
-        newInputDate.name = 'activitydate[]';
-        newInputDate.classList.add('input-style');
+        let newInputDate = document.createElement("input");
+        newInputDate.type = "date";
+        newInputDate.name = "activitydate[]";
+        newInputDate.classList.add("input-style");
 
         inputs.appendChild(newInputName);
         inputs.appendChild(newInputDate);
@@ -24,137 +24,182 @@ addMoreButtons.forEach(function (addMoreButton) {
 });
 
 // Get all elements with the 'addMore' class
-const addMoreActivitiesButtons = document.querySelectorAll('.addMoreActivities');
+const addMoreActivitiesButtons = document.querySelectorAll(".addMoreActivities");
 
 // Loop through all 'addMore' buttons and add a click event listener to each
 addMoreActivitiesButtons.forEach(function (addMoreActivitiesButton) {
-    addMoreActivitiesButton.addEventListener('click', function () {
-        console.log('ok');
+    addMoreActivitiesButton.addEventListener("click", function () {
+        console.log("ok");
         // Find the corresponding '.inputs' container for this button
-        let inputs = document.querySelector('.inputsActivity');
+        let inputs = document.querySelector(".inputsActivity");
 
-        let newInputName = document.createElement('input');
-        newInputName.type = 'text';
-        newInputName.placeholder = 'Activity Name';
-        newInputName.name = 'activityname[]';
-        newInputName.classList.add('input-style');
+        let newInputName = document.createElement("input");
+        newInputName.type = "text";
+        newInputName.placeholder = "Activity Name";
+        newInputName.name = "activityname[]";
+        newInputName.classList.add("input-style");
 
-        let newInputDate = document.createElement('input');
-        newInputDate.type = 'date';
-        newInputDate.name = 'activitydate[]';
-        newInputDate.classList.add('input-style');
+        let newInputDate = document.createElement("input");
+        newInputDate.type = "date";
+        newInputDate.name = "activitydate[]";
+        newInputDate.classList.add("input-style");
 
         inputs.appendChild(newInputName);
         inputs.appendChild(newInputDate);
     });
 });
 
-const myButtonEvent = document.querySelectorAll('.myButtonEvent');
+const myButtonEvent = document.querySelectorAll(".myButtonEvent");
 
-myButtonEvent.forEach(button => {
-    button.addEventListener('click', function () {
-        const popupId = this.getAttribute('data-popup-id');
+myButtonEvent.forEach((button) => {
+    button.addEventListener("click", function () {
+        const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
-            popup.style.display = 'block';
+            popup.style.display = "block";
         }
     });
 });
 
-const myButtonEventEdit = document.querySelectorAll('.myButtonEventEdit');
+const myButtonEventEdit = document.querySelectorAll(".myButtonEventEdit");
 
-myButtonEventEdit.forEach(button => {
-    button.addEventListener('click', function () {
-        const popupId = this.getAttribute('data-popup-id');
+myButtonEventEdit.forEach((button) => {
+    button.addEventListener("click", function () {
+        const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
-            popup.style.display = 'block';
+            popup.style.display = "block";
         }
     });
 });
 
-const myButtonEventDelete = document.querySelectorAll('.myButtonEventDelete');
+const myButtonEventDelete = document.querySelectorAll(".myButtonEventDelete");
 
-myButtonEventDelete.forEach(button => {
-    button.addEventListener('click', function () {
-        const popupId = this.getAttribute('data-popup-id');
+myButtonEventDelete.forEach((button) => {
+    button.addEventListener("click", function () {
+        const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
-            popup.style.display = 'block';
+            popup.style.display = "block";
         }
     });
 });
 
-const myButtonActivityAdd = document.querySelectorAll('.myButtonActivityAdd');
+const myButtonActivityAdd = document.querySelectorAll(".myButtonActivityAdd");
 
-myButtonActivityAdd.forEach(button => {
-    button.addEventListener('click', function () {
-        console.log('ok');
-        const popupId = this.getAttribute('data-popup-id');
+myButtonActivityAdd.forEach((button) => {
+    button.addEventListener("click", function () {
+        console.log("ok");
+        const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
-            popup.style.display = 'block';
+            popup.style.display = "block";
         }
     });
 });
 
-const myButtonActivityEdit = document.querySelectorAll('.myButtonActivityEdit');
+const myButtonActivityEdit = document.querySelectorAll(".myButtonActivityEdit");
 
-myButtonActivityEdit.forEach(button => {
-    button.addEventListener('click', function () {
-        const popupId = this.getAttribute('data-popup-id');
+myButtonActivityEdit.forEach((button) => {
+    button.addEventListener("click", function () {
+        const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
-            popup.style.display = 'block';
+            popup.style.display = "block";
         }
     });
 });
 
-const myButtonActivityDelete = document.querySelectorAll('.myButtonActivityDelete');
+const myButtonActivityDelete = document.querySelectorAll(".myButtonActivityDelete");
 
-myButtonActivityDelete.forEach(button => {
-    button.addEventListener('click', function () {
-        console.log('ok');
-        const popupId = this.getAttribute('data-popup-id');
+myButtonActivityDelete.forEach((button) => {
+    button.addEventListener("click", function () {
+        console.log("ok");
+        const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
-            popup.style.display = 'block';
+            popup.style.display = "block";
         }
     });
 });
 
-const closeButtons = document.querySelectorAll('.closePopup');
+const closeButtons = document.querySelectorAll(".closePopup");
 
-closeButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        const popupId = this.getAttribute('data-popup-id');
+closeButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+        const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
-            popup.style.display = 'none';
+            popup.style.display = "none";
         }
     });
 });
 
-const confirmButtons = document.querySelectorAll('.confirmButton');
+// const closeButtons = document.querySelectorAll(".closePopup");
 
-confirmButtons.forEach(button => {
-    button.addEventListener('click', function (event) {
+// closeButtons.forEach((button, index) => {
+//     button.addEventListener("click", function () {
+//         const eventNameToDelete = document.querySelector(`.eventNameSpecific.index${index}`).textContent;
+//         console.log("event", eventNameToDelete);
+
+//         fetch("/delete-event", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({
+//                 eventNameToDelete: eventNameToDelete,
+//             }),
+//         })
+//             .then((response) => {
+//                 if (response.ok) {
+//                     return response.json();
+//                 } else {
+//                     throw new Error("Server error");
+//                 }
+//             })
+//             .then((data) => {
+//                 // Handle the response from the server, e.g., update the UI with the new list of events
+//                 console.log(data);
+//             })
+//             .catch((error) => {
+//                 console.error("Error:", error);
+//             });
+
+//         // // Hide the delete popup
+//         // const deletePopup = document.getElementById(`myPopupEventDelete${index}`);
+//         // deletePopup.style.display = "none";
+//         // const popupId = this.getAttribute("data-popup-id");
+//         // const popup = document.getElementById(popupId);
+//         // if (popup) {
+//         //     popup.style.display = "none";
+//         // }
+//     });
+// });
+
+const confirmButtons = document.querySelectorAll(".confirmButton");
+
+confirmButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
         event.preventDefault();
 
         // Collect form data from input fields
         const formData = {
-            eventnameInput: document.getElementById('eventnameInput').value,
-            startDateEvent: document.getElementById('startDateEvent').value,
-            endDateEvent: document.getElementById('endDateEvent').value,
-            eventScope: document.getElementById('eventScope').textContent,
-            eventDays: document.getElementById('eventDays').value,
+            eventnameInput: document.getElementById("eventnameInput").value,
+            startDateEvent: document.getElementById("startDateEvent").value,
+            endDateEvent: document.getElementById("endDateEvent").value,
+            eventScope: document.getElementById("eventScope").textContent,
+            eventDays: calculateEventDays(
+                document.getElementById("startDateEvent").value,
+                document.getElementById("endDateEvent").value
+            ),
         };
 
         // Send the data to the server using the Fetch API
-        fetch('/insert-event-database', {
-            method: 'POST',
+        fetch("/insert-event-database", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
         })
@@ -162,15 +207,15 @@ confirmButtons.forEach(button => {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    const popupId = this.getAttribute('data-popup-id');
+                    const popupId = button.getAttribute("data-popup-id"); // Use button here
                     const popup = document.getElementById(popupId);
                     if (popup) {
-                        popup.style.display = 'none';
+                        popup.style.display = "none";
                     }
 
-                    console.error('Error sending data to the server');
+                    console.error("Error sending data to the server");
 
-                    const errorResponse = document.getElementById('errorResponse');
+                    const errorResponse = document.getElementById("errorResponse");
                     errorResponse.textContent = `There is already an existing event`;
                     errorResponse.classList.remove("hidden");
                     errorResponse.classList.add("user-prompt", "slide-in");
@@ -178,17 +223,23 @@ confirmButtons.forEach(button => {
                         errorResponse.classList.add("hidden");
                     }, 4000);
 
-                    throw new Error('Server error');
+                    throw new Error("Server error");
                 }
             })
             .then((data) => {
-                const popupId = this.getAttribute('data-popup-id');
+                const startDate = new Date(formData.startDateEvent);
+                const endDate = new Date(formData.endDateEvent);
+                const numberOfDays = Math.floor((endDate - startDate) / (24 * 60 * 60 * 1000)) + 1;
+
+                document.getElementById("eventDays").value = numberOfDays;
+
+                const popupId = button.getAttribute("data-popup-id"); // Use button here
                 const popup = document.getElementById(popupId);
                 if (popup) {
-                    popup.style.display = 'none';
+                    popup.style.display = "none";
                 }
 
-                const successResponse = document.getElementById('successResponse');
+                const successResponse = document.getElementById("successResponse");
                 successResponse.textContent = data.message;
 
                 successResponse.classList.remove("hidden");
@@ -196,74 +247,95 @@ confirmButtons.forEach(button => {
                 setTimeout(function () {
                     successResponse.classList.add("hidden");
                     location.reload();
-                }, 2500);
+                }, 2300);
             })
             .catch((error) => {
-                console.error('Error:', error);
+                console.error("Error:", error);
             });
     });
 });
 
+function calculateEventDays(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return Math.floor((end - start) / (24 * 60 * 60 * 1000)) + 1;
+}
 
-    // Get references to the date input elements
-    const startDateInput = document.getElementById('startDateEvent');
-    const endDateInput = document.getElementById('endDateEvent');
+const today = new Date().toISOString().split("T")[0];
 
-    // Get the input element for storing the number of days
-    const eventDaysInput = document.getElementById('eventDays');
+// Get the date six days from today
+const sixDaysAfterToday = new Date();
+sixDaysAfterToday.setDate(sixDaysAfterToday.getDate() + 6);
+const sixDaysAfterTodayString = sixDaysAfterToday.toISOString().split("T")[0];
 
-    // Get the select element for activity days
-    const activityDayDropdown = document.getElementById('activity-day-dropdown');
+// Set min and max attributes for date inputs
+document.getElementById("startDateEvent").min = today;
+document.getElementById("endDateEvent").min = today;
+document.getElementById("endDateEvent").max = sixDaysAfterTodayString;
 
-    // Get the current date in the format YYYY-MM-DD
-    const today = new Date().toISOString().split('T')[0];
+// // Get references to the date input elements
+// const startDateInput = document.getElementById("startDateEvent");
+// const endDateInput = document.getElementById("endDateEvent");
 
-    // Set the minimum date for startDateEvent to today
-    startDateInput.min = today;
+// // Get the input element for storing the number of days
+// const eventDaysInput = document.getElementById("eventDays");
 
-    // Add an event listener to startDateEvent to update endDateEvent constraints
-    startDateInput.addEventListener('change', function () {
-        // Set the minimum date for endDateEvent to the selected startDateEvent
-        endDateInput.min = this.value;
+// // Get the select element for activity days
+// const activityDayDropdown = document.getElementById("activity-day-dropdown");
 
-        // Calculate the maximum date for endDateEvent (7 days from startDateEvent)
-        const maxDate = new Date(this.value);
-        maxDate.setDate(maxDate.getDate() + 7);
+// // Get the current date in the format YYYY-MM-DD
+// const today = new Date().toISOString().split("T")[0];
 
-        // Set the maximum date for endDateEvent
-        endDateInput.max = maxDate.toISOString().split('T')[0];
+// // Set the minimum date for startDateEvent to today
+// startDateInput.min = today;
 
-        // Calculate and update the number of days
-        updateEventDays();
+// // Add an event listener to startDateEvent to update endDateEvent constraints
+// startDateInput.addEventListener("change", function () {
+//     // Set the minimum date for endDateEvent to the selected startDateEvent
+//     endDateInput.min = this.value;
 
-        // Populate the activity day dropdown
-        populateActivityDayDropdown();
-    });
+//     // Calculate the maximum date for endDateEvent (7 days from startDateEvent)
+//     const maxDate = new Date(this.value);
+//     maxDate.setDate(maxDate.getDate() + 6);
 
-    // Add an event listener to endDateEvent to update startDateEvent constraints
-    endDateInput.addEventListener('change', function () {
-        // Set the maximum date for startDateEvent to the selected endDateEvent
-        startDateInput.max = this.value;
+//     // Set the maximum date for endDateEvent
+//     endDateInput.max = maxDate.toISOString().split("T")[0];
 
-        // Calculate and update the number of days
-        updateEventDays();
+//     // Calculate and update the number of days
+//     updateEventDays();
 
-        // Populate the activity day dropdown
-        populateActivityDayDropdown();
-    });
+//     // Populate the activity day dropdown
+//     populateActivityDayDropdown();
+// });
 
-    // Function to calculate and update the number of days
-    function updateEventDays() {
-        const startDate = new Date(startDateInput.value);
-        const endDate = new Date(endDateInput.value);
+// // Add an event listener to endDateEvent to update startDateEvent constraints
+// endDateInput.addEventListener("change", function () {
+//     // Set the maximum date for startDateEvent to the selected endDateEvent
+//     startDateInput.max = this.value;
 
-        // Calculate the difference in days
-        const timeDifference = endDate - startDate + 1;
-        const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+//     // Calculate and update the number of days
+//     updateEventDays();
 
-        // Update the eventDays input element with the calculated number of days
-        eventDaysInput.value = daysDifference;
-    }
+//     // Populate the activity day dropdown
+//     populateActivityDayDropdown();
+// });
+
+// // Function to calculate and update the number of days
+// function updateEventDays() {
+//     const startDate = new Date(startDateInput.value);
+//     const endDate = new Date(endDateInput.value);
+
+//     // Calculate the difference in days
+//     const timeDifference = endDate - startDate + 1;
+//     const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+//     // Update the eventDays input element with the calculated number of days
+//     eventDaysInput.value = daysDifference;
+
+//     // Populate the activity day dropdown
+//     populateActivityDayDropdown();
+// }
+
 
 // const saveEventButtons = document.querySelectorAll('.saveEventButton');
 
@@ -300,14 +372,14 @@ confirmButtons.forEach(button => {
 //             .then(data => {
 //                 // Handle success, e.g., close the popup, show a success message, etc.
 //                 console.log(data);
-            
+
 //                 // Example: Update the UI with the new event name
 //                 const eventNameElement = document.querySelector(`#myPopupEventEdit${index} .eventNameSpecific`);
 //                 eventNameElement.textContent = updatedEventData.eventname;
-            
+
 //                 popup.style.display = 'none';
 //             })
-            
+
 //             .catch(error => {
 //                 console.error('Error:', error);
 //             });

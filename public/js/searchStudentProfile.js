@@ -15,7 +15,7 @@ function searchStudentProfile() {
             // Update the page with the search results
             if (data.studentFound) {
                 const adminData = data.adminData;
-                const isUSGorSAO = document.querySelector('#isUSGorSAO').value === "true";
+                // const isUSGorSAO = document.querySelector('#isUSGorSAO').value === "true";
                 const isAdminURL = document.querySelector('#isAdminURL').value === "true";
 
                 if (isAdminURL) {

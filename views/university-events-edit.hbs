@@ -57,11 +57,9 @@
         <!-- semester -->
         <div class="flex-container semester-container">
             <div class="flex-container activity">
-                <div class="activity-name">CCSEA WEEK</div>
+                <div id="recordEventName" class="recordEventName">EVENT NAME</div>
                 <div class="activity-day">
-                    <select name="activity day dropdown" id="activity-day-dropdown">
-
-                    </select>
+                    <select name="activity day dropdown" id="activity-day-dropdown"></select>
                 </div>
             </div>
             <div class="flex-container semester">
@@ -663,32 +661,4 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="../js/popup.js"></script>
-<script>
-
-
-    // Function to populate the activity day dropdown
-    function populateActivityDayDropdown() {
-        // Clear existing options
-        activityDayDropdown.innerHTML = '';
-
-        // Get the number of days from the eventDays input
-        const numDays = parseInt(eventDaysInput.value);
-
-        // Populate options for each day
-        for (let i = 1; i <= numDays; i++) {
-            const option = document.createElement('option');
-            option.value = `DAY ${i}`;
-            option.textContent = `DAY ${i}`;
-            activityDayDropdown.appendChild(option);
-        }
-    }
-
-
-    $('[id^="myButtonActivityEdit"]').on('click', function () {
-        var buttonId = $(this).attr('id');
-        var popupId = $(this).attr('data-popup-id');
-        var activityNameSpecific = $('#' + buttonId).closest('td').find('.activityNameSpecific').text();
-        var activityNameInput = $('#' + popupId).find('.activityname-main');
-        activityNameInput.val(activityNameSpecific);
-    });
-</script>
+<script src="../js/events.js"></script>

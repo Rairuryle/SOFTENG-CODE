@@ -565,7 +565,7 @@ main {
   margin-top: 0.9rem;
 }
 
-.activity-name {
+.recordEventName {
   background-color: var(--main-green);
   border-radius: 25px;
   height: 2.6rem;
@@ -1087,4 +1087,8 @@ td {
   font-size: 1.2rem;
   cursor: pointer;
   color: var(--main-green);
+}
+
+[class^="eventNameSpecific"] {
+  margin: 0;
 }

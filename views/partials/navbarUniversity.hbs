@@ -90,15 +90,3 @@
         </div>
     </div>
 </nav>
-<script>
-    function editModeDirect() {
-        let url = window.location.toString();
-        window.location = url.replace(/admin/, `edit`);
-        console.log(window.location);
-    }
-
-    const editModeElements = document.querySelectorAll('.editMode');
-    editModeElements.forEach(function (element) {
-        element.addEventListener('click', editModeDirect);
-    });
-</script>

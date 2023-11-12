@@ -172,35 +172,35 @@ app.get('/university-events-admin/search', (req, res) => {
     });
 });
 
-app.post('/university-events-admin/search', (req, res) => {
-    const idNumber = req.body.gridsearchIDNumber; // Get the ID number from the form
+// app.post('/university-events-admin/search', (req, res) => {
+//     const idNumber = req.body.gridsearchIDNumber; // Get the ID number from the form
 
-    // Query the database to search for the student with the given ID number
-    db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
-        if (error) {
-            console.log(error);
-            res.status(500).send('Error searching for student');
-        } else {
-            // Check if a student with the provided ID number was found
-            if (results.length > 0) {
-                const studentData = results[0]; // Assuming there's only one matching student
-                res.render('university-events-admin', {
-                    first_name: req.session.first_name,
-                    last_name: req.session.last_name,
-                    studentData: studentData,
-                    title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
-                });
-            } else {
-                res.render('university-events-admin', {
-                    first_name: req.session.first_name,
-                    last_name: req.session.last_name,
-                    studentData: null, // You can pass null or a message to indicate no results
-                    title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
-                });
-            }
-        }
-    });
-});
+//     // Query the database to search for the student with the given ID number
+//     db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
+//         if (error) {
+//             console.log(error);
+//             res.status(500).send('Error searching for student');
+//         } else {
+//             // Check if a student with the provided ID number was found
+//             if (results.length > 0) {
+//                 const studentData = results[0]; // Assuming there's only one matching student
+//                 res.render('university-events-admin', {
+//                     first_name: req.session.first_name,
+//                     last_name: req.session.last_name,
+//                     studentData: studentData,
+//                     title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
+//                 });
+//             } else {
+//                 res.render('university-events-admin', {
+//                     first_name: req.session.first_name,
+//                     last_name: req.session.last_name,
+//                     studentData: null, // You can pass null or a message to indicate no results
+//                     title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
+//                 });
+//             }
+//         }
+//     });
+// });
 
 
 app.post('/insert-event-database', (req, res) => {
@@ -214,9 +214,13 @@ app.post('/insert-event-database', (req, res) => {
         eventDays,
     } = req.body;
 
+    const formattedStartDate = new Date(startDateEvent).toISOString().substring(0, 10);
+    const formattedEndDate = new Date(endDateEvent).toISOString().substring(0, 10);
+
     db.query('SELECT event_name FROM event WHERE event_name = ?', [eventnameInput], async (error, results) => {
         if (error) {
             console.log(error);
+            return res.status(500).json({ error: 'Error checking for existing event' });
         }
 
         // Insert the student data into the student table if it doesn't already exist
@@ -224,8 +228,8 @@ app.post('/insert-event-database', (req, res) => {
             // Check if the event with the provided name already exists in the event table
             db.query('INSERT INTO event SET ?', {
                 event_name: eventnameInput,
-                event_date_start: startDateEvent,
-                event_date_end: endDateEvent,
+                event_date_start: formattedStartDate,
+                event_date_end: formattedEndDate,
                 event_scope: eventScope,
                 event_days: eventDays,
             }, (error, results) => {
@@ -253,8 +257,70 @@ app.post('/insert-event-database', (req, res) => {
         } else {
             return res.status(400).json({ error: 'There is already an existing event', eventname: eventnameInput });
         }
+
+        req.session.eventData = {
+            event_name: eventnameInput,
+            event_date_start: formattedStartDate,
+            event_date_end: formattedEndDate,
+            event_scope: eventScope,
+            event_days: eventDays,
+        };
     });
 });
+
+function getEventRoute(eventNameSpecific, callback) {
+    db.query('SELECT * FROM event WHERE event_name = ?', [eventNameSpecific], (error, results) => {
+        if (error) {
+            console.error('Error in SQL query:', error);
+            return callback({ eventFound: false });
+        } else {
+            if (results.length > 0) {
+                const eventData = results[0]; // Assuming there's only one matching event
+
+                return callback({ eventFound: true, eventData });
+            } else {
+                return callback({ eventFound: false });
+            }
+        }
+    });
+}
+
+app.get('/university-events-admin/eventroute', (req, res) => {
+    const eventNameSpecific = req.query.eventNameSpecific;
+    getEventRoute(eventNameSpecific, (result) => {
+        res.status(result.eventFound ? 200 : 500).json(result);
+    });
+});
+
+// // Add a new route for deleting an event
+// app.post('/delete-event', (req, res) => {
+//     const eventNameToDelete = req.body.eventNameToDelete; // Adjust the property name based on your form data
+
+//     db.query('DELETE FROM event WHERE event_name = ?', [eventNameToDelete], (error, results) => {
+//         if (error) {
+//             console.error('Error in SQL query:', error);
+//             return res.status(500).json({ error: 'Error deleting event' });
+//         } else {
+//             console.log(results);
+
+//             // Fetch all events after deleting the event
+//             db.query('SELECT * FROM event', (error, events) => {
+//                 if (error) {
+//                     console.error('Error in SQL query:', error);
+//                     return res.status(500).json({ error: 'Error fetching events' });
+//                 } else {
+//                     // Return the updated list of events to the client
+//                     return res.status(200).json({
+//                         message: `Event ${eventNameToDelete} successfully deleted`,
+//                         events: events,
+//                     });
+//                 }
+//             });
+//         }
+//     });
+// });
+
+
 
 // app.put('/update-event/:eventId', (req, res) => {
 //     const eventId = req.params.eventId;
