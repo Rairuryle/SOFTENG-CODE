@@ -235,8 +235,8 @@ input[name="activitydate[]"]::placeholder {
 
 .eventname,
 .eventdate,
-.activityname-title,
-.activitydate-main {
+.activityname-title
+/* .activitydate-main  */ {
   border: 2px solid var(--main-green);
   border-radius: 15px;
   padding: 0.4rem 0.3rem 0.4rem 0.7rem;
@@ -244,8 +244,8 @@ input[name="activitydate[]"]::placeholder {
   margin-bottom: 1rem;
 }
 
-.eventdate,
-.activitydate-main {
+.eventdate
+/* .activitydate-main  */ {
   width: 47%;
 }
 
@@ -263,8 +263,8 @@ input[name="activitydate[]"]::placeholder {
   font-size: 0.9rem;
 }
 
-.eventdate,
-.activitydate-main {
+.eventdate
+/* .activitydate-main  */ {
   padding: 0.2rem 2.5rem;
   text-align: center;
 }
@@ -321,25 +321,41 @@ input[name="activitydate[]"]::placeholder {
   cursor: pointer;
 }
 
-/* Apply styles to input fields with name="activityname[]" */
-input[name="activityname[]"] {
-  /* Your CSS styles for activityname[] go here */
+.activityname-main {
   border: 2px solid var(--main-green);
   border-radius: 15px;
   font-size: 0.9rem;
-  padding: 0.2rem 7.8rem 0.2rem 0.7rem;
-  margin-right: 1.8rem;
-  width: 60%;
+  padding: 0.2rem 0.7rem;
+  margin-right: 1rem;
+  width: 59%;
 }
 
-/* Apply styles to input fields with name="activitydate[]" */
-input[name="activitydate[]"] {
-  /* Your CSS styles for activitydate[] go here */
+/* input[name="activityname[]"] {
+  border: 2px solid var(--main-green);
+  border-radius: 15px;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.7rem;
+  margin-right: 1rem;
+  width: 59%;
+} */
+
+.activitydate {
   border: 2px solid var(--main-green);
   border-radius: 15px;
   font-size: 0.9rem;
   padding: 0.18rem 0.5rem;
+  width: 37%;
+  text-align: center;
 }
+
+/* input[name="activitydate[]"] {
+  border: 2px solid var(--main-green);
+  border-radius: 15px;
+  font-size: 0.9rem;
+  padding: 0.18rem 0.5rem;
+  width: 37%;
+  text-align: center;
+} */
 
 .popup-content button {
   display: block;
@@ -399,6 +415,10 @@ input[name="activitydate[]"] {
 
 /* activities table */
 
+.activityNameSpecificEdit {
+  text-align: left;
+}
+
 .edit-activity-images {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -413,6 +433,10 @@ input[name="activitydate[]"] {
 .img-delete-event {
   margin-left: 0.5rem;
   width: 1.1rem;
+}
+
+.img-delete-activity {
+  margin-right: 1rem;
 }
 
 .img-delete-event {

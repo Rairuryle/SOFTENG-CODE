@@ -83,75 +83,75 @@
             <th>POINTS</th>
             <th>OFFICER-IN-CHARGE</th>
           </tr>
-          <tr>
-            <td>
-              <div class="flex-container">
-                <div class="flex-container edit-activity-images">
-                  <button type="button" id="myButtonActivityEdit1" class="myButtonActivityEdit modify-button"
-                    data-popup-id="myPopupActivityEdit1">
-                    <img src="../img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
-                  </button>
+          <tbody id="eventTableBody">
+            <tr>
+              <td>
+                <div class="flex-container">
+                  <div id="editActivityImages" class="flex-container edit-activity-images">
+                    <button type="button" id="myButtonActivityEdit1" class="myButtonActivityEdit modify-button"
+                      data-popup-id="myPopupActivityEdit1">
+                      <img src="../img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+                    </button>
 
-                  <div id="myPopupActivityEdit1" class="popup">
-                    <div class="flex-container popup-content">
-                      <span id="closeButton" class="close-button closePopup"
-                        data-popup-id="myPopupActivityEdit1">&times;</span>
-                      <h1>EDIT ACTIVITY</h1>
-                      <div class="flex-container add-activities-holder">
-                        <div>
-                          <input type="text" name="activityname" placeholder="Activity Name"
-                            class="activityname-main add-activity-inputs" />
-                          <input type="date" name="activitydate" class="activitydate add-activity-inputs" />
+                    <div id="myPopupActivityEdit1" class="popup">
+                      <div class="flex-container popup-content">
+                        <span id="closeButton" class="close-button closePopup"
+                          data-popup-id="myPopupActivityEdit1">&times;</span>
+                        <h1>EDIT ACTIVITY</h1>
+                        <div class="flex-container add-activities-holder">
+                          <div>
+                            <input type="text" name="activityname" placeholder="Activity Name"
+                              class="activityname-main add-activity-inputs" />
+                            <input type="date" name="activitydate" class="activitydate add-activity-inputs" />
+                          </div>
+                        </div>
+
+                        <div class="flex-container add-activities-container-button">
+                          <button id="closePopup" class="closePopup" type="button"
+                            data-popup-id="myPopupActivityEdit1">SAVE</button>
                         </div>
                       </div>
+                    </div>
 
-                      <div class="flex-container add-activities-container-button">
-                        <button id="closePopup" class="closePopup" type="button"
-                          data-popup-id="myPopupActivityEdit1">SAVE</button>
+                    <button type="button" id="myButtonActivityDelete1" class="myButtonActivityDelete modify-button"
+                      data-popup-id="myPopupActivityDelete1">
+                      <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+                    </button>
+                    <div id="myPopupActivityDelete1" class="popup">
+                      <div class="flex-container popup-content">
+                        <span id="closeButton" class="close-button closePopup"
+                          data-popup-id="myPopupActivityDelete1">&times;</span>
+                        <h1>DELETE ACTIVITY?</h1>
+                        <h3>WARNING</h3>
+                        <p class="delete-warning">This will remove all existing records stored within the
+                          activity page. Are you sure you wish to proceed?
+                        </p>
+                        <div class="flex-container add-activities-container-button">
+                          <button id="closeDeletePopup" class="closePopup" type="button"
+                            data-popup-id="myPopupActivityDelete1">DELETE</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-
-                  <button type="button" id="myButtonActivityDelete1" class="myButtonActivityDelete modify-button"
-                    data-popup-id="myPopupActivityDelete1">
-                    <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
-                  </button>
+                  <p id="recordActivityName" class="activityNameSpecific activityNameSpecificEdit"></p>
                 </div>
-                <p id="recordActivityName" class="activityNameSpecific">Painting Contest</p>
-              </div>
+              </td>
 
-            </td>
-            <div id="myPopupActivityDelete1" class="popup">
-              <div class="flex-container popup-content">
-                <span id="closeButton" class="close-button closePopup"
-                  data-popup-id="myPopupActivityDelete1">&times;</span>
-                <h1>DELETE ACTIVITY?</h1>
-                <h3>WARNING</h3>
-                <p class="delete-warning">This will remove all existing records stored within the
-                  activity page. Are you sure you wish to proceed?
-                </p>
-
-                <div class="flex-container add-activities-container-button">
-                  <button id="closeDeletePopup" class="closePopup" type="button"
-                    data-popup-id="myPopupActivityDelete1">DELETE</button>
-                </div>
-              </div>
-            </div>
-
-            <td>09/08/22</td>
-            <td>
-              <select name="student role dropdown" class="student-role-dropdown" disabled>
-                <option disabled="disabled" selected="selected">Select Student Role</option>
-                <option value="INDIV Participant">INDIV Participant</option>
-                <option value="TEAM Participant">TEAM Participant</option>
-                <option value="PROG. Spectator">PROG. Spectator</option>
-                <option value="OTH. Spectator">OTH. Spectator</option>
-              </select>
-            </td>
-            <td>5</td>
-            <td>Ryle Ilisan</td>
-          </tr>
-          <tr>
+              <td id="recordActivityDate"></td>
+              <td>
+                <select name="student role dropdown" class="student-role-dropdown" disabled>
+                  <option disabled="disabled" selected="selected">Select Student Role</option>
+                  <option value="INDIV Participant">INDIV Participant</option>
+                  <option value="TEAM Participant">TEAM Participant</option>
+                  <option value="PROG. Spectator">PROG. Spectator</option>
+                  <option value="OTH. Spectator">OTH. Spectator</option>
+                </select>
+              </td>
+              <td>5</td>
+              <td>Ryle Ilisan</td>
+            </tr>
+          </tbody>
+          {{!-- <tr>
             <td>
               <div class="flex-container">
                 <div class="flex-container edit-activity-images">
@@ -185,9 +185,8 @@
                     <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
                   </button>
                 </div>
-                <p class="activityNameSpecific">Tug of War</p>
+                <p id="recordActivityName" class="activityNameSpecific activityNameSpecificEdit"></p>
               </div>
-
             </td>
             <div id="myPopupActivityDelete2" class="popup">
               <div class="flex-container popup-content">
@@ -206,7 +205,7 @@
               </div>
             </div>
 
-            <td>09/08/22</td>
+            <td id="recordActivityDate"></td>
             <td>
               <select name="student role dropdown" class="student-role-dropdown" disabled>
                 <option disabled="disabled" selected="selected">Select Student Role</option>
@@ -274,7 +273,7 @@
               </div>
             </div>
 
-            <td>09/08/22</td>
+            <td id="recordActivityDate"></td>
             <td>
               <select name="student role dropdown" class="student-role-dropdown" disabled>
                 <option disabled="disabled" selected="selected">Select Student Role</option>
@@ -342,7 +341,7 @@
               </div>
             </div>
 
-            <td>09/08/22</td>
+            <td id="recordActivityDate"></td>
             <td>
               <select name="student role dropdown" class="student-role-dropdown" disabled>
                 <option disabled="disabled" selected="selected">Select Student Role</option>
@@ -410,7 +409,7 @@
               </div>
             </div>
 
-            <td>09/08/22</td>
+            <td id="recordActivityDate"></td>
             <td>
               <select name="student role dropdown" class="student-role-dropdown" disabled>
                 <option disabled="disabled" selected="selected">Select Student Role</option>
@@ -425,7 +424,7 @@
           </tr>
           <tr class="see-more-row">
             <td class="see-more" colspan="5">See More</td>
-          </tr>
+          </tr> --}}
         </table>
         <div class="results-grid-container">
           <div class="grid-item-sixteen">

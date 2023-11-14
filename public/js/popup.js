@@ -31,10 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
             newInputName.type = "text";
             newInputName.placeholder = "Activity Name";
             newInputName.name = "activityname[]";
+            newInputName.classList.add("activityname-main");
 
             let newInputDate = document.createElement("input");
             newInputDate.type = "date";
             newInputDate.name = "activitydate[]";
+            newInputDate.classList.add("activitydate");
 
             inputs.appendChild(newInputName);
             inputs.appendChild(newInputDate);
@@ -52,7 +54,6 @@ const addMoreActivitiesButtons = document.querySelectorAll(".addMoreActivities")
 
 addMoreActivitiesButtons.forEach(function (addMoreActivitiesButton) {
     addMoreActivitiesButton.addEventListener("click", function () {
-        console.log("ok");
         // Find the corresponding '.inputs' container for this button
         let inputs = document.querySelector(".inputsActivity");
 
@@ -112,7 +113,6 @@ const myButtonActivityAdd = document.querySelectorAll(".myButtonActivityAdd");
 
 myButtonActivityAdd.forEach((button) => {
     button.addEventListener("click", function () {
-        console.log("ok");
         const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
@@ -137,7 +137,6 @@ const myButtonActivityDelete = document.querySelectorAll(".myButtonActivityDelet
 
 myButtonActivityDelete.forEach((button) => {
     button.addEventListener("click", function () {
-        console.log("ok");
         const popupId = this.getAttribute("data-popup-id");
         const popup = document.getElementById(popupId);
         if (popup) {
@@ -157,48 +156,6 @@ closeButtons.forEach((button) => {
         }
     });
 });
-
-// const closeButtons = document.querySelectorAll(".closePopup");
-
-// closeButtons.forEach((button, index) => {
-//     button.addEventListener("click", function () {
-//         const eventNameToDelete = document.querySelector(`.eventNameSpecific.index${index}`).textContent;
-//         console.log("event", eventNameToDelete);
-
-//         fetch("/delete-event", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({
-//                 eventNameToDelete: eventNameToDelete,
-//             }),
-//         })
-//             .then((response) => {
-//                 if (response.ok) {
-//                     return response.json();
-//                 } else {
-//                     throw new Error("Server error");
-//                 }
-//             })
-//             .then((data) => {
-//                 // Handle the response from the server, e.g., update the UI with the new list of events
-//                 console.log(data);
-//             })
-//             .catch((error) => {
-//                 console.error("Error:", error);
-//             });
-
-//         // // Hide the delete popup
-//         // const deletePopup = document.getElementById(`myPopupEventDelete${index}`);
-//         // deletePopup.style.display = "none";
-//         // const popupId = this.getAttribute("data-popup-id");
-//         // const popup = document.getElementById(popupId);
-//         // if (popup) {
-//         //     popup.style.display = "none";
-//         // }
-//     });
-// });
 
 const confirmButtons = document.querySelectorAll(".confirmButton");
 

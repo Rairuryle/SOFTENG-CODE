@@ -162,36 +162,6 @@ app.get('/university-events-admin/search', (req, res) => {
     });
 });
 
-// app.post('/university-events-admin/search', (req, res) => {
-//     const idNumber = req.body.gridsearchIDNumber; // Get the ID number from the form
-
-//     // Query the database to search for the student with the given ID number
-//     db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
-//         if (error) {
-//             console.log(error);
-//             res.status(500).send('Error searching for student');
-//         } else {
-//             // Check if a student with the provided ID number was found
-//             if (results.length > 0) {
-//                 const studentData = results[0]; // Assuming there's only one matching student
-//                 res.render('university-events-admin', {
-//                     first_name: req.session.first_name,
-//                     last_name: req.session.last_name,
-//                     studentData: studentData,
-//                     title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
-//                 });
-//             } else {
-//                 res.render('university-events-admin', {
-//                     first_name: req.session.first_name,
-//                     last_name: req.session.last_name,
-//                     studentData: null, // You can pass null or a message to indicate no results
-//                     title: 'Admin Main Page | LSU Events and Attendance Tracking Website'
-//                 });
-//             }
-//         }
-//     });
-// });
-
 app.post('/insert-event-database', (req, res) => {
     console.log(req.body);
 
@@ -248,7 +218,7 @@ app.post('/insert-event-database', (req, res) => {
                                             console.log(error);
                                             reject(`Error inserting activity ${activityName} data`);
                                         } else {
-                                            console.log("Activity results: ", activityResults);
+                                            // console.log("Activity results: ", activityResults);
                                             resolve({ message: `Activity ${activityName} successfully created` });
                                         }
                                     });

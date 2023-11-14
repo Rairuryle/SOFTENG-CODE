@@ -317,3 +317,71 @@ for (let i = 0; i < activityname.length; i++) { db.query('INSERT INTO activities
         });
     });
     
+
+    <tr>
+        <td>
+          <div class="flex-container">
+            <div class="flex-container edit-activity-images">
+              <button type="button" id="myButtonActivityEdit2" class="myButtonActivityEdit modify-button"
+                data-popup-id="myPopupActivityEdit2">
+                <img src="../img/Edit (1).png" alt="Edit Activity" class="img-edit-activity-details">
+              </button>
+
+              <div id="myPopupActivityEdit2" class="popup">
+                <div class="flex-container popup-content">
+                  <span id="closeButton" class="close-button closePopup"
+                    data-popup-id="myPopupActivityEdit1">&times;</span>
+                  <h1>EDIT ACTIVITY</h1>
+                  <div class="flex-container add-activities-holder">
+                    <div>
+                      <input type="text" name="activityname" placeholder="Activity Name"
+                        class="activityname-main add-activity-inputs" />
+                      <input type="date" name="activitydate" class="activitydate add-activity-inputs" />
+                    </div>
+                  </div>
+
+                  <div class="flex-container add-activities-container-button">
+                    <button id="closePopup" class="closePopup" type="button"
+                      data-popup-id="myPopupActivityEdit2">SAVE</button>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" id="myButtonActivityDelete2" class="myButtonActivityDelete modify-button"
+                data-popup-id="myPopupActivityDelete2">
+                <img src="../img/Cancel.png" alt="Delete Activity" class="img-delete-activity">
+              </button>
+            </div>
+            <p id="recordActivityName" class="activityNameSpecific activityNameSpecificEdit"></p>
+          </div>
+        </td>
+        <div id="myPopupActivityDelete2" class="popup">
+          <div class="flex-container popup-content">
+            <span id="closeButton" class="close-button closePopup"
+              data-popup-id="myPopupActivityDelete2">&times;</span>
+            <h1>DELETE ACTIVITY?</h1>
+            <h3>WARNING</h3>
+            <p class="delete-warning">This will remove all existing records stored within the
+              activity page. Are you sure you wish to proceed?
+            </p>
+
+            <div class="flex-container add-activities-container-button">
+              <button id="closeDeletePopup" class="closePopup" type="button"
+                data-popup-id="myPopupActivityDelete2">DELETE</button>
+            </div>
+          </div>
+        </div>
+
+        <td id="recordActivityDate"></td>
+        <td>
+          <select name="student role dropdown" class="student-role-dropdown" disabled>
+            <option disabled="disabled" selected="selected">Select Student Role</option>
+            <option value="INDIV Participant">INDIV Participant</option>
+            <option value="TEAM Participant">TEAM Participant</option>
+            <option value="PROG. Spectator">PROG. Spectator</option>
+            <option value="OTH. Spectator">OTH. Spectator</option>
+          </select>
+        </td>
+        <td>5</td>
+        <td>Ryle Ilisan</td>
+      </tr>
