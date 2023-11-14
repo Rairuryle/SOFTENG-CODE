@@ -55,16 +55,6 @@ app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 app.use('/dashboard', authMiddleware);
 
-// app.get('/logout', (req, res) => {
-//     req.session.destroy((err) => {
-//         if (err) {
-//             console.error('Error destroying session:', err);
-//         }
-
-//         res.redirect('/login?isLoggedOut=true');
-//     });
-// });
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/insert-into-database', (req, res) => {
@@ -202,7 +192,6 @@ app.get('/university-events-admin/search', (req, res) => {
 //     });
 // });
 
-
 app.post('/insert-event-database', (req, res) => {
     console.log(req.body);
 
@@ -212,6 +201,7 @@ app.post('/insert-event-database', (req, res) => {
         endDateEvent,
         eventScope,
         eventDays,
+        activities
     } = req.body;
 
     const formattedStartDate = new Date(startDateEvent).toISOString().substring(0, 10);
@@ -223,35 +213,80 @@ app.post('/insert-event-database', (req, res) => {
             return res.status(500).json({ error: 'Error checking for existing event' });
         }
 
-        // Insert the student data into the student table if it doesn't already exist
         if (results.length === 0) {
-            // Check if the event with the provided name already exists in the event table
             db.query('INSERT INTO event SET ?', {
                 event_name: eventnameInput,
                 event_date_start: formattedStartDate,
                 event_date_end: formattedEndDate,
                 event_scope: eventScope,
                 event_days: eventDays,
-            }, (error, results) => {
+            }, (error, eventResults) => {
                 if (error) {
                     console.log(error);
                     return res.status(500).json({ error: 'Error inserting event data' });
                 } else {
-                    console.log(results);
+                    console.log("Event results: ", eventResults);
 
-                    // Fetch all events after adding the new event
-                    db.query('SELECT * FROM event', (error, events) => {
-                        if (error) {
-                            console.log(error);
-                            return res.status(500).json({ error: 'Error fetching events' });
-                        } else {
-                            // Return the updated list of events to the client
-                            return res.status(200).json({
-                                message: `Event ${eventnameInput} successfully created`,
-                                events: events,
+                    const eventId = eventResults.insertId;
+
+                    // Array to store promises for each activity insertion
+                    const insertionPromises = [];
+
+                    // Loop through the array of activities only if it is not empty
+                    if (activities.length > 0) {
+                        activities.forEach(({ activityName, activityDate }) => {
+                            // Check if both activityName and activityDate are defined before processing
+                            if (activityName && activityDate) {
+                                const formattedEndDate = new Date(activityDate).toISOString().substring(0, 10);
+                                const insertionPromise = new Promise((resolve, reject) => {
+                                    db.query('INSERT INTO activities SET ?', {
+                                        activity_name: activityName,
+                                        activity_date: formattedEndDate,
+                                        event_id: eventId,
+                                    }, (error, activityResults) => {
+                                        if (error) {
+                                            console.log(error);
+                                            reject(`Error inserting activity ${activityName} data`);
+                                        } else {
+                                            console.log("Activity results: ", activityResults);
+                                            resolve({ message: `Activity ${activityName} successfully created` });
+                                        }
+                                    });
+                                });
+
+                                insertionPromises.push(insertionPromise);
+                            } else {
+                                console.log('Skipping activity with undefined name or date:', { activityName, formattedEndDate });
+                            }
+                        });
+                    }
+
+                    // Wait for all promises to settle
+                    Promise.allSettled(insertionPromises)
+                        .then((results) => {
+                            const successfulResults = results.filter((result) => result.status === 'fulfilled');
+                            const failedResults = results.filter((result) => result.status === 'rejected');
+
+                            // Fetch all events after adding the new event
+                            db.query('SELECT * FROM event', (error, events) => {
+                                if (error) {
+                                    console.log(error);
+                                    return res.status(500).json({ error: 'Error fetching events' });
+                                } else {
+                                    // Return the updated list of events to the client
+                                    return res.status(200).json({
+                                        message: `Event ${eventnameInput} and its activities successfully created`,
+                                        events: events,
+                                        activities: successfulResults.map((result) => result.value),
+                                        errors: failedResults.map((result) => result.reason),
+                                    });
+                                }
                             });
-                        }
-                    });
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            res.status(500).json({ error: 'Server error' });
+                        });
                 }
             });
         } else {
@@ -269,15 +304,26 @@ app.post('/insert-event-database', (req, res) => {
 });
 
 function getEventRoute(eventNameSpecific, callback) {
-    db.query('SELECT * FROM event WHERE event_name = ?', [eventNameSpecific], (error, results) => {
+    db.query('SELECT * FROM event WHERE event_name = ?', [eventNameSpecific], (error, eventResults) => {
         if (error) {
             console.error('Error in SQL query:', error);
             return callback({ eventFound: false });
         } else {
-            if (results.length > 0) {
-                const eventData = results[0]; // Assuming there's only one matching event
+            if (eventResults.length > 0) {
+                const eventData = eventResults[0];
 
-                return callback({ eventFound: true, eventData });
+                // Fetch associated activities
+                db.query('SELECT * FROM activities WHERE event_id = ?', [eventData.event_id], (error, activityResults) => {
+                    if (error) {
+                        console.error('Error fetching activities:', error);
+                        return callback({ eventFound: false });
+                    } else {
+                        console.log(eventData.id);
+                        console.log(activityResults);
+                        eventData.activities = activityResults;
+                        return callback({ eventFound: true, eventData });
+                    }
+                });
             } else {
                 return callback({ eventFound: false });
             }
@@ -345,6 +391,59 @@ app.get('/university-events-admin/eventroute', (req, res) => {
 //         }
 //     );
 // });
+
+app.post('/insert-activity-database', (req, res) => {
+    console.log(req.body);
+
+    const {
+        activityname,
+        activitydate,
+    } = req.body;
+
+    const formattedActivityDate = new Date(activitydate).toISOString().substring(0, 10);
+
+    db.query('SELECT activity_name FROM activities WHERE activity_name = ?', [activityname], async (error, results) => {
+        if (error) {
+            console.log(error);
+            return res.status(500).json({ error: 'Error checking for existing activity' });
+        }
+
+        if (results.length === 0) {
+            db.query('INSERT INTO activities SET ?', {
+                activity_name: activityname,
+                activity_date: formattedActivityDate,
+            }, (error, results) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).json({ error: 'Error inserting activity data' });
+                } else {
+                    console.log(results);
+
+                    // Fetch all events after adding the new event
+                    db.query('SELECT * FROM activities', (error, activities) => {
+                        if (error) {
+                            console.log(error);
+                            return res.status(500).json({ error: 'Error fetching activities' });
+                        } else {
+                            // Return the updated list of events to the client
+                            return res.status(200).json({
+                                message: `Activity ${activityname} successfully created`,
+                                activities: activities,
+                            });
+                        }
+                    });
+                }
+            });
+        } else {
+            return res.status(400).json({ error: 'There is already an existing activity', activityName: activityname });
+        }
+
+        req.session.activityDate = {
+            activity_name: activityname,
+            activity_date: formattedActivityDate
+        };
+    });
+});
 
 app.listen(5000, () => {
     console.log("Server started on Port 5000");

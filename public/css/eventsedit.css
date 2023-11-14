@@ -223,6 +223,10 @@ input[name="activitydate[]"]::placeholder {
   font-weight: lighter;
 }
 
+#eventnameInput {
+  text-transform: uppercase;
+}
+
 .eventname,
 .activityname-title {
   text-align: center;
@@ -357,6 +361,7 @@ input[name="activitydate[]"] {
 #addMore,
 #addMoreActivities,
 #confirmButton,
+#confirmActivityButton,
 #closePopup,
 #saveEventButton,
 #closeDeletePopup {
@@ -369,6 +374,7 @@ input[name="activitydate[]"] {
 }
 
 #confirmButton,
+#confirmActivityButton,
 #closePopup,
 #saveEventButton {
   margin-right: 0;

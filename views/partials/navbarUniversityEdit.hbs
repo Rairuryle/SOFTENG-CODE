@@ -46,10 +46,23 @@
                                             <input type="text" id="eventDays" name="eventDays"
                                                 class="eventdays add-event-inputs hidden" />
                                         </div>
-                                    </div>
-                                    <div class="flex-container add-events-container-button">
-                                        <button id="confirmButton" class="confirmButton" data-popup-id="myPopupEvent"
-                                            type="button">CONFIRM</button>
+                                        <div class="flex-container add-activities-events-holder">
+                                            Activities
+                                            <hr class="popup-hr" />
+                                            <div class="inputs">
+                                                <input type="text" id="activityname" name="activityname[]"
+                                                    placeholder="Activity Name"
+                                                    class="activityname-main add-event-inputs" />
+                                                <input type="date" id="activitydate" name="activitydate[]"
+                                                    class="activitydate add-event-inputs" />
+                                            </div>
+                                        </div>
+                                        <div class="flex-container add-events-container-button">
+                                            <button id="addMore" class="addMore" type="button">Add More
+                                                Activities</button>
+                                            <button id="confirmButton" class="confirmButton"
+                                                data-popup-id="myPopupEvent" type="button">CONFIRM</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
