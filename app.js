@@ -207,11 +207,11 @@ app.post('/insert-event-database', (req, res) => {
                         activities.forEach(({ activityName, activityDate }) => {
                             // Check if both activityName and activityDate are defined before processing
                             if (activityName && activityDate) {
-                                const formattedEndDate = new Date(activityDate).toISOString().substring(0, 10);
+                                const formattedActivityDate = new Date(activityDate).toISOString().substring(0, 10);
                                 const insertionPromise = new Promise((resolve, reject) => {
                                     db.query('INSERT INTO activities SET ?', {
                                         activity_name: activityName,
-                                        activity_date: formattedEndDate,
+                                        activity_date: formattedActivityDate,
                                         event_id: eventId,
                                     }, (error, activityResults) => {
                                         if (error) {
@@ -226,7 +226,7 @@ app.post('/insert-event-database', (req, res) => {
 
                                 insertionPromises.push(insertionPromise);
                             } else {
-                                console.log('Skipping activity with undefined name or date:', { activityName, formattedEndDate });
+                                console.log('Skipping activity with undefined name or date:', { activityName, formattedActivityDate });
                             }
                         });
                     }
@@ -308,111 +308,41 @@ app.get('/university-events-admin/eventroute', (req, res) => {
     });
 });
 
-// // Add a new route for deleting an event
-// app.post('/delete-event', (req, res) => {
-//     const eventNameToDelete = req.body.eventNameToDelete; // Adjust the property name based on your form data
-
-//     db.query('DELETE FROM event WHERE event_name = ?', [eventNameToDelete], (error, results) => {
-//         if (error) {
-//             console.error('Error in SQL query:', error);
-//             return res.status(500).json({ error: 'Error deleting event' });
-//         } else {
-//             console.log(results);
-
-//             // Fetch all events after deleting the event
-//             db.query('SELECT * FROM event', (error, events) => {
-//                 if (error) {
-//                     console.error('Error in SQL query:', error);
-//                     return res.status(500).json({ error: 'Error fetching events' });
-//                 } else {
-//                     // Return the updated list of events to the client
-//                     return res.status(200).json({
-//                         message: `Event ${eventNameToDelete} successfully deleted`,
-//                         events: events,
-//                     });
-//                 }
-//             });
-//         }
-//     });
-// });
-
-
-
-// app.put('/update-event/:eventId', (req, res) => {
-//     const eventId = req.params.eventId;
-//     const updatedEventData = req.body; // Contains the updated event information
-
-//     console.log('Received update request for event ID:', eventId);
-//     console.log('Updated event data:', updatedEventData);
-
-//     // ... your existing code ...
-
-//     db.query(
-//         'UPDATE event SET event_name = ?, event_date_start = ?, event_date_end = ? WHERE event_id = ?',
-//         [updatedEventData.eventname, updatedEventData.startdate, updatedEventData.enddate, eventId],
-//         (error, results) => {
-//             if (error) {
-//                 console.error('Error updating event:', error);
-//                 res.status(500).json({ error: 'Error updating event' });
-//             } else {
-//                 console.log('Event updated successfully');
-//                 res.status(200).json({ message: 'Event updated successfully' });
-//             }
-//         }
-//     );
-// });
-
 app.post('/insert-activity-database', (req, res) => {
-    console.log(req.body);
+    const { eventId, activities } = req.body;
 
-    const {
-        activityname,
-        activitydate,
-    } = req.body;
+    const insertionPromises = activities.map((activity) => {
+        const { activityName, activityDate } = activity;
+        const formattedActivityDate = new Date(activityDate).toISOString().substring(0, 10);
 
-    const formattedActivityDate = new Date(activitydate).toISOString().substring(0, 10);
-
-    db.query('SELECT activity_name FROM activities WHERE activity_name = ?', [activityname], async (error, results) => {
-        if (error) {
-            console.log(error);
-            return res.status(500).json({ error: 'Error checking for existing activity' });
-        }
-
-        if (results.length === 0) {
-            db.query('INSERT INTO activities SET ?', {
-                activity_name: activityname,
-                activity_date: formattedActivityDate,
-            }, (error, results) => {
-                if (error) {
-                    console.log(error);
-                    return res.status(500).json({ error: 'Error inserting activity data' });
-                } else {
-                    console.log(results);
-
-                    // Fetch all events after adding the new event
-                    db.query('SELECT * FROM activities', (error, activities) => {
-                        if (error) {
-                            console.log(error);
-                            return res.status(500).json({ error: 'Error fetching activities' });
-                        } else {
-                            // Return the updated list of events to the client
-                            return res.status(200).json({
-                                message: `Activity ${activityname} successfully created`,
-                                activities: activities,
-                            });
-                        }
-                    });
+        return new Promise((resolve, reject) => {
+            db.query(
+                'INSERT INTO activities SET ?',
+                {
+                    activity_name: activityName,
+                    activity_date: formattedActivityDate,
+                    event_id: eventId,
+                },
+                (error, activityResults) => {
+                    if (error) {
+                        console.error(error);
+                        reject(`Error inserting activity ${activityName} data`);
+                    } else {
+                        resolve(`Activity ${activityName} successfully created`);
+                    }
                 }
-            });
-        } else {
-            return res.status(400).json({ error: 'There is already an existing activity', activityName: activityname });
-        }
-
-        req.session.activityDate = {
-            activity_name: activityname,
-            activity_date: formattedActivityDate
-        };
+            );
+        });
     });
+
+    Promise.all(insertionPromises)
+        .then((results) => {
+            res.status(200).json({ message: "Activities added successfully", results });
+        })
+        .catch((err) => {
+            console.error("Error inserting activities:", err);
+            res.status(500).json({ message: "Error inserting activities", error: err });
+        });
 });
 
 app.listen(5000, () => {

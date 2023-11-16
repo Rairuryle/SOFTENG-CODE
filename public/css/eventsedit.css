@@ -209,17 +209,13 @@ button {
 }
 
 .add-event-inputs,
-.add-activity-inputs,
-input[name="activityname[]"],
-input[name="activitydate[]"] {
+.add-activity-inputs {
   color: var(--main-green);
   font-weight: bold;
 }
 
 .add-event-inputs::placeholder,
-.add-activity-inputs::placeholder,
-input[name="activityname[]"]::placeholder,
-input[name="activitydate[]"]::placeholder {
+.add-activity-inputs::placeholder {
   font-weight: lighter;
 }
 
@@ -307,13 +303,12 @@ input[name="activitydate[]"]::placeholder {
 
 .activityname,
 .activityname-main {
-  padding: 0.2rem 7.8rem 0.2rem 0.7rem;
-  margin-right: 1.5rem;
-  width: 60%;
-}
-
-.activitydate {
-  padding: 0.18rem 0.5rem;
+  border: 2px solid var(--main-green);
+  border-radius: 15px;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.7rem;
+  margin-right: 1rem;
+  width: 59%;
 }
 
 .img-add-activity,
@@ -321,41 +316,11 @@ input[name="activitydate[]"]::placeholder {
   cursor: pointer;
 }
 
-.activityname-main {
-  border: 2px solid var(--main-green);
-  border-radius: 15px;
-  font-size: 0.9rem;
-  padding: 0.2rem 0.7rem;
-  margin-right: 1rem;
-  width: 59%;
-}
-
-/* input[name="activityname[]"] {
-  border: 2px solid var(--main-green);
-  border-radius: 15px;
-  font-size: 0.9rem;
-  padding: 0.2rem 0.7rem;
-  margin-right: 1rem;
-  width: 59%;
-} */
-
 .activitydate {
-  border: 2px solid var(--main-green);
-  border-radius: 15px;
-  font-size: 0.9rem;
   padding: 0.18rem 0.5rem;
   width: 37%;
   text-align: center;
 }
-
-/* input[name="activitydate[]"] {
-  border: 2px solid var(--main-green);
-  border-radius: 15px;
-  font-size: 0.9rem;
-  padding: 0.18rem 0.5rem;
-  width: 37%;
-  text-align: center;
-} */
 
 .popup-content button {
   display: block;

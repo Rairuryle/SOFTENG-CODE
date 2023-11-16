@@ -8,7 +8,7 @@
             <button id="myButtonActivityAdd" class="myButtonActivityAdd" data-popup-id="myPopupActivityAdd">
               <img src="../img/Add_ring_fill2.png" alt="Add Activity" class="img-add-activity" />
             </button>
-            <form action="/insert-activity-database" method="POST" id="addForm">
+            <form action="/insert-activity-database" method="POST" id="addFormActivity">
               <div id="myPopupActivityAdd" class="popup myPopupActivity">
                 <div class="flex-container popup-content">
                   <span id="closeButton" class="close-button closePopup"
@@ -16,11 +16,15 @@
                   <h1>ADD ACTIVITY</h1>
                   <div class="flex-container add-activities-container">
                     <div class="flex-container add-activities-holder">
-                      <div class="inputsActivity">
-                        <input type="text" id="activityname" name="activityname" placeholder="Activity Name"
-                          class="activityname-main add-activity-inputs" />
-                        <input type="date" id="activitydate" name="activitydate"
+                      <div class="flex-container inputsActivity">
+                        <input type="text" id="recordActivityName" name="activitynameRecord[]"
+                          placeholder="Activity Name" class="activityname-main add-activity-inputs" />
+                        <input type="date" id="recordActivityDate" name="activitydateRecord[]"
                           class="activitydate add-activity-inputs" />
+                        {{!-- <input type="text" id="activitynames" name="activitynameRecord[]"
+                          placeholder="Activity Name" class="activityname-main add-activity-inputs" />
+                        <input type="date" id="recordActivityDate" name="activitydateRecord[]"
+                          class="activitydate add-activity-inputs" /> --}}
                       </div>
                     </div>
                     <div class="flex-container add-activities-container-button">

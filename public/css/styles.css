@@ -24,7 +24,7 @@ body {
 }
 
 .user-prompt {
-  position: absolute;
+  position: fixed;
   background-color: white;
   width: 20rem;
   text-align: center;
