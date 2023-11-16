@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const startDateInput = document.getElementById("startDateEvent");
     const endDateInput = document.getElementById("endDateEvent");
 
+    startDateInput.addEventListener("change", function() {
+        endDateInput.min = startDateInput.value;
+    });
+
     // Function to set activity date range based on input fields
     function setActivityDateRangeFromInputs() {
         const startDate = new Date(startDateInput.value);
@@ -111,9 +115,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (eventNameElement) {
             event.preventDefault();
 
-            const eventName = eventNameElement.textContent.trim(); fetch
-
-                (`/university-events-admin/eventroute?eventNameSpecific=${eventName}`)
+            const eventName = eventNameElement.textContent.trim(); 
+            
+            fetch(`/university-events-admin/eventroute?eventNameSpecific=${eventName}`)
                 .then((response) => response.json())
                 .then((data) => {
                     console.log("Server response:", data);
@@ -355,17 +359,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Display the event details
     displayEventDetails(eventDataSession, eventDataLocal, numberOfDaysSession, numberOfDaysLocal);
-});
-
-// Event listener for dropdown change
-const eventDaysDropdown = document.getElementById("activity-day-dropdown");
-
-eventDaysDropdown.addEventListener("change", function () {
-    // Retrieve the selected value
-    const selectedDay = eventDaysDropdown.value;
-
-    // Store the selected value in localStorage
-    localStorage.setItem("selectedEventDay", selectedDay);
 });
 
 const myButtonEvent = document.querySelectorAll(".myButtonEvent");
@@ -676,8 +669,6 @@ function insertActivitiesData(eventId) {
     return activitiesData;
 }
 
-
-
 function calculateEventDays(startDate, endDate) {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -686,10 +677,5 @@ function calculateEventDays(startDate, endDate) {
 
 const today = new Date().toISOString().split("T")[0];
 
-const sixDaysAfterToday = new Date();
-sixDaysAfterToday.setDate(sixDaysAfterToday.getDate() + 6);
-const sixDaysAfterTodayString = sixDaysAfterToday.toISOString().split("T")[0];
-
 document.getElementById("startDateEvent").min = today;
 document.getElementById("endDateEvent").min = today;
-document.getElementById("endDateEvent").max = sixDaysAfterTodayString;
