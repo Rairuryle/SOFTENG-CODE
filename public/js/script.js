@@ -5,10 +5,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const successResponse = document.getElementById("successResponse");
     successResponse.classList.remove("user-prompt", "slide-in");
-    
+
+    // Function to set the active link
+    function setActiveLink() {
+        const activeLinkIndex = localStorage.getItem("activeLinkIndex");
+        if (activeLinkIndex !== null) {
+            const activeLink = document.getElementById(`navLink${activeLinkIndex}`);
+            if (activeLink !== null) {
+                activeLink.classList.add("active");
+            }
+        }
+    }
+
+    // Set the active link initially
+    setActiveLink();
+
+    // Add unique IDs to nav-links
     const navLinks = document.querySelectorAll(".nav-link");
 
-    navLinks.forEach((link) => {
+    navLinks.forEach((link, index) => {
+        link.setAttribute("id", `navLink${index}`);
+
         link.addEventListener("click", function (event) {
             event.preventDefault();
 
@@ -17,8 +34,14 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             this.classList.add("active");
+            this.setAttribute('data-nav-id', index);
+
+            // Store the active link index in localStorage
+            localStorage.setItem("activeLinkIndex", index);
         });
     });
+
+    
 
     function editModeDirect() {
         let url = window.location.toString();
@@ -54,6 +77,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+// window.addEventListener("load", function () {
+//     const activeLinkIndex = localStorage.getItem("activeLinkIndex");
+//     if (activeLinkIndex !== null) {
+//         const linkToActivate = document.querySelector(`.nav-link[data-nav-id="${activeLinkIndex}"]`);
+//         if (linkToActivate) {
+//             linkToActivate.classList.add("active");
+//         }
+//     }
+// });
 
 
 // show/hide password @ login.html

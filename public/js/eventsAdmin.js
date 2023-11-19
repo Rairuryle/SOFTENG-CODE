@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Your existing code
+
     document.body.addEventListener("click", function (event) {
         const clickedElement = event.target;
         const eventNameElement = clickedElement.closest(".nav-link .eventNameSpecific");
@@ -76,16 +78,65 @@ document.addEventListener("DOMContentLoaded", function () {
                         eventDaysDropdown.appendChild(option);
                     }
 
-                    // Retrieve the selected day from localStorage
-                    const selectedDay = localStorage.getItem("selectedEventDay");
+                    const eventName = data.eventData.event_name;
 
-                    // Set the selected value in the dropdown
+                    let selectedDay = localStorage.getItem("selectedDay");
+
                     if (selectedDay) {
                         eventDaysDropdown.value = selectedDay;
+                        selectedDay = localStorage.getItem("selectedDay");
+                        displayEventDetails(data, numberOfDays, selectedDay);
                     }
 
-                    // Update the page with the fetched event data and number of days
-                    displayEventDetails(data, numberOfDays);
+                    eventDaysDropdown.addEventListener("change", function () {
+                        selectedDay = this.value;
+                        localStorage.setItem("selectedDay", selectedDay);
+                        displayEventDetails(data, numberOfDays, selectedDay);
+                    });
+
+                    for (let i = 0; i < data.eventData.activities.length; i++) {
+                        const selectedRole = localStorage.getItem(`selectedRole_event_${eventId}_row_${i}`);
+                        if (selectedRole) {
+                            const selectElement = document.querySelector(`select[data-row-id="${i}"]`);
+                            if (selectElement) {
+                                const roleElement = selectElement.parentElement;
+                                const pointsElement = roleElement.nextElementSibling;
+
+                                if (roleElement && pointsElement) {
+                                    // Instead of setting text content, let's find the option and select it
+                                    const optionToSelect = [...selectElement.options].find(option => option.value === selectedRole);
+
+                                    if (optionToSelect) {
+                                        // Update the selected option in the dropdown
+                                        optionToSelect.selected = true;
+                                        selectElement.style.color = getComputedStyle(optionToSelect).color;
+
+                                        let points;
+                                        switch (selectedRole) {
+                                            case "TEAM Participant":
+                                                points = 15;
+                                                break;
+                                            case "INDIV Participant":
+                                                points = 10;
+                                                break;
+                                            case "PROG. Spectator":
+                                                points = 5;
+                                                break;
+                                            case "OTH. Spectator":
+                                                points = 3;
+                                                break;
+                                            default:
+                                                points = 0;
+                                        }
+
+                                        // Update pointsElement with calculated points
+                                        pointsElement.textContent = points.toString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 })
                 .catch((error) => {
                     console.error("Error fetching event data:", error);
@@ -93,7 +144,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    function displayEventDetails(eventData, numberOfDays) {
+
+    function displayEventDetails(eventData, numberOfDays, selectedDay) {
         console.log("Event Data:", eventData);
 
         const recordEventName = document.getElementById("recordEventName");
@@ -106,6 +158,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             recordEventName.textContent = `${eventData.eventData.event_name}`;
 
+            console.log("Selected Day from localStorage function:", selectedDay);
+
+
             // Assuming you have a table body element with the id "eventTableBody"
             const tableBody = document.getElementById("eventTableBody");
 
@@ -114,6 +169,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Display activities
             if (eventData.eventData.activities && eventData.eventData.activities.length > 0) {
+                let eventId = eventData.eventData.event_id; // Retrieve eventId in this scope
+                console.log("e", eventData.eventData.event_id);
+
                 eventData.eventData.activities.forEach((activity, index) => {
                     const row = document.createElement("tr");
 
@@ -138,10 +196,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     const selectElement = document.createElement("select");
                     selectElement.name = "student role dropdown";
                     selectElement.classList.add("student-role-dropdown");
+                    selectElement.setAttribute('data-row-id', index);
 
                     // Create and append options to the select element
                     const defaultOption = document.createElement("option");
                     defaultOption.selected = true;
+                    defaultOption.disabled = true;
                     defaultOption.textContent = "Select Student Role";
                     selectElement.appendChild(defaultOption);
 
@@ -155,10 +215,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     roleElement.appendChild(selectElement);
 
-                    defaultOption.selected = true;
-
                     const pointsElement = document.createElement("td");
-                    pointsElement.textContent = "5";
+
+                    // Add event listener to the select element
+                    selectElement.addEventListener("change", function () {
+                        const selectedRole = this.value;
+                        let points;
+
+                        switch (selectedRole) {
+                            case "TEAM Participant":
+                                points = 15;
+                                break;
+                            case "INDIV Participant":
+                                points = 10;
+                                break;
+                            case "PROG. Spectator":
+                                points = 5;
+                                break;
+                            case "OTH. Spectator":
+                                points = 3;
+                                break;
+                            default:
+                                points = 0; // You might want to set a default value here
+                        }
+
+                        pointsElement.textContent = points.toString();
+
+                        // // Update the roleElement with the selected role
+                        // roleElement.textContent = selectedRole;
+
+                        // Update the color of the selected option in the select element
+                        const selectedOption = this.options[this.selectedIndex];
+                        this.style.color = getComputedStyle(selectedOption).color;
+
+                        // Store the selected role in localStorage
+                        localStorage.setItem(`selectedRole_event_${eventId}_row_${index}`, selectedRole);
+                    });
 
                     const officerElement = document.createElement("td");
                     const adminData = document.getElementById("adminData");
@@ -167,54 +259,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     officerElement.textContent = adminDataElement;
 
-                    if (isAdminURL) {
-                        activityParentContainer.appendChild(activityNameElement);
 
-                        selectElement.addEventListener("change", function () {
-                            var selectedOption = selectElement.options[selectElement.selectedIndex];
-                            selectElement.style.color = getComputedStyle(selectedOption).color;
-                        });
-                    } else {
-                        const activityContainer = document.createElement("div");
-                        activityContainer.classList.add("flex-container");
-                        activityParentContainer.appendChild(activityContainer);
+                    activityParentContainer.appendChild(activityNameElement);
 
-                        const editActivityImages = document.createElement("div");
-                        editActivityImages.classList.add("flex-container", "edit-activity-images");
-                        activityContainer.appendChild(editActivityImages);
+                    selectElement.addEventListener("change", function () {
+                        var selectedOption = selectElement.options[selectElement.selectedIndex];
+                        selectElement.style.color = getComputedStyle(selectedOption).color;
+                    });
 
-                        const myButtonActivityEdit = document.createElement("button");
-                        myButtonActivityEdit.type = "button";
-                        myButtonActivityEdit.id = "myButtonActivityEdit1";
-                        myButtonActivityEdit.classList.add("myButtonActivityEdit", "modify-button");
-                        myButtonActivityEdit.setAttribute("data-popup-id", "myPopupActivityEdit1");
-                        editActivityImages.appendChild(myButtonActivityEdit);
-
-                        const imgEditActivityDetails = document.createElement("img");
-                        imgEditActivityDetails.src = "../img/Edit (1).png";
-                        imgEditActivityDetails.alt = "Edit Activity";
-                        imgEditActivityDetails.classList.add("img-edit-activity-details");
-                        myButtonActivityEdit.appendChild(imgEditActivityDetails);
-
-                        const myButtonActivityDelete = document.createElement("button");
-                        myButtonActivityDelete.type = "button";
-                        myButtonActivityDelete.id = "myButtonActivityDelete";
-                        myButtonActivityDelete.classList.add("myButtonActivityDelete", "modify-button");
-                        myButtonActivityDelete.setAttribute("data-popup-id", "myButtonActivityDelete");
-                        editActivityImages.appendChild(myButtonActivityDelete);
-
-                        const imgDeleteActivity = document.createElement("img");
-                        imgDeleteActivity.src = "../img/Cancel.png";
-                        imgDeleteActivity.alt = "Delete Activity";
-                        imgDeleteActivity.classList.add("img-delete-activity");
-                        myButtonActivityDelete.appendChild(imgDeleteActivity);
-
-                        editActivityImages.appendChild(activityNameElement);
-
-                        selectElement.disabled = true;
-
-                        defaultOption.disabled = true;
-                    }
 
                     row.appendChild(activityParentContainer);
                     row.appendChild(activityDateElement);
@@ -224,19 +276,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Append the row to the table body
                     tableBody.appendChild(row);
-
-                    console.log("e", eventData.eventData.event_id);
                 });
 
                 // Add hidden rows after the 5th row
-                for (let i = 5; i < tableBody.rows.length; i++) {
-                    const row = tableBody.rows[i];
-                    row.classList.add("hidden-row");
-                    row.setAttribute("data-visible", "false");
-                }
+
 
                 if (tableBody.rows.length > 5) {
-                    // Add "See More" button row
+                    for (let i = 5; i < tableBody.rows.length; i++) {
+                        const row = tableBody.rows[i];
+                        row.classList.add("hidden-row");
+                        row.setAttribute("data-visible", "false");
+                    }
+
                     const seeMoreRow = document.createElement("tr");
                     seeMoreRow.classList.add("see-more-row");
                     const seeMoreCell = document.createElement("td");
@@ -245,24 +296,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     seeMoreCell.textContent = "See More";
                     seeMoreRow.appendChild(seeMoreCell);
                     tableBody.appendChild(seeMoreRow);
-                }
 
-                // Add event listener for "See More" button
-                const seeMoreButton = document.querySelector(".see-more");
-                const hiddenRows = document.querySelectorAll(".hidden-row");
-                seeMoreButton.addEventListener("click", function () {
-                    hiddenRows.forEach((row) => {
-                        const isVisible = row.getAttribute("data-visible") === "true";
-                        row.style.display = isVisible ? "none" : "table-row";
-                        row.setAttribute("data-visible", !isVisible);
+                    const seeMoreButton = document.querySelector(".see-more");
+                    const hiddenRows = document.querySelectorAll(".hidden-row");
+                    seeMoreButton.addEventListener("click", function () {
+                        hiddenRows.forEach((row) => {
+                            const isVisible = row.getAttribute("data-visible") === "true";
+                            row.style.display = isVisible ? "none" : "table-row";
+                            row.setAttribute("data-visible", !isVisible);
+                        });
+
+                        if (seeMoreButton.textContent === "See More") {
+                            seeMoreButton.textContent = "See Less";
+                        } else {
+                            seeMoreButton.textContent = "See More";
+                        }
                     });
-
-                    if (seeMoreButton.textContent === "See More") {
-                        seeMoreButton.textContent = "See Less";
-                    } else {
-                        seeMoreButton.textContent = "See More";
-                    }
-                });
+                }
             }
         } else {
             const errorMessageElement = recordEventName;
@@ -275,8 +325,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const eventDataLocal = JSON.parse(localStorage.getItem("eventData"));
 
     const numberOfDaysSession = sessionStorage.getItem("numberOfDays");
+    console.log("dayse", numberOfDaysSession);
     const numberOfDaysLocal = localStorage.getItem("numberOfDays");
+    console.log("days", numberOfDaysLocal);
 
-    // Display the event details
-    displayEventDetails(eventDataSession, eventDataLocal, numberOfDaysSession, numberOfDaysLocal);
+    let selectedDay = localStorage.getItem("selectedDay");
+    console.log("Selected day from localStorage:", selectedDay);
+
+    if (!selectedDay) {
+        selectedDay = "1";
+        console.log("Setting default selected day to 1");
+    }
+
+    console.log("Before displaying event details - Selected day:", selectedDay);
+
+    displayEventDetails(eventDataSession, eventDataLocal, numberOfDaysSession, numberOfDaysLocal, selectedDay);
+
+    console.log("After displaying event details - Selected day:", selectedDay);
+});
+
+// // When the window loads, set the dropdown value for each row based on localStorage
+window.addEventListener("load", function () {
+    const selectElements = document.querySelectorAll(".student-role-dropdown");
+
+    selectElements.forEach((selectElement) => {
+        const rowId = selectElement.getAttribute('data-row-id'); // Retrieve the unique identifier
+
+        // Retrieve the selected role for this specific row from localStorage
+        const specificSelectedRole = localStorage.getItem(`selectedRole_row_${rowId}`);
+
+        if (specificSelectedRole) {
+            // Set the value to the previously selected role for this row
+            selectElement.value = specificSelectedRole;
+
+            // Trigger the change event to update pointsElement based on the selected role
+            const changeEvent = new Event("change");
+            selectElement.dispatchEvent(changeEvent);
+        }
+    });
 });

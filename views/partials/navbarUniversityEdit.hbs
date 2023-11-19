@@ -78,7 +78,7 @@
         </div>
 
         {{#each events}}
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
             <div class="img-modify-event-container">
                 <button type="button" id="myButtonEventEdit{{@index}}" class="myButtonEventEdit modify-button"
                     data-popup-id="myPopupEventEdit{{@index}}" data-index="{{@index}}">

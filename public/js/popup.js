@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const startDateInput = document.getElementById("startDateEvent");
     const endDateInput = document.getElementById("endDateEvent");
 
-    startDateInput.addEventListener("change", function() {
+    startDateInput.addEventListener("change", function () {
         endDateInput.min = startDateInput.value;
     });
 
@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (eventNameElement) {
             event.preventDefault();
 
-            const eventName = eventNameElement.textContent.trim(); 
-            
+            const eventName = eventNameElement.textContent.trim();
+
             fetch(`/university-events-admin/eventroute?eventNameSpecific=${eventName}`)
                 .then((response) => response.json())
                 .then((data) => {
@@ -156,16 +156,29 @@ document.addEventListener("DOMContentLoaded", function () {
                         eventDaysDropdown.appendChild(option);
                     }
 
-                    // Retrieve the selected day from localStorage
-                    const selectedDay = localStorage.getItem("selectedEventDay");
+                    const eventName = data.eventData.event_name;
 
+
+                    let selectedDay = localStorage.getItem("selectedDay");
+                    // Retrieve the selected day from localStorage
                     // Set the selected value in the dropdown
                     if (selectedDay) {
                         eventDaysDropdown.value = selectedDay;
+                        // Update the page with the fetched event data and number of days
+                        displayEventDetails(data, numberOfDays, selectedDay);
                     }
 
-                    // Update the page with the fetched event data and number of days
-                    displayEventDetails(data, numberOfDays);
+                    selectedDay = localStorage.getItem("selectedDay");
+
+                    // Add an event listener to the dropdown to store the selected day in localStorage
+                    eventDaysDropdown.addEventListener("change", function () {
+                        selectedDay = this.value;
+                        localStorage.setItem("selectedDay", selectedDay);
+                        // Update the page with the new selected day
+                        displayEventDetails(data, numberOfDays, selectedDay);
+                    });
+
+
                 })
                 .catch((error) => {
                     console.error("Error fetching event data:", error);
@@ -173,18 +186,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    function displayEventDetails(eventData, numberOfDays) {
+    function displayEventDetails(eventData, numberOfDays, selectedDay) {
         console.log("Event Data:", eventData);
 
         const recordEventName = document.getElementById("recordEventName");
         recordEventName.innerHTML = "";
 
         const isAdminURL = document.querySelector('#isAdminURL').value === "true";
-
+        
         if (eventData && eventData.eventFound) {
             console.log("Event found:", eventData.eventData.event_name);
 
             recordEventName.textContent = `${eventData.eventData.event_name}`;
+
+            console.log("Selected Day from localStorage:", selectedDay);
+
 
             // Assuming you have a table body element with the id "eventTableBody"
             const tableBody = document.getElementById("eventTableBody");
@@ -194,6 +210,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Display activities
             if (eventData.eventData.activities && eventData.eventData.activities.length > 0) {
+                console.log("e", eventData.eventData.event_id);
+
                 eventData.eventData.activities.forEach((activity, index) => {
                     const row = document.createElement("tr");
 
@@ -222,6 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Create and append options to the select element
                     const defaultOption = document.createElement("option");
                     defaultOption.selected = true;
+                    defaultOption.disabled = true;
                     defaultOption.textContent = "Select Student Role";
                     selectElement.appendChild(defaultOption);
 
@@ -235,10 +254,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     roleElement.appendChild(selectElement);
 
-                    defaultOption.selected = true;
-
                     const pointsElement = document.createElement("td");
-                    pointsElement.textContent = "5";
+
+                    // Add event listener to the select element
+                    selectElement.addEventListener("change", function () {
+                        const selectedRole = this.value;
+                        let points;
+
+                        switch (selectedRole) {
+                            case "TEAM Participant":
+                                points = 15;
+                                break;
+                            case "INDIV Participant":
+                                points = 10;
+                                break;
+                            case "PROG. Spectator":
+                                points = 5;
+                                break;
+                            case "OTH. Spectator":
+                                points = 3;
+                                break;
+                            default:
+                                points = 0; // You might want to set a default value here
+                        }
+
+                        pointsElement.textContent = points.toString();
+                        localStorage.setItem("selectedRole", selectedRole);
+                    });
 
                     const officerElement = document.createElement("td");
                     const adminData = document.getElementById("adminData");
@@ -292,8 +334,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         editActivityImages.appendChild(activityNameElement);
 
                         selectElement.disabled = true;
-
-                        defaultOption.disabled = true;
                     }
 
                     row.appendChild(activityParentContainer);
@@ -304,19 +344,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Append the row to the table body
                     tableBody.appendChild(row);
-
-                    console.log("e", eventData.eventData.event_id);
                 });
 
                 // Add hidden rows after the 5th row
-                for (let i = 5; i < tableBody.rows.length; i++) {
-                    const row = tableBody.rows[i];
-                    row.classList.add("hidden-row");
-                    row.setAttribute("data-visible", "false");
-                }
+
 
                 if (tableBody.rows.length > 5) {
-                    // Add "See More" button row
+                    for (let i = 5; i < tableBody.rows.length; i++) {
+                        const row = tableBody.rows[i];
+                        row.classList.add("hidden-row");
+                        row.setAttribute("data-visible", "false");
+                    }
+
                     const seeMoreRow = document.createElement("tr");
                     seeMoreRow.classList.add("see-more-row");
                     const seeMoreCell = document.createElement("td");
@@ -325,24 +364,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     seeMoreCell.textContent = "See More";
                     seeMoreRow.appendChild(seeMoreCell);
                     tableBody.appendChild(seeMoreRow);
-                }
 
-                // Add event listener for "See More" button
-                const seeMoreButton = document.querySelector(".see-more");
-                const hiddenRows = document.querySelectorAll(".hidden-row");
-                seeMoreButton.addEventListener("click", function () {
-                    hiddenRows.forEach((row) => {
-                        const isVisible = row.getAttribute("data-visible") === "true";
-                        row.style.display = isVisible ? "none" : "table-row";
-                        row.setAttribute("data-visible", !isVisible);
+                    const seeMoreButton = document.querySelector(".see-more");
+                    const hiddenRows = document.querySelectorAll(".hidden-row");
+                    seeMoreButton.addEventListener("click", function () {
+                        hiddenRows.forEach((row) => {
+                            const isVisible = row.getAttribute("data-visible") === "true";
+                            row.style.display = isVisible ? "none" : "table-row";
+                            row.setAttribute("data-visible", !isVisible);
+                        });
+
+                        if (seeMoreButton.textContent === "See More") {
+                            seeMoreButton.textContent = "See Less";
+                        } else {
+                            seeMoreButton.textContent = "See More";
+                        }
                     });
-
-                    if (seeMoreButton.textContent === "See More") {
-                        seeMoreButton.textContent = "See Less";
-                    } else {
-                        seeMoreButton.textContent = "See More";
-                    }
-                });
+                }
             }
         } else {
             const errorMessageElement = recordEventName;
@@ -355,10 +393,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const eventDataLocal = JSON.parse(localStorage.getItem("eventData"));
 
     const numberOfDaysSession = sessionStorage.getItem("numberOfDays");
+    console.log("dayse", numberOfDaysSession);
     const numberOfDaysLocal = localStorage.getItem("numberOfDays");
+    console.log("days", numberOfDaysLocal);
 
-    // Display the event details
-    displayEventDetails(eventDataSession, eventDataLocal, numberOfDaysSession, numberOfDaysLocal);
+    let selectedDay = localStorage.getItem("selectedDay");
+    console.log("Selected day from localStorage:", selectedDay);
+
+    if (!selectedDay) {
+        selectedDay = "1";
+        console.log("Setting default selected day to 1");
+    }
+
+    console.log("Before displaying event details - Selected day:", selectedDay);
+
+    displayEventDetails(eventDataSession, eventDataLocal, numberOfDaysSession, numberOfDaysLocal, selectedDay);
+
+    console.log("After displaying event details - Selected day:", selectedDay);
+
 });
 
 const myButtonEvent = document.querySelectorAll(".myButtonEvent");
@@ -679,3 +731,19 @@ const today = new Date().toISOString().split("T")[0];
 
 document.getElementById("startDateEvent").min = today;
 document.getElementById("endDateEvent").min = today;
+
+// When the window loads, check for previously saved selectedRole in localStorage and set the dropdown value
+// window.addEventListener("load", function () {
+//     const selectedRole = localStorage.getItem("selectedRole");
+//     if (selectedRole) {
+//         // Find the select element
+//         const selectElement = document.querySelector(".student-role-dropdown");
+
+//         // Set the value to the previously selected role
+//         selectElement.value = selectedRole;
+
+//         // Manually trigger the change event to update pointsElement based on the selected role
+//         const changeEvent = new Event("change");
+//         selectElement.dispatchEvent(changeEvent);
+//     }
+// });

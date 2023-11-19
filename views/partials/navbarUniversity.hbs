@@ -24,7 +24,7 @@
             </div>
         </div>
         {{#each events}}
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
             <p class="eventNameSpecific">{{this.event_name}}</p>
         </a>
         {{/each}}
