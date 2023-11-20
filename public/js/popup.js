@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
         setActivityDateRange(startDate, endDate);
     }
 
-    // Function to set activity date range based on session or local storage
+    // Function to set activity date range based on local storage
     function setActivityDateRangeFromStorage() {
-        const startDate = new Date(sessionStorage.getItem("startDateEvent"));
-        const endDate = new Date(sessionStorage.getItem("endDateEvent"));
+        const startDate = new Date(localStorage.getItem("startDateEvent"));
+        const endDate = new Date(localStorage.getItem("endDateEvent"));
         setActivityDateRange(startDate, endDate);
     }
 
@@ -122,24 +122,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((data) => {
                     console.log("Server response:", data);
 
-                    sessionStorage.setItem("eventData", JSON.stringify(data));
                     localStorage.setItem("eventData", JSON.stringify(data));
 
                     const eventId = data.eventData.event_id;
-                    sessionStorage.setItem("currentEventId", eventId);
+                    localStorage.setItem("currentEventId", eventId);
 
                     // Extract the start and end dates from the fetched event data
                     const startDate = new Date(data.eventData.event_date_start);
                     const endDate = new Date(data.eventData.event_date_end);
                     const numberOfDays = Math.floor((endDate - startDate) / (24 * 60 * 60 * 1000)) + 1;
 
-                    sessionStorage.setItem("startDateEvent", startDate.toISOString());
-                    sessionStorage.setItem("endDateEvent", endDate.toISOString());
 
                     localStorage.setItem("startDateEvent", startDate.toISOString());
                     localStorage.setItem("endDateEvent", endDate.toISOString());
 
-                    sessionStorage.setItem("numberOfDays", numberOfDays);
                     localStorage.setItem("numberOfDays", numberOfDays);
 
                     // Set the activity date range based on storage
@@ -156,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         eventDaysDropdown.appendChild(option);
                     }
 
-                    const eventName = data.eventData.event_name;
 
 
                     let selectedDay = localStorage.getItem("selectedDay");
@@ -193,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
         recordEventName.innerHTML = "";
 
         const isAdminURL = document.querySelector('#isAdminURL').value === "true";
-        
+
         if (eventData && eventData.eventFound) {
             console.log("Event found:", eventData.eventData.event_name);
 
@@ -389,11 +384,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    const eventDataSession = JSON.parse(sessionStorage.getItem("eventData"));
     const eventDataLocal = JSON.parse(localStorage.getItem("eventData"));
 
-    const numberOfDaysSession = sessionStorage.getItem("numberOfDays");
-    console.log("dayse", numberOfDaysSession);
     const numberOfDaysLocal = localStorage.getItem("numberOfDays");
     console.log("days", numberOfDaysLocal);
 
@@ -407,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("Before displaying event details - Selected day:", selectedDay);
 
-    displayEventDetails(eventDataSession, eventDataLocal, numberOfDaysSession, numberOfDaysLocal, selectedDay);
+    displayEventDetails(eventDataLocal, numberOfDaysLocal, selectedDay);
 
     console.log("After displaying event details - Selected day:", selectedDay);
 
@@ -619,8 +611,8 @@ confirmActivityButton.forEach((button) => {
     button.addEventListener("click", (event) => {
         event.preventDefault();
 
-        const eventId = sessionStorage.getItem("currentEventId"); // Retrieve the event ID
-        console.log("session curent", eventId);
+        const eventId = localStorage.getItem("currentEventId"); // Retrieve the event ID
+        console.log("local curent", eventId);
 
         const activitiesData = insertActivitiesData(eventId);
 

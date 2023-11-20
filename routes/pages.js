@@ -172,6 +172,7 @@ router.get('/university-events-admin', (req, res) => {
                                 isUSGorSAO,
                                 isAdminURL,
                                 eventData,
+                                idNumber,
                                 title: 'Admin Main Page | LSU Events and Attendance Tracking Website',
                                 events: events.map(event => ({
                                     ...event,
