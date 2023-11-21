@@ -54,91 +54,26 @@
                     <th>OFFICER-IN-CHARGE</th>
 
 
-                    <tbody id="eventTableBody">
-                        {{!-- <tr>
-                            <td id="recordActivityName" class="activityNameSpecific">Painting Contest</td>
-                            <td>09/08/22</td>
-                            <td>
-                                <select name="student role dropdown" class="student-role-dropdown">
-                                    <option disabled="disabled" selected="selected">Select Student
-                                        Role</option>
-                                    <option value="INDIV Participant">INDIV Participant</option>
-                                    <option value="TEAM Participant">TEAM Participant</option>
-                                    <option value="PROG. Spectator">PROG. Spectator</option>
-                                    <option value="OTH. Spectator">OTH. Spectator</option>
-                                </select>
-                            </td>
-                            <td>5</td>
-                            <td>Ryle Ilisan</td>
-                        </tr> --}}
-                    </tbody>
-                    {{!-- <tr>
-                        <td>Tug of War</td>
-                        <td>09/08/22</td>
-                        <td>
-                            <select name="student role dropdown" class="student-role-dropdown">
-                                <option disabled="disabled" selected="selected">Select Student
-                                    Role</option>
-                                <option value="INDIV Participant">INDIV Participant</option>
-                                <option value="TEAM Participant">TEAM Participant</option>
-                                <option value="PROG. Spectator">PROG. Spectator</option>
-                                <option value="OTH. Spectator">OTH. Spectator</option>
-                            </select>
-                        </td>
-                        <td>5</td>
-                        <td>Ryle Ilisan</td>
-                    </tr>
-                    <tr>
-                        <td>Paint War</td>
-                        <td>09/08/22</td>
-                        <td>
-                            <select name="student role dropdown" class="student-role-dropdown">
-                                <option disabled="disabled" selected="selected">Select Student
-                                    Role</option>
-                                <option value="INDIV Participant">INDIV Participant</option>
-                                <option value="TEAM Participant">TEAM Participant</option>
-                                <option value="PROG. Spectator">PROG. Spectator</option>
-                                <option value="OTH. Spectator">OTH. Spectator</option>
-                            </select>
-                        </td>
-                        <td>5</td>
-                        <td>Angel Hisoler</td>
-                    </tr>
-                    <tr class="hidden-row" data-visible="false">
-                        <td>Fashion Show</td>
-                        <td>09/08/22</td>
-                        <td>
-                            <select name="student role dropdown" class="student-role-dropdown">
-                                <option disabled="disabled" selected="selected">Select Student
-                                    Role</option>
-                                <option value="INDIV Participant">INDIV Participant</option>
-                                <option value="TEAM Participant">TEAM Participant</option>
-                                <option value="PROG. Spectator">PROG. Spectator</option>
-                                <option value="OTH. Spectator">OTH. Spectator</option>
-                            </select>
-                        </td>
-                        <td>5</td>
-                        <td>Angel Hisoler</td>
-                    </tr>
-                    <tr class="hidden-row" data-visible="false">
-                        <td>Volleyball</td>
-                        <td>09/08/22</td>
-                        <td>
-                            <select name="student role dropdown" class="student-role-dropdown">
-                                <option disabled="disabled" selected="selected">Select Student
-                                    Role</option>
-                                <option value="INDIV Participant">INDIV Participant</option>
-                                <option value="TEAM Participant">TEAM Participant</option>
-                                <option value="PROG. Spectator">PROG. Spectator</option>
-                                <option value="OTH. Spectator">OTH. Spectator</option>
-                            </select>
-                        </td>
-                        <td>5</td>
-                        <td>Angel Hisoler</td>
-                    </tr>
-                    <tr class="see-more-row">
-                        <td class="see-more" colspan="5">See More</td>
-                    </tr> --}}
+                    <form action="/insert-activity-points" method="POST">
+                        <tbody id="eventTableBody">
+                            {{!-- <tr>
+                                <td id="recordActivityName" class="activityNameSpecific">Painting Contest</td>
+                                <td>09/08/22</td>
+                                <td>
+                                    <select name="student role dropdown" class="student-role-dropdown">
+                                        <option disabled="disabled" selected="selected">Select Student
+                                            Role</option>
+                                        <option value="INDIV Participant">INDIV Participant</option>
+                                        <option value="TEAM Participant">TEAM Participant</option>
+                                        <option value="PROG. Spectator">PROG. Spectator</option>
+                                        <option value="OTH. Spectator">OTH. Spectator</option>
+                                    </select>
+                                </td>
+                                <td>5</td>
+                                <td>Ryle Ilisan</td>
+                            </tr> --}}
+                        </tbody>
+                    </form>
                 </table>
                 <div class="results-grid-container">
                     <div class="grid-item-sixteen">
@@ -155,7 +90,7 @@
                         <br />
                         SUBTOTAL
                         <br />
-                        <h1>25</h1>
+                        <h1 id="activitySubtotal"></h1>
                     </div>
                 </div>
             </div>

@@ -158,6 +158,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
                 console.log("student", idNumber);
 
+                let totalPoints = 0;
+
                 eventData.eventData.activities.forEach((activity, index) => {
                     const row = document.createElement("tr");
                     const activityParentContainer = document.createElement("td");
@@ -199,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     const pointsElement = document.createElement("td");
 
-                    selectElement.addEventListener("change", function () {
+                    selectElement.addEventListener("change", function (totalPoints) {
                         const selectedRole = this.value;
                         let points;
 
@@ -220,18 +222,38 @@ document.addEventListener("DOMContentLoaded", function () {
                                 points = 0;
                         }
 
+                        // Get the row index of the changed select element
+                        const rowIndex = parseInt(this.getAttribute('data-row-id'));
+
+                        // Update the points for the specific row
+                        const pointsElement = tableBody.rows[rowIndex].querySelector('td:nth-child(4)');
                         pointsElement.textContent = points.toString();
+
+                        // Recalculate totalPoints by iterating through all rows
+                        totalPoints = 0;
+                        tableBody.querySelectorAll('td:nth-child(4)').forEach((pointsElement) => {
+                            const currentPoints = parseInt(pointsElement.textContent);
+                            totalPoints += isNaN(currentPoints) ? 0 : currentPoints;
+                        });
+
+                        const activitySubtotalElement = document.getElementById('activitySubtotal');
+                        if (activitySubtotalElement) {
+                            const totalPointsText = totalPoints.toString(); // Get the text content
+                            activitySubtotalElement.textContent = totalPointsText;
+                            localStorage.setItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${rowIndex}`, totalPointsText);
+                        }
 
                         const selectedOption = this.options[this.selectedIndex];
                         this.style.color = getComputedStyle(selectedOption).color;
 
-                        localStorage.setItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${index}`, selectedRole);
+                        localStorage.setItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${rowIndex}`, selectedRole);
+                        // localStorage.setItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${rowIndex}`, activitySubtotalElement);
                     });
 
                     const officerElement = document.createElement("td");
                     const adminData = document.getElementById("adminData");
                     let adminDataElement = adminData.textContent;
-                    adminDataElement = adminDataElement.split("|").pop().trim(); // Remove string before | and trim any extra spaces
+                    adminDataElement = adminDataElement.split("|").pop().trim();
 
                     officerElement.textContent = adminDataElement;
 
@@ -285,6 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
     const eventDataLocal = JSON.parse(localStorage.getItem("eventData"));
 
     const numberOfDaysLocal = localStorage.getItem("numberOfDays");
@@ -309,24 +332,3 @@ document.addEventListener("DOMContentLoaded", function () {
     // const usage = (JSON.stringify(localStorage).length / 1024);
     // console.log(usage + "KB");
 });
-
-// // When the window loads, set the dropdown value for each row based on localStorage
-// window.addEventListener("load", function () {
-//     const selectElements = document.querySelectorAll(".student-role-dropdown");
-
-//     selectElements.forEach((selectElement) => {
-//         const rowId = selectElement.getAttribute('data-row-id'); // Retrieve the unique identifier
-
-//         // Retrieve the selected role for this specific row from localStorage
-//         const specificSelectedRole = localStorage.getItem(`selectedRole_row_${rowId}`);
-
-//         if (specificSelectedRole) {
-//             // Set the value to the previously selected role for this row
-//             selectElement.value = specificSelectedRole;
-
-//             // Trigger the change event to update pointsElement based on the selected role
-//             const changeEvent = new Event("change");
-//             selectElement.dispatchEvent(changeEvent);
-//         }
-//     });
-// });
