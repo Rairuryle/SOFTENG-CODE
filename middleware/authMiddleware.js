@@ -1,4 +1,3 @@
-// authMiddleware.js
 const checkAuthenticated = (req, res, next) => {
     if (req.session.isAuthenticated) {
         return next(); // User is authenticated, proceed to the next middleware

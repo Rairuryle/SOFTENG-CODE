@@ -16,29 +16,38 @@
   display: flex;
 } */
 
-.item-status {
-  height: 1.7rem;
-  font-size: 0.8rem;
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header header header header header header header"
+    "main main main main main main main"
+    "department department-name department-name activity activity  exemption exemption"
+    "course course-name course-name activity activity exemption exemption "
+    "year year-name year-name activity activity exemption exemption ";
+  width: 94%;
+}
+
+#gridsearchIDNumber {
+  width: 73vw;
 }
 
 .grid-item-nine {
   width: 8rem;
-  margin-left: 1.5rem;
+  margin-left: 4rem;
 }
 
 .grid-item-ten {
-  width: 8rem;
-  margin-left: -4rem;
+  margin-left: -2rem;
 }
 
 .myButtonProfileEdit {
-  padding-left: 6rem;
+  padding-left: 4.7rem;
 }
 
 .img-edit-student-profile {
   width: 2rem;
   height: 1.8rem;
-  margin-left: 4rem;
+  margin-left: 12rem;
 }
 
 .toggle {
@@ -373,6 +382,11 @@ button {
 
 /* PARTICIPATION RECORD TABLE */
 
+.activities-table,
+.attendance-table {
+  width: 97%;
+}
+
 .img-add-activity {
   width: 1.5rem;
   margin-left: 0.2rem;
@@ -381,7 +395,7 @@ button {
 /* activities table */
 
 .activityNameSpecificEdit {
-  text-align: left;
+  text-align: center;
 }
 
 .edit-activity-images {

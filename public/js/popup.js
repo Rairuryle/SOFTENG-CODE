@@ -131,17 +131,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     const startDate = new Date(data.eventData.event_date_start);
                     const endDate = new Date(data.eventData.event_date_end);
                     const numberOfDays = Math.floor((endDate - startDate) / (24 * 60 * 60 * 1000)) + 1;
-
+                    console.log("hers", startDate, endDate, numberOfDays);
 
                     localStorage.setItem("startDateEvent", startDate.toISOString());
                     localStorage.setItem("endDateEvent", endDate.toISOString());
-
                     localStorage.setItem("numberOfDays", numberOfDays);
 
-                    // Set the activity date range based on storage
                     setActivityDateRangeFromStorage();
 
-                    // Move the code to populate the dropdown inside this block
+
                     const eventDaysDropdown = document.getElementById("activity-day-dropdown");
                     eventDaysDropdown.innerHTML = "";
 
@@ -152,11 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         eventDaysDropdown.appendChild(option);
                     }
 
-
-
                     let selectedDay = localStorage.getItem("selectedDay");
-                    // Retrieve the selected day from localStorage
-                    // Set the selected value in the dropdown
                     if (selectedDay) {
                         eventDaysDropdown.value = selectedDay;
                         // Update the page with the fetched event data and number of days
@@ -165,15 +159,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     selectedDay = localStorage.getItem("selectedDay");
 
-                    // Add an event listener to the dropdown to store the selected day in localStorage
                     eventDaysDropdown.addEventListener("change", function () {
                         selectedDay = this.value;
                         localStorage.setItem("selectedDay", selectedDay);
                         // Update the page with the new selected day
                         displayEventDetails(data, numberOfDays, selectedDay);
                     });
-
-
                 })
                 .catch((error) => {
                     console.error("Error fetching event data:", error);
@@ -189,6 +180,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const isAdminURL = document.querySelector('#isAdminURL').value === "true";
 
+        // // Extract the start and end dates from the fetched event data
+        // const startDate = new Date(eventData.eventData.event_date_start);
+        // const endDate = new Date(eventData.eventData.event_date_end);
+
+        // localStorage.setItem("startDateEvent", startDate.toISOString());
+        // localStorage.setItem("endDateEvent", endDate.toISOString());
+        // localStorage.setItem("numberOfDays", numberOfDays);
+        // console.log("her", startDate, endDate, numberOfDays);
+
+        // setActivityDateRangeFromStorage();
+
         if (eventData && eventData.eventFound) {
             console.log("Event found:", eventData.eventData.event_name);
 
@@ -196,12 +198,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log("Selected Day from localStorage:", selectedDay);
 
-
-            // Assuming you have a table body element with the id "eventTableBody"
             const tableBody = document.getElementById("eventTableBody");
+            const attendanceTableBody = document.getElementById("attendanceTableBody");
 
             // Clear the table body before adding new rows
             tableBody.innerHTML = "";
+            attendanceTableBody.innerHTML = "";
 
             // Display activities
             if (eventData.eventData.activities && eventData.eventData.activities.length > 0) {
@@ -210,139 +212,87 @@ document.addEventListener("DOMContentLoaded", function () {
                 eventData.eventData.activities.forEach((activity, index) => {
                     const row = document.createElement("tr");
 
-                    // Create the container for activity name and img
                     const activityParentContainer = document.createElement("td");
+
+                    const activityContainer = document.createElement("div");
+                    activityContainer.classList.add("flex-container");
+                    activityParentContainer.appendChild(activityContainer);
+
+                    const editActivityImages = document.createElement("div");
+                    editActivityImages.classList.add("flex-container", "edit-activity-images");
+                    activityContainer.appendChild(editActivityImages);
+
+                    const myButtonActivityEdit = document.createElement("button");
+                    myButtonActivityEdit.type = "button";
+                    myButtonActivityEdit.id = "myButtonActivityEdit1";
+                    myButtonActivityEdit.classList.add("myButtonActivityEdit", "modify-button");
+                    myButtonActivityEdit.setAttribute("data-popup-id", "myPopupActivityEdit1");
+                    editActivityImages.appendChild(myButtonActivityEdit);
+
+                    const imgEditActivityDetails = document.createElement("img");
+                    imgEditActivityDetails.src = "../img/Edit (1).png";
+                    imgEditActivityDetails.alt = "Edit Activity";
+                    imgEditActivityDetails.classList.add("img-edit-activity-details");
+                    myButtonActivityEdit.appendChild(imgEditActivityDetails);
+
+                    const myButtonActivityDelete = document.createElement("button");
+                    myButtonActivityDelete.type = "button";
+                    myButtonActivityDelete.id = "myButtonActivityDelete";
+                    myButtonActivityDelete.classList.add("myButtonActivityDelete", "modify-button");
+                    myButtonActivityDelete.setAttribute("data-popup-id", "myButtonActivityDelete");
+                    editActivityImages.appendChild(myButtonActivityDelete);
+
+                    const imgDeleteActivity = document.createElement("img");
+                    imgDeleteActivity.src = "../img/Cancel.png";
+                    imgDeleteActivity.alt = "Delete Activity";
+                    imgDeleteActivity.classList.add("img-delete-activity");
+                    myButtonActivityDelete.appendChild(imgDeleteActivity);
 
                     const activityNameElement = document.createElement("p");
                     activityNameElement.id = `recordActivityName${index}`;
                     activityNameElement.classList.add("activityNameSpecific", "activityNameSpecificEdit");
                     activityNameElement.textContent = activity.activity_name;
+                    editActivityImages.appendChild(activityNameElement);
 
                     const activityDateElement = document.createElement("td");
                     activityDateElement.id = `recordActivityDate${index}`;
-                    // Format the activity date
+
                     const activityDate = new Date(activity.activity_date);
                     const formattedActivityDate = `${activityDate.getMonth() + 1}/${activityDate.getDate()}/${activityDate.getFullYear()}`;
                     activityDateElement.textContent = formattedActivityDate;
 
-                    const roleElement = document.createElement("td");
 
-                    // Create the select element
-                    const selectElement = document.createElement("select");
-                    selectElement.name = "student role dropdown";
-                    selectElement.classList.add("student-role-dropdown");
 
-                    // Create and append options to the select element
-                    const defaultOption = document.createElement("option");
-                    defaultOption.selected = true;
-                    defaultOption.disabled = true;
-                    defaultOption.textContent = "Select Student Role";
-                    selectElement.appendChild(defaultOption);
 
-                    const roles = ["INDIV Participant", "TEAM Participant", "PROG. Spectator", "OTH. Spectator"];
-                    roles.forEach((role) => {
-                        const option = document.createElement("option");
-                        option.value = role;
-                        option.textContent = role;
-                        selectElement.appendChild(option);
-                    });
-
-                    roleElement.appendChild(selectElement);
-
-                    const pointsElement = document.createElement("td");
-
-                    // Add event listener to the select element
-                    selectElement.addEventListener("change", function () {
-                        const selectedRole = this.value;
-                        let points;
-
-                        switch (selectedRole) {
-                            case "TEAM Participant":
-                                points = 15;
-                                break;
-                            case "INDIV Participant":
-                                points = 10;
-                                break;
-                            case "PROG. Spectator":
-                                points = 5;
-                                break;
-                            case "OTH. Spectator":
-                                points = 3;
-                                break;
-                            default:
-                                points = 0; // You might want to set a default value here
-                        }
-
-                        pointsElement.textContent = points.toString();
-                        localStorage.setItem("selectedRole", selectedRole);
-                    });
-
-                    const officerElement = document.createElement("td");
-                    const adminData = document.getElementById("adminData");
-                    let adminDataElement = adminData.textContent;
-                    adminDataElement = adminDataElement.split("|").pop().trim(); // Remove string before | and trim any extra spaces
-
-                    officerElement.textContent = adminDataElement;
-
-                    if (isAdminURL) {
-                        activityParentContainer.appendChild(activityNameElement);
-
-                        selectElement.addEventListener("change", function () {
-                            var selectedOption = selectElement.options[selectElement.selectedIndex];
-                            selectElement.style.color = getComputedStyle(selectedOption).color;
-                        });
-                    } else {
-                        const activityContainer = document.createElement("div");
-                        activityContainer.classList.add("flex-container");
-                        activityParentContainer.appendChild(activityContainer);
-
-                        const editActivityImages = document.createElement("div");
-                        editActivityImages.classList.add("flex-container", "edit-activity-images");
-                        activityContainer.appendChild(editActivityImages);
-
-                        const myButtonActivityEdit = document.createElement("button");
-                        myButtonActivityEdit.type = "button";
-                        myButtonActivityEdit.id = "myButtonActivityEdit1";
-                        myButtonActivityEdit.classList.add("myButtonActivityEdit", "modify-button");
-                        myButtonActivityEdit.setAttribute("data-popup-id", "myPopupActivityEdit1");
-                        editActivityImages.appendChild(myButtonActivityEdit);
-
-                        const imgEditActivityDetails = document.createElement("img");
-                        imgEditActivityDetails.src = "../img/Edit (1).png";
-                        imgEditActivityDetails.alt = "Edit Activity";
-                        imgEditActivityDetails.classList.add("img-edit-activity-details");
-                        myButtonActivityEdit.appendChild(imgEditActivityDetails);
-
-                        const myButtonActivityDelete = document.createElement("button");
-                        myButtonActivityDelete.type = "button";
-                        myButtonActivityDelete.id = "myButtonActivityDelete";
-                        myButtonActivityDelete.classList.add("myButtonActivityDelete", "modify-button");
-                        myButtonActivityDelete.setAttribute("data-popup-id", "myButtonActivityDelete");
-                        editActivityImages.appendChild(myButtonActivityDelete);
-
-                        const imgDeleteActivity = document.createElement("img");
-                        imgDeleteActivity.src = "../img/Cancel.png";
-                        imgDeleteActivity.alt = "Delete Activity";
-                        imgDeleteActivity.classList.add("img-delete-activity");
-                        myButtonActivityDelete.appendChild(imgDeleteActivity);
-
-                        editActivityImages.appendChild(activityNameElement);
-
-                        selectElement.disabled = true;
-                    }
 
                     row.appendChild(activityParentContainer);
                     row.appendChild(activityDateElement);
-                    row.appendChild(roleElement);
-                    row.appendChild(pointsElement);
-                    row.appendChild(officerElement);
 
                     // Append the row to the table body
                     tableBody.appendChild(row);
+
                 });
 
-                // Add hidden rows after the 5th row
+                const startDate = moment(eventData.eventData.event_date_start);
+                const endDate = moment(eventData.eventData.event_date_end);
+                const numberOfDays = endDate.diff(startDate, 'days') + 1;
 
+                const dateArray = [];
+                for (let i = 0; i < numberOfDays; i++) {
+                    dateArray.push(startDate.clone().add(i, 'days').format('MM/DD/YYYY'));
+                }
+
+                dateArray.forEach((formattedDate, index) => {
+                    const attendanceRow = document.createElement("tr");
+
+                    const attendanceDateElement = document.createElement("td");
+                    attendanceDateElement.id = `attendanceDate${index}`;
+                    attendanceDateElement.textContent = formattedDate;
+
+                    attendanceRow.appendChild(attendanceDateElement);
+
+                    attendanceTableBody.appendChild(attendanceRow);
+                });
 
                 if (tableBody.rows.length > 5) {
                     for (let i = 5; i < tableBody.rows.length; i++) {
@@ -359,6 +309,39 @@ document.addEventListener("DOMContentLoaded", function () {
                     seeMoreCell.textContent = "See More";
                     seeMoreRow.appendChild(seeMoreCell);
                     tableBody.appendChild(seeMoreRow);
+
+                    const seeMoreButton = document.querySelector(".see-more");
+                    const hiddenRows = document.querySelectorAll(".hidden-row");
+                    seeMoreButton.addEventListener("click", function () {
+                        hiddenRows.forEach((row) => {
+                            const isVisible = row.getAttribute("data-visible") === "true";
+                            row.style.display = isVisible ? "none" : "table-row";
+                            row.setAttribute("data-visible", !isVisible);
+                        });
+
+                        if (seeMoreButton.textContent === "See More") {
+                            seeMoreButton.textContent = "See Less";
+                        } else {
+                            seeMoreButton.textContent = "See More";
+                        }
+                    });
+                }
+
+                if (attendanceTableBody.rows.length > 5) {
+                    for (let i = 5; i < attendanceTableBody.rows.length; i++) {
+                        const row = attendanceTableBody.rows[i];
+                        row.classList.add("hidden-row");
+                        row.setAttribute("data-visible", "false");
+                    }
+
+                    const seeMoreRow = document.createElement("tr");
+                    seeMoreRow.classList.add("see-more-row");
+                    const seeMoreCell = document.createElement("td");
+                    seeMoreCell.colSpan = 5;
+                    seeMoreCell.classList.add("see-more");
+                    seeMoreCell.textContent = "See More";
+                    seeMoreRow.appendChild(seeMoreCell);
+                    attendanceTableBody.appendChild(seeMoreRow);
 
                     const seeMoreButton = document.querySelector(".see-more");
                     const hiddenRows = document.querySelectorAll(".hidden-row");
@@ -624,10 +607,8 @@ confirmActivityButton.forEach((button) => {
         const formData = {
             eventId,
             activities: activitiesData,
-            // ... other activity-related data
         };
 
-        // Send the data to the server using the Fetch API
         fetch("/insert-activity-database", {
             method: "POST",
             headers: {
@@ -723,19 +704,3 @@ const today = new Date().toISOString().split("T")[0];
 
 document.getElementById("startDateEvent").min = today;
 document.getElementById("endDateEvent").min = today;
-
-// When the window loads, check for previously saved selectedRole in localStorage and set the dropdown value
-// window.addEventListener("load", function () {
-//     const selectedRole = localStorage.getItem("selectedRole");
-//     if (selectedRole) {
-//         // Find the select element
-//         const selectElement = document.querySelector(".student-role-dropdown");
-
-//         // Set the value to the previously selected role
-//         selectElement.value = selectedRole;
-
-//         // Manually trigger the change event to update pointsElement based on the selected role
-//         const changeEvent = new Event("change");
-//         selectElement.dispatchEvent(changeEvent);
-//     }
-// });

@@ -26,6 +26,7 @@
 <div class="yearlevel grid-item-eight item-profile item-profile-name">{{studentData.year_level}}</div>
 
 <!-- total points -->
+{{#if isAdminURL}}
 <div class="grid-item-eleven item-points">TOTAL POINTS ACQUIRED</div>
 <div class="grid-item-twelve item-points total-points points-title">CURRENT DAY</div>
 <div class="grid-item-thirteen item-points total-points grid-points">
@@ -35,4 +36,5 @@
 <div class="grid-item-fifteen item-points total-points grid-points">
     <h1>32</h1>
 </div>
+{{/if}}
 <script src="../js/searchStudentProfile.js"></script>

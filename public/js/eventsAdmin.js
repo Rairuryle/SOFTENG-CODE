@@ -48,13 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     const idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
 
                     // Extract the start and end dates from the fetched event data
-                    const startDate = new Date(data.eventData.event_date_start);
-                    const endDate = new Date(data.eventData.event_date_end);
-                    const numberOfDays = Math.floor((endDate - startDate) / (24 * 60 * 60 * 1000)) + 1;
+                    const startDate = moment(data.eventData.event_date_start);
+                    const endDate = moment(data.eventData.event_date_end);
+                    const numberOfDays = endDate.diff(startDate, 'days') + 1;
 
                     localStorage.setItem("startDateEvent", startDate.toISOString());
                     localStorage.setItem("endDateEvent", endDate.toISOString());
-
                     localStorage.setItem("numberOfDays", numberOfDays);
 
                     setActivityDateRangeFromStorage();
@@ -82,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         localStorage.setItem("selectedDay", selectedDay);
                         displayEventDetails(data, numberOfDays, selectedDay);
                     });
+
 
                     for (let i = 0; i < data.eventData.activities.length; i++) {
                         const selectedRole = localStorage.getItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${i}`);
@@ -116,21 +116,18 @@ document.addEventListener("DOMContentLoaded", function () {
                                             default:
                                                 points = 0;
                                         }
-
                                         pointsElement.textContent = points.toString();
                                     }
                                 }
                             }
                         }
                     }
-
                 })
                 .catch((error) => {
                     console.error("Error fetching event data:", error);
                 });
         }
     });
-
 
     function displayEventDetails(eventData, numberOfDays, selectedDay) {
         console.log("Event Data:", eventData);
@@ -146,13 +143,15 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Selected Day from localStorage function:", selectedDay);
 
             const tableBody = document.getElementById("eventTableBody");
+            const attendanceTableBody = document.getElementById("attendanceTableBody");
 
             // Clear the table body before adding new rows
             tableBody.innerHTML = "";
+            attendanceTableBody.innerHTML = "";
 
             // Display activities
             if (eventData.eventData.activities && eventData.eventData.activities.length > 0) {
-                const eventId = eventData.eventData.event_id; // Retrieve eventId in this scope
+                const eventId = eventData.eventData.event_id;
                 console.log("e", eventData.eventData.event_id);
 
                 const idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
@@ -247,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         this.style.color = getComputedStyle(selectedOption).color;
 
                         localStorage.setItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${rowIndex}`, selectedRole);
-                        // localStorage.setItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${rowIndex}`, activitySubtotalElement);
                     });
 
                     const officerElement = document.createElement("td");
@@ -267,6 +265,101 @@ document.addEventListener("DOMContentLoaded", function () {
                     tableBody.appendChild(row);
                 });
 
+                const startDate = moment(eventData.eventData.event_date_start);
+                const endDate = moment(eventData.eventData.event_date_end);
+                const numberOfDays = endDate.diff(startDate, 'days') + 1;
+
+                const dateArray = [];
+                for (let i = 0; i < numberOfDays; i++) {
+                    dateArray.push(startDate.clone().add(i, 'days').format('MM/DD/YYYY'));
+                }
+
+                dateArray.forEach((formattedDate, index) => {
+                    const attendanceRow = document.createElement("tr");
+
+                    const attendanceDateElement = document.createElement("td");
+                    attendanceDateElement.id = `attendanceDate${index}`;
+                    attendanceDateElement.textContent = formattedDate;
+
+                    const loginAMElement = document.createElement("td");
+                    const loginAM = document.createElement("input");
+                    loginAM.type = "checkbox";
+                    loginAM.classList.add("ui-checkbox");
+                    loginAM.name = "checkbox";
+                    loginAM.setAttribute('data-attendance-row-id', index);
+                    loginAMElement.appendChild(loginAM);
+
+                    const loginPMElement = document.createElement("td");
+                    const loginPM = document.createElement("input");
+                    loginPM.type = "checkbox";
+                    loginPM.classList.add("ui-checkbox");
+                    loginPM.name = "checkbox";
+                    loginPM.setAttribute('data-attendance-row-id', index);
+                    loginPMElement.appendChild(loginPM);
+
+                    const logoutPMElement = document.createElement("td");
+                    const logoutPM = document.createElement("input");
+                    logoutPM.type = "checkbox";
+                    logoutPM.classList.add("ui-checkbox");
+                    logoutPM.name = "checkbox";
+                    logoutPM.setAttribute('data-attendance-row-id', index);
+                    logoutPMElement.appendChild(logoutPM);
+
+                    const officerElement = document.createElement("td");
+                    const adminData = document.getElementById("adminData");
+                    let adminDataElement = adminData.textContent;
+                    adminDataElement = adminDataElement.split("|").pop().trim();
+                    officerElement.textContent = adminDataElement;
+
+                    attendanceRow.appendChild(attendanceDateElement);
+                    attendanceRow.appendChild(loginAMElement);
+                    attendanceRow.appendChild(loginPMElement);
+                    attendanceRow.appendChild(logoutPMElement);
+                    attendanceRow.appendChild(officerElement);
+
+                    const checkboxesInRow = attendanceRow.querySelectorAll('input[type="checkbox"]');
+                    checkboxesInRow.forEach((checkbox) => {
+                        const attendanceRowId = checkbox.getAttribute('data-attendance-row-id');
+                        const parentTD = checkbox.closest('td');
+                        const parentTDIndex = Array.from(parentTD.parentNode.children).indexOf(parentTD);
+                        const checkboxKey = `attendanceStatus_student_${idNumber}_event_${eventId}_row_${attendanceRowId}_td_${parentTDIndex}_day_${formattedDate}`;
+
+                        console.log(attendanceRowId, parentTDIndex, formattedDate);
+
+                        const checkboxState = localStorage.getItem(checkboxKey);
+                        if (checkboxState === 'true') {
+                            checkbox.checked = true;
+                        }
+
+                        checkbox.addEventListener('change', function () {
+                            localStorage.setItem(checkboxKey, checkbox.checked.toString());
+                        });
+                    });
+
+                    attendanceTableBody.appendChild(attendanceRow);
+                });
+
+                const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
+
+                const handleCheckboxChange = () => {
+                    const attendanceSubtotal = document.getElementById("attendanceSubtotal");
+                    const pointsToAdd = 2;
+
+                    let subtotal = 0;
+
+                    checkboxes.forEach((checkbox) => {
+                        if (checkbox.checked) {
+                            subtotal += pointsToAdd;
+                        }
+                    });
+
+                    attendanceSubtotal.textContent = subtotal;
+                };
+
+                // Attach a single event listener to the attendanceTableBody to capture checkbox changes
+                attendanceTableBody.addEventListener('change', handleCheckboxChange);
+
+
                 if (tableBody.rows.length > 5) {
                     for (let i = 5; i < tableBody.rows.length; i++) {
                         const row = tableBody.rows[i];
@@ -282,6 +375,40 @@ document.addEventListener("DOMContentLoaded", function () {
                     seeMoreCell.textContent = "See More";
                     seeMoreRow.appendChild(seeMoreCell);
                     tableBody.appendChild(seeMoreRow);
+
+                    const seeMoreButton = document.querySelector(".see-more");
+                    const hiddenRows = document.querySelectorAll(".hidden-row");
+                    seeMoreButton.addEventListener("click", function () {
+                        hiddenRows.forEach((row) => {
+                            const isVisible = row.getAttribute("data-visible") === "true";
+                            row.style.display = isVisible ? "none" : "table-row";
+                            row.setAttribute("data-visible", !isVisible);
+                        });
+
+                        if (seeMoreButton.textContent === "See More") {
+                            seeMoreButton.textContent = "See Less";
+                        } else {
+                            seeMoreButton.textContent = "See More";
+                        }
+                    });
+                }
+
+
+                if (attendanceTableBody.rows.length > 5) {
+                    for (let i = 5; i < attendanceTableBody.rows.length; i++) {
+                        const row = attendanceTableBody.rows[i];
+                        row.classList.add("hidden-row");
+                        row.setAttribute("data-visible", "false");
+                    }
+
+                    const seeMoreRow = document.createElement("tr");
+                    seeMoreRow.classList.add("see-more-row");
+                    const seeMoreCell = document.createElement("td");
+                    seeMoreCell.colSpan = 5;
+                    seeMoreCell.classList.add("see-more");
+                    seeMoreCell.textContent = "See More";
+                    seeMoreRow.appendChild(seeMoreCell);
+                    attendanceTableBody.appendChild(seeMoreRow);
 
                     const seeMoreButton = document.querySelector(".see-more");
                     const hiddenRows = document.querySelectorAll(".hidden-row");
