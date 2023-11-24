@@ -239,7 +239,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (activitySubtotalElement) {
                             const totalPointsText = totalPoints.toString(); // Get the text content
                             activitySubtotalElement.textContent = totalPointsText;
-                            localStorage.setItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${rowIndex}`, totalPointsText);
                         }
 
                         const selectedOption = this.options[this.selectedIndex];
@@ -261,7 +260,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     row.appendChild(pointsElement);
                     row.appendChild(officerElement);
 
-                    // Append the row to the table body
                     tableBody.appendChild(row);
                 });
 
@@ -340,6 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
+                const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
 
                 const handleCheckboxChange = () => {
                     const attendanceSubtotal = document.getElementById("attendanceSubtotal");
@@ -354,7 +353,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
 
                     attendanceSubtotal.textContent = subtotal;
+
+                    localStorage.setItem(eventSubtotalKey, subtotal.toString());
                 };
+
+                // Retrieve the subtotal from localStorage if available
+                const storedSubtotal = localStorage.getItem(eventSubtotalKey);
+                if (storedSubtotal) {
+                    document.getElementById("attendanceSubtotal").textContent = storedSubtotal;
+                }
 
                 // Attach a single event listener to the attendanceTableBody to capture checkbox changes
                 attendanceTableBody.addEventListener('change', handleCheckboxChange);
@@ -433,7 +440,6 @@ document.addEventListener("DOMContentLoaded", function () {
             recordEventName.appendChild(errorMessageElement);
         }
     }
-
 
     const eventDataLocal = JSON.parse(localStorage.getItem("eventData"));
 
