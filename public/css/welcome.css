@@ -257,10 +257,14 @@
   background-color: var(--main-green);
   color: white;
   border-radius: 25px;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
   padding: 0.5rem 0;
   margin-bottom: 1rem;
+}
+
+.help-question p {
+  margin: 0 2rem;
 }
 
 .help-answer {

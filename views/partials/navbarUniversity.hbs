@@ -13,37 +13,40 @@
         </div>
         <h1>EVENTS</h1>
         <hr />
-        <div class="container">
-            <div class="flex-container">
-                <div class="icon icon-textflag">
-                    <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
-                </div>
-                <div class="text text-textflag">
-                    INSTITUTIONAL
-                </div>
-            </div>
-        </div>
-        {{#each events}}
-        <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
-            <p class="eventNameSpecific">{{this.event_name}}</p>
-        </a>
-        {{/each}}
-
-        {{#unless isUSGorSAO}}
-        <div class="container container-textflag college-textflag">
-            <div class="flex-container">
-                <div class="icon icon-textflag">
-                    <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
-                </div>
-                <div class="text text-textflag">
-                    COLLEGE
+        <div class="container-events">
+            <div class="container">
+                <div class="flex-container">
+                    <div class="icon icon-textflag">
+                        <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
+                    </div>
+                    <div class="text text-textflag">
+                        INSTITUTIONAL
+                    </div>
                 </div>
             </div>
+            {{#each institutionalEvents}}
+            <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
+                <p class="eventNameSpecific">{{this.event_name}}</p>
+            </a>
+            {{/each}}
+            {{#unless isUSG}}
+            <div class="container container-textflag college-textflag">
+                <div class="flex-container">
+                    <div class="icon icon-textflag">
+                        <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
+                    </div>
+                    <div class="text text-textflag">
+                        COLLEGE
+                    </div>
+                </div>
+            </div>
+            {{#each collegeEvents}}
+            <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
+                <p class="eventNameSpecific">{{this.event_name}}</p>
+            </a>
+            {{/each}}
+            {{/unless}}
         </div>
-        <a href="#" class="nav-link">CCSEA WEEK</a>
-        <a href="#" class="nav-link">GENERAL ASSEMBLY</a>
-        <a href="#" class="nav-link">TEAM BUILDING</a>
-        {{/unless}}
 
         <div class="container container-widget">
             <div class="holder holder-widget">
@@ -67,16 +70,6 @@
                 <div class="text text-widget text-widget-edit">
                     <a class="editMode link-widget">EDIT MODE</a>
                 </div>
-                {{!-- {{else}}
-                <div class="icon icon-widget">
-                    <a href="/college-events-edit">
-                        <img src="../img/Edit.png" alt="Edit Mode Icon" />
-                    </a>
-                </div>
-                <div class="text text-widget text-widget-edit">
-                    <a href="/college-events-edit" class="link-widget">EDIT MODE</a>
-                </div>
-                {{/if}} --}}
             </div>
 
             <div class="holder holder-widget">

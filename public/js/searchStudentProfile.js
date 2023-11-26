@@ -8,7 +8,6 @@ function searchStudentProfile() {
     const idNumber = idNumberInput.value;
     console.log('Sending request with ID number:', idNumber);
 
-    // Send a request to the server to search for the student profile
     fetch(`/university-events-admin/search?gridsearchIDNumber=${idNumber}`)
         .then(response => response.json())
         .then(data => {
@@ -26,7 +25,7 @@ function searchStudentProfile() {
 
                 const studentData = data.studentData;
 
-                // Update your HTML to display the studentData
+                // Update HTML to display the studentData
                 const studentNameElement = document.querySelector('.studentname');
                 const idNumberElement = document.querySelector('.IDNumber');
                 const departmentNameElement = document.querySelector('.departmentname');
@@ -47,7 +46,11 @@ function searchStudentProfile() {
                     console.log('One or more elements not found. Ensure your HTML has the correct class names.');
                 }
             } else {
-                alert('Student not found.');
+                if (data.error === 'Department mismatch') {
+                    alert('Access denied: Department mismatch.');
+                } else {
+                    alert('Student not found.');
+                }
             }
         })
         .catch(error => {

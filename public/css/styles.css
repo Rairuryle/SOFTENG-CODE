@@ -128,7 +128,35 @@ a {
   text-decoration: none;
 }
 
-.nav-link {
+.container-events {
+  max-height: calc(100vh - 17rem);
+  overflow-y: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0f9664;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0c754f;
+}
+
+.nav-link,
+.nav-link-else {
   transition: color 0.3s ease, border-radius 0.3s ease;
   display: block;
   position: relative;

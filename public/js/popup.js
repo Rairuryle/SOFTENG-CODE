@@ -139,7 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     setActivityDateRangeFromStorage();
 
-
                     const eventDaysDropdown = document.getElementById("activity-day-dropdown");
                     eventDaysDropdown.innerHTML = "";
 
@@ -177,19 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const recordEventName = document.getElementById("recordEventName");
         recordEventName.innerHTML = "";
-
-        const isAdminURL = document.querySelector('#isAdminURL').value === "true";
-
-        // // Extract the start and end dates from the fetched event data
-        // const startDate = new Date(eventData.eventData.event_date_start);
-        // const endDate = new Date(eventData.eventData.event_date_end);
-
-        // localStorage.setItem("startDateEvent", startDate.toISOString());
-        // localStorage.setItem("endDateEvent", endDate.toISOString());
-        // localStorage.setItem("numberOfDays", numberOfDays);
-        // console.log("her", startDate, endDate, numberOfDays);
-
-        // setActivityDateRangeFromStorage();
 
         if (eventData && eventData.eventFound) {
             console.log("Event found:", eventData.eventData.event_name);
@@ -260,10 +246,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     const activityDate = new Date(activity.activity_date);
                     const formattedActivityDate = `${activityDate.getMonth() + 1}/${activityDate.getDate()}/${activityDate.getFullYear()}`;
                     activityDateElement.textContent = formattedActivityDate;
-
-
-
-
 
                     row.appendChild(activityParentContainer);
                     row.appendChild(activityDateElement);
@@ -486,7 +468,7 @@ confirmButtons.forEach((button) => {
             eventnameInput: eventNameUpper,
             startDateEvent: document.getElementById("startDateEvent").value,
             endDateEvent: document.getElementById("endDateEvent").value,
-            eventScope: document.getElementById("eventScope").textContent,
+            eventScope: document.getElementById("eventScope").textContent.trim(),
             eventDays: calculateEventDays(
                 document.getElementById("startDateEvent").value,
                 document.getElementById("endDateEvent").value

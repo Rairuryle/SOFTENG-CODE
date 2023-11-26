@@ -1,3 +1,22 @@
+.nav-link,
+.nav-link-else {
+  font-size: 0.95rem;
+}
+
+.nav-link:before,
+.nav-link-else {
+  height: 90%;
+}
+
+.container-events-edit {
+  max-height: calc(100vh - 13rem);
+  overflow-y: auto;
+}
+
+.text-textflag {
+  font-size: 1rem;
+}
+
 .img-add-event {
   width: 1.4rem;
   cursor: pointer;
@@ -50,7 +69,7 @@
   margin-left: 12rem;
 }
 
-.toggle {
+/* .toggle {
   --width: 6rem;
   --height: calc(var(--width) / 4);
   position: relative;
@@ -136,7 +155,7 @@
 
 .toggle input:checked ~ .labels::before {
   opacity: 1;
-}
+} */
 
 /* popups */
 
@@ -378,6 +397,10 @@ button {
 
 .show {
   display: block;
+}
+
+section {
+  margin-top: 0.5rem;
 }
 
 /* PARTICIPATION RECORD TABLE */

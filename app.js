@@ -121,6 +121,7 @@ app.post('/insert-into-database', (req, res) => {
 
 app.get('/dashboard/search', (req, res) => {
     const idNumber = req.query.gridsearchIDNumber;
+    const isUSGorSAO = req.session.adminData.organization === "USG" || req.session.adminData.organization === "SAO";
 
     db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
         if (error) {
@@ -128,9 +129,15 @@ app.get('/dashboard/search', (req, res) => {
             res.status(500).json({ studentFound: false });
         } else {
             if (results.length > 0) {
-                // Student found
                 const studentData = results[0];
-                res.status(200).json({ studentFound: true, studentData });
+                const departmentName = studentData.department_name;
+
+                if (isUSGorSAO || departmentName === req.session.adminData.organization) {
+                    req.session.departmentName = departmentName;
+                    res.status(200).json({ studentFound: true, studentData });
+                } else {
+                    res.status(403).json({ error: 'Department mismatch' });
+                }
             } else {
                 res.status(404).json({ studentFound: false });
             }
@@ -138,16 +145,23 @@ app.get('/dashboard/search', (req, res) => {
     });
 });
 
-function searchStudentByGridsearchIDNumber(gridsearchIDNumber, callback) {
+function searchStudentByGridsearchIDNumber(gridsearchIDNumber, req, callback) {
     db.query('SELECT * FROM student WHERE id_number = ?', [gridsearchIDNumber], (error, results) => {
         if (error) {
             console.log(error);
             return callback({ studentFound: false });
         } else {
             if (results.length > 0) {
-                const studentData = results[0]; // Assuming there's only one matching student
+                const studentData = results[0];
+                const isUSGorSAO = req.session.adminData.organization === "USG" || req.session.adminData.organization === "SAO";
+                const departmentMatches = studentData.department_name === req.session.adminData.organization;
 
-                return callback({ studentFound: true, studentData });
+                if (isUSGorSAO || departmentMatches) {
+                    req.session.departmentName = studentData.department_name;
+                    return callback({ studentFound: true, studentData });
+                } else {
+                    return callback({ studentFound: false, error: 'Department mismatch' });
+                }
             } else {
                 return callback({ studentFound: false });
             }
@@ -155,9 +169,10 @@ function searchStudentByGridsearchIDNumber(gridsearchIDNumber, callback) {
     });
 }
 
+
 app.get('/university-events-admin/search', (req, res) => {
     const gridsearchIDNumber = req.query.gridsearchIDNumber;
-    searchStudentByGridsearchIDNumber(gridsearchIDNumber, (result) => {
+    searchStudentByGridsearchIDNumber(gridsearchIDNumber, req, (result) => {
         res.status(result.studentFound ? 200 : 500).json(result);
     });
 });

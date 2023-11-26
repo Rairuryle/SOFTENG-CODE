@@ -143,21 +143,24 @@ router.get('/dashboard-add-student', (req, res) => {
 router.get('/university-events-admin', (req, res) => {
     if (req.session.isAuthenticated) {
         const idNumber = req.query.id_number;
-        console.log('Admin - Student ID:', idNumber);
         const adminData = req.session.adminData;
-        const studentData = req.session.studentData;
+        const departmentName = req.session.departmentName;
         const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
+        const isUSG = adminData.organization === "USG";
+        const isSAO = adminData.organization === "SAO";
+        const isCollege = departmentName === adminData.organization;
         const currentURL = req.url;
         const isAdminURL = currentURL.includes("admin");
         const eventData = req.session.eventData;
 
-        // Fetch all events from the database
         db.query('SELECT * FROM event', (error, events) => {
             if (error) {
                 console.log(error);
                 res.redirect('/dashboard');
             } else {
-                // Continue with fetching student data (similar to your existing code)
+                const institutionalEvents = events.filter(event => event.event_scope === 'INSTITUTIONAL');
+                const collegeEvents = events.filter(event => event.event_scope === departmentName);
+
                 db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
                     if (error) {
                         console.log(error);
@@ -165,20 +168,24 @@ router.get('/university-events-admin', (req, res) => {
                     } else {
                         if (results.length > 0) {
                             const studentData = results[0];
-                            // Render your university-events-admin template with student and event data
                             res.render('university-events-admin', {
                                 adminData,
                                 studentData,
+                                departmentName,
                                 isUSGorSAO,
+                                isUSG,
+                                isSAO,
+                                isCollege,
                                 isAdminURL,
                                 eventData,
-                                idNumber,
-                                title: 'Admin Main Page | LSU Events and Attendance Tracking Website',
+                                institutionalEvents,
+                                collegeEvents,
                                 events: events.map(event => ({
                                     ...event,
                                     formattedStartDate: event.event_date_start.toLocaleDateString(),
                                     formattedEndDate: event.event_date_end.toLocaleDateString(),
                                 })), // Pass the events with formatted dates to the template
+                                title: 'Admin Main Page | LSU Events and Attendance Tracking Website',
                             });
                         } else {
                             res.redirect('/dashboard');
@@ -195,10 +202,12 @@ router.get('/university-events-admin', (req, res) => {
 router.get('/university-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {
         const idNumber = req.query.id_number;
-        console.log('Edit - Student ID:', idNumber);
         const adminData = req.session.adminData;
-        const studentData = req.session.studentData;
+        const departmentName = req.session.departmentName;
         const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
+        const isUSG = adminData.organization === "USG";
+        const isSAO = adminData.organization === "SAO";
+        const isCollege = departmentName === adminData.organization;
         const currentURL = req.url;
         const isAdminURL = currentURL.includes("admin");
         const eventData = req.session.eventData;
@@ -208,7 +217,9 @@ router.get('/university-events-edit', (req, res) => {
                 console.log(error);
                 res.redirect('/dashboard');
             } else {
-                // Continue with fetching student data (similar to your existing code)
+                const institutionalEvents = events.filter(event => event.event_scope === 'INSTITUTIONAL');
+                const collegeEvents = events.filter(event => event.event_scope === departmentName);
+
                 db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
                     if (error) {
                         console.log(error);
@@ -219,15 +230,21 @@ router.get('/university-events-edit', (req, res) => {
                             res.render('university-events-edit', {
                                 adminData,
                                 studentData,
+                                departmentName,
                                 isUSGorSAO,
+                                isUSG,
+                                isSAO,
+                                isCollege,
                                 isAdminURL,
                                 eventData,
-                                title: 'Admin Edit Page | LSU Events and Attendance Tracking Website',
+                                institutionalEvents,
+                                collegeEvents,
                                 events: events.map(event => ({
                                     ...event,
                                     formattedStartDate: event.event_date_start.toLocaleDateString(),
                                     formattedEndDate: event.event_date_end.toLocaleDateString(),
                                 })), // Pass the events with formatted dates to the template
+                                title: 'Admin Edit Page | LSU Events and Attendance Tracking Website',
                             });
                         } else {
                             res.redirect('/dashboard');
@@ -240,5 +257,6 @@ router.get('/university-events-edit', (req, res) => {
         res.redirect('/login');
     }
 });
+
 
 module.exports = router;
