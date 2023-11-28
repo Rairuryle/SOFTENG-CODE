@@ -686,3 +686,14 @@ const today = new Date().toISOString().split("T")[0];
 
 document.getElementById("startDateEvent").min = today;
 document.getElementById("endDateEvent").min = today;
+
+$('[id^="myButtonEventEdit"]').on("click", function () {
+    var buttonId = $(this).attr("id");
+    var popupId = $(this).attr("data-popup-id");
+    var eventNameSpecific = $("#" + buttonId)
+        .closest(".nav-link")
+        .find(".eventNameSpecific")
+        .text();
+    var eventnameInput = $("#" + popupId).find(".eventname");
+    eventnameInput.val(eventNameSpecific);
+});

@@ -58,18 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
     exitModeElements.forEach(function (element) {
         element.addEventListener("click", exitModeDirect);
     });
-
-    $('[id^="myButtonEventEdit"]').on("click", function () {
-        var buttonId = $(this).attr("id");
-        var popupId = $(this).attr("data-popup-id");
-        var eventNameSpecific = $("#" + buttonId)
-            .closest(".nav-link")
-            .find(".eventNameSpecific")
-            .text();
-        var eventnameInput = $("#" + popupId).find(".eventname");
-        eventnameInput.val(eventNameSpecific);
-    });
-
 });
 
 function togglePasswordVisibility() {

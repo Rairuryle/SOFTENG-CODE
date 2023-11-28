@@ -29,5 +29,8 @@
     "passport": "^0.6.0",
     "sequelize": "^6.33.0",
     "sequelize-cli": "^6.6.1"
+  },
+  "devDependencies": {
+    "qunit": "^2.20.0"
   }
 }
