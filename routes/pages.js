@@ -143,6 +143,7 @@ router.get('/dashboard-add-student', (req, res) => {
 router.get('/university-events-admin', (req, res) => {
     if (req.session.isAuthenticated) {
         const idNumber = req.query.id_number;
+        console.log("ID back", idNumber);
         const adminData = req.session.adminData;
         const departmentName = req.session.departmentName;
         const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
@@ -180,6 +181,7 @@ router.get('/university-events-admin', (req, res) => {
                                 eventData,
                                 institutionalEvents,
                                 collegeEvents,
+                                idNumber: idNumber,
                                 events: events.map(event => ({
                                     ...event,
                                     formattedStartDate: event.event_date_start.toLocaleDateString(),
@@ -202,6 +204,7 @@ router.get('/university-events-admin', (req, res) => {
 router.get('/university-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {
         const idNumber = req.query.id_number;
+        console.log("ID back", idNumber);
         const adminData = req.session.adminData;
         const departmentName = req.session.departmentName;
         const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
