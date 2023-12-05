@@ -53,11 +53,8 @@
                     <th>POINTS</th>
                     <th>OFFICER-IN-CHARGE</th>
 
-
-                    <form action="/insert-activity-points" method="POST">
-                        <tbody id="eventTableBody">
-                        </tbody>
-                    </form>
+                    <tbody id="eventTableBody">
+                    </tbody>
                 </table>
                 <div class="results-grid-container">
                     <div class="grid-item-sixteen">
@@ -102,7 +99,6 @@
                             <a href="#">AM</a>
                             <a href="#">PM</a>
                             <a href="#">POINTS</a>
-                            <a href="#">OFFICER-IN-CHARGE</a>
                         </div>
                     </div>
                     <div class="filter-by">
@@ -138,7 +134,6 @@
                         <th rowspan="2">DATE</th>
                         <th>AM</th>
                         <th colspan="2">PM</th>
-                        <th rowspan="2">OFFICER-IN-CHARGE</th>
                     </tr>
                     <tr>
                         <td>LOG-IN</td>
@@ -149,17 +144,8 @@
                     </tbody>
                 </table>
                 <div class="results-grid-container">
-                    <div class="grid-item-sixteen">
-                        <div class="verification-item">VERIFY DAY</div>
-                        <div class="verification-check">
-                            <label class="checkbox-container">
-                                <input checked="checked" type="checkbox" />
-                                <div class="checkmark"></div>
-                            </label>
-                        </div>
-                    </div>
                     <div class="grid-item-seventeen">
-                        <div>ATTENDANCE <br /> SUBTOTAL</div>
+                        <div class="container-attendance-subtotal">ATTENDANCE <br /> SUBTOTAL</div>
                         <div>
                             <h1 id="attendanceSubtotal"></h1>
                         </div>

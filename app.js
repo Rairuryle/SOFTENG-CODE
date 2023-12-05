@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars');
 const session = require('express-session'); // Import express-session
 const authMiddleware = require('./middleware/authMiddleware'); // Import the authentication middleware
 const bodyParser = require('body-parser'); // For parsing form data
+const fs = require('fs'); // Adding the File System module
 
 dotenv.config({ path: './.env' });
 
@@ -56,6 +57,36 @@ app.use('/auth', require('./routes/auth'));
 app.use('/dashboard', authMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//hard drive space
+// function getDirectorySize(directoryPath) {
+//     let totalSize = 0;
+//     const files = fs.readdirSync(directoryPath);
+
+//     files.forEach((file) => {
+//         const filePath = path.join(directoryPath, file);
+//         const stats = fs.statSync(filePath);
+
+//         if (stats.isFile()) {
+//             totalSize += stats.size;
+//         } else if (stats.isDirectory()) {
+//             totalSize += getDirectorySize(filePath);
+//         }
+//     });
+
+//     return totalSize;
+// }
+
+// // Route to check website space
+// app.get('/websiteSpace', (req, res) => {
+//     const websiteDirectory = path.resolve(__dirname); // Change this to your website's directory path
+
+//     const totalSizeInBytes = getDirectorySize(websiteDirectory);
+//     const totalSizeInKB = (totalSizeInBytes / 1024).toFixed(2); // Convert bytes to KB
+//     const totalSizeInMB = (totalSizeInBytes / (1024 * 1024)).toFixed(2); // Convert bytes to MB
+
+//     res.send(`Website space: ${totalSizeInBytes} bytes (${totalSizeInKB} KB or ${totalSizeInMB} MB)`);
+// });
 
 app.post('/insert-into-database', (req, res) => {
     console.log(req.body);
@@ -168,7 +199,6 @@ function searchStudentByGridsearchIDNumber(gridsearchIDNumber, req, callback) {
         }
     });
 }
-
 
 app.get('/university-events-admin/search', (req, res) => {
     const gridsearchIDNumber = req.query.gridsearchIDNumber;
@@ -323,6 +353,13 @@ app.get('/university-events-admin/eventroute', (req, res) => {
     });
 });
 
+app.get('/student-participation-record/eventroute', (req, res) => {
+    const eventNameSpecific = req.query.eventNameSpecific;
+    getEventRoute(eventNameSpecific, (result) => {
+        res.status(result.eventFound ? 200 : 500).json(result);
+    });
+});
+
 app.post('/insert-activity-database', (req, res) => {
     const { eventId, activities } = req.body;
 
@@ -358,6 +395,26 @@ app.post('/insert-activity-database', (req, res) => {
             console.error("Error inserting activities:", err);
             res.status(500).json({ message: "Error inserting activities", error: err });
         });
+});
+
+app.get('/student-participation-record/search', (req, res) => {
+    const idNumber = req.query.gridsearchIDNumber;
+    db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ studentFound: false });
+        } else {
+            if (results.length > 0) {
+                const studentData = results[0];
+                const departmentName = studentData.department_name;
+                req.session.departmentName = departmentName;
+
+                res.status(200).json({ studentFound: true, studentData });
+            } else {
+                res.status(404).json({ studentFound: false });
+            }
+        }
+    });
 });
 
 app.listen(5000, () => {

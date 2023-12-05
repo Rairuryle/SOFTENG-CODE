@@ -1120,3 +1120,7 @@ td {
 [class^="eventNameSpecific"] {
   margin: 0;
 }
+
+.disabled {
+  cursor: default;
+}

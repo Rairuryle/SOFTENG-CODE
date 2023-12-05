@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const eventName = eventNameElement.textContent.trim();
 
-            fetch(`/university-events-admin/eventroute?eventNameSpecific=${eventName}`)
+            fetch(`/student-participation-record/eventroute?eventNameSpecific=${eventName}`)
                 .then((response) => response.json())
                 .then((data) => {
 
@@ -57,8 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     localStorage.setItem("numberOfDays", numberOfDays);
 
                     setActivityDateRangeFromStorage();
-
-
 
                     const eventDaysDropdown = document.getElementById("activity-day-dropdown");
                     eventDaysDropdown.innerHTML = "";
@@ -91,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (selectedRole) {
                             const selectElement = document.querySelector(`select[data-row-id="${i}"]`);
                             if (selectElement) {
-
                                 const roleElement = selectElement.parentElement;
                                 const pointsElement = roleElement.nextElementSibling;
                                 const officerElement = pointsElement.nextElementSibling;
@@ -159,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Display activities
             if (eventData.eventData.activities && eventData.eventData.activities.length > 0) {
                 const eventId = eventData.eventData.event_id;
-                console.log("Clicked event ID:", eventData.eventData.event_id);
+                console.log("Event ID:", eventData.eventData.event_id);
 
                 const idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
                 console.log("Student ID:", idNumber);
@@ -185,6 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const roleElement = document.createElement("td");
 
                     const selectElement = document.createElement("select");
+                    selectElement.disabled = true; // Disable the select element
                     selectElement.name = "student role dropdown";
                     selectElement.classList.add("student-role-dropdown");
                     selectElement.setAttribute('data-row-id', index);
@@ -192,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const defaultOption = document.createElement("option");
                     defaultOption.selected = true;
                     defaultOption.disabled = true;
-                    defaultOption.textContent = "Select Student Role";
+                    defaultOption.textContent = "No Role Recorded";
                     selectElement.appendChild(defaultOption);
 
                     const roles = ["INDIV Participant", "TEAM Participant", "PROG. Spectator", "OTH. Spectator"];
@@ -206,52 +204,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     roleElement.appendChild(selectElement);
 
                     const pointsElement = document.createElement("td");
+
                     const officerElement = document.createElement("td");
-
-                    selectElement.addEventListener("change", function () {
-                        const selectedRole = this.value;
-                        let points;
-
-                        switch (selectedRole) {
-                            case "TEAM Participant":
-                                points = 15;
-                                break;
-                            case "INDIV Participant":
-                                points = 10;
-                                break;
-                            case "PROG. Spectator":
-                                points = 5;
-                                break;
-                            case "OTH. Spectator":
-                                points = 3;
-                                break;
-                            default:
-                                points = 0;
-                        }
-
-                        // Get the row index of the changed select element
-                        const rowIndex = parseInt(this.getAttribute('data-row-id'));
-
-                        // Update the points for the specific row
-                        const pointsElement = tableBody.rows[rowIndex].querySelector('td:nth-child(4)');
-                        pointsElement.textContent = points.toString();
-
-                        // Recalculate totalPoints by iterating through all rows
-                        calculateActivitySubtotal();
-
-                        const adminData = document.getElementById("adminData");
-                        let adminDataElement = tableBody.rows[rowIndex].querySelector('td:nth-child(5)');
-                        adminDataElement = adminData.textContent;
-                        adminDataElement = adminDataElement.split("|").pop().trim();
-
-                        officerElement.textContent = adminDataElement;
-
-                        const selectedOption = this.options[this.selectedIndex];
-                        this.style.color = getComputedStyle(selectedOption).color;
-
-                        localStorage.setItem(`selectedRole_student_${idNumber}_event_${eventId}_row_${rowIndex}`, selectedRole);
-                        localStorage.setItem(`officerElement_student_${idNumber}_event_${eventId}_row_${rowIndex}`, adminDataElement);
-                    });
 
                     row.appendChild(activityParentContainer);
                     row.appendChild(activityDateElement);
@@ -283,7 +237,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const loginAMElement = document.createElement("td");
                     const loginAM = document.createElement("input");
                     loginAM.type = "checkbox";
-                    loginAM.classList.add("ui-checkbox");
+                    loginAM.disabled = true;
+                    loginAM.classList.add("ui-checkbox", "disabled");
                     loginAM.name = "checkbox";
                     loginAM.setAttribute('data-attendance-row-id', index);
                     loginAMElement.appendChild(loginAM);
@@ -291,7 +246,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const loginPMElement = document.createElement("td");
                     const loginPM = document.createElement("input");
                     loginPM.type = "checkbox";
-                    loginPM.classList.add("ui-checkbox");
+                    loginPM.disabled = true;
+                    loginPM.classList.add("ui-checkbox", "disabled");
                     loginPM.name = "checkbox";
                     loginPM.setAttribute('data-attendance-row-id', index);
                     loginPMElement.appendChild(loginPM);
@@ -299,15 +255,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     const logoutPMElement = document.createElement("td");
                     const logoutPM = document.createElement("input");
                     logoutPM.type = "checkbox";
-                    logoutPM.classList.add("ui-checkbox");
+                    logoutPM.disabled = true;
+                    logoutPM.classList.add("ui-checkbox", "disabled");
                     logoutPM.name = "checkbox";
                     logoutPM.setAttribute('data-attendance-row-id', index);
                     logoutPMElement.appendChild(logoutPM);
+
+                    const officerElement = document.createElement("td");
 
                     attendanceRow.appendChild(attendanceDateElement);
                     attendanceRow.appendChild(loginAMElement);
                     attendanceRow.appendChild(loginPMElement);
                     attendanceRow.appendChild(logoutPMElement);
+                    attendanceRow.appendChild(officerElement);
 
                     const checkboxesInRow = attendanceRow.querySelectorAll('input[type="checkbox"]');
                     checkboxesInRow.forEach((checkbox) => {
@@ -331,11 +291,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     attendanceTableBody.appendChild(attendanceRow);
                 });
 
-                // const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
+                const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
                 const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
 
                 const handleCheckboxChange = () => {
-                    calculateAttendanceSubtotal();
+                    const attendanceSubtotal = document.getElementById("attendanceSubtotal");
+                    const pointsToAdd = 2;
+
+                    let subtotal = 0;
+
+                    checkboxes.forEach((checkbox) => {
+                        if (checkbox.checked) {
+                            subtotal += pointsToAdd;
+                        }
+                    });
+
+                    attendanceSubtotal.textContent = subtotal;
+
+                    localStorage.setItem(eventSubtotalKey, subtotal.toString());
                 };
 
                 // Retrieve the subtotal from localStorage if available
@@ -346,6 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Attach a single event listener to the attendanceTableBody to capture checkbox changes
                 attendanceTableBody.addEventListener('change', handleCheckboxChange);
+
 
                 if (tableBody.rows.length > 5) {
                     for (let i = 5; i < tableBody.rows.length; i++) {
@@ -379,6 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     });
                 }
+
 
                 if (attendanceTableBody.rows.length > 5) {
                     for (let i = 5; i < attendanceTableBody.rows.length; i++) {
@@ -458,41 +433,5 @@ function calculateActivitySubtotal() {
     if (activitySubtotalElement) {
         const totalPointsText = totalPoints.toString();
         activitySubtotalElement.textContent = totalPointsText;
-    }
-
-    calculateDailyPoints();
-}
-
-function calculateAttendanceSubtotal() {
-    const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
-    const pointsToAdd = 2; // Points to add for each checked checkbox
-
-    let subtotal = 0;
-
-    checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            subtotal += pointsToAdd;
-        }
-    });
-
-    // Update the attendanceSubtotal display and storage
-    const attendanceSubtotalElement = document.getElementById("attendanceSubtotal");
-    attendanceSubtotalElement.textContent = subtotal.toString();
-
-    const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
-    localStorage.setItem(eventSubtotalKey, subtotal.toString());
-
-    calculateDailyPoints();
-}
-
-function calculateDailyPoints() {
-    const activitySubtotal = parseInt(document.getElementById('activitySubtotal').textContent);
-    const attendanceSubtotal = parseInt(document.getElementById('attendanceSubtotal').textContent);
-
-    const dailyPoints = activitySubtotal + attendanceSubtotal;
-
-    const dailyPointsElement = document.getElementById("dailyPoints");
-    if (dailyPointsElement) {
-        dailyPointsElement.textContent = dailyPoints.toString();
     }
 }

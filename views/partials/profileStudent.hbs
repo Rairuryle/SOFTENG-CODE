@@ -30,11 +30,12 @@
 <div class="grid-item-eleven item-points">TOTAL POINTS ACQUIRED</div>
 <div class="grid-item-twelve item-points total-points points-title">CURRENT DAY</div>
 <div class="grid-item-thirteen item-points total-points grid-points">
-    <h1>8</h1>
+    <h1 id="dailyPoints"></h1>
 </div>
 <div class="grid-item-fourteen item-points total-points points-title">CURRENT SEMESTER</div>
 <div class="grid-item-fifteen item-points total-points grid-points">
-    <h1>32</h1>
+    <h1 id="semestralPoints">32</h1>
 </div>
 {{/if}}
-<script src="../js/searchStudentProfile.js"></script>
+
+<input type="hidden" id="isStudentURL" value="{{isStudentURL}}" />

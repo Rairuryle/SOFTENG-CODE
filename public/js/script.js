@@ -1,11 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const errorResponse = document.getElementById("errorResponse");
-    errorResponse.classList.remove("user-prompt", "slide-in");
-
-    const successResponse = document.getElementById("successResponse");
-    successResponse.classList.remove("user-prompt", "slide-in");
-
     function setActiveLink() {
         const activeLinkIndex = localStorage.getItem("activeLinkIndex");
         if (activeLinkIndex !== null) {
@@ -36,6 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("activeLinkIndex", index);
         });
     });
+
+    const errorResponse = document.getElementById("errorResponse");
+    errorResponse.classList.remove("user-prompt", "slide-in");
+
+    const successResponse = document.getElementById("successResponse");
+    successResponse.classList.remove("user-prompt", "slide-in");
 
     function editModeDirect() {
         let url = window.location.toString();

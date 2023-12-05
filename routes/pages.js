@@ -59,15 +59,50 @@ router.get('/help', (req, res) => {
 });
 
 router.get('/student-participation-record', (req, res) => {
+    const idNumber = req.query.id_number;
     const adminData = req.session.adminData;
-    const studentData = req.session.studentData;
+    const departmentName = req.session.departmentName;
+    const currentURL = req.url;
+    const isStudentURL = currentURL.includes("student");
+    const eventData = req.session.eventData;
 
-    res.render('student-participation-record', {
-        adminData,
-        studentData,
-        title: 'Student Participation Record | LSU Events and Attendance Tracking Website'
+    db.query('SELECT * FROM event', (error, events) => {
+        if (error) {
+            console.log(error);
+            res.redirect('/');
+        } else {
+            const institutionalEvents = events.filter(event => event.event_scope === 'INSTITUTIONAL');
+            const collegeEvents = events.filter(event => event.event_scope === departmentName);
+
+            db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
+                if (error) {
+                    console.log(error);
+                    res.redirect('/');
+                } else {
+                    if (results.length > 0) {
+                        const studentData = results[0];
+                        res.render('student-participation-record', {
+                            idNumber: idNumber,
+                            adminData,
+                            studentData,
+                            eventData,
+                            isStudentURL,
+                            institutionalEvents,
+                            collegeEvents,
+                            events: events.map(event => ({
+                                ...event,
+                                formattedStartDate: event.event_date_start.toLocaleDateString(),
+                                formattedEndDate: event.event_date_end.toLocaleDateString(),
+                            })), // Pass the events with formatted dates to the template
+                            title: 'LSU Events and Attendance Tracking Website',
+                        });
+                    } else {
+                        res.redirect('/');
+                    }
+                }
+            });
+        }
     });
-
     // const idNumber = req.query.id_number; // Get the ID number from the query parameters
     // const adminData = req.session.adminData;
     // const studentData = req.session.studentData;
@@ -143,7 +178,6 @@ router.get('/dashboard-add-student', (req, res) => {
 router.get('/university-events-admin', (req, res) => {
     if (req.session.isAuthenticated) {
         const idNumber = req.query.id_number;
-        console.log("ID back", idNumber);
         const adminData = req.session.adminData;
         const departmentName = req.session.departmentName;
         const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
@@ -152,6 +186,9 @@ router.get('/university-events-admin', (req, res) => {
         const isCollege = departmentName === adminData.organization;
         const currentURL = req.url;
         const isAdminURL = currentURL.includes("admin");
+        const isEditURL = currentURL.includes("edit");
+        const isAdminPageURL = isAdminURL && isEditURL;
+        const isStudentURL = currentURL.includes("student");
         const eventData = req.session.eventData;
 
         db.query('SELECT * FROM event', (error, events) => {
@@ -178,6 +215,9 @@ router.get('/university-events-admin', (req, res) => {
                                 isSAO,
                                 isCollege,
                                 isAdminURL,
+                                isEditURL,
+                                isAdminPageURL,
+                                isStudentURL,
                                 eventData,
                                 institutionalEvents,
                                 collegeEvents,
@@ -204,7 +244,6 @@ router.get('/university-events-admin', (req, res) => {
 router.get('/university-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {
         const idNumber = req.query.id_number;
-        console.log("ID back", idNumber);
         const adminData = req.session.adminData;
         const departmentName = req.session.departmentName;
         const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
@@ -213,6 +252,9 @@ router.get('/university-events-edit', (req, res) => {
         const isCollege = departmentName === adminData.organization;
         const currentURL = req.url;
         const isAdminURL = currentURL.includes("admin");
+        const isEditURL = currentURL.includes("edit");
+        const isAdminPageURL = isAdminURL && isEditURL;
+        const isStudentURL = currentURL.includes("student");
         const eventData = req.session.eventData;
 
         db.query('SELECT * FROM event', (error, events) => {
@@ -239,6 +281,9 @@ router.get('/university-events-edit', (req, res) => {
                                 isSAO,
                                 isCollege,
                                 isAdminURL,
+                                isEditURL,
+                                isAdminPageURL,
+                                isStudentURL,
                                 eventData,
                                 institutionalEvents,
                                 collegeEvents,
