@@ -1,4 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    // Object.filter = function (obj, func) {
+    //     var res = {};
+
+    //     for (var key in obj) {
+    //         // filter out own properties (not length) that pass the filter function
+    //         if (obj.hasOwnProperty(key) && key !== "length" && func(key, obj[key])) {
+    //             res[key] = obj[key];
+    //             console.log("res", res[key]);
+    //         }
+    //     };
+
+    //     return res;
+    // };
+
+    // var filtered = Object.filter(localStorage, function (i, v) {
+    //     return ~i.indexOf("dailyPoints");
+    // });
+
+    // $.each(filtered, function (i, v) {
+    //     console.log("each", i, v);
+    // });
+
     // Function to set activity date range based local storage
     function setActivityDateRangeFromStorage() {
         const startDate = new Date(localStorage.getItem("startDateEvent"));
@@ -57,8 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     localStorage.setItem("numberOfDays", numberOfDays);
 
                     setActivityDateRangeFromStorage();
-
-
 
                     const eventDaysDropdown = document.getElementById("activity-day-dropdown");
                     eventDaysDropdown.innerHTML = "";
@@ -135,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         }
     });
+
 
     function displayEventDetails(eventData, numberOfDays, selectedDay) {
         console.log("Event Data:", eventData);
@@ -332,7 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 // const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
-                const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
+                eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
 
                 const handleCheckboxChange = () => {
                     calculateAttendanceSubtotal();
@@ -445,6 +467,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // console.log(usage + "KB");
 });
 
+let eventSubtotalKey;
+
 function calculateActivitySubtotal() {
     let totalPoints = 0;
     const tableBody = document.getElementById("eventTableBody");
@@ -479,7 +503,7 @@ function calculateAttendanceSubtotal() {
     const attendanceSubtotalElement = document.getElementById("attendanceSubtotal");
     attendanceSubtotalElement.textContent = subtotal.toString();
 
-    const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
+    // const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
     localStorage.setItem(eventSubtotalKey, subtotal.toString());
 
     calculateDailyPoints();
@@ -494,5 +518,33 @@ function calculateDailyPoints() {
     const dailyPointsElement = document.getElementById("dailyPoints");
     if (dailyPointsElement) {
         dailyPointsElement.textContent = dailyPoints.toString();
+    }
+
+    // const eventDailyPoints = `dailyPoints_student_${idNumber}_event_${eventId}`;
+    // localStorage.setItem(eventDailyPoints, dailyPoints.toString());
+    // console.log("eventdp", eventDailyPoints);
+
+    localStorage.setItem("dailyPoints", dailyPoints.toString());
+
+    updateSemestralTotal();
+}
+
+function updateSemestralTotal() {
+    let semestralTotal = 0;
+    // Loop through all stored daily points and accumulate them
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.includes("dailyPoints")) {
+            const storedDailyPoints = parseInt(localStorage.getItem(key));
+            if (!isNaN(storedDailyPoints)) {
+                semestralTotal += storedDailyPoints;
+            }
+        }
+    }
+
+    // Update the semestralPoints element
+    const semestralPointsElement = document.getElementById("semestralPoints");
+    if (semestralPointsElement) {
+        semestralPointsElement.textContent = semestralTotal.toString();
     }
 }

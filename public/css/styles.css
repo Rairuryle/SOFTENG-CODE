@@ -823,16 +823,25 @@ td {
 
 .grid-item-sixteen {
   grid-area: verification;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  margin-top: 0.4rem;
+  padding: 0.5rem 0;
 }
+
+.grid-item-sixteen img {
+  width: 1.8rem;
+}
+
 .grid-item-seventeen {
   grid-area: activity-subtotal;
 }
 
-.results-grid-container {
+.results-grid-container,
+.results-grid-container-attendance {
   display: grid;
-  grid-template-areas:
-    "verification verification"
-    "activity-subtotal activity-subtotal";
   gap: 1rem;
   padding-top: 0.4rem;
   background-color: #61876e;
@@ -846,21 +855,27 @@ td {
   border-top-right-radius: 15px;
 }
 
+.results-grid-container {
+  grid-template-areas:
+    "verification verification"
+    "activity-subtotal activity-subtotal";
+}
+
+.grid-item-eighteen {
+  grid-area: attendance-subtotal;
+}
+
+.results-grid-container-attendance {
+  grid-template-areas: "attendance-subtotal attendance-subtotal";
+}
+
 .grid-item-sixteen,
-.grid-item-seventeen {
+.grid-item-seventeen,
+.grid-item-eighteen {
   background-color: white;
   width: 12rem;
   text-align: center;
   color: var(--darkest-green);
-}
-
-.grid-item-sixteen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  margin-top: 0.4rem;
-  padding: 0.5rem 0;
 }
 
 .verification-item {
@@ -928,11 +943,8 @@ td {
   transform: rotate(45deg);
 }
 
-.grid-item-sixteen img {
-  width: 1.8rem;
-}
-
-.grid-item-seventeen {
+.grid-item-seventeen,
+.grid-item-eighteen {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   padding-top: 1.5rem;
