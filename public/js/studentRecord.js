@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to set activity date range based local storage
     function setActivityDateRangeFromStorage() {
         const startDate = new Date(localStorage.getItem("startDateEvent"));
         const endDate = new Date(localStorage.getItem("endDateEvent"));
@@ -7,12 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function setActivityDateRange(startDate, endDate) {
-        // Adjust for time zone offset
         const timezoneOffset = startDate.getTimezoneOffset();
         startDate.setMinutes(startDate.getMinutes() - timezoneOffset);
         endDate.setMinutes(endDate.getMinutes() - timezoneOffset);
 
-        // Select all activitydate inputs dynamically
         const activityDateInputs = document.querySelectorAll("input[name='activitydate[]']");
         const activityDateInputsRecord = document.querySelectorAll("input[name='activitydateRecord[]']");
 
@@ -44,10 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     localStorage.setItem("eventData", JSON.stringify(data));
 
-                    const eventId = data.eventData.event_id;
-                    const idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
+                    eventId = data.eventData.event_id;
 
-                    // Extract the start and end dates from the fetched event data
+                    eventStudentID = `student_ID_${idNumber}_event_ID_${eventId}`;
+                    localStorage.setItem("eventStudentID", eventStudentID);
+
                     const startDate = moment(data.eventData.event_date_start);
                     const endDate = moment(data.eventData.event_date_end);
                     const numberOfDays = endDate.diff(startDate, 'days') + 1;
@@ -97,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                     const optionToSelect = [...selectElement.options].find(option => option.value === selectedRole);
 
                                     if (optionToSelect) {
-                                        // Update the selected option in the dropdown
                                         optionToSelect.selected = true;
                                         selectElement.style.color = getComputedStyle(optionToSelect).color;
 
@@ -144,24 +141,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             recordEventName.textContent = `${eventData.eventData.event_name}`;
 
-            // console.log("Selected Day from localStorage function:", selectedDay);
-
             const tableBody = document.getElementById("eventTableBody");
             const attendanceTableBody = document.getElementById("attendanceTableBody");
 
-            // Clear the table body before adding new rows
             tableBody.innerHTML = "";
             attendanceTableBody.innerHTML = "";
 
-            // Display activities
             if (eventData.eventData.activities && eventData.eventData.activities.length > 0) {
                 const eventId = eventData.eventData.event_id;
                 console.log("Event ID:", eventData.eventData.event_id);
-
-                const idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
-                console.log("Student ID:", idNumber);
-
-                let totalPoints = 0;
 
                 eventData.eventData.activities.forEach((activity, index) => {
                     const row = document.createElement("tr");
@@ -182,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const roleElement = document.createElement("td");
 
                     const selectElement = document.createElement("select");
-                    selectElement.disabled = true; // Disable the select element
+                    selectElement.disabled = true;
                     selectElement.name = "student role dropdown";
                     selectElement.classList.add("student-role-dropdown");
                     selectElement.setAttribute('data-row-id', index);
@@ -276,8 +264,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         const parentTDIndex = Array.from(parentTD.parentNode.children).indexOf(parentTD);
                         const checkboxKey = `attendanceStatus_student_${idNumber}_event_${eventId}_row_${attendanceRowId}_td_${parentTDIndex}_day_${formattedDate}`;
 
-                        // console.log(attendanceRowId, parentTDIndex, formattedDate);
-
                         const checkboxState = localStorage.getItem(checkboxKey);
                         if (checkboxState === 'true') {
                             checkbox.checked = true;
@@ -291,33 +277,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     attendanceTableBody.appendChild(attendanceRow);
                 });
 
-                const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
-                const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
+                eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
 
                 const handleCheckboxChange = () => {
-                    const attendanceSubtotal = document.getElementById("attendanceSubtotal");
-                    const pointsToAdd = 2;
-
-                    let subtotal = 0;
-
-                    checkboxes.forEach((checkbox) => {
-                        if (checkbox.checked) {
-                            subtotal += pointsToAdd;
-                        }
-                    });
-
-                    attendanceSubtotal.textContent = subtotal;
-
-                    localStorage.setItem(eventSubtotalKey, subtotal.toString());
+                    calculateAttendanceSubtotal();
                 };
 
-                // Retrieve the subtotal from localStorage if available
                 const storedSubtotal = localStorage.getItem(eventSubtotalKey);
                 if (storedSubtotal) {
                     document.getElementById("attendanceSubtotal").textContent = storedSubtotal;
                 }
 
-                // Attach a single event listener to the attendanceTableBody to capture checkbox changes
                 attendanceTableBody.addEventListener('change', handleCheckboxChange);
 
 
@@ -398,27 +368,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const eventDataLocal = JSON.parse(localStorage.getItem("eventData"));
 
     const numberOfDaysLocal = localStorage.getItem("numberOfDays");
-    // console.log("days", numberOfDaysLocal);
 
     let selectedDay = localStorage.getItem("selectedDay");
-    // console.log("Selected day from localStorage:", selectedDay);
 
     if (!selectedDay) {
         selectedDay = "1";
-        // console.log("Setting default selected day to 1");
     }
 
-    // console.log("Before displaying event details - Selected day:", selectedDay);
-
     displayEventDetails(eventDataLocal, numberOfDaysLocal, selectedDay);
-
-    // console.log("After displaying event details - Selected day:", selectedDay);
-
-    // var _lsTotal = 0, _xLen, _x; for (_x in localStorage) { if (!localStorage.hasOwnProperty(_x)) { continue; } _xLen = ((localStorage[_x].length + _x.length) * 2); _lsTotal += _xLen; console.log(_x.substr(0, 50) + " = " + (_xLen / 1024).toFixed(2) + " KB") }; console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
-
-    // const usage = (JSON.stringify(localStorage).length / 1024);
-    // console.log(usage + "KB");
 });
+
+let eventStudentID;
+
+let eventSubtotalKey;
+
+let idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
+console.log("Student ID:", idNumber);
+
+let eventId;
 
 function calculateActivitySubtotal() {
     let totalPoints = 0;
@@ -434,4 +401,66 @@ function calculateActivitySubtotal() {
         const totalPointsText = totalPoints.toString();
         activitySubtotalElement.textContent = totalPointsText;
     }
+
+    calculateDailyPoints(idNumber, eventId);
+}
+
+function calculateAttendanceSubtotal() {
+    const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
+    const pointsToAdd = 2;
+
+    let subtotal = 0;
+
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            subtotal += pointsToAdd;
+        }
+    });
+
+    const attendanceSubtotalElement = document.getElementById("attendanceSubtotal");
+    attendanceSubtotalElement.textContent = subtotal.toString();
+
+    localStorage.setItem(eventSubtotalKey, subtotal.toString());
+
+    calculateDailyPoints(idNumber, eventId);
+}
+
+function calculateDailyPoints(idNumber, eventId) {
+    const activitySubtotal = parseInt(document.getElementById('activitySubtotal').textContent);
+    const attendanceSubtotal = parseInt(document.getElementById('attendanceSubtotal').textContent);
+
+    const dailyPoints = activitySubtotal + attendanceSubtotal;
+
+    const dailyPointsElement = document.getElementById("dailyPoints");
+    if (dailyPointsElement) {
+        dailyPointsElement.textContent = dailyPoints.toString();
+    }
+
+    const eventDailyPointsKey = `student_${idNumber}_event_${eventId}_dailyPoints_${dailyPoints}`;
+    localStorage.setItem(eventDailyPointsKey, dailyPoints.toString());
+
+    updateSemestralTotal();
+}
+
+function updateSemestralTotal() {
+    let semestralTotal = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.includes("dailyPoints")) {
+            const storedDailyPoints = parseInt(localStorage.getItem(key));
+            if (!isNaN(storedDailyPoints)) {
+                semestralTotal += storedDailyPoints;
+            }
+        }
+    }
+
+    const semestralPointsElement = document.getElementById("semestralPoints");
+    if (semestralPointsElement) {
+        semestralPointsElement.textContent = semestralTotal.toString();
+    }
+}
+
+function setEventStudentID(idNumber, eventId) {
+    eventStudentID = `student_ID_${idNumber}_event_ID_${eventId}`;
+    localStorage.setItem("eventStudentID", eventStudentID);
 }

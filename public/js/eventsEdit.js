@@ -139,6 +139,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     setActivityDateRangeFromStorage();
 
+                    collectAttendanceData(eventId);
+
                     const eventDaysDropdown = document.getElementById("activity-day-dropdown");
                     eventDaysDropdown.innerHTML = "";
 
@@ -177,6 +179,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const recordEventName = document.getElementById("recordEventName");
         recordEventName.innerHTML = "";
 
+        const isSAO = document.querySelector('#isSAO').value === "true";
+
         if (eventData && eventData.eventFound) {
             console.log("Event found:", eventData.eventData.event_name);
 
@@ -204,41 +208,71 @@ document.addEventListener("DOMContentLoaded", function () {
                     activityContainer.classList.add("flex-container");
                     activityParentContainer.appendChild(activityContainer);
 
-                    const editActivityImages = document.createElement("div");
-                    editActivityImages.classList.add("flex-container", "edit-activity-images");
-                    activityContainer.appendChild(editActivityImages);
+                    if (isSAO && eventData.eventData.event_scope !== "INSTITUTIONAL") {
+                        // Remove elements if the condition is true
+                        const elementsToRemove = [
+                            ".edit-activity-images",
+                            ".myButtonActivityEdit",
+                            ".img-edit-activity-details",
+                            ".myButtonActivityDelete",
+                            ".img-delete-activity"
+                        ];
 
-                    const myButtonActivityEdit = document.createElement("button");
-                    myButtonActivityEdit.type = "button";
-                    myButtonActivityEdit.id = "myButtonActivityEdit1";
-                    myButtonActivityEdit.classList.add("myButtonActivityEdit", "modify-button");
-                    myButtonActivityEdit.setAttribute("data-popup-id", "myPopupActivityEdit1");
-                    editActivityImages.appendChild(myButtonActivityEdit);
+                        elementsToRemove.forEach(selector => {
+                            const element = row.querySelector(selector);
+                            if (element) {
+                                element.remove();
+                            }
+                        });
 
-                    const imgEditActivityDetails = document.createElement("img");
-                    imgEditActivityDetails.src = "../img/Edit (1).png";
-                    imgEditActivityDetails.alt = "Edit Activity";
-                    imgEditActivityDetails.classList.add("img-edit-activity-details");
-                    myButtonActivityEdit.appendChild(imgEditActivityDetails);
+                        // Create and append the activityNameElement if it's removed due to the condition
+                        const activityNameElement = document.createElement("p");
+                        activityNameElement.id = `recordActivityName${index}`;
+                        activityNameElement.classList.add("activityNameSpecific", "activityNameSpecificEdit");
+                        activityNameElement.textContent = activity.activity_name;
+                        activityNameElement.style.width = "100%";
+                        activityNameElement.style.textAlign = "center";
+                        activityContainer.appendChild(activityNameElement);
+                    } else {
+                        const editActivityImages = document.createElement("div");
+                        editActivityImages.classList.add("flex-container", "edit-activity-images");
+                        editActivityImages.style.width = "100%";
+                        editActivityImages.style.justifyContent = "center";
+                        activityContainer.appendChild(editActivityImages);
 
-                    const myButtonActivityDelete = document.createElement("button");
-                    myButtonActivityDelete.type = "button";
-                    myButtonActivityDelete.id = "myButtonActivityDelete";
-                    myButtonActivityDelete.classList.add("myButtonActivityDelete", "modify-button");
-                    myButtonActivityDelete.setAttribute("data-popup-id", "myButtonActivityDelete");
-                    editActivityImages.appendChild(myButtonActivityDelete);
+                        const myButtonActivityEdit = document.createElement("button");
+                        myButtonActivityEdit.type = "button";
+                        myButtonActivityEdit.id = "myButtonActivityEdit1";
+                        myButtonActivityEdit.classList.add("myButtonActivityEdit", "modify-button");
+                        myButtonActivityEdit.setAttribute("data-popup-id", "myPopupActivityEdit1");
+                        editActivityImages.appendChild(myButtonActivityEdit);
 
-                    const imgDeleteActivity = document.createElement("img");
-                    imgDeleteActivity.src = "../img/Cancel.png";
-                    imgDeleteActivity.alt = "Delete Activity";
-                    imgDeleteActivity.classList.add("img-delete-activity");
-                    myButtonActivityDelete.appendChild(imgDeleteActivity);
+                        const imgEditActivityDetails = document.createElement("img");
+                        imgEditActivityDetails.src = "../img/Edit (1).png";
+                        imgEditActivityDetails.alt = "Edit Activity";
+                        imgEditActivityDetails.classList.add("img-edit-activity-details");
+                        myButtonActivityEdit.appendChild(imgEditActivityDetails);
 
-                    const activityNameElement = document.createElement("p");
-                    activityNameElement.id = `recordActivityName${index}`;
-                    activityNameElement.classList.add("activityNameSpecific", "activityNameSpecificEdit");
-                    activityNameElement.textContent = activity.activity_name;
-                    editActivityImages.appendChild(activityNameElement);
+                        const myButtonActivityDelete = document.createElement("button");
+                        myButtonActivityDelete.type = "button";
+                        myButtonActivityDelete.id = "myButtonActivityDelete";
+                        myButtonActivityDelete.classList.add("myButtonActivityDelete", "modify-button");
+                        myButtonActivityDelete.setAttribute("data-popup-id", "myButtonActivityDelete");
+                        editActivityImages.appendChild(myButtonActivityDelete);
+
+                        const imgDeleteActivity = document.createElement("img");
+                        imgDeleteActivity.src = "../img/Cancel.png";
+                        imgDeleteActivity.alt = "Delete Activity";
+                        imgDeleteActivity.classList.add("img-delete-activity");
+                        myButtonActivityDelete.appendChild(imgDeleteActivity);
+
+                        const activityNameElement = document.createElement("p");
+                        activityNameElement.id = `recordActivityName${index}`;
+                        activityNameElement.classList.add("activityNameSpecific", "activityNameSpecificEdit");
+                        activityNameElement.textContent = activity.activity_name;
+                        editActivityImages.appendChild(activityNameElement);
+                    }
+
 
                     const activityDateElement = document.createElement("td");
                     activityDateElement.id = `recordActivityDate${index}`;
@@ -388,6 +422,7 @@ confirmButtons.forEach((button) => {
                 document.getElementById("endDateEvent").value
             ),
             activities: collectActivitiesData(),
+            attendance: collectAttendanceData(),
         };
 
         // Send the data to the server using the Fetch API
@@ -450,7 +485,6 @@ confirmButtons.forEach((button) => {
     });
 });
 
-
 function collectActivitiesData(eventId) {
     const activityInputs = document.querySelectorAll("input[name='activityname[]']");
     const dateInputs = document.querySelectorAll("input[name='activitydate[]']");
@@ -483,6 +517,29 @@ function collectActivitiesData(eventId) {
     return activitiesData;
 }
 
+function collectAttendanceData(eventId) {
+    const startDate = new Date(localStorage.getItem("startDateEvent"));
+    const endDate = new Date(localStorage.getItem("endDateEvent"));
+    const numberOfDays = Math.floor((endDate - startDate) / (24 * 60 * 60 * 1000)) + 1;
+
+    const attendanceDates = [];
+
+    for (let i = 0; i < numberOfDays; i++) {
+        const currentDate = new Date(startDate);
+        currentDate.setDate(currentDate.getDate() + i);
+
+        const formattedDate = currentDate.toISOString().substring(0, 10);
+        attendanceDates.push({
+            formattedDate,
+            eventId
+        });
+    }
+
+    console.log("Attendance Dates:", attendanceDates);
+
+    return attendanceDates;
+}
+
 
 const confirmActivityButton = document.querySelectorAll(".confirmActivityButton");
 
@@ -490,7 +547,7 @@ confirmActivityButton.forEach((button) => {
     button.addEventListener("click", (event) => {
         event.preventDefault();
 
-        const eventId = localStorage.getItem("currentEventId"); // Retrieve the event ID
+        const eventId = localStorage.getItem("currentEventId");
         console.log("local curent", eventId);
 
         const activitiesData = insertActivitiesData(eventId);
@@ -577,7 +634,7 @@ function insertActivitiesData(eventId) {
                 activityInput,
                 dateInput: dateInputs[index],
             });
-            return; // Skip this iteration if data is undefined
+            return;
         }
 
         activitiesData.push({
@@ -589,6 +646,7 @@ function insertActivitiesData(eventId) {
 
     return activitiesData;
 }
+
 
 function calculateEventDays(startDate, endDate) {
     const start = new Date(startDate);

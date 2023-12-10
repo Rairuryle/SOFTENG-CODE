@@ -3,10 +3,10 @@ const path = require('path');
 const mysql = require("mysql");
 const dotenv = require('dotenv');
 const exphbs = require('express-handlebars');
-const session = require('express-session'); // Import express-session
-const authMiddleware = require('./middleware/authMiddleware'); // Import the authentication middleware
-const bodyParser = require('body-parser'); // For parsing form data
-const fs = require('fs'); // Adding the File System module
+const session = require('express-session');
+const authMiddleware = require('./middleware/authMiddleware'); // Import authentication middleware
+const bodyParser = require('body-parser'); // Parsing form data
+const fs = require('fs'); // File System module
 
 dotenv.config({ path: './.env' });
 
@@ -38,7 +38,7 @@ app.set('view engine', 'hbs');
 
 // Configure express-session
 app.use(session({
-    secret: 'kakaka', // Replace with a strong, random key
+    secret: 'kakaka',
     resave: true,
     saveUninitialized: true
 }));
@@ -51,14 +51,14 @@ db.connect((error) => {
     }
 })
 
-//define routes
+// define routes
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 app.use('/dashboard', authMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//hard drive space
+// hard drive space
 // function getDirectorySize(directoryPath) {
 //     let totalSize = 0;
 //     const files = fs.readdirSync(directoryPath);
@@ -216,7 +216,8 @@ app.post('/insert-event-database', (req, res) => {
         endDateEvent,
         eventScope,
         eventDays,
-        activities
+        activities,
+        // attendance,
     } = req.body;
 
     const formattedStartDate = new Date(startDateEvent).toISOString().substring(0, 10);
@@ -247,34 +248,86 @@ app.post('/insert-event-database', (req, res) => {
                     // Array to store promises for each activity insertion
                     const insertionPromises = [];
 
-                    // Loop through the array of activities only if it is not empty
                     if (activities.length > 0) {
                         activities.forEach(({ activityName, activityDate }) => {
-                            // Check if both activityName and activityDate are defined before processing
                             if (activityName && activityDate) {
                                 const formattedActivityDate = new Date(activityDate).toISOString().substring(0, 10);
-                                const insertionPromise = new Promise((resolve, reject) => {
-                                    db.query('INSERT INTO activities SET ?', {
-                                        activity_name: activityName,
-                                        activity_date: formattedActivityDate,
-                                        event_id: eventId,
-                                    }, (error, activityResults) => {
-                                        if (error) {
-                                            console.log(error);
-                                            reject(`Error inserting activity ${activityName} data`);
-                                        } else {
-                                            // console.log("Activity results: ", activityResults);
-                                            resolve({ message: `Activity ${activityName} successfully created` });
-                                        }
-                                    });
-                                });
 
-                                insertionPromises.push(insertionPromise);
+                                const startDate = new Date(startDateEvent); // Convert to a date object
+                                const activityDateTime = new Date(activityDate);
+
+                                const timeDifference = activityDateTime - startDate; // Difference between activity date and event start date
+                                const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24) + 1); // number of days
+                                db.query('INSERT INTO activities SET ?', {
+                                    activity_name: activityName,
+                                    activity_date: formattedActivityDate,
+                                    event_id: eventId,
+                                    event_day: dayDifference,
+                                }, (error, activityResults) => {
+                                    if (error) {
+                                        console.log(error);
+                                    } else {
+                                        console.log(`Activity ${activityName} successfully created with event day: ${dayDifference}`);
+
+                                        db.query('INSERT INTO event_day (event_id, activity_id, event_day) VALUES (?, ?, ?)', [eventId, activityResults.insertId, dayDifference], (error) => {
+                                            if (error) {
+                                                console.log(error);
+                                            } else {
+                                                console.log(`Event_day entry for activity ${activityName} successfully created`);
+                                            }
+                                        });
+                                    }
+                                });
                             } else {
                                 console.log('Skipping activity with undefined name or date:', { activityName, formattedActivityDate });
                             }
                         });
                     }
+
+                    // if (attendance.length > 0) {
+                    //     attendance.forEach((attendanceDate) => {
+                    //         if (isValidAttendanceDate(attendanceDate)) {
+                    //             const formattedAttendanceDate = new Date(attendanceDate.formattedDate).toISOString().substring(0, 10);
+                    //             const eventStartDate = new Date(startDateEvent);
+                    //             const attendanceDateTime = new Date(attendanceDate.formattedDate);
+
+                    //             if (attendanceDateTime >= eventStartDate) {
+                    //                 const timeDifference = attendanceDateTime - eventStartDate;
+                    //                 const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) + 1;
+
+                    //                 const promise = new Promise((resolve, reject) => {
+                    //                     db.query('INSERT INTO attendance SET ?', {
+                    //                         attendance_date: formattedAttendanceDate,
+                    //                         event_id: eventId,
+                    //                         event_day: dayDifference,
+                    //                     }, (error, attendanceResults) => {
+                    //                         if (error) {
+                    //                             console.log(error);
+                    //                             reject(error);
+                    //                         } else {
+                    //                             console.log(`Attendance date ${formattedAttendanceDate} successfully created with event day: ${dayDifference}`);
+                    //                             resolve(attendanceResults);
+                    //                         }
+                    //                     });
+                    //                 });
+
+                    //                 insertionPromises.push(promise);
+                    //             } else {
+                    //                 console.error('Attendance date is before the event start date:', attendanceDate.formattedDate);
+                    //             }
+                    //         } else {
+                    //             console.error('Invalid attendance date:', attendanceDate.formattedDate);
+                    //         }
+                    //     });
+                    // }
+
+                    // function isValidAttendanceDate(date) {
+                    //     return (
+                    //         date &&
+                    //         typeof date.formattedDate === 'string' &&
+                    //         !isNaN(Date.parse(date.formattedDate))
+                    //     );
+                    // }
 
                     // Wait for all promises to settle
                     Promise.allSettled(insertionPromises)
@@ -293,6 +346,7 @@ app.post('/insert-event-database', (req, res) => {
                                         message: `Event ${eventnameInput} and its activities successfully created`,
                                         events: events,
                                         activities: successfulResults.map((result) => result.value),
+                                        // attendance: successfulResults.map((result) => result.value),
                                         errors: failedResults.map((result) => result.reason),
                                     });
                                 }
@@ -363,39 +417,75 @@ app.get('/student-participation-record/eventroute', (req, res) => {
 app.post('/insert-activity-database', (req, res) => {
     const { eventId, activities } = req.body;
 
-    const insertionPromises = activities.map((activity) => {
-        const { activityName, activityDate } = activity;
-        const formattedActivityDate = new Date(activityDate).toISOString().substring(0, 10);
+    db.query('SELECT event_date_start, event_days FROM event WHERE event_id = ?', [eventId], (error, eventResult) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ message: `Error fetching event data for event ID ${eventId}` });
+        }
 
-        return new Promise((resolve, reject) => {
-            db.query(
-                'INSERT INTO activities SET ?',
-                {
-                    activity_name: activityName,
-                    activity_date: formattedActivityDate,
-                    event_id: eventId,
-                },
-                (error, activityResults) => {
-                    if (error) {
-                        console.error(error);
-                        reject(`Error inserting activity ${activityName} data`);
+        if (eventResult.length > 0) {
+            const eventStartDate = new Date(eventResult[0].event_date_start);
+            const eventDays = eventResult[0].event_days;
+
+            const insertionPromises = activities.map((activity) => {
+                const { activityName, activityDate } = activity;
+                const formattedActivityDate = new Date(activityDate).toISOString().substring(0, 10);
+
+                const currentActivityDate = new Date(formattedActivityDate);
+                const timeDifference = currentActivityDate - eventStartDate;
+                const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+                return new Promise((resolve, reject) => {
+                    if (dayDifference <= eventDays) {
+                        db.query(
+                            'INSERT INTO activities SET ?',
+                            {
+                                activity_name: activityName,
+                                activity_date: formattedActivityDate,
+                                event_id: eventId,
+                                event_day: dayDifference,
+                            },
+                            (error, activityResults) => {
+                                if (error) {
+                                    console.error(error);
+                                    reject(`Error inserting activity ${activityName} data`);
+                                } else {
+                                    const activityId = activityResults.insertId;
+                                    resolve(`Activity ${activityName} successfully created with event day: ${dayDifference}`);
+
+                                    db.query(
+                                        'INSERT INTO event_day (event_id, activity_id, event_day) VALUES (?, ?, ?)',
+                                        [eventId, activityId, dayDifference],
+                                        (error, eventDayResults) => {
+                                            if (error) {
+                                                console.error(error);
+                                                reject(`Error inserting event_day data for activity ${activityName}`);
+                                            }
+                                        }
+                                    );
+                                }
+                            }
+                        );
                     } else {
-                        resolve(`Activity ${activityName} successfully created`);
+                        resolve(`Activity ${activityName} skipped: beyond event days`);
                     }
-                }
-            );
-        });
-    });
+                });
+            });
 
-    Promise.all(insertionPromises)
-        .then((results) => {
-            res.status(200).json({ message: "Activities added successfully", results });
-        })
-        .catch((err) => {
-            console.error("Error inserting activities:", err);
-            res.status(500).json({ message: "Error inserting activities", error: err });
-        });
+            Promise.all(insertionPromises)
+                .then((results) => {
+                    res.status(200).json({ message: "Activities added successfully", results });
+                })
+                .catch((err) => {
+                    console.error("Error inserting activities:", err);
+                    res.status(500).json({ message: "Error inserting activities", error: err });
+                });
+        } else {
+            return res.status(404).json({ message: `Event with ID ${eventId} not found` });
+        }
+    });
 });
+
 
 app.get('/student-participation-record/search', (req, res) => {
     const idNumber = req.query.gridsearchIDNumber;

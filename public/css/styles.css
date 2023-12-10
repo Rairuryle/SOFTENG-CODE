@@ -443,9 +443,10 @@ main {
   width: 5.5rem;
   text-align: center;
   font-size: 0.7rem;
-  display: flex; /* Add this to use flexbox */
-  flex-direction: column; /* Stack child elements vertically */
-  justify-content: center; /* Vertically center the text */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: uppercase;
 }
 
 /* department, course, year */
@@ -1042,13 +1043,11 @@ td {
   --primary-color: var(--main-green);
   --secondary-color: #fff;
   --primary-hover-color: #4096ff;
-  /* checkbox */
-  --checkbox-diameter: 20px;
+  /* --checkbox-diameter: 20px;
   --checkbox-border-radius: 5px;
   --checkbox-border-color: #70a896;
   --checkbox-border-width: 1px;
   --checkbox-border-style: solid;
-  /* checkmark */
   --checkmark-size: 1.2;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1062,7 +1061,7 @@ td {
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
-  position: relative;
+  position: relative; */
   pointer-events: none;
 }
 

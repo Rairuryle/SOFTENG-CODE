@@ -67,8 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     localStorage.setItem("eventData", JSON.stringify(data));
 
-                    const eventId = data.eventData.event_id;
-                    const idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
+                    eventId = data.eventData.event_id;
+
+                    eventStudentID = `student_ID_${idNumber}_event_ID_${eventId}`;
+                    localStorage.setItem("eventStudentID", eventStudentID);
 
                     // Extract the start and end dates from the fetched event data
                     const startDate = moment(data.eventData.event_date_start);
@@ -164,6 +166,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const recordEventName = document.getElementById("recordEventName");
         recordEventName.innerHTML = "";
 
+        const isSAO = document.querySelector('#isSAO').value === "true";
+
         if (eventData && eventData.eventFound) {
             console.log("Event found:", eventData.eventData.event_name);
 
@@ -183,10 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const eventId = eventData.eventData.event_id;
                 console.log("Clicked event ID:", eventData.eventData.event_id);
 
-                const idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
-                console.log("Student ID:", idNumber);
-
-                let totalPoints = 0;
+                // let totalPoints = 0;
 
                 eventData.eventData.activities.forEach((activity, index) => {
                     const row = document.createElement("tr");
@@ -210,6 +211,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     selectElement.name = "student role dropdown";
                     selectElement.classList.add("student-role-dropdown");
                     selectElement.setAttribute('data-row-id', index);
+
+                    if (isSAO && eventData.eventData.event_scope !== "INSTITUTIONAL") {
+                        selectElement.disabled = true;
+                    }
 
                     const defaultOption = document.createElement("option");
                     defaultOption.selected = true;
@@ -258,7 +263,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         const pointsElement = tableBody.rows[rowIndex].querySelector('td:nth-child(4)');
                         pointsElement.textContent = points.toString();
 
-                        // Recalculate totalPoints by iterating through all rows
                         calculateActivitySubtotal();
 
                         const adminData = document.getElementById("adminData");
@@ -290,6 +294,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 const endDate = moment(eventData.eventData.event_date_end);
                 const numberOfDays = endDate.diff(startDate, 'days') + 1;
 
+                function createCheckbox(type, index) {
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.classList.add("ui-checkbox");
+                    checkbox.name = "checkbox";
+                    checkbox.setAttribute('data-attendance-row-id', index);
+
+                    const checkboxElement = document.createElement("td");
+                    checkboxElement.appendChild(checkbox);
+
+                    if (isSAO && eventData.eventData.event_scope !== "INSTITUTIONAL") {
+                        checkboxElement.classList.add("disabled-checkbox");
+                    }
+
+                    return checkboxElement;
+                }
+
                 const dateArray = [];
                 for (let i = 0; i < numberOfDays; i++) {
                     dateArray.push(startDate.clone().add(i, 'days').format('MM/DD/YYYY'));
@@ -302,29 +323,39 @@ document.addEventListener("DOMContentLoaded", function () {
                     attendanceDateElement.id = `attendanceDate${index}`;
                     attendanceDateElement.textContent = formattedDate;
 
-                    const loginAMElement = document.createElement("td");
-                    const loginAM = document.createElement("input");
-                    loginAM.type = "checkbox";
-                    loginAM.classList.add("ui-checkbox");
-                    loginAM.name = "checkbox";
-                    loginAM.setAttribute('data-attendance-row-id', index);
-                    loginAMElement.appendChild(loginAM);
+                    const loginAMElement = createCheckbox("loginAM", index);
+                    const loginPMElement = createCheckbox("loginPM", index);
+                    const logoutPMElement = createCheckbox("logoutPM", index);
 
-                    const loginPMElement = document.createElement("td");
-                    const loginPM = document.createElement("input");
-                    loginPM.type = "checkbox";
-                    loginPM.classList.add("ui-checkbox");
-                    loginPM.name = "checkbox";
-                    loginPM.setAttribute('data-attendance-row-id', index);
-                    loginPMElement.appendChild(loginPM);
+                    // const loginAMElement = document.createElement("td");
+                    // const loginAM = document.createElement("input");
+                    // loginAM.type = "checkbox";
+                    // loginAM.classList.add("ui-checkbox");
+                    // loginAM.name = "checkbox";
+                    // loginAM.setAttribute('data-attendance-row-id', index);
+                    // loginAMElement.appendChild(loginAM);
 
-                    const logoutPMElement = document.createElement("td");
-                    const logoutPM = document.createElement("input");
-                    logoutPM.type = "checkbox";
-                    logoutPM.classList.add("ui-checkbox");
-                    logoutPM.name = "checkbox";
-                    logoutPM.setAttribute('data-attendance-row-id', index);
-                    logoutPMElement.appendChild(logoutPM);
+                    // const loginPMElement = document.createElement("td");
+                    // const loginPM = document.createElement("input");
+                    // loginPM.type = "checkbox";
+                    // loginPM.classList.add("ui-checkbox");
+                    // loginPM.name = "checkbox";
+                    // loginPM.setAttribute('data-attendance-row-id', index);
+                    // loginPMElement.appendChild(loginPM);
+
+                    // const logoutPMElement = document.createElement("td");
+                    // const logoutPM = document.createElement("input");
+                    // logoutPM.type = "checkbox";
+                    // logoutPM.classList.add("ui-checkbox");
+                    // logoutPM.name = "checkbox";
+                    // logoutPM.setAttribute('data-attendance-row-id', index);
+                    // logoutPMElement.appendChild(logoutPM);
+
+                    // if (isSAO && eventData.eventData.event_scope !== "INSTITUTIONAL") {
+                    //     loginAMElement.classList.add("disabled-checkbox");
+                    //     loginPMElement.classList.add("disabled-checkbox");
+                    //     logoutPMElement.classList.add("disabled-checkbox");
+                    // }
 
                     attendanceRow.appendChild(attendanceDateElement);
                     attendanceRow.appendChild(loginAMElement);
@@ -360,13 +391,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     calculateAttendanceSubtotal();
                 };
 
-                // Retrieve the subtotal from localStorage if available
                 const storedSubtotal = localStorage.getItem(eventSubtotalKey);
                 if (storedSubtotal) {
                     document.getElementById("attendanceSubtotal").textContent = storedSubtotal;
                 }
 
-                // Attach a single event listener to the attendanceTableBody to capture checkbox changes
                 attendanceTableBody.addEventListener('change', handleCheckboxChange);
 
                 if (tableBody.rows.length > 5) {
@@ -467,7 +496,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // console.log(usage + "KB");
 });
 
+let eventStudentID;
+
 let eventSubtotalKey;
+
+let idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
+console.log("Student ID:", idNumber);
+
+let eventId;
 
 function calculateActivitySubtotal() {
     let totalPoints = 0;
@@ -484,12 +520,12 @@ function calculateActivitySubtotal() {
         activitySubtotalElement.textContent = totalPointsText;
     }
 
-    calculateDailyPoints();
+    calculateDailyPoints(idNumber, eventId);
 }
 
 function calculateAttendanceSubtotal() {
     const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
-    const pointsToAdd = 2; // Points to add for each checked checkbox
+    const pointsToAdd = 2;
 
     let subtotal = 0;
 
@@ -499,17 +535,16 @@ function calculateAttendanceSubtotal() {
         }
     });
 
-    // Update the attendanceSubtotal display and storage
     const attendanceSubtotalElement = document.getElementById("attendanceSubtotal");
     attendanceSubtotalElement.textContent = subtotal.toString();
 
     // const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
     localStorage.setItem(eventSubtotalKey, subtotal.toString());
 
-    calculateDailyPoints();
+    calculateDailyPoints(idNumber, eventId);
 }
 
-function calculateDailyPoints() {
+function calculateDailyPoints(idNumber, eventId) {
     const activitySubtotal = parseInt(document.getElementById('activitySubtotal').textContent);
     const attendanceSubtotal = parseInt(document.getElementById('attendanceSubtotal').textContent);
 
@@ -520,18 +555,14 @@ function calculateDailyPoints() {
         dailyPointsElement.textContent = dailyPoints.toString();
     }
 
-    // const eventDailyPoints = `dailyPoints_student_${idNumber}_event_${eventId}`;
-    // localStorage.setItem(eventDailyPoints, dailyPoints.toString());
-    // console.log("eventdp", eventDailyPoints);
-
-    localStorage.setItem("dailyPoints", dailyPoints.toString());
+    const eventDailyPointsKey = `student_${idNumber}_event_${eventId}_dailyPoints_${dailyPoints}`;
+    localStorage.setItem(eventDailyPointsKey, dailyPoints.toString());
 
     updateSemestralTotal();
 }
 
 function updateSemestralTotal() {
     let semestralTotal = 0;
-    // Loop through all stored daily points and accumulate them
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.includes("dailyPoints")) {
@@ -542,9 +573,32 @@ function updateSemestralTotal() {
         }
     }
 
-    // Update the semestralPoints element
     const semestralPointsElement = document.getElementById("semestralPoints");
     if (semestralPointsElement) {
         semestralPointsElement.textContent = semestralTotal.toString();
     }
 }
+
+function setEventStudentID(idNumber, eventId) {
+    eventStudentID = `student_ID_${idNumber}_event_ID_${eventId}`;
+    localStorage.setItem("eventStudentID", eventStudentID);
+}
+
+// Assuming you're using fetch API or Axios for making HTTP requests
+
+// Fetch college events from the server
+fetch('/college-events')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const collegeEvents = data.collegeEvents;
+        console.log('College Events:', collegeEvents);
+        // Further processing or rendering of the college events can be done here
+    })
+    .catch(error => {
+        console.error('Error fetching college events:', error);
+    });

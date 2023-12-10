@@ -63,7 +63,9 @@ router.get('/student-participation-record', (req, res) => {
     const adminData = req.session.adminData;
     const departmentName = req.session.departmentName;
     const currentURL = req.url;
+    const isAdminURL = currentURL.includes("admin");
     const isStudentURL = currentURL.includes("student");
+    const isRecordPage = isAdminURL || isStudentURL;
     const eventData = req.session.eventData;
 
     db.query('SELECT * FROM event', (error, events) => {
@@ -86,7 +88,9 @@ router.get('/student-participation-record', (req, res) => {
                             adminData,
                             studentData,
                             eventData,
+                            isAdminURL,
                             isStudentURL,
+                            isRecordPage,
                             institutionalEvents,
                             collegeEvents,
                             events: events.map(event => ({
@@ -187,8 +191,9 @@ router.get('/university-events-admin', (req, res) => {
         const currentURL = req.url;
         const isAdminURL = currentURL.includes("admin");
         const isEditURL = currentURL.includes("edit");
-        const isAdminPageURL = isAdminURL && isEditURL;
+        const isAdminPageURL = isAdminURL || isEditURL;
         const isStudentURL = currentURL.includes("student");
+        const isRecordPage = isAdminURL || isStudentURL;
         const eventData = req.session.eventData;
 
         db.query('SELECT * FROM event', (error, events) => {
@@ -218,6 +223,7 @@ router.get('/university-events-admin', (req, res) => {
                                 isEditURL,
                                 isAdminPageURL,
                                 isStudentURL,
+                                isRecordPage,
                                 eventData,
                                 institutionalEvents,
                                 collegeEvents,
@@ -253,8 +259,9 @@ router.get('/university-events-edit', (req, res) => {
         const currentURL = req.url;
         const isAdminURL = currentURL.includes("admin");
         const isEditURL = currentURL.includes("edit");
-        const isAdminPageURL = isAdminURL && isEditURL;
+        const isAdminPageURL = isAdminURL || isEditURL;
         const isStudentURL = currentURL.includes("student");
+        const isRecordPage = isAdminURL || isStudentURL;
         const eventData = req.session.eventData;
 
         db.query('SELECT * FROM event', (error, events) => {
@@ -284,6 +291,7 @@ router.get('/university-events-edit', (req, res) => {
                                 isEditURL,
                                 isAdminPageURL,
                                 isStudentURL,
+                                isRecordPage,
                                 eventData,
                                 institutionalEvents,
                                 collegeEvents,
@@ -303,6 +311,24 @@ router.get('/university-events-edit', (req, res) => {
         });
     } else {
         res.redirect('/login');
+    }
+});
+
+router.get('/college-events', (req, res) => {
+    // Assuming you're using sessions to manage authentication
+    if (req.session.isAuthenticated) {
+        const departmentName = req.session.departmentName;
+
+        db.query('SELECT * FROM event WHERE event_scope = ?', [departmentName], (error, events) => {
+            if (error) {
+                console.log(error);
+                res.status(500).json({ error: 'Error fetching college events' });
+            } else {
+                res.status(200).json({ collegeEvents: events });
+            }
+        });
+    } else {
+        res.status(401).json({ error: 'Unauthorized' });
     }
 });
 

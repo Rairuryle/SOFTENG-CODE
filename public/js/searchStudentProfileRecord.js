@@ -48,3 +48,9 @@ function searchStudentProfile() {
 }
 
 document.getElementById('searchButton').addEventListener('click', searchStudentProfile);
+document.getElementById('gridsearchIDNumber').addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+        searchStudentProfile();
+        return false;
+    }
+});

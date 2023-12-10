@@ -2,7 +2,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </head>
 
+<input type="hidden" id="isAdminURL" value="{{isAdminURL}}" />
 <input type="hidden" id="isStudentURL" value="{{isStudentURL}}" />
+<input type="hidden" id="isRecordPage" value="{{isRecordPage}}" />
 <div id="idNumberContainer" data-idNumber="{{idNumber}}" style="display: none;"></div>
 
 {{> navbarUniversity}}
@@ -26,7 +28,7 @@
                 {{> profileStudent}}
                 <div class="activestatus grid-item-nine item-status">{{studentData.active_status}}</div>
                 <div class="exemptionstatus grid-item-ten item-status">{{studentData.exemption_status}}</div>
-                <div class="grid-item-eleven item-points">TOTAL POINTS ACQUIRED</div>
+                {{!-- <div class="grid-item-eleven item-points">TOTAL POINTS ACQUIRED</div>
                 <div class="grid-item-twelve item-points total-points points-title">CURRENT DAY</div>
                 <div class="grid-item-thirteen item-points total-points grid-points">
                     <h1>8</h1>
@@ -34,7 +36,7 @@
                 <div class="grid-item-fourteen item-points total-points points-title">CURRENT SEMESTER</div>
                 <div class="grid-item-fifteen item-points total-points grid-points">
                     <h1>32</h1>
-                </div>
+                </div> --}}
             </div>
         </div>
     </header>
