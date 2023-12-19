@@ -17,6 +17,12 @@ exports.register = (req, res) => {
 
     const { lastnameRegister, firstnameRegister, organizationRegister, username, password, passwordConfirm } = req.body;
 
+    if (password.length < 6) {
+        return res.render('register', {
+            message: 'Password should be at least 6 characters long'
+        });
+    }
+    
     db.query('SELECT username FROM admin WHERE username = ?', [username], async (error, results) => {
         if(error) {
             console.log(error);
