@@ -14,6 +14,9 @@
         <h1>EVENTS</h1>
         <hr />
         <div class="container-events">
+
+            {{!-- INSTITUTIONAL: not ABO or IBO --}}
+            {{#unless isABOorIBO}}
             <div class="container">
                 <div class="flex-container">
                     <div class="icon icon-textflag">
@@ -29,7 +32,11 @@
                 <p class="eventNameSpecific">{{this.event_name}}</p>
             </a>
             {{/each}}
-            {{#unless isUSG}}
+            {{/unless}}
+
+
+            {{!-- COLLEGE: only College & SAO --}}
+            {{#if isCollegeOrSAO}}
             <div class="container container-textflag college-textflag">
                 <div class="flex-container">
                     <div class="icon icon-textflag">
@@ -45,7 +52,45 @@
                 <p class="eventNameSpecific">{{this.event_name}}</p>
             </a>
             {{/each}}
-            {{/unless}}
+            {{/if}}
+
+            {{!-- ABO: only ABO, CSO, & SAO --}}
+            {{#if isCSOorABOorSAO}}
+            <div class="container">
+                <div class="flex-container">
+                    <div class="icon icon-textflag">
+                        <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
+                    </div>
+                    <div class="text text-textflag">
+                        ABO
+                    </div>
+                </div>
+            </div>
+            {{#each institutionalEvents}}
+            <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
+                <p class="eventNameSpecific">{{this.event_name}}</p>
+            </a>
+            {{/each}}
+            {{/if}}
+
+            {{!-- IBO: only IBO, CSO, & SAO --}}
+            {{#if isCSOorIBOorSAO}}
+            <div class="container">
+                <div class="flex-container">
+                    <div class="icon icon-textflag">
+                        <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
+                    </div>
+                    <div class="text text-textflag">
+                        IBO
+                    </div>
+                </div>
+            </div>
+            {{#each institutionalEvents}}
+            <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
+                <p class="eventNameSpecific">{{this.event_name}}</p>
+            </a>
+            {{/each}}
+            {{/if}}
         </div>
 
         {{#unless isStudentURL}}
@@ -61,6 +106,7 @@
                 </div>
             </div>
 
+            {{#unless isCSOorSAO}}
             <div class="holder holder-widget">
                 {{!-- {{#if isUSGorSAO}} --}}
                 <div class="icon icon-widget">
@@ -72,6 +118,7 @@
                     <a class="editMode link-widget">EDIT MODE</a>
                 </div>
             </div>
+            {{/unless}}
 
             <div class="holder holder-widget">
                 <div class="icon icon-widget">

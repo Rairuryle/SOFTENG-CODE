@@ -31,7 +31,12 @@ app.engine('hbs', exphbs.engine({
     extname: 'hbs',
     defaultLayout: 'main',
     layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials' // Specify the partials directory
+    partialsDir: __dirname + '/views/partials',
+    helpers: {
+        eq: function (a, b) {
+            return a === b;
+        }
+    }
 }));
 
 app.set('view engine', 'hbs');
@@ -57,6 +62,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/dashboard', authMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // hard drive space
 // function getDirectorySize(directoryPath) {
@@ -98,6 +104,8 @@ app.post('/insert-into-database', (req, res) => {
         idnumberInput,
         departmentInput,
         courseInput,
+        ABOInput,
+        // IBOInput,
         yearInput,
         activeStatusInput,
         exemptionStatusInput,
@@ -118,6 +126,8 @@ app.post('/insert-into-database', (req, res) => {
                 middle_name: middlenameInput,
                 department_name: departmentInput,
                 course_name: courseInput,
+                abo_name: ABOInput,
+                // ibo_name: IBOInput,
                 year_level: yearInput,
                 active_status: activeStatusInput,
                 exemption_status: exemptionStatusInput
@@ -143,6 +153,8 @@ app.post('/insert-into-database', (req, res) => {
             middle_name: middlenameInput,
             department_name: departmentInput,
             course_name: courseInput,
+            abo_name: ABOInput,
+            // ibo_name: IBOInput,
             year_level: yearInput,
             active_status: activeStatusInput,
             exemption_status: exemptionStatusInput
@@ -152,7 +164,21 @@ app.post('/insert-into-database', (req, res) => {
 
 app.get('/dashboard/search', (req, res) => {
     const idNumber = req.query.gridsearchIDNumber;
-    const isUSGorSAO = req.session.adminData.organization === "USG" || req.session.adminData.organization === "SAO";
+    const organization = req.session.adminData.organization;
+
+    const unrestrictedOrganizations = ["SAO", "USG", "CSO", "Compatriots", "Cosplay Corps", "Green Leaders", "Kainos", "Meeples", "Micromantics", "Red Cross Youth", "Soul Whisperers", "Vanguard E-sports"];
+
+    const aboCAS = ["JSWAP", "LABELS", "LSUPS", "POLISAYS"];
+    const aboCBA = ["JFINEX", "JMEX", "JPIA"];
+    const aboCCSEA = ["ALGES", "ICpEP", "IIEE", "JIECEP", "LISSA", "PICE", "SOURCE", "UAPSA"];
+    const aboCTE = ["ECC", "GENTLE", "GEM-O", "LapitBayan", "LME", "SPEM", "SSS"];
+    const aboCTHM = ["FHARO", "FTL", "SOTE"];
+
+    const CAS = aboCAS.includes(organization);
+    const CBA = aboCBA.includes(organization);
+    const CCSEA = aboCCSEA.includes(organization);
+    const CTE = aboCTE.includes(organization);
+    const CTHM = aboCTHM.includes(organization);
 
     db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
         if (error) {
@@ -163,7 +189,21 @@ app.get('/dashboard/search', (req, res) => {
                 const studentData = results[0];
                 const departmentName = studentData.department_name;
 
-                if (isUSGorSAO || departmentName === req.session.adminData.organization) {
+                const isCAS = CAS && departmentName === "CAS";
+                const isCBA = CBA && departmentName === "CBA";
+                const isCCSEA = CCSEA && departmentName === "CCSEA";
+                const isCTE = CTE && departmentName === "CTE";
+                const isCTHM = CTHM && departmentName === "CTHM";
+
+                const canSearch = unrestrictedOrganizations.includes(organization) ||
+                    departmentName === organization ||
+                    isCAS ||
+                    isCBA ||
+                    isCCSEA ||
+                    isCTE ||
+                    isCTHM;
+
+                if (canSearch) {
                     req.session.departmentName = departmentName;
                     res.status(200).json({ studentFound: true, studentData });
                 } else {
@@ -184,11 +224,39 @@ function searchStudentByGridsearchIDNumber(gridsearchIDNumber, req, callback) {
         } else {
             if (results.length > 0) {
                 const studentData = results[0];
-                const isUSGorSAO = req.session.adminData.organization === "USG" || req.session.adminData.organization === "SAO";
-                const departmentMatches = studentData.department_name === req.session.adminData.organization;
+                const organization = req.session.adminData.organization;
+                const departmentName = studentData.department_name;
 
-                if (isUSGorSAO || departmentMatches) {
-                    req.session.departmentName = studentData.department_name;
+                const unrestrictedOrganizations = ["SAO", "USG", "CSO", "Compatriots", "Cosplay Corps", "Green Leaders", "Kainos", "Meeples", "Micromantics", "Red Cross Youth", "Soul Whisperers", "Vanguard E-sports"];
+
+                const aboCAS = ["JSWAP", "LABELS", "LSUPS", "POLISAYS"];
+                const aboCBA = ["JFINEX", "JMEX", "JPIA"];
+                const aboCCSEA = ["ALGES", "ICpEP", "IIEE", "JIECEP", "LISSA", "PICE", "SOURCE", "UAPSA"];
+                const aboCTE = ["ECC", "GENTLE", "GEM-O", "LapitBayan", "LME", "SPEM", "SSS"];
+                const aboCTHM = ["FHARO", "FTL", "SOTE"];
+
+                const CAS = aboCAS.includes(organization);
+                const CBA = aboCBA.includes(organization);
+                const CCSEA = aboCCSEA.includes(organization);
+                const CTE = aboCTE.includes(organization);
+                const CTHM = aboCTHM.includes(organization);
+
+                const isCAS = CAS && departmentName === "CAS";
+                const isCBA = CBA && departmentName === "CBA";
+                const isCCSEA = CCSEA && departmentName === "CCSEA";
+                const isCTE = CTE && departmentName === "CTE";
+                const isCTHM = CTHM && departmentName === "CTHM";
+
+                const isSearchAllowed = unrestrictedOrganizations.includes(organization) ||
+                    departmentName === organization ||
+                    isCAS ||
+                    isCBA ||
+                    isCCSEA ||
+                    isCTE ||
+                    isCTHM;
+
+                if (isSearchAllowed) {
+                    req.session.departmentName = departmentName;
                     return callback({ studentFound: true, studentData });
                 } else {
                     return callback({ studentFound: false, error: 'Department mismatch' });
@@ -206,6 +274,7 @@ app.get('/university-events-admin/search', (req, res) => {
         res.status(result.studentFound ? 200 : 500).json(result);
     });
 });
+
 
 app.post('/insert-event-database', (req, res) => {
     console.log(req.body);

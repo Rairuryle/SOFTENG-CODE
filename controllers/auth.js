@@ -118,4 +118,3 @@ exports.login = async (req, res) => {
         console.error(error);
     }
 };
-

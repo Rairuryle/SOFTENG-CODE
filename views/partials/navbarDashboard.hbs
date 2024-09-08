@@ -3,19 +3,23 @@
         <div class="flex-container dashboard-nav-container">
             <div class="grid-searchspace">
                 <div class="form-group">
-                    <input type="search" id="gridsearchIDNumber" class="form-control" placeholder="Search ID Number..." maxlength="9">
+                    <input type="search" id="gridsearchIDNumber" class="form-control" placeholder="Search ID Number..."
+                        maxlength="9">
                 </div>
                 <span id="searchButton" class="material-symbols-outlined">search</span>
             </div>
         </div>
         <hr>
+        {{#if (eq isExtraOrgsTrue false)}}
         <div class="flex-container dashboard-nav-container main-icons-container">
             {{!-- {{#if isUSGorSAO}} --}}
+
             <div class="flex-container img-add-student-nav main-nav-icons">
                 <a href="/dashboard-add-student">
                     <img src="../img/User_cicrle.png" alt="Add Student Account Nav Icon">
                 </a>
             </div>
+
             <a href="/dashboard-add-student">ADD STUDENT</a>
             {{!-- {{else}}
             <div class="flex-container img-add-student-nav main-nav-icons">
@@ -26,12 +30,14 @@
             <a href="/dashboard-add-student-college">ADD STUDENT</a>
             {{/if}} --}}
         </div>
-        <div class="flex-container dashboard-nav-container main-icons-container">
+        {{/if}}
+
+        {{!-- <div class="flex-container dashboard-nav-container main-icons-container">
             <div class="flex-container img-archives-nav main-nav-icons">
                 <img src="../img/Arhive_alt_small.png" alt="Archives Nav Icon">
             </div>
             <a href="#">ARCHIVES</a>
-        </div>
+        </div> --}}
 
         <div class="container container-widget">
             <div class="holder holder-widget">
@@ -58,3 +64,5 @@
     </div>
 </nav>
 <script src="../js/searchStudentProfileDashboard.js"></script>
+
+<input type="hidden" id="isExtraOrgsTrue" value="{{isExtraOrgsTrue}}" />

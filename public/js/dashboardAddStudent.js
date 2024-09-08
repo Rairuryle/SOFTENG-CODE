@@ -1,3 +1,96 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const departmentInput = document.getElementById('departmentInput');
+    const courseInput = document.getElementById('courseInput');
+    const ABOInput = document.getElementById('ABOInput');
+
+    const departmentCourses = {
+        CAS: ['ABCOM', 'ABENG', 'ABPOLSC', 'BSPSYCH', 'BSSW'],
+        CBA: ['BSA', 'BSBAFM', 'BSBAMM'],
+        CCJE: ['BSCrim'],
+        CCSEA: ['BLIS', 'BSArch', 'BSCE', 'BSCpE', 'BSCS', 'BSECE', 'BSEE', 'BSGE', 'BSIT'],
+        CON: ['BSN'],
+        CTE: ['BECED','BEEd', 'BPE', 'BTLEd-HE', 'BSEd-English', 'BSED-Filipino', 'BSEd-Mathematics', 'BSEd-Science', 'BSEd-SocStud', 'BSEd-ValEd', 'BSNEd'],
+        CTHM: ['BSHM', 'BSTM']
+    };
+
+    const coursesABO = {
+        ABCOM: ['None'],
+        ABENG: ['LABELS'],
+        ABPOLSC: ['POLISAYS'],
+        BSPSYCH: ['LSUPS'],
+        BSSW: ['JSWAP'],
+        BSA: ['JPIA'],
+        BSBAFM: ['JFINEX'],
+        BSBAMM: ['JMEX'],
+        BSCrim: ['None'],
+        BLIS: ['LISSA'],
+        BSArch: ['UAPSA'],
+        BSCE: ['PICE'],
+        BSCpE: ['ICpEP'],
+        BSCS: ['SOURCE'],
+        BSECE: ['JIECEP'],
+        BSEE: ['IIEE'],
+        BSGE: ['ALGES'],
+        BSIT: ['SOURCE'],
+        BSN: ['None'],
+        BECED: ['None'],
+        BEEd: ['GEM-O'],
+        BPE: ['SPEM'],
+        "BTLEd-HE": ['GENTLE'],
+        "BSEd-English": ['ECC'],
+        "BSEd-Filipino": ['LapitBayan'],
+        "BSEd-Mathematics": ['LME'],
+        "BSEd-Science": ['None'],
+        "BSEd-SocStud": ['SSS'],
+        "BSEd-ValEd": ['None'],
+        BSNEd: ['None'],
+        BSHM: ['FHARO', 'FTL'],
+        BSTM: ['SOTE']
+    };
+
+    // Function to update the courseInput dropdown based on selected department
+    function updateCourses() {
+        const selectedDepartment = departmentInput.value;
+        const courses = departmentCourses[selectedDepartment] || [];
+
+        courseInput.innerHTML = '<option disabled="disabled" selected="selected">Select Course</option>';
+
+        courses.forEach(course => {
+            const option = document.createElement('option');
+            option.value = course;
+            option.textContent = course;
+            courseInput.appendChild(option);
+        });
+    }
+
+    // Function to update the ABOInput dropdown based on selected course
+    function updateABO() {
+        const selectedCourse = courseInput.value;
+        const ABOs = coursesABO[selectedCourse] || [];
+
+        ABOInput.innerHTML = '<option disabled="disabled" selected="selected">Select ABO</option>';
+
+        ABOs.forEach(ABO => {
+            const option = document.createElement('option');
+            option.value = ABO;
+            option.textContent = ABO;
+            ABOInput.appendChild(option);
+        });
+    }
+
+    departmentInput.addEventListener('change', function () {
+        updateCourses();
+        updateABO();
+    });
+
+    courseInput.addEventListener('change', updateABO);
+
+    // Initial call to populate courses if department is pre-selected
+    updateCourses();
+    updateABO();
+});
+
+
 function showPopupConfirmation() {
     const lastNameInput = document.getElementById('lastnameInput');
     const lastName = lastNameInput.value;
@@ -17,6 +110,12 @@ function showPopupConfirmation() {
     const courseInput = document.getElementById('courseInput');
     const course = courseInput.value;
 
+    const ABOInput = document.getElementById('ABOInput');
+    const ABO = ABOInput.value;
+
+    // const IBOInput = document.getElementById('IBOInput');
+    // const IBO = IBOInput.value;
+
     const yearInput = document.getElementById('yearInput');
     const year = yearInput.value;
 
@@ -30,6 +129,8 @@ function showPopupConfirmation() {
     document.getElementById("paragraphTwo").innerHTML = `${idNumber}`;
     document.getElementById("paragraphThree").innerHTML = `${department}`;
     document.getElementById("paragraphFour").innerHTML = `${course} - ${year}`;
+    document.getElementById("paragraphSeven").innerHTML = `${ABO}`;
+    // document.getElementById("paragraphEight").innerHTML = `${IBO}`;
     document.getElementById("paragraphFive").innerHTML = `${activeStatus}`;
     document.getElementById("paragraphSix").innerHTML = `${exemptionStatus}`;
 
@@ -62,6 +163,8 @@ function sendDataToServer() {
         idnumberInput: document.getElementById('idnumberInput').value,
         departmentInput: document.getElementById('departmentInput').value,
         courseInput: document.getElementById('courseInput').value,
+        ABOInput: document.getElementById('ABOInput').value,
+        // IBOInput: document.getElementById('IBOInput').value,
         yearInput: document.getElementById('yearInput').value,
         activeStatusInput: document.getElementById('activeStatusInput').value,
         exemptionStatusInput: document.getElementById('exemptionStatusInput').value
@@ -109,7 +212,6 @@ function sendDataToServer() {
 
 
 function clearInputFields() {
-    // Reset the values of the input fields to empty strings
     document.getElementById('lastnameInput').value = '';
     document.getElementById('firstnameInput').value = '';
     document.getElementById('middlenameInput').value = '';
@@ -118,22 +220,23 @@ function clearInputFields() {
     const selectDepartment = document.getElementById('departmentInput');
 
     if (selectDepartment && selectDepartment.tagName === 'SELECT') {
-        // Clear the <select> element
         selectDepartment.value = '';
     }
-    document.getElementById('courseInput').value = '';
+    document.getElementById('courseInput').innerHTML = '';
+    document.getElementById('ABOInput').innerHTML = '<option disabled="disabled" selected="selected">Select ABO</option>';
+    // document.getElementById('IBOInput').innerHTML = '<option disabled="disabled" selected="selected">Select IBO</option>';
     document.getElementById('yearInput').value = '';
     document.getElementById('activeStatusInput').value = '';
     document.getElementById('exemptionStatusInput').value = '';
 }
 
 function clearInputFieldsCollege() {
-    // Reset the values of the input fields to empty strings
     document.getElementById('lastnameInput').value = '';
     document.getElementById('firstnameInput').value = '';
     document.getElementById('middlenameInput').value = '';
     document.getElementById('idnumberInput').value = '';
     document.getElementById('courseInput').value = '';
+    document.getElementById('ABOInput').innerHTML = '<option disabled="disabled" selected="selected">Select ABO</option>';
     document.getElementById('yearInput').value = '';
     document.getElementById('activeStatusInput').value = '';
     document.getElementById('exemptionStatusInput').value = '';

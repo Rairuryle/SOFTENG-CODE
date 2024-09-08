@@ -421,56 +421,79 @@ for (let i = 0; i < activityname.length; i++) { db.query('INSERT INTO activities
     {{! <p id="register-choice">Don't have an account?<a href="/register">Register</a></p> }}
 
 
-!!!TABLE RECORDS EDIT
-!!!TABLE RECORDS EDIT
+    !!!TABLE RECORDS EDIT
+    !!!TABLE RECORDS EDIT
 
 
-<div class="flex-container attendance-header-two">
-    <div class="sort-by">
-      <div class="flex-container sort-by-container">
-        <div class="sort-by-item">
-          SORT BY
+    <div class="flex-container attendance-header-two">
+        <div class="sort-by">
+            <div class="flex-container sort-by-container">
+                <div class="sort-by-item">
+                    SORT BY
+                </div>
+                <div>
+                    <img src="../img/Group 30.png" alt="sort icon">
+                </div>
+            </div>
         </div>
-        <div>
-          <img src="../img/Group 30.png" alt="sort icon">
+        <div class="dropdown-content">
+            <a href="#">DATE</a>
+            <a href="#">AM</a>
+            <a href="#">PM</a>
+            <a href="#">POINTS</a>
+            <a href="#">OFFICER-IN-CHARGE</a>
         </div>
-<<<<<<< HEAD
-    </div>
-=======
-      </div>
-      <div class="dropdown-content">
-        <a href="#">DATE</a>
-        <a href="#">AM</a>
-        <a href="#">PM</a>
-        <a href="#">POINTS</a>
-        <a href="#">OFFICER-IN-CHARGE</a>
-      </div>
     </div>
     <div class="filter-by">
-      <div class="flex-container filter-by-container">
-        <div class="filter-by-item">
-          FILTER BY
+        <div class="flex-container filter-by-container">
+            <div class="filter-by-item">
+                FILTER BY
+            </div>
+            <div>
+                <img src="../img/Group 30.png" alt="filter icon">
+            </div>
         </div>
-        <div>
-          <img src="../img/Group 30.png" alt="filter icon">
+        <div class="dropdown-content dropdown-content-two">
+            <a href="#">MORNING ABSENCES</a>
+            <a href="#">AFTERNOON ABSENCES</a>
         </div>
-      </div>
-      <div class="dropdown-content dropdown-content-two">
-        <a href="#">MORNING ABSENCES</a>
-        <a href="#">AFTERNOON ABSENCES</a>
-      </div>
     </div>
     <div class="attendance-searchspace">
-      <div class="form-group">
-        <input type="search" id="searchAttendance" class="form-control" placeholder="Search...">
-      </div>
-      <span class="material-symbols-outlined" style="color:white;">
-        search
-      </span>
+        <div class="form-group">
+            <input type="search" id="searchAttendance" class="form-control" placeholder="Search...">
+        </div>
+        <span class="material-symbols-outlined" style="color:white;">
+            search
+        </span>
     </div>
-  </div>
+    </div>
 
-  <div>
-    bayot
-  </div>
->>>>>>> parent of 635d6cf (push test)
+    !!! ROUTES SPR
+    // const idNumber = req.query.id_number; // Get the ID number from the query parameters
+    // const adminData = req.session.adminData;
+    // const studentData = req.session.studentData;
+    // const currentURL = req.url; // Get the current URL
+    // // Determine if the URL contains "admin"
+    // const isAdminURL = currentURL.includes("admin");
+
+    // db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
+    // if (error) {
+    // console.log(error);
+    // res.redirect('/'); // Handle the error, maybe redirect to the dashboard
+    // } else {
+    // if (results.length > 0) {
+    // const studentData = results[0]; // Assuming there's only one matching student
+    // // Render your university-events-admin template with the student data
+    // res.render('student-participation-record', {
+    // adminData,
+    // studentData,
+    // isUSGorSAO,
+    // isAdminURL: isAdminURL,
+    // title: 'Student Participation Record | LSU Events and Attendance Tracking Website'
+    // });
+    // } else {
+    // // Handle the case where the student is not found
+    // res.redirect('/');
+    // }
+    // }
+    // });

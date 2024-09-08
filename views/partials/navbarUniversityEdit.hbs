@@ -14,7 +14,9 @@
         <h1>EVENTS</h1>
         <hr>
         <div class="container-events-edit">
-            {{#if isUSGorSAO}}
+
+            {{!-- INSTITUTIONAL --}}
+            {{#if isUSG}}
             <div class="container container-textflag">
                 <div class="flex-container">
                     <div class="icon icon-textflag">
@@ -83,6 +85,7 @@
 
             {{#each institutionalEvents}}
             <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
+
                 <div class="img-modify-event-container">
                     <button type="button" id="myButtonEventEdit{{@index}}" class="myButtonEventEdit modify-button"
                         data-popup-id="myPopupEventEdit{{@index}}" data-index="{{@index}}">
@@ -140,14 +143,15 @@
                 </div>
             </div>
             {{/each}}
-            {{#if isSAO}}
+            {{/if}}
+
+            {{!-- {{#if isSAO}}
             <div class="container container-textflag college-textflag">
                 <div class="flex-container">
                     <div class="icon icon-textflag">
                         <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
                     </div>
                     <div class="text text-textflag">COLLEGE</div>
-
                 </div>
             </div>
 
@@ -155,9 +159,9 @@
             <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
                 <p class="eventNameSpecific index{{@index}}">{{this.event_name}}</p>
             </a>
-            {{/each}}
-            {{/if}}
-            {{else}}
+            {{/each}} --}}
+
+            {{!-- {{else}}
             <div class="container container-textflag">
                 <div class="flex-container">
                     <div class="icon icon-textflag">
@@ -170,7 +174,8 @@
             <a class="nav-link-else">
                 <p class="eventNameSpecific">{{this.event_name}}</p>
             </a>
-            {{/each}}
+            {{/each}} --}}
+
             {{!-- COLLEGE --}}
             {{#if isCollege}}
             <div class="container container-textflag college-textflag">
@@ -235,8 +240,139 @@
                     </div>
                 </div>
             </div>
+
             {{#each collegeEvents}}
             <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
+                <div class="img-modify-event-container">
+                    <button type="button" id="myButtonEventEdit{{@index}}" class="myButtonEventEdit modify-button"
+                        data-popup-id="myPopupEventEdit{{@index}}" data-index="{{@index}}">
+                        <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
+                    </button>
+                    <button type="button" id="myButtonEventDelete{{@index}}" class="myButtonEventDelete modify-button"
+                        data-popup-id="myPopupEventDelete{{@index}}">
+                        <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
+                    </button>
+                </div>
+                <p class="eventNameSpecific index{{@index}}">{{this.event_name}}</p>
+            </a>
+
+            <!-- edit event -->
+            <div id="myPopupEventEdit{{@index}}" class="popup">
+                <div class="flex-container popup-content">
+                    <span id="closeButton" class="close-button closePopup"
+                        data-popup-id="myPopupEventEdit{{@index}}">&times;</span>
+                    <h1 class="flex-container">EDIT<p id="eventScope" class="eventScope" name="eventScope">
+                            {{adminData.organization}}</p>
+                        EVENT</h1>
+                    <div class="flex-container add-events-container">
+                        <div class="flex-container add-events-holder">
+                            <input type="text" id="editEventName{{@index}}" name="eventname"
+                                class="eventname add-event-inputs" placeholder="Event Name" />
+                            <input type="text" id="editStartDate{{@index}}" name="startdate"
+                                class="eventdate add-event-inputs startdate" value="{{this.formattedStartDate}}" />
+                            <p class="date-dash">-</p>
+                            <input type="text" id="editEndDate{{@index}}" name="enddate"
+                                class="eventdate add-event-inputs enddate" value="{{this.formattedEndDate}}" />
+                        </div>
+                        <div class="flex-container add-events-container-button">
+                            <button id="closePopup" class="closePopup" type="button"
+                                data-popup-id="myPopupEventEdit{{@index}}">SAVE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="myPopupEventDelete{{@index}}" class="popup">
+                <div class="flex-container popup-content">
+                    <span id="closeButton" class="close-button closePopup"
+                        data-popup-id="myPopupEventDelete{{@index}}">&times;</span>
+                    <h1 class="flex-container event-titlehead">DELETE<p id="eventScope" class="eventScope"
+                            name="eventScope">{{adminData.organization}}</p>EVENT</h1>
+                    <h3>WARNING</h3>
+                    <p class="delete-warning">This will remove all existing records stored within the
+                        <span class="red-text" style="color: red;">{{this.event_name}}</span> event page. Are you
+                        sure you wish to proceed?
+                    </p>
+                    <div class="flex-container add-events-container-button">
+                        <button id="closeDeletePopup" class="closePopup" type="button"
+                            data-popup-id="myPopupEventDelete{{@index}}">DELETE</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            {{/if}}
+            {{!-- {{/if}} --}}
+
+            {{!-- ABO --}}
+            {{#if isABO}}
+            <div class="container container-textflag">
+                <div class="flex-container">
+                    <div class="icon icon-textflag">
+                        <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
+                    </div>
+                    <div class="text text-textflag">ABO</div>
+                    <div class="icon icon-textflag textflag-add-abo-event">
+                        <button id="myButtonEvent{{@index}}" class="myButtonEvent"
+                            data-popup-id="myPopupEvent{{@index}}">
+                            <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event" />
+                        </button>
+                        <form action="/insert-event-database" method="POST" id="addForm">
+                            <div id="myPopupEvent{{@index}}" class="popup myPopupEvent">
+                                <div class="flex-container popup-content">
+                                    <span id="closeButton" class="close-button closePopup"
+                                        data-popup-id="myPopupEvent{{@index}}">&times;</span>
+                                    <h1 class="flex-container">ADD <p id="eventScope" name="eventScope">
+                                            {{adminData.organization}}</p>EVENT
+                                    </h1>
+                                    <div class="flex-container add-events-container">
+                                        <div class="flex-container add-events-holder">
+                                            <input type="text" id="eventnameInput" name="eventnameInput"
+                                                class="eventname add-event-inputs" placeholder="Event Name"
+                                                maxlength="25" />
+                                            <input type="date" id="startDateEvent" name="startDateEvent"
+                                                class="eventdate add-event-inputs" min="{TODAY}" required />
+                                            <p class="date-dash">-</p>
+                                            <input type="date" id="endDateEvent" name="endDateEvent"
+                                                class="eventdate add-event-inputs" min="{TODAY}"
+                                                max="{SIX_DAYS_AFTER_TODAY}" required />
+                                            <div class="flex-container container-event-days">
+                                                <input type="text" id="eventDays" name="eventDays"
+                                                    class="eventdays add-event-inputs hidden" />
+                                            </div>
+                                            <div class="flex-container add-activities-events-holder">
+                                                Activities
+                                                <hr class="popup-hr" />
+                                                <div class="flex-container inputs">
+                                                    <input type="text" id="activityname" name="activityname[]"
+                                                        placeholder="Activity Name"
+                                                        class="activityname-main add-event-inputs" />
+                                                    <input type="date" id="activitydate" name="activitydate[]"
+                                                        class="activitydate add-event-inputs" />
+                                                    <input type="text" id="activityname" name="activityname[]"
+                                                        placeholder="Activity Name"
+                                                        class="activityname-main add-event-inputs" />
+                                                    <input type="date" id="activitydate" name="activitydate[]"
+                                                        class="activitydate add-event-inputs" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-container add-events-container-button">
+                                                <button id="addMore" class="addMore" type="button">Add More
+                                                    Activities</button>
+                                                <button id="confirmButton" class="confirmButton"
+                                                    data-popup-id="myPopupEvent{{@index}}"
+                                                    type="button">CONFIRM</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {{#each institutionalEvents}}
+            <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
+
                 <div class="img-modify-event-container">
                     <button type="button" id="myButtonEventEdit{{@index}}" class="myButtonEventEdit modify-button"
                         data-popup-id="myPopupEventEdit{{@index}}" data-index="{{@index}}">
@@ -282,8 +418,9 @@
                             name="eventScope">{{adminData.organization}}</p>EVENT</h1>
                     <h3>WARNING</h3>
                     <p class="delete-warning">This will remove all existing records stored within the
-                        <span class="red-text" style="color: red;">{{this.event_name}}</span> event page. Are you
-                        sure you wish to proceed?
+                        <span class="red-text" style="color: red;">{{this.event_name}}</span> event page. Are you sure
+                        you
+                        wish to proceed?
                     </p>
                     <div class="flex-container add-events-container-button">
                         <button id="closeDeletePopup" class="closePopup" type="button"
@@ -293,21 +430,148 @@
             </div>
             {{/each}}
             {{/if}}
-            {{/if}}
         </div>
 
-        <div class="container container-widget">
-            <div class="holder holder-widget">
-                <div class="icon icon-widget">
-                    <a class="exitMode">
-                        <img src="../img/Edit.png" alt="Edit Mode Icon">
-                    </a>
+        {{!-- IBO --}}
+        {{#if isIBO}}
+        <div class="container container-textflag">
+            <div class="flex-container">
+                <div class="icon icon-textflag">
+                    <img src="../img/Stackframe_fill.png" alt="Text Flag" class="img-textflag" />
                 </div>
-                <div class="text text-widget text-widget-edit">
-                    <a class="exitMode link-widget">EXIT EDIT MODE</a>
+                <div class="text text-textflag">IBO</div>
+                <div class="icon icon-textflag textflag-add-ibo-event">
+                    <button id="myButtonEvent{{@index}}" class="myButtonEvent" data-popup-id="myPopupEvent{{@index}}">
+                        <img src="../img/Add_ring_fill.png" alt="Add Event" class="img-add-event" />
+                    </button>
+                    <form action="/insert-event-database" method="POST" id="addForm">
+                        <div id="myPopupEvent{{@index}}" class="popup myPopupEvent">
+                            <div class="flex-container popup-content">
+                                <span id="closeButton" class="close-button closePopup"
+                                    data-popup-id="myPopupEvent{{@index}}">&times;</span>
+                                <h1 class="flex-container">ADD <p id="eventScope" name="eventScope">
+                                        {{adminData.organization}}</p>EVENT
+                                </h1>
+                                <div class="flex-container add-events-container">
+                                    <div class="flex-container add-events-holder">
+                                        <input type="text" id="eventnameInput" name="eventnameInput"
+                                            class="eventname add-event-inputs" placeholder="Event Name"
+                                            maxlength="25" />
+                                        <input type="date" id="startDateEvent" name="startDateEvent"
+                                            class="eventdate add-event-inputs" min="{TODAY}" required />
+                                        <p class="date-dash">-</p>
+                                        <input type="date" id="endDateEvent" name="endDateEvent"
+                                            class="eventdate add-event-inputs" min="{TODAY}"
+                                            max="{SIX_DAYS_AFTER_TODAY}" required />
+                                        <div class="flex-container container-event-days">
+                                            <input type="text" id="eventDays" name="eventDays"
+                                                class="eventdays add-event-inputs hidden" />
+                                        </div>
+                                        <div class="flex-container add-activities-events-holder">
+                                            Activities
+                                            <hr class="popup-hr" />
+                                            <div class="flex-container inputs">
+                                                <input type="text" id="activityname" name="activityname[]"
+                                                    placeholder="Activity Name"
+                                                    class="activityname-main add-event-inputs" />
+                                                <input type="date" id="activitydate" name="activitydate[]"
+                                                    class="activitydate add-event-inputs" />
+                                                <input type="text" id="activityname" name="activityname[]"
+                                                    placeholder="Activity Name"
+                                                    class="activityname-main add-event-inputs" />
+                                                <input type="date" id="activitydate" name="activitydate[]"
+                                                    class="activitydate add-event-inputs" />
+                                            </div>
+                                        </div>
+                                        <div class="flex-container add-events-container-button">
+                                            <button id="addMore" class="addMore" type="button">Add More
+                                                Activities</button>
+                                            <button id="confirmButton" class="confirmButton"
+                                                data-popup-id="myPopupEvent{{@index}}" type="button">CONFIRM</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
+        {{#each institutionalEvents}}
+        <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
+
+            <div class="img-modify-event-container">
+                <button type="button" id="myButtonEventEdit{{@index}}" class="myButtonEventEdit modify-button"
+                    data-popup-id="myPopupEventEdit{{@index}}" data-index="{{@index}}">
+                    <img src="../img/Group 40.png" alt="Edit Event" class="img-edit-event" />
+                </button>
+                <button type="button" id="myButtonEventDelete{{@index}}" class="myButtonEventDelete modify-button"
+                    data-popup-id="myPopupEventDelete{{@index}}">
+                    <img src="../img/Group 41.png" alt="Delete Event" class="img-delete-event" />
+                </button>
+            </div>
+            <p class="eventNameSpecific index{{@index}}">{{this.event_name}}</p>
+        </a>
+        <!-- edit event -->
+        <div id="myPopupEventEdit{{@index}}" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup"
+                    data-popup-id="myPopupEventEdit{{@index}}">&times;</span>
+                <h1 class="flex-container">EDIT<p id="eventScope" class="eventScope" name="eventScope">
+                        {{adminData.organization}}</p>
+                    EVENT</h1>
+                <div class="flex-container add-events-container">
+                    <div class="flex-container add-events-holder">
+                        <input type="text" id="editEventName{{@index}}" name="eventname"
+                            class="eventname add-event-inputs" placeholder="Event Name" />
+                        <input type="text" id="editStartDate{{@index}}" name="startdate"
+                            class="eventdate add-event-inputs startdate" value="{{this.formattedStartDate}}" />
+                        <p class="date-dash">-</p>
+                        <input type="text" id="editEndDate{{@index}}" name="enddate"
+                            class="eventdate add-event-inputs enddate" value="{{this.formattedEndDate}}" />
+                    </div>
+                    <div class="flex-container add-events-container-button">
+                        <button id="closePopup" class="closePopup" type="button"
+                            data-popup-id="myPopupEventEdit{{@index}}">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myPopupEventDelete{{@index}}" class="popup">
+            <div class="flex-container popup-content">
+                <span id="closeButton" class="close-button closePopup"
+                    data-popup-id="myPopupEventDelete{{@index}}">&times;</span>
+                <h1 class="flex-container event-titlehead">DELETE<p id="eventScope" class="eventScope"
+                        name="eventScope">{{adminData.organization}}</p>EVENT</h1>
+                <h3>WARNING</h3>
+                <p class="delete-warning">This will remove all existing records stored within the
+                    <span class="red-text" style="color: red;">{{this.event_name}}</span> event page. Are you sure
+                    you
+                    wish to proceed?
+                </p>
+                <div class="flex-container add-events-container-button">
+                    <button id="closeDeletePopup" class="closePopup" type="button"
+                        data-popup-id="myPopupEventDelete{{@index}}">DELETE</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+    </div>
+
+    <div class="container container-widget">
+        <div class="holder holder-widget">
+            <div class="icon icon-widget">
+                <a class="exitMode">
+                    <img src="../img/Edit.png" alt="Edit Mode Icon">
+                </a>
+            </div>
+            <div class="text text-widget text-widget-edit">
+                <a class="exitMode link-widget">EXIT EDIT MODE</a>
+            </div>
+        </div>
+    </div>
     </div>
 </nav>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

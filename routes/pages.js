@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mysql = require("mysql");
 const exphbs = require('express-handlebars');
+const { getUrlFlags, isMainOrgs, isExtraOrgs } = require('./utils');
 
 const app = express();
 
@@ -16,7 +17,7 @@ app.engine('hbs', exphbs.engine({
     extname: 'hbs',
     defaultLayout: 'main',
     layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials' // Specify the partials directory
+    partialsDir: __dirname + '/views/partials'
 }));
 
 app.set('view engine', 'hbs');
@@ -62,11 +63,13 @@ router.get('/student-participation-record', (req, res) => {
     const idNumber = req.query.id_number;
     const adminData = req.session.adminData;
     const departmentName = req.session.departmentName;
-    const currentURL = req.url;
-    const isAdminURL = currentURL.includes("admin");
-    const isStudentURL = currentURL.includes("student");
-    const isRecordPage = isAdminURL || isStudentURL;
     const eventData = req.session.eventData;
+
+    const {
+        isAdminURL,
+        isStudentURL,
+        isRecordPage
+    } = getUrlFlags(req.url);
 
     db.query('SELECT * FROM event', (error, events) => {
         if (error) {
@@ -107,45 +110,20 @@ router.get('/student-participation-record', (req, res) => {
             });
         }
     });
-    // const idNumber = req.query.id_number; // Get the ID number from the query parameters
-    // const adminData = req.session.adminData;
-    // const studentData = req.session.studentData;
-    // const currentURL = req.url; // Get the current URL
-    // // Determine if the URL contains "admin"
-    // const isAdminURL = currentURL.includes("admin");
-
-    // db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
-    //     if (error) {
-    //         console.log(error);
-    //         res.redirect('/'); // Handle the error, maybe redirect to the dashboard
-    //     } else {
-    //         if (results.length > 0) {
-    //             const studentData = results[0]; // Assuming there's only one matching student
-    //             // Render your university-events-admin template with the student data
-    //             res.render('student-participation-record', {
-    //                 adminData,
-    //                 studentData,
-    //                 isUSGorSAO,
-    //                 isAdminURL: isAdminURL,
-    //                 title: 'Student Participation Record | LSU Events and Attendance Tracking Website'
-    //             });
-    //         } else {
-    //             // Handle the case where the student is not found
-    //             res.redirect('/');
-    //         }
-    //     }
-    // });
 });
 
 router.get('/dashboard', (req, res) => {
     if (req.session.isAuthenticated) {
         const adminData = req.session.adminData;
-        const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
         const studentData = req.session.studentData;
+        const organization = adminData.organization;
+        const { isUSGorSAO } = isMainOrgs(organization);
+        const { isExtraOrgsTrue } = isExtraOrgs(organization);
 
         res.render('dashboard', {
             adminData,
             isUSGorSAO,
+            isExtraOrgsTrue,
             studentData,
             title: 'Dashboard | LSU Events and Attendance Tracking Website'
         });
@@ -157,20 +135,21 @@ router.get('/dashboard', (req, res) => {
 router.get('/dashboard-add-student', (req, res) => {
     if (req.session.isAuthenticated) {
         const adminData = req.session.adminData;
-        const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
+        const organization = adminData.organization;
+        const { isUSGorSAO } = isMainOrgs(organization);
+        const { isExtraOrgsTrue } = isExtraOrgs(organization);
 
         let errorMessage = '';
 
-        // Check if there's an error message in the session (e.g., ID number already in use)
         if (req.session.errorMessage) {
             errorMessage = req.session.errorMessage;
-            // Clear the error message from the session to avoid showing it again
             delete req.session.errorMessage;
         }
 
         res.render('dashboard-add-student', {
             adminData,
             isUSGorSAO,
+            isExtraOrgsTrue,
             title: 'Dashboard Add Student Profile | LSU Events and Attendance Tracking Website',
             errorMessage: errorMessage
         });
@@ -183,18 +162,41 @@ router.get('/university-events-admin', (req, res) => {
     if (req.session.isAuthenticated) {
         const idNumber = req.query.id_number;
         const adminData = req.session.adminData;
+        const organization = adminData.organization;
         const departmentName = req.session.departmentName;
-        const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
-        const isUSG = adminData.organization === "USG";
-        const isSAO = adminData.organization === "SAO";
-        const isCollege = departmentName === adminData.organization;
-        const currentURL = req.url;
-        const isAdminURL = currentURL.includes("admin");
-        const isEditURL = currentURL.includes("edit");
-        const isAdminPageURL = isAdminURL || isEditURL;
-        const isStudentURL = currentURL.includes("student");
-        const isRecordPage = isAdminURL || isStudentURL;
         const eventData = req.session.eventData;
+
+        const {
+            isUSG,
+            isSAO,
+            isCollege,
+            isUSGorSAO,
+            isCollegeOrSAO,
+            isMainOrgsTrue
+        } = isMainOrgs(organization, departmentName);
+
+        const {
+            isCSO,
+            isABO,
+            isIBO,
+            isABOorIBO,
+            isCSOorABO,
+            isCSOorIBO,
+            isCSOorSAO,
+            isABOorSAO,
+            isIBOorSAO,
+            isCSOorABOorSAO,
+            isCSOorIBOorSAO,
+            isExtraOrgsTrue
+        } = isExtraOrgs(organization);
+
+        const {
+            isAdminURL,
+            isStudentURL,
+            isEditURL,
+            isRecordPage,
+            isAdminPageURL
+        } = getUrlFlags(req.url);
 
         db.query('SELECT * FROM event', (error, events) => {
             if (error) {
@@ -215,10 +217,24 @@ router.get('/university-events-admin', (req, res) => {
                                 adminData,
                                 studentData,
                                 departmentName,
-                                isUSGorSAO,
                                 isUSG,
                                 isSAO,
                                 isCollege,
+                                isUSGorSAO,
+                                isCollegeOrSAO,
+                                isMainOrgsTrue,
+                                isCSO,
+                                isABO,
+                                isIBO,
+                                isABOorIBO,
+                                isCSOorABO,
+                                isCSOorIBO,
+                                isCSOorSAO,
+                                isABOorSAO,
+                                isIBOorSAO,
+                                isCSOorABOorSAO,
+                                isCSOorIBOorSAO,
+                                isExtraOrgsTrue,
                                 isAdminURL,
                                 isEditURL,
                                 isAdminPageURL,
@@ -232,7 +248,7 @@ router.get('/university-events-admin', (req, res) => {
                                     ...event,
                                     formattedStartDate: event.event_date_start.toLocaleDateString(),
                                     formattedEndDate: event.event_date_end.toLocaleDateString(),
-                                })), // Pass the events with formatted dates to the template
+                                })),
                                 title: 'Admin Main Page | LSU Events and Attendance Tracking Website',
                             });
                         } else {
@@ -251,18 +267,41 @@ router.get('/university-events-edit', (req, res) => {
     if (req.session.isAuthenticated) {
         const idNumber = req.query.id_number;
         const adminData = req.session.adminData;
+        const organization = adminData.organization;
         const departmentName = req.session.departmentName;
-        const isUSGorSAO = adminData.organization === "USG" || adminData.organization === "SAO";
-        const isUSG = adminData.organization === "USG";
-        const isSAO = adminData.organization === "SAO";
-        const isCollege = departmentName === adminData.organization;
-        const currentURL = req.url;
-        const isAdminURL = currentURL.includes("admin");
-        const isEditURL = currentURL.includes("edit");
-        const isAdminPageURL = isAdminURL || isEditURL;
-        const isStudentURL = currentURL.includes("student");
-        const isRecordPage = isAdminURL || isStudentURL;
         const eventData = req.session.eventData;
+
+        const {
+            isUSG,
+            isSAO,
+            isCollege,
+            isUSGorSAO,
+            isCollegeOrSAO,
+            isMainOrgsTrue
+        } = isMainOrgs(organization, departmentName);
+
+        const {
+            isCSO,
+            isABO,
+            isIBO,
+            isABOorIBO,
+            isCSOorABO,
+            isCSOorIBO,
+            isCSOorSAO,
+            isABOorSAO,
+            isIBOorSAO,
+            isCSOorABOorSAO,
+            isCSOorIBOorSAO,
+            isExtraOrgsTrue
+        } = isExtraOrgs(organization);
+
+        const {
+            isAdminURL,
+            isStudentURL,
+            isEditURL,
+            isRecordPage,
+            isAdminPageURL
+        } = getUrlFlags(req.url);
 
         db.query('SELECT * FROM event', (error, events) => {
             if (error) {
@@ -283,10 +322,24 @@ router.get('/university-events-edit', (req, res) => {
                                 adminData,
                                 studentData,
                                 departmentName,
-                                isUSGorSAO,
                                 isUSG,
                                 isSAO,
                                 isCollege,
+                                isUSGorSAO,
+                                isCollegeOrSAO,
+                                isMainOrgsTrue,
+                                isCSO,
+                                isABO,
+                                isIBO,
+                                isABOorIBO,
+                                isCSOorABO,
+                                isCSOorIBO,
+                                isCSOorSAO,
+                                isABOorSAO,
+                                isIBOorSAO,
+                                isCSOorABOorSAO,
+                                isCSOorIBOorSAO,
+                                isExtraOrgsTrue,
                                 isAdminURL,
                                 isEditURL,
                                 isAdminPageURL,
@@ -299,7 +352,7 @@ router.get('/university-events-edit', (req, res) => {
                                     ...event,
                                     formattedStartDate: event.event_date_start.toLocaleDateString(),
                                     formattedEndDate: event.event_date_end.toLocaleDateString(),
-                                })), // Pass the events with formatted dates to the template
+                                })),
                                 title: 'Admin Edit Page | LSU Events and Attendance Tracking Website',
                             });
                         } else {
@@ -315,7 +368,6 @@ router.get('/university-events-edit', (req, res) => {
 });
 
 router.get('/college-events', (req, res) => {
-    // Assuming you're using sessions to manage authentication
     if (req.session.isAuthenticated) {
         const departmentName = req.session.departmentName;
 
