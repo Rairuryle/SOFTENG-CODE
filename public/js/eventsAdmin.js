@@ -167,6 +167,9 @@ document.addEventListener("DOMContentLoaded", function () {
         recordEventName.innerHTML = "";
 
         const isSAO = document.querySelector('#isSAO').value === "true";
+        const isCSO = document.querySelector('#isCSO').value === "true";
+
+        const isCSOorSAO = isCSO || isSAO;
 
         if (eventData && eventData.eventFound) {
             console.log("Event found:", eventData.eventData.event_name);
@@ -212,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     selectElement.classList.add("student-role-dropdown");
                     selectElement.setAttribute('data-row-id', index);
 
-                    if (isSAO && eventData.eventData.event_scope !== "INSTITUTIONAL") {
+                    if (isCSOorSAO) {
                         selectElement.disabled = true;
                     }
 
@@ -304,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const checkboxElement = document.createElement("td");
                     checkboxElement.appendChild(checkbox);
 
-                    if (isSAO && eventData.eventData.event_scope !== "INSTITUTIONAL") {
+                    if (isCSOorSAO) {
                         checkboxElement.classList.add("disabled-checkbox");
                     }
 

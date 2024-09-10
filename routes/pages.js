@@ -63,6 +63,8 @@ router.get('/student-participation-record', (req, res) => {
     const idNumber = req.query.id_number;
     const adminData = req.session.adminData;
     const departmentName = req.session.departmentName;
+    const aboName = req.session.aboName;
+    const iboName = req.session.iboName;
     const eventData = req.session.eventData;
 
     const {
@@ -78,6 +80,8 @@ router.get('/student-participation-record', (req, res) => {
         } else {
             const institutionalEvents = events.filter(event => event.event_scope === 'INSTITUTIONAL');
             const collegeEvents = events.filter(event => event.event_scope === departmentName);
+            const aboEvents = events.filter(event => event.event_scope === aboName);
+            const iboEvents = events.filter(event => event.event_scope === iboName);
 
             db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
                 if (error) {
@@ -96,6 +100,8 @@ router.get('/student-participation-record', (req, res) => {
                             isRecordPage,
                             institutionalEvents,
                             collegeEvents,
+                            aboEvents,
+                            iboEvents,
                             events: events.map(event => ({
                                 ...event,
                                 formattedStartDate: event.event_date_start.toLocaleDateString(),
@@ -164,6 +170,8 @@ router.get('/university-events-admin', (req, res) => {
         const adminData = req.session.adminData;
         const organization = adminData.organization;
         const departmentName = req.session.departmentName;
+        const aboName = req.session.aboName;
+        const iboName = req.session.iboName;
         const eventData = req.session.eventData;
 
         const {
@@ -176,6 +184,8 @@ router.get('/university-events-admin', (req, res) => {
         } = isMainOrgs(organization, departmentName);
 
         const {
+            ABO,
+            IBO,
             isCSO,
             isABO,
             isIBO,
@@ -205,6 +215,8 @@ router.get('/university-events-admin', (req, res) => {
             } else {
                 const institutionalEvents = events.filter(event => event.event_scope === 'INSTITUTIONAL');
                 const collegeEvents = events.filter(event => event.event_scope === departmentName);
+                const aboEvents = events.filter(event => event.event_scope === aboName);
+                const iboEvents = events.filter(event => event.event_scope === iboName);
 
                 db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
                     if (error) {
@@ -223,6 +235,8 @@ router.get('/university-events-admin', (req, res) => {
                                 isUSGorSAO,
                                 isCollegeOrSAO,
                                 isMainOrgsTrue,
+                                ABO,
+                                IBO,
                                 isCSO,
                                 isABO,
                                 isIBO,
@@ -243,6 +257,8 @@ router.get('/university-events-admin', (req, res) => {
                                 eventData,
                                 institutionalEvents,
                                 collegeEvents,
+                                aboEvents,
+                                iboEvents,
                                 idNumber: idNumber,
                                 events: events.map(event => ({
                                     ...event,
@@ -269,18 +285,23 @@ router.get('/university-events-edit', (req, res) => {
         const adminData = req.session.adminData;
         const organization = adminData.organization;
         const departmentName = req.session.departmentName;
+        const aboName = req.session.aboName;
+        const iboName = req.session.iboName;
         const eventData = req.session.eventData;
 
         const {
             isUSG,
             isSAO,
             isCollege,
+            isUSGorCollege,
             isUSGorSAO,
             isCollegeOrSAO,
             isMainOrgsTrue
         } = isMainOrgs(organization, departmentName);
 
         const {
+            ABO,
+            IBO,
             isCSO,
             isABO,
             isIBO,
@@ -310,6 +331,8 @@ router.get('/university-events-edit', (req, res) => {
             } else {
                 const institutionalEvents = events.filter(event => event.event_scope === 'INSTITUTIONAL');
                 const collegeEvents = events.filter(event => event.event_scope === departmentName);
+                const aboEvents = events.filter(event => event.event_scope === aboName);
+                const iboEvents = events.filter(event => event.event_scope === iboName);
 
                 db.query('SELECT * FROM student WHERE id_number = ?', [idNumber], (error, results) => {
                     if (error) {
@@ -325,9 +348,12 @@ router.get('/university-events-edit', (req, res) => {
                                 isUSG,
                                 isSAO,
                                 isCollege,
+                                isUSGorCollege,
                                 isUSGorSAO,
                                 isCollegeOrSAO,
                                 isMainOrgsTrue,
+                                ABO,
+                                IBO,
                                 isCSO,
                                 isABO,
                                 isIBO,
@@ -348,6 +374,8 @@ router.get('/university-events-edit', (req, res) => {
                                 eventData,
                                 institutionalEvents,
                                 collegeEvents,
+                                aboEvents,
+                                iboEvents,
                                 events: events.map(event => ({
                                     ...event,
                                     formattedStartDate: event.event_date_start.toLocaleDateString(),
