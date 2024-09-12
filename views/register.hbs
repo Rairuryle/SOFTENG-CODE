@@ -3,6 +3,8 @@
 </head>
 
 <header>
+    {{> officerPermission}}
+
     <img src="../img/image 6.png" alt="" class="login-bg">
     <div class="row">
         <div class="column">
@@ -37,64 +39,175 @@
             <div class="form-group">
                 <select id="organizationRegister" name="organizationRegister" class="form-control form-register">
                     <option disabled="disabled" selected="selected">ORGANIZATION</option>
+                    {{#if isSAO}}
                     <option value="SAO">SAO</option>
+                    {{/if}}
+                    {{#if isUSGorSAO}}
                     <option value="USG">USG</option>
+                    {{/if}}
+                    {{#if isCSOorSAO}}
                     <option value="CSO">CSO</option>
+                    {{/if}}
+                    {{#if isCollegeOrSAORegister}}
                     <optgroup label="Colleges">
+                        {{#if (or (eq organization "CAS") (eq organization "SAO"))}}
                         <option value="CAS">CAS</option>
+                        {{/if}}
+                        {{#if (or (eq organization "CBA") (eq organization "SAO"))}}
                         <option value="CBA">CBA</option>
+                        {{/if}}
+                        {{#if (or (eq organization "CCJE") (eq organization "SAO"))}}
                         <option value="CCJE">CCJE</option>
+                        {{/if}}
+                        {{#if (or (eq organization "CCSEA") (eq organization "SAO"))}}
                         <option value="CCSEA">CCSEA</option>
+                        {{/if}}
+                        {{#if (or (eq organization "CON") (eq organization "SAO"))}}
                         <option value="CON">CON</option>
+                        {{/if}}
+                        {{#if (or (eq organization "CTE") (eq organization "SAO"))}}
                         <option value="CTE">CTE</option>
+                        {{/if}}
+                        {{#if (or (eq organization "CTHM") (eq organization "SAO"))}}
                         <option value="CTHM">CTHM</option>
+                        {{/if}}
                     </optgroup>
+                    {{/if}}
+
+                    {{#if isExtraOrgsTrue}}
+                    {{#if isCAS}}
                     <optgroup label="CAS ABO">
+                        {{#if (or (eq organization "JSWAP") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="JSWAP">JSWAP</option>
+                        {{/if}}
+                        {{#if (or (eq organization "LABELS") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="LABELS">LABELS</option>
+                        {{/if}}
+                        {{#if (or (eq organization "LSUPS") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="LSUPS">LSUPS</option>
+                        {{/if}}
+                        {{#if (or (eq organization "POLISAYS") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="POLISAYS">POLISAYS</option>
+                        {{/if}}
                     </optgroup>
+                    {{/if}}
+
+                    {{#if isCBA}}
                     <optgroup label="CBA ABO">
+                        {{#if (or (eq organization "JFINEX") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="JFINEX">JFINEX</option>
+                        {{/if}}
+                        {{#if (or (eq organization "JMEX") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="JMEX">JMEX</option>
+                        {{/if}}
+                        {{#if (or (eq organization "JPIA") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="JPIA">JPIA</option>
+                        {{/if}}
                     </optgroup>
+                    {{/if}}
+
+                    {{#if isCCSEA}}
                     <optgroup label="CCSEA ABO">
+                        {{#if (or (eq organization "ALGES") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="ALGES">ALGES</option>
+                        {{/if}}
+                        {{#if (or (eq organization "ICpEP") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="ICpEP">ICpEP</option>
+                        {{/if}}
+                        {{#if (or (eq organization "IIEE") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="IIEE">IIEE</option>
+                        {{/if}}
+                        {{#if (or (eq organization "JIECEP") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="JIECEP">JIECEP</option>
+                        {{/if}}
+                        {{#if (or (eq organization "LISSA") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="LISSA">LISSA</option>
+                        {{/if}}
+                        {{#if (or (eq organization "PICE") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="PICE">PICE</option>
+                        {{/if}}
+                        {{#if (or (eq organization "SOURCE") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="SOURCE">SOURCE</option>
+                        {{/if}}
+                        {{#if (or (eq organization "UAPSA") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="UAPSA">UAPSA</option>
+                        {{/if}}
                     </optgroup>
+                    {{/if}}
+
+                    {{#if isCTE}}
                     <optgroup label="CTE ABO">
+                        {{#if (or (eq organization "ECC") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="ECC">ECC</option>
+                        {{/if}}
+                        {{#if (or (eq organization "GENTLE") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="GENTLE">GENTLE</option>
+                        {{/if}}
+                        {{#if (or (eq organization "GEM-O") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="GEM-O">GEM-O</option>
+                        {{/if}}
+                        {{#if (or (eq organization "LapitBayan") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="LapitBayan">LapitBayan</option>
+                        {{/if}}
+                        {{#if (or (eq organization "LME") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="LME">LME</option>
+                        {{/if}}
+                        {{#if (or (eq organization "SPEM") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="SPEM">SPEM</option>
+                        {{/if}}
+                        {{#if (or (eq organization "SSS") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="SSS">SSS</option>
+                        {{/if}}
                     </optgroup>
+                    {{/if}}
+
+                    {{#if isCTHM}}
                     <optgroup label="CTHM ABO">
+                        {{#if (or (eq organization "FHARO") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="FHARO">FHARO</option>
+                        {{/if}}
+                        {{#if (or (eq organization "FTL") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="FTL">FTL</option>
+                        {{/if}}
+                        {{#if (or (eq organization "SOTE") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="SOTE">SOTE</option>
+                        {{/if}}
                     </optgroup>
+                    {{/if}}
+
+                    {{#if isCSOorIBOorSAO}}
                     <optgroup label="IBO">
+                        {{#if (or (eq organization "Compatriots") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="Compatriots">Compatriots</option>
+                        {{/if}}
+                        {{#if (or (eq organization "Cosplay Corps") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="Cosplay Corps">Cosplay Corps</option>
+                        {{/if}}
+                        {{#if (or (eq organization "Green Leaders") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="Green Leaders">Green Leaders</option>
+                        {{/if}}
+                        {{#if (or (eq organization "Kainos") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="Kainos">Kainos</option>
+                        {{/if}}
+                        {{#if (or (eq organization "Meeples") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="Meeples">Meeples</option>
+                        {{/if}}
+                        {{#if (or (eq organization "Micromantics") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="Micromantics">Micromantics</option>
+                        {{/if}}
+                        {{#if (or (eq organization "Red Cross Youth") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="Red Cross Youth">Red Cross Youth</option>
+                        {{/if}}
+                        {{#if (or (eq organization "Soul Whisperers") (eq organization "CSO") (eq organization "SAO"))}}
                         <option value="Soul Whisperers">Soul Whisperers</option>
+                        {{/if}}
+                        {{#if (or (eq organization "Vanguard E-sports") (eq organization "CSO") (eq organization
+                        "SAO"))}}
                         <option value="Vanguard E-sports">Vanguard E-sports</option>
+                        {{/if}}
                     </optgroup>
+                    {{/if}}
+                    {{/if}}
                 </select>
             </div>
             <div class="form-group">
@@ -116,3 +229,17 @@
 
     </div>
 </header>
+
+<input id="organization" value="{{organization}}" />
+<input id="isCAS" value="{{isCAS}}" />
+<input type="hidden" id="isCBA" value="{{isCBA}}" />
+<input type="hidden" id="isCCSEA" value="{{isCCSEA}}" />
+<input type="hidden" id="isCTE" value="{{isCTE}}" />
+<input type="hidden" id="isCTHM" value="{{isCTHM}}" />
+
+<input type="hidden" id="isCollegeOrSAORegister" value="{{isCollegeOrSAORegister}}" />
+<input type="hidden" id="isCASCollege" value="{{isCASCollege}}" />
+<input type="hidden" id="isCBACollege" value="{{isCBACollege}}" />
+<input type="hidden" id="isCCSEACollege" value="{{isCCSEACollege}}" />
+<input type="hidden" id="isCTECollege" value="{{isCTECollege}}" />
+<input type="hidden" id="isCTHMCollege" value="{{isCTHMCollege}}" />

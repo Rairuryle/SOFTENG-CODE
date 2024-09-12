@@ -29,7 +29,64 @@ router.get('/', (req, res) => {
 });
 
 router.get('/register', (req, res) => {
+    const adminData = req.session.adminData;
+    const organization = adminData.organization;
+    const departmentName = req.session.departmentName;
+
+    const CAS_ABO = ["JSWAP", "LABELS", "LSUPS", "POLISAYS"];
+    const CBA_ABO = ["JFINEX", "JMEX", "JPIA"];
+    const CCSEA_ABO = ["ALGES", "ICpEP", "IIEE", "JIECEP", "LISSA", "PICE", "SOURCE", "UAPSA"];
+    const CTE_ABO = ["ECC", "GENTLE", "GEM-O", "LapitBayan", "LME", "SPEM", "SSS"];
+    const CTHM_ABO = ["FHARO", "FTL", "SOTE"];
+
+    const CAS_College = ["CAS"];
+    const CBA_College = ["CBA"];
+    const CCSEA_College = ["CCSEA"];
+    const CTE_College = ["CTE"];
+    const CTHM_College = ["CTHM"];
+
+    const {
+        isSAO,
+        isUSGorSAO,
+        isCollegeOrSAO,
+    } = isMainOrgs(organization, departmentName);
+
+    const {
+        isCSOorSAO,
+        isCSOorIBOorSAO,
+        isExtraOrgsTrue
+    } = isExtraOrgs(organization);
+
+    const isCAS = CAS_ABO.includes(organization) || isCSOorSAO;
+    const isCBA = CBA_ABO.includes(organization) || isCSOorSAO;
+    const isCCSEA = CCSEA_ABO.includes(organization) || isCSOorSAO;
+    const isCTE = CTE_ABO.includes(organization) || isCSOorSAO;
+    const isCTHM = CTHM_ABO.includes(organization) || isCSOorSAO;
+
+    const isCASCollege = CAS_College.includes(organization) || isSAO;
+    const isCBACollege = CBA_College.includes(organization) || isSAO;
+    const isCCSEACollege = CCSEA_College.includes(organization) || isSAO;
+    const isCTECollege = CTE_College.includes(organization) || isSAO;
+    const isCTHMCollege = CTHM_College.includes(organization) || isSAO;
+
+    const isCollegeOrSAORegister = isCASCollege || isCBACollege || isCCSEACollege || isCTECollege || isCTHMCollege || isSAO;
+
     res.render('register', {
+        adminData,
+        departmentName,
+        isSAO,
+        isUSGorSAO,
+        isCollegeOrSAO,
+        isCSOorSAO,
+        isCSOorIBOorSAO,
+        isExtraOrgsTrue,
+        organization,
+        isCAS,
+        isCBA,
+        isCCSEA,
+        isCTE,
+        isCTHM,
+        isCollegeOrSAORegister,
         title: 'Register | LSU Events and Attendance Tracking Website'
     });
 });

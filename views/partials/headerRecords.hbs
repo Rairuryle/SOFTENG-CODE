@@ -6,7 +6,8 @@
             <div id="successResponse" class="flex-container user-prompt slide-in"></div>
         </li>
         <li class="header-item item-two">
-            <h5 id="adminData"> {{adminData.organization}} Officer | {{adminData.first_name}} {{adminData.last_name}}</h5>
+            <h5 id="adminData"> {{adminData.organization}} Officer | {{adminData.first_name}} {{adminData.last_name}}
+            </h5>
         </li>
         <li class="header-item item-three">
             <img src="../img/User_cicrle_duotone.png" alt="Profile Image" />
@@ -19,24 +20,7 @@
 
 <div id="idNumberContainer" data-idNumber="{{idNumber}}" style="display: none;"></div>
 
-<input type="hidden" id="isUSG" value="{{isUSG}}" />
-<input type="hidden" id="isSAO" value="{{isSAO}}" />
-<input type="hidden" id="isCollege" value="{{isCollege}}" />
-<input type="hidden" id="isUSGorCollege" value="{{isUSGorCollege}}" />
-<input type="hidden" id="isUSGorSAO" value="{{isUSGorSAO}}" />
-<input type="hidden" id="isCollegeOrSAO" value="{{isCollegeOrSAO}}" />
-<input type="hidden" id="isMainOrgsTrue" value="{{isMainOrgsTrue}}" />
-
-<input type="hidden" id="isCSO" value="{{isCSO}}" />
-<input type="hidden" id="isABO" value="{{isABO}}" />
-<input type="hidden" id="isIBO" value="{{isIBO}}" />
-<input type="hidden" id="isABOorIBO" value="{{isABOorIBO}}" />
-<input type="hidden" id="isCSOorSAO" value="{{isCSOorSAO}}" />
-<input type="hidden" id="isABOorSAO" value="{{isABOorSAO}}" />
-<input type="hidden" id="isIBOorSAO" value="{{isIBOorSAO}}" />
-<input type="hidden" id="isCSOorABOorSAO" value="{{isCSOorABOorSAO}}" />
-<input type="hidden" id="isCSOorIBOorSAO" value="{{isCSOorIBOorSAO}}" />
-<input type="hidden" id="isExtraOrgsTrue" value="{{isExtraOrgsTrue}}" />
+{{> officerPermission}}
 
 <input type="hidden" id="isAdminURL" value="{{isAdminURL}}" />
 <input type="hidden" id="isEditURL" value="{{isEditURL}}" />

@@ -95,7 +95,7 @@ function isExtraOrgs(organization) {
     const isIBOorSAO = isIBO || isSAO;
     const isCSOorABOorSAO = isCSO || isABO || isSAO;
     const isCSOorIBOorSAO = isCSO || isIBO || isSAO;
-    const isExtraOrgsTrue = isCSO || isABO || isIBO;
+    const isExtraOrgsTrue = isSAO || isCSO || isABO || isIBO;
 
     return {
         ABO,

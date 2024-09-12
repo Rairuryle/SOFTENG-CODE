@@ -35,6 +35,15 @@ app.engine('hbs', exphbs.engine({
     helpers: {
         eq: function (a, b) {
             return a === b;
+        },
+        or: function () {
+            // Loop through all arguments and return true if any of them are truthy
+            for (let i = 0; i < arguments.length - 1; i++) {
+                if (arguments[i]) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }));
@@ -62,7 +71,6 @@ app.use('/auth', require('./routes/auth'));
 app.use('/dashboard', authMiddleware);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 // hard drive space
 // function getDirectorySize(directoryPath) {

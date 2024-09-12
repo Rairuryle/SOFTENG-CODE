@@ -2,7 +2,8 @@ const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const express = require('express');
-const session = require('express-session'); 
+const session = require('express-session');
+const { isMainOrgs, isExtraOrgs } = require('../routes/utils');
 const app = express();
 
 const db = mysql.createConnection({
@@ -12,50 +13,95 @@ const db = mysql.createConnection({
     database: process.env.DATABASE
 });
 
+function getFlags(organization) {
+    const { isSAO, isUSGorSAO, isCollegeOrSAO } = isMainOrgs(organization);
+    const { isCSOorSAO, isCSOorIBOorSAO, isExtraOrgsTrue } = isExtraOrgs(organization);
+
+    return {
+        isSAO,
+        isUSGorSAO,
+        isCollegeOrSAO,
+        isCSOorIBOorSAO,
+        isExtraOrgsTrue,
+        isCAS: ["JSWAP", "LABELS", "LSUPS", "POLISAYS"].includes(organization) || isCSOorSAO,
+        isCBA: ["JFINEX", "JMEX", "JPIA"].includes(organization) || isCSOorSAO,
+        isCCSEA: ["ALGES", "ICpEP", "IIEE", "JIECEP", "LISSA", "PICE", "SOURCE", "UAPSA"].includes(organization) || isCSOorSAO,
+        isCTE: ["ECC", "GENTLE", "GEM-O", "LapitBayan", "LME", "SPEM", "SSS"].includes(organization) || isCSOorSAO,
+        isCTHM: ["FHARO", "FTL", "SOTE"].includes(organization) || isCSOorSAO,
+        isCASCollege: ["CAS"].includes(organization) || isSAO,
+        isCBACollege: ["CBA"].includes(organization) || isSAO,
+        isCCSEACollege: ["CCSEA"].includes(organization) || isSAO,
+        isCTECollege: ["CTE"].includes(organization) || isSAO,
+        isCTHMCollege: ["CTHM"].includes(organization) || isSAO,
+        isCollegeOrSAORegister: ["CAS", "CBA", "CCSEA", "CTE", "CTHM"].includes(organization) || isSAO
+    };
+}
+
 exports.register = (req, res) => {
-    console.log(req.body);
-
     const { lastnameRegister, firstnameRegister, organizationRegister, username, password, passwordConfirm } = req.body;
+    const organization = req.session.adminData.organization;
 
+    const flags = getFlags(organization);
+    console.log("Flags:", flags);
+
+
+    // Password validation
     if (password.length < 6) {
         return res.render('register', {
-            message: 'Password should be at least 6 characters long'
+            message: 'Password should be at least 6 characters long',
+            organization,
+            ... flags
         });
     }
-    
+
     db.query('SELECT username FROM admin WHERE username = ?', [username], async (error, results) => {
-        if(error) {
+        if (error) {
             console.log(error);
+            return res.render('register', {
+                message: 'An error occurred',
+                organization,
+                ... flags
+            });
         }
 
-        if(results.length > 0) {
+        if (results.length > 0) {
             return res.render('register', {
-                message: 'That username is already in use'
-            })
-        } else if( password !== passwordConfirm ) {
+                message: 'That username is already in use',
+                organization,
+                ... flags
+            });
+        } else if (password !== passwordConfirm) {
             return res.render('register', {
-                message: 'Passwords do not match'
+                message: 'Passwords do not match',
+                organization,
+                ... flags
             });
         }
 
         const hashedPassword = await bcrypt.hash(password, 8);
         console.log("Hashed Password (Registration):", hashedPassword);
-        
-        db.query('INSERT INTO admin SET?', { 
-            last_name: lastnameRegister, 
-            first_name: firstnameRegister, 
-            organization: organizationRegister, 
-            username: username, 
-            password: hashedPassword }, (error, results) => {
-            if(error) {
+
+        db.query('INSERT INTO admin SET?', {
+            last_name: lastnameRegister,
+            first_name: firstnameRegister,
+            organization: organizationRegister,
+            username: username,
+            password: hashedPassword
+        }, (error, results) => {
+            if (error) {
                 console.log(error);
+                return res.render('register', {
+                    message: 'An error occurred',
+                    organization,
+                    ... flags
+                });
             } else {
                 console.log(results);
                 res.redirect('/login');
             }
-        })
+        });
     });
-}
+};
 
 exports.login = async (req, res) => {
     try {
