@@ -44,8 +44,6 @@ exports.register = (req, res) => {
     const flags = getFlags(organization);
     console.log("Flags:", flags);
 
-
-    // Password validation
     if (password.length < 6) {
         return res.render('register', {
             message: 'Password should be at least 6 characters long',

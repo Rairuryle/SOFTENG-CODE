@@ -177,7 +177,7 @@
             {{/each}} --}}
 
             {{!-- COLLEGE --}}
-            {{#if isCollege}}
+            {{!-- {{#if isCollege}}
             <div class="container container-textflag">
                 <div class="flex-container">
                     <div class="icon icon-textflag"></div>
@@ -190,9 +190,10 @@
             <a href="#" class="nav-link" id="navLink{{@index}}" data-nav-id="{{@index}}">
                 <p class="eventNameSpecific index{{@index}}">{{this.event_name}}</p>
             </a>
-            {{/each}}
+            {{/each}} --}}
         </div>
 
+        {{#if isCollege}}
         <div class="container container-textflag college-textflag">
             <div class="flex-container">
                 <div class="icon icon-textflag">

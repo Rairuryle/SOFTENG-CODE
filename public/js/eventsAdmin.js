@@ -500,14 +500,52 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 let eventStudentID;
-
 let eventSubtotalKey;
 
 let idNumber = document.getElementById('idNumberContainer').dataset.idnumber;
+let eventId;
 console.log("Student ID:", idNumber);
 
-let eventId;
+// Function to initialize the event page
+function initializeEventPage(idNumber, eventId) {
+    // Ensure eventId is assigned before loading the state
+    if (eventId) {
+        loadVerificationCheckboxState(idNumber, eventId);
+    } else {
+        console.error("Event ID is not defined.");
+    }
+}
 
+// Function to load the saved checkbox state on page load
+function loadVerificationCheckboxState(idNumber, eventId) {
+    const verificationCheckbox = document.querySelector('.verification-check input[type="checkbox"]');
+    const key = `student_${idNumber}_event_${eventId}_verificationChecked`;
+
+    const savedState = localStorage.getItem(key);
+    console.log(`Loading saved state for: Key = ${key}, Saved state = ${savedState}`);
+
+    if (savedState !== null) {
+        verificationCheckbox.checked = savedState === 'true';
+    } else {
+        verificationCheckbox.checked = false;
+    }
+}
+
+// Add event listener for the verification checkbox
+document.querySelector('.verification-check input[type="checkbox"]').addEventListener('change', function () {
+    const verificationCheckbox = this; // Use `this` to reference the checkbox
+    const key = `student_${idNumber}_event_${eventId}_verificationChecked`;
+    const value = verificationCheckbox.checked;
+
+    // Save the current state of the checkbox in localStorage
+    localStorage.setItem(key, value.toString());
+    console.log(`Saved verification checkbox: Key = ${key}, Value = ${value}`);
+
+    // Recalculate daily points if the checkbox is checked
+    calculateDailyPoints(idNumber, eventId);
+});
+
+// Function to calculate the activity subtotal
 function calculateActivitySubtotal() {
     let totalPoints = 0;
     const tableBody = document.getElementById("eventTableBody");
@@ -519,13 +557,14 @@ function calculateActivitySubtotal() {
 
     const activitySubtotalElement = document.getElementById('activitySubtotal');
     if (activitySubtotalElement) {
-        const totalPointsText = totalPoints.toString();
-        activitySubtotalElement.textContent = totalPointsText;
+        activitySubtotalElement.textContent = totalPoints.toString();
     }
 
+    // Calculate daily points after activity subtotal is updated
     calculateDailyPoints(idNumber, eventId);
 }
 
+// Function to calculate the attendance subtotal
 function calculateAttendanceSubtotal() {
     const checkboxes = document.querySelectorAll('#attendanceTableBody input[type="checkbox"]');
     const pointsToAdd = 2;
@@ -541,13 +580,25 @@ function calculateAttendanceSubtotal() {
     const attendanceSubtotalElement = document.getElementById("attendanceSubtotal");
     attendanceSubtotalElement.textContent = subtotal.toString();
 
-    // const eventSubtotalKey = `attendanceStatus_student_${idNumber}_attendanceSubtotal_event_${eventId}`;
+    // Store attendance subtotal in localStorage for the student and event
+    eventSubtotalKey = `student_${idNumber}_event_${eventId}_attendanceSubtotal`;
     localStorage.setItem(eventSubtotalKey, subtotal.toString());
 
+    // Calculate daily points after attendance subtotal is updated
     calculateDailyPoints(idNumber, eventId);
 }
 
+// Function to calculate daily points based on activity and attendance subtotal
 function calculateDailyPoints(idNumber, eventId) {
+    // Check if the verification checkbox is checked
+    const verificationCheckbox = document.querySelector('.verification-check input[type="checkbox"]');
+
+    if (!verificationCheckbox.checked) {
+        console.log("Verification check is not checked. Daily points will not be calculated.");
+        return; // Exit the function if the checkbox is not checked
+    }
+
+    // Proceed with daily points calculation if the checkbox is checked
     const activitySubtotal = parseInt(document.getElementById('activitySubtotal').textContent);
     const attendanceSubtotal = parseInt(document.getElementById('attendanceSubtotal').textContent);
 
@@ -558,17 +609,24 @@ function calculateDailyPoints(idNumber, eventId) {
         dailyPointsElement.textContent = dailyPoints.toString();
     }
 
-    const eventDailyPointsKey = `student_${idNumber}_event_${eventId}_dailyPoints_${dailyPoints}`;
+    // Store the daily points for this specific event and student
+    const eventDailyPointsKey = `student_${idNumber}_event_${eventId}_dailyPoints`;
     localStorage.setItem(eventDailyPointsKey, dailyPoints.toString());
 
-    updateSemestralTotal();
+    // Recalculate the semestral total for the student
+    recalculateSemestralTotal(idNumber);
 }
 
-function updateSemestralTotal() {
+// Function to recalculate the semestral total from all events for the student
+function recalculateSemestralTotal(idNumber) {
     let semestralTotal = 0;
+
+    // Loop through localStorage and sum all daily points for this student across events
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (key.includes("dailyPoints")) {
+
+        // Check if the key corresponds to the current student's daily points for an event
+        if (key.startsWith(`student_${idNumber}_event_`) && key.includes('_dailyPoints')) {
             const storedDailyPoints = parseInt(localStorage.getItem(key));
             if (!isNaN(storedDailyPoints)) {
                 semestralTotal += storedDailyPoints;
@@ -576,16 +634,19 @@ function updateSemestralTotal() {
         }
     }
 
+    // Update the semestral total display
     const semestralPointsElement = document.getElementById("semestralPoints");
     if (semestralPointsElement) {
         semestralPointsElement.textContent = semestralTotal.toString();
     }
+
+    // Optionally store the semestral total if needed for later retrieval
+    localStorage.setItem(`student_${idNumber}_semestralTotal`, semestralTotal.toString());
 }
 
-function setEventStudentID(idNumber, eventId) {
-    eventStudentID = `student_ID_${idNumber}_event_ID_${eventId}`;
-    localStorage.setItem("eventStudentID", eventStudentID);
-}
+// Call the initialize function when navigating to a new event page
+initializeEventPage(idNumber, eventId);
+
 
 // Assuming you're using fetch API or Axios for making HTTP requests
 
